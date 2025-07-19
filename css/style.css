@@ -1322,3 +1322,34 @@ body.dark-theme .highlight .code .deletion,
 body.dark-theme .highlight .code .meta {
   color: #7f7f7f;
 }
+.quote-container {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 1.2rem;
+  color: #666;
+  font-family: "Microsoft YaHei", sans-serif;
+}
+.typed-cursor {
+  opacity: 1;
+  animation: blink 0.7s infinite;
+}
+@-moz-keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+@-o-keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

@@ -24,6 +24,8 @@
 
     <!-- stylesheets list from _config.yml -->
     
+    <link rel="stylesheet" href="/css/_custom/custom.css">
+    
     <link rel="stylesheet" href="/css/style.css">
     
 
@@ -37,11 +39,6 @@
     
 
 
-
-    
-    
-        
-    
 
 
 <meta name="generator" content="Hexo 7.3.0"></head>
@@ -151,12 +148,30 @@
 
             </div>
             <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>©  | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-    </div>
-</footer>
+  <!-- 名言字幕容器（放在最上方） -->
+  <div class="quote-container">
+    <span id="tellu"></span>
+  </div>
 
+  <!-- 版权信息（保持原样） -->
+  <div class="copyright">
+    <span>©  | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+  </div>
+</footer>
     </div>
 </body>
+
+<!-- 名言显示容器 -->
+<div id="tellu-container" style="text-align: center; padding: 15px; font-size: 1.1em;">
+    <span id="tellu"></span>
+</div>
+
+<!-- 引入JS -->
+
+<script src="/js/typed.min.js"></script>
+
+
+<script src="/js/tellu.js"></script>
+
 
 </html>
