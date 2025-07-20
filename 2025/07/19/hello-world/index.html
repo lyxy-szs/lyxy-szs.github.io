@@ -297,6 +297,48 @@
     <span>©  | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
   </div>
 </footer>
+
+<!-- 音乐播放器 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+
+<meting-js
+  server="netease"
+  type="playlist"
+  id="7591848470"
+  fixed="true"
+  mini="true"
+  autoplay="false"
+  theme="#61D4FF"
+  loop="all"
+  order="list"
+></meting-js>
+
+<style>
+  /* 固定位置 */
+  .aplayer-fixed {
+    right: 20px !important;
+    bottom: 20px !important;
+    z-index: 9999;
+  }
+  /* 旋转碟片 */
+  .aplayer-pic {
+    animation: rotate 15s linear infinite;
+    border-radius: 50%;
+  }
+  @keyframes rotate {
+    to { transform: rotate(360deg); }
+  }
+  /* 移动端适配 */
+  @media (max-width: 768px) {
+    .aplayer-fixed {
+      width: 90% !important;
+      right: 5% !important;
+      bottom: 60px !important;
+    }
+  }
+</style>
     </div>
 <!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
 
