@@ -228,41 +228,95 @@
 
         <div class="post-content">
             <h1 id="这段时间在搞hexo博客"><a href="#这段时间在搞hexo博客" class="headerlink" title="这段时间在搞hexo博客"></a>这段时间在搞hexo博客</h1><p>  因为要本地编写、测试、上传博客，每次都要打代码，我嫌麻烦打算写个bat脚本来一键完成。</p>
-<h2 id="Part-0-创建脚本（基础须知可跳转到-Part-1）"><a href="#Part-0-创建脚本（基础须知可跳转到-Part-1）" class="headerlink" title="Part.0 创建脚本（基础须知可跳转到 ###Part.1）"></a>Part.0 创建脚本（基础须知可跳转到 ###Part.1）</h2><p>   先创建一个文本文档，将文件后缀名改为.bat，右键打开编辑。<br>   <figure class="highlight plaintext"><figcaption><span>off```**@**是不显示当前行命令，**echo off**是不显示下述命令。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">    ```::或REM``` 空格后加注释，***注意换行***。</span><br><span class="line">   ```pause```暂停，输入任意值继续。</span><br><span class="line"></span><br><span class="line">   ```set```set 命令定义变量.eg:```set var=value```，这里 var 是变量名，value 是变量的值。</span><br><span class="line">   ``` setlocal enabledelayedexpansion```当变量的值在循环中可能会发生变化时，需要开启延迟变量扩展,用```!var!```的形式访问变量。</span><br><span class="line">   ```%```访问变量的值需要用 % 括起来，eg:```echo %var%```会在命令提示符窗口输出变量 var 的值。</span><br><span class="line"></span><br><span class="line">   ```echo```用于在命令提示符窗口输出文本信息。</span><br><span class="line">   ```mkdir```用于创建目录。eg:```mkdir new folder``` 会在当前目录下创建一个名为 new folder 的新文件夹。</span><br><span class="line">   ```cd```切换目录。```cd new folder```会进入刚刚创建的 new folder 目录；```cd..```可以返回上一级目录。</span><br><span class="line">   ```dir```列出目录中的文件和子目录。dir 命令会显示当前目录下的内容,```dir /s```可以递归列出当前目录及其所有子目录下的内容。</span><br><span class="line">   ```explorer```可以打开路径（&quot;文件路径&quot;），直接后加``` /select,文件路径```可选中文件</span><br><span class="line"></span><br><span class="line">   #### ```start```命令</span><br><span class="line">   用法：```start [“title”] [parameters] “program name” [command line parameters]```</span><br><span class="line">   其中：</span><br><span class="line">   **“title”**是可选的，是要启动的窗口的标题。</span><br><span class="line">   **parameters**也是可选的，指定窗口的大小、状态等。eg:```/min```表示以最小化窗口启动,```/max```表示以最大化窗口启动。</span><br><span class="line">   **“program name”**要启动的程序的名称或可执行文件的路径。如果路径包含空格，同样需要用双引号括起来。eg:```start “C:\Program Files\Microsoft Office\Excel.exe”```会启动 Excel 程序。(双引号不可省略)</span><br><span class="line">   **command - line parameters**传递给程序的命令行参数。比如你有一个网址，想用edge打开 eg:```start &quot;Edge&quot; &quot;https://www.baidu.com&quot;```</span><br><span class="line"></span><br><span class="line">  剩下的可以问AI，</span><br><span class="line"></span><br><span class="line">## Part.1 写个博客</span><br><span class="line"></span><br><span class="line">   ```@hexo new &quot;new&quot;&amp;&amp;explorer.exe /select,C:\Users\Admin\Desktop\hexo\source\_posts\new.md```</span><br><span class="line">解释：先用hexo创建一个名为new的文件，在打开并选中该文件，**~~不实现自动改名是因为我试了半天都实现不了，连键入F2都不行~~**</span><br><span class="line"></span><br><span class="line">## Part.2 本地测试博客</span><br><span class="line"></span><br><span class="line">   ```hexo clean&amp;&amp;start &quot;Edge&quot; &quot;http://localhost:4000&quot;&amp;&amp;hexo s```</span><br><span class="line">解释：先清理缓存，用edge打开本地端口，再开启本地博客服务，因为代码是从前向后运行，所以顺序不可改，先运行```hexo s```会导致无法自动打开浏览器</span><br><span class="line"></span><br><span class="line">## Part.3 上传博客</span><br><span class="line">   </span><br><span class="line">   ```hexo clean&amp;&amp;hexo generate&amp;&amp;hexo deploy&amp;&amp;pause```</span><br><span class="line">解释：```pause```的作用是在正常上传博客之后，留有一个任意键的窗口，从而知晓博客正常上传与否</span><br><span class="line"></span><br><span class="line">### 保存为bat，你就获得的自动化脚本</span><br><span class="line">另外，part·1中废稿粘在下面，希望有人可以解疑———为什么它无法正常运行</span><br></pre></td></tr></table></figure><br>@echo off<br>setlocal enabledelayedexpansion</p>
-<p>echo 正在创建新的Hexo博客文章…<br>call hexo new “new_blog”</p>
-<p>if errorlevel 1 (<br>    echo 错误: 创建博客文章失败<br>    echo 请确保:<br>    echo 1. Hexo已正确安装<br>    echo 2. 当前目录是Hexo博客根目录<br>    pause<br>    exit &#x2F;b 1<br>)</p>
-<p>set “postPath&#x3D;C:\Users\Admin\Desktop\hexo\source_posts&quot;<br>set “oldFileName&#x3D;new_blog.md”</p>
-<p>rem 检查文章目录是否存在<br>if not exist “!postPath!” (<br>    echo 错误: 文章目录不存在: !postPath!<br>    echo 请检查路径是否正确<br>    pause<br>    exit &#x2F;b 1<br>)</p>
-<p>echo.<br>echo 请输入新的文件名(不含扩展名)，直接回车将保持原文件名:<br>set &#x2F;p “newName&#x3D;”</p>
-<p>if “!newName!”&#x3D;&#x3D;”” (<br>    echo 保持原文件名: new_blog.md<br>    set “finalFileName&#x3D;!oldFileName!”<br>) else (<br>    echo 正在将文件重命名为: !newName!.md</p>
-<pre><code>rem 检查原文件是否存在
-if not exist &quot;!postPath!!oldFileName!&quot; (
-    echo 错误: 原文件 !postPath!!oldFileName! 不存在
-    echo 请检查Hexo是否成功创建了文章
-    pause
-    exit /b 1
-)
+<h2 id="Part-0-创建脚本（基础须知-可跳转到-Part-1）"><a href="#Part-0-创建脚本（基础须知-可跳转到-Part-1）" class="headerlink" title="Part.0 创建脚本（基础须知,可跳转到 ###Part.1）"></a>Part.0 创建脚本（基础须知,可跳转到 ###Part.1）</h2><p>   先创建一个文本文档，将文件后缀名改为.bat，右键打开编辑。<br>   <code>@echo off</code><strong>@<strong>是不显示当前行命令，</strong>echo off</strong>是不显示下述命令。<br>    <code>::或REM</code> 空格后加注释，<em><strong>注意换行</strong></em>。<br>   <code>pause</code>暂停，输入任意值继续。</p>
+<p>   <code>set</code>set 命令定义变量.eg:<code>set var=value</code>，这里 var 是变量名，value 是变量的值。<br>   <code> setlocal enabledelayedexpansion</code>当变量的值在循环中可能会发生变化时，需要开启延迟变量扩展,用<code>!var!</code>的形式访问变量。<br>   <code>%</code>访问变量的值需要用 % 括起来，eg:<code>echo %var%</code>会在命令提示符窗口输出变量 var 的值。</p>
+<p>   <code>echo</code>用于在命令提示符窗口输出文本信息。<br>   <code>mkdir</code>用于创建目录。eg:<code>mkdir new folder</code> 会在当前目录下创建一个名为 new folder 的新文件夹。<br>   <code>cd</code>切换目录。<code>cd new folder</code>会进入刚刚创建的 new folder 目录；<code>cd..</code>可以返回上一级目录。<br>   <code>dir</code>列出目录中的文件和子目录。dir 命令会显示当前目录下的内容,<code>dir /s</code>可以递归列出当前目录及其所有子目录下的内容。<br>   <code>explorer</code>可以打开路径（”文件路径”），直接后加<code> /select,文件路径</code>可选中文件</p>
+<h4 id="start命令"><a href="#start命令" class="headerlink" title="start命令"></a><code>start</code>命令</h4><p>   用法：<code>start [“title”] [parameters] “program name” [command line parameters]</code><br>   其中：<br>   <strong>“title”</strong>是可选的，是要启动的窗口的标题。<br>   <strong>parameters</strong>也是可选的，指定窗口的大小、状态等。eg:<code>/min</code>表示以最小化窗口启动,<code>/max</code>表示以最大化窗口启动。<br>   <strong>“program name”</strong>要启动的程序的名称或可执行文件的路径。如果路径包含空格，同样需要用双引号括起来。eg:<code>start “C:\Program Files\Microsoft Office\Excel.exe”</code>会启动 Excel 程序。(双引号不可省略)<br>   <strong>command - line parameters</strong>传递给程序的命令行参数。比如你有一个网址，想用edge打开 eg:<code>start &quot;Edge&quot; &quot;https://www.baidu.com&quot;</code></p>
+<p>  剩下的可以问AI，</p>
+<h2 id="Part-1-写个博客"><a href="#Part-1-写个博客" class="headerlink" title="Part.1 写个博客"></a>Part.1 写个博客</h2><p>   <code>@hexo new &quot;new&quot;&amp;&amp;explorer.exe /select,C:\Users\Admin\Desktop\hexo\source\_posts\new.md</code><br>解释：先用hexo创建一个名为new的文件，在打开并选中该文件，**<del>不实现自动改名是因为我试了半天都实现不了，连键入F2都不行</del>**</p>
+<h2 id="Part-2-本地测试博客"><a href="#Part-2-本地测试博客" class="headerlink" title="Part.2 本地测试博客"></a>Part.2 本地测试博客</h2><p>   <code>hexo clean&amp;&amp;start &quot;Edge&quot; &quot;http://localhost:4000&quot;&amp;&amp;hexo s</code><br>解释：先清理缓存，用edge打开本地端口，再开启本地博客服务，因为代码是从前向后运行，所以顺序不可改，先运行<code>hexo s</code>会导致无法自动打开浏览器</p>
+<h2 id="Part-3-上传博客"><a href="#Part-3-上传博客" class="headerlink" title="Part.3 上传博客"></a>Part.3 上传博客</h2><p>   <code>hexo clean&amp;&amp;hexo generate&amp;&amp;hexo deploy&amp;&amp;pause</code><br>解释：<code>pause</code>的作用是在正常上传博客之后，留有一个任意键的窗口，从而知晓博客正常上传与否</p>
+<h3 id="保存为bat，你就获得的自动化脚本"><a href="#保存为bat，你就获得的自动化脚本" class="headerlink" title="保存为bat，你就获得的自动化脚本"></a>保存为bat，你就获得的自动化脚本</h3><p>另外，part·1中废稿粘在下面，希望有人可以解疑———为什么它无法正常运行</p>
+<details>
+<summary>点击展开完整代码（batch）</summary>
 
-rem 执行重命名操作
-ren &quot;!postPath!!oldFileName!&quot; &quot;!newName!.md&quot;
+<pre><code class="batch">@echo off
+setlocal enabledelayedexpansion
+
+echo 正在创建新的Hexo博客文章...
+call hexo new &quot;new_blog&quot;
 
 if errorlevel 1 (
-    echo 错误: 重命名文件失败
-    echo 可能的原因:
-    echo 1. 新文件名包含非法字符
-    echo 2. 已存在同名文件
-    echo 3. 没有足够的权限
+    echo 错误: 创建博客文章失败
+    echo 请确保:
+    echo 1. Hexo已正确安装
+    echo 2. 当前目录是Hexo博客根目录
     pause
     exit /b 1
 )
 
-set &quot;finalFileName=!newName!.md&quot;
-</code></pre>
-<p>)</p>
-<p>echo 博客文章创建完成: !finalFileName!</p>
-<p>rem 打开文件<br>if exist “!postPath!!finalFileName!” (<br>    echo 正在打开文件…<br>    start “” “!postPath!!finalFileName!”<br>) else (<br>    echo 警告: 文件 !postPath!!finalFileName! 不存在，无法打开<br>)</p>
-<p>echo.<br>echo 按任意键退出…<br>pause &gt;nul</p>
-<pre><code>
+set &quot;postPath=C:\Users\Admin\Desktop\hexo\source\_posts\&quot;
+set &quot;oldFileName=new_blog.md&quot;
+
+rem 检查文章目录是否存在
+if not exist &quot;!postPath!&quot; (
+    echo 错误: 文章目录不存在: !postPath!
+    echo 请检查路径是否正确
+    pause
+    exit /b 1
+)
+
+echo.
+echo 请输入新的文件名(不含扩展名)，直接回车将保持原文件名:
+set /p &quot;newName=&quot;
+
+if &quot;!newName!&quot;==&quot;&quot; (
+    echo 保持原文件名: new_blog.md
+    set &quot;finalFileName=!oldFileName!&quot;
+) else (
+    echo 正在将文件重命名为: !newName!.md
+    
+    rem 检查原文件是否存在
+    if not exist &quot;!postPath!!oldFileName!&quot; (
+        echo 错误: 原文件 !postPath!!oldFileName! 不存在
+        echo 请检查Hexo是否成功创建了文章
+        pause
+        exit /b 1
+    )
+    
+    rem 执行重命名操作
+    ren &quot;!postPath!!oldFileName!&quot; &quot;!newName!.md&quot;
+    
+    if errorlevel 1 (
+        echo 错误: 重命名文件失败
+        echo 可能的原因:
+        echo 1. 新文件名包含非法字符
+        echo 2. 已存在同名文件
+        echo 3. 没有足够的权限
+        pause
+        exit /b 1
+    )
+    
+    set &quot;finalFileName=!newName!.md&quot;
+)
+
+echo 博客文章创建完成: !finalFileName!
+
+rem 打开文件
+if exist &quot;!postPath!!finalFileName!&quot; (
+    echo 正在打开文件...
+    start &quot;&quot; &quot;!postPath!!finalFileName!&quot;
+) else (
+    echo 警告: 文件 !postPath!!finalFileName! 不存在，无法打开
+)
+
+echo.
+echo 按任意键退出...
+pause &gt;nul
+
+
+
+
 </code></pre>
 
         </div>
