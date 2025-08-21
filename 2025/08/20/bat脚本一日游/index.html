@@ -228,7 +228,7 @@
 
         <div class="post-content">
             <h1 id="这段时间在搞hexo博客"><a href="#这段时间在搞hexo博客" class="headerlink" title="这段时间在搞hexo博客"></a>这段时间在搞hexo博客</h1><p>  因为要本地编写、测试、上传博客，每次都要打代码，我嫌麻烦打算写个bat脚本来一键完成。</p>
-<h2 id="Part-0-创建脚本（基础须知-可跳转到-Part-1）"><a href="#Part-0-创建脚本（基础须知-可跳转到-Part-1）" class="headerlink" title="Part.0 创建脚本（基础须知,可跳转到 ###Part.1）"></a>Part.0 创建脚本（基础须知,可跳转到 ###Part.1）</h2><p>   先创建一个文本文档，将文件后缀名改为.bat，右键打开编辑。<br>   <code>@echo off</code><strong>@<strong>是不显示当前行命令，</strong>echo off</strong>是不显示下述命令。<br>    <code>::或REM</code> 空格后加注释，<em><strong>注意换行</strong></em>。<br>   <code>pause</code>暂停，输入任意值继续。</p>
+<h2 id="Part-0-创建脚本（基础须知-可跳转到-Part-1）"><a href="#Part-0-创建脚本（基础须知-可跳转到-Part-1）" class="headerlink" title="Part.0 创建脚本（基础须知,可跳转到 ###Part.1）"></a>Part.0 创建脚本（基础须知,可跳转到 ###Part.1）</h2><p>   先创建一个文本文档，将文件后缀名改为.bat，右键打开编辑。<br>   <code>@echo off</code><strong>@<strong>是不显示当前行命令，</strong>echo off</strong>是不显示下述命令。<br>   <code>::或REM</code> 空格后加注释，<em><strong>注意换行</strong></em>。<br>   <code>pause</code>暂停，输入任意值继续。</p>
 <p>   <code>set</code>set 命令定义变量.eg:<code>set var=value</code>，这里 var 是变量名，value 是变量的值。<br>   <code> setlocal enabledelayedexpansion</code>当变量的值在循环中可能会发生变化时，需要开启延迟变量扩展,用<code>!var!</code>的形式访问变量。<br>   <code>%</code>访问变量的值需要用 % 括起来，eg:<code>echo %var%</code>会在命令提示符窗口输出变量 var 的值。</p>
 <p>   <code>echo</code>用于在命令提示符窗口输出文本信息。<br>   <code>mkdir</code>用于创建目录。eg:<code>mkdir new folder</code> 会在当前目录下创建一个名为 new folder 的新文件夹。<br>   <code>cd</code>切换目录。<code>cd new folder</code>会进入刚刚创建的 new folder 目录；<code>cd..</code>可以返回上一级目录。<br>   <code>dir</code>列出目录中的文件和子目录。dir 命令会显示当前目录下的内容,<code>dir /s</code>可以递归列出当前目录及其所有子目录下的内容。<br>   <code>explorer</code>可以打开路径（”文件路径”），直接后加<code> /select,文件路径</code>可选中文件</p>
 <h4 id="start命令"><a href="#start命令" class="headerlink" title="start命令"></a><code>start</code>命令</h4><p>   用法：<code>start [“title”] [parameters] “program name” [command line parameters]</code><br>   其中：<br>   <strong>“title”</strong>是可选的，是要启动的窗口的标题。<br>   <strong>parameters</strong>也是可选的，指定窗口的大小、状态等。eg:<code>/min</code>表示以最小化窗口启动,<code>/max</code>表示以最大化窗口启动。<br>   <strong>“program name”</strong>要启动的程序的名称或可执行文件的路径。如果路径包含空格，同样需要用双引号括起来。eg:<code>start “C:\Program Files\Microsoft Office\Excel.exe”</code>会启动 Excel 程序。(双引号不可省略)<br>   <strong>command - line parameters</strong>传递给程序的命令行参数。比如你有一个网址，想用edge打开 eg:<code>start &quot;Edge&quot; &quot;https://www.baidu.com&quot;</code></p>
@@ -313,6 +313,7 @@ if exist &quot;!postPath!!finalFileName!&quot; (
 echo.
 echo 按任意键退出...
 pause &gt;nul
+
 
 
 
