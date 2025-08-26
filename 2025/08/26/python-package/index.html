@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Lyxy-szs">
+
+
+    <meta name="subtitle" content="Shi">
+
+
+
+
+<title>python-package | Johnson</title>
+
+
+
+    <link rel="icon" href="/2.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+    <script src="/js/tellu.js"></script>
+    
+    <script src="/js/typed.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const pagebody = document.getElementsByTagName('body')[0]
+
+            function setTheme(status) {
+
+                if (status === 'dark') {
+                    window.sessionStorage.theme = 'dark'
+                    pagebody.classList.add('dark-theme');
+
+                } else if (status === 'light') {
+                    window.sessionStorage.theme = 'light'
+                    pagebody.classList.remove('dark-theme');
+                }
+            };
+
+            setTheme(window.sessionStorage.theme)
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Johnson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                <a class="menu-item" href="/archives">Posts</a>
+                
+                <a class="menu-item" href="/category">Categories</a>
+                
+                <a class="menu-item" href="/tag">Tags</a>
+                
+                <a class="menu-item" href="/about">About</a>
+                
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Johnson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
+                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
+                </div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                <a class="menu-item" href="/archives">Posts</a>
+                
+                <a class="menu-item" href="/category">Categories</a>
+                
+                <a class="menu-item" href="/tag">Tags</a>
+                
+                <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.classList.contains("active")) {
+            toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        } else {
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">python-package</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Lyxy-szs</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">八月 26, 2025&nbsp;&nbsp;9:29:57</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="虚拟环境篇（建议）"><a href="#虚拟环境篇（建议）" class="headerlink" title="虚拟环境篇（建议）"></a>虚拟环境篇（建议）</h1><h2 id="在项目文件夹中打开终端"><a href="#在项目文件夹中打开终端" class="headerlink" title="在项目文件夹中打开终端"></a>在项目文件夹中打开终端</h2><h2 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h2><p>  <code>python3 -m venv venv_name</code>  venv_name即为虚拟环境名称，建议英文</p>
+<h2 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h2><h3 id="Windows：venv-name-Scripts-activate-bat-cmdor-venv-name-Scripts-Activate-ps1-powershell"><a href="#Windows：venv-name-Scripts-activate-bat-cmdor-venv-name-Scripts-Activate-ps1-powershell" class="headerlink" title="Windows：venv_name\Scripts\activate.bat  #cmdor .\venv_name\Scripts\Activate.ps1  #powershell"></a>Windows：<code>venv_name\Scripts\activate.bat  #cmd</code>or <code>.\venv_name\Scripts\Activate.ps1  #powershell</code></h3><h3 id="macOS-Linux（终端）：source-venv-name-bin-activate"><a href="#macOS-Linux（终端）：source-venv-name-bin-activate" class="headerlink" title="macOS&#x2F;Linux（终端）：source venv_name/bin/activate"></a>macOS&#x2F;Linux（终端）：<code>source venv_name/bin/activate</code></h3><h2 id="使用虚拟环境-激活后，终端提示符前会显示-venv-name"><a href="#使用虚拟环境-激活后，终端提示符前会显示-venv-name" class="headerlink" title="使用虚拟环境 [激活后，终端提示符前会显示 (venv_name)]"></a>使用虚拟环境 [激活后，终端提示符前会显示 (venv_name)]</h2><p>  <code>pip install 包名  # 例如：pip install requests</code></p>
+<h2 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h2><p>  <code>deactivate</code><br>  <details><br>  <summary>点击展开virtualenv教程</summary><br>    <ul><br>      <li> 安装virtualenv：<code>pip install virtualenv</code></li><br>      <li> # 基本用法（默认使用当前 Python 版本）<br>          <code>virtualenv venv_name</code><br>          # 指定 Python 版本（需系统已安装对应版本）<br>          <code>virtualenv -p python3.13 venv_name  # 使用 Python 3.13</code></li><br>      <li> 激活 &#x2F; 退出虚拟环境：与 venv 完全相同</li><br>      <li> 导出当前环境的依赖列表：<br>          <code>pip freeze &gt; requirements.txt</code></li><br>      <li> 在新环境中导入依赖：<br>          <code>pip install -r requirements.txt</code></li><br>      <li> 恢复激活虚拟环境：在项目文件夹下用终端激活</li><br>    </ul></p>
+</details>
+
+
+<h1 id="Nuitka篇"><a href="#Nuitka篇" class="headerlink" title="Nuitka篇"></a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1VLPWeREVd/">Nuitka篇</a></h1><p>  这是一个将python转译成C，再打包成exe的工具，打包速度慢，但运行速度快，打包后的文件小。</p>
+<h2 id="安装nuitka"><a href="#安装nuitka" class="headerlink" title="安装nuitka"></a>安装nuitka</h2><p>  <code>pip install nuitka</code></p>
+<h2 id="测试py文件能否执行"><a href="#测试py文件能否执行" class="headerlink" title="测试py文件能否执行"></a>测试py文件能否执行</h2><p>  <code>python xxx.py</code> </p>
+<h2 id="打包需要的依赖；打包成单文件"><a href="#打包需要的依赖；打包成单文件" class="headerlink" title="打包需要的依赖；打包成单文件"></a>打包需要的依赖；打包成单文件</h2><p>  <code>nuitka xxx.py --standalone --onefile</code> </p>
+<h2 id="补充文件路径"><a href="#补充文件路径" class="headerlink" title="补充文件路径"></a>补充文件路径</h2><p>  <code>--include-data-file=电脑中文件的路径=程序中引用的路径</code></p>
+<h2 id="补充文件夹路径"><a href="#补充文件夹路径" class="headerlink" title="补充文件夹路径"></a>补充文件夹路径</h2><p>  <code>--include-data-dir=文件夹路径=电脑中文件夹的路径=程序中调用的路径</code></p>
+<h2 id="为-Windows-可执行文件设置图标（需-ico-格式）"><a href="#为-Windows-可执行文件设置图标（需-ico-格式）" class="headerlink" title="为 Windows 可执行文件设置图标（需 .ico 格式）"></a>为 Windows 可执行文件设置图标（需 .ico 格式）</h2><p>  <code>--windows-icon-from-ico=图标路径</code></p>
+<h2 id="生成无控制台窗口的程序（适合-GUI-应用，如-PyQt、Tkinter）"><a href="#生成无控制台窗口的程序（适合-GUI-应用，如-PyQt、Tkinter）" class="headerlink" title="生成无控制台窗口的程序（适合 GUI 应用，如 PyQt、Tkinter）"></a>生成无控制台窗口的程序（适合 GUI 应用，如 PyQt、Tkinter）</h2><p>  <code>--disable-console</code></p>
+<h2 id="eg"><a href="#eg" class="headerlink" title="eg:"></a>eg:</h2><p>  <code>nuitka xxx.py --standalone --onefile --include-data-file=电脑中文件的路径=程序中引用的路径 --include-data-dir=文件夹路径=电脑中文件夹的路径=程序中调用的路径 --windows-icon-from-ico=图标路径 --disable-console</code></p>
+<h2 id="查看报错"><a href="#查看报错" class="headerlink" title="查看报错"></a>查看报错</h2><p>  <code>xxx.exe</code>在cmd中查看</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><blockquote>
+<p>用最新版的python3.13出现MinGW64 编译器不兼容<br>解决办法：<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/">安装最新 MSVC 编译器</a>,运行安装器，<br>勾选 <strong>“使用 C++ 的桌面开发”</strong>（无需安装完整 Visual Studio，仅需组件）。<br>在右侧 “可选组件” 中，确保勾选 <strong>“MSVC v143 - VS 2022 C++ x64&#x2F;x86 生成工具”</strong>（版本需 ≥14.3）<br>和 <strong>“Windows 10 SDK”</strong>（或 Windows 11 SDK，匹配你的系统版本）<br>之后再重新打包<code>nuitka 2.py --standalone --onefile --msvc=latest</code></p>
+</blockquote>
+<h1 id="PyInstaller"><a href="#PyInstaller" class="headerlink" title="PyInstaller"></a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV15i4y1U7F7/">PyInstaller</a></h1><p>  这是一个将python直接打包成exe的工具，打包速度快，但运行速度满，且打包后的文件大。(简写的大小写不能改)</p>
+<h2 id="安装PyInstaller"><a href="#安装PyInstaller" class="headerlink" title="安装PyInstaller"></a>安装PyInstaller</h2><p>  <code>pip install pyinstaller</code></p>
+<h2 id="单文件打包"><a href="#单文件打包" class="headerlink" title="单文件打包"></a>单文件打包</h2><p>  <code>pyinstaller --onefile xxx.py  # 简写：-F</code></p>
+<h2 id="自定义生成的可执行文件名称（默认与脚本名一致）"><a href="#自定义生成的可执行文件名称（默认与脚本名一致）" class="headerlink" title="自定义生成的可执行文件名称（默认与脚本名一致）"></a>自定义生成的可执行文件名称（默认与脚本名一致）</h2><p>  <code>--name=程序名  # 简写：-n</code></p>
+<h2 id="生成无-有-控制台窗口的程序"><a href="#生成无-有-控制台窗口的程序" class="headerlink" title="生成无(有)控制台窗口的程序"></a>生成无(有)控制台窗口的程序</h2><p>  <code>--noconsole  #简写：-w</code>  （<code>--console   #简写：-c</code>）</p>
+<h2 id="打包额外资源文件（如图片、配置文件）"><a href="#打包额外资源文件（如图片、配置文件）" class="headerlink" title="打包额外资源文件（如图片、配置文件）"></a>打包额外资源文件（如图片、配置文件）</h2><p>  <code>--add-data=源文件:目标路径（Windows 用 ; 分隔）  #简写：-a</code></p>
+<details>
+  <summary>点击展开打包示例</summary>
+    <ul>
+      <li> 单个文件：  --add-data "src/file.txt;dest"  （仅打包 file.txt 到 dest/ 目录）</li>
+      <li> 同类型文件：  --add-data "src/*.png;dest/images"  （打包所有 .png 图片到 dest/images/）</li>
+      <li> 整个文件夹（包括子目录）：   --add-data "src/folder/*;dest/folder"  （打包 folder/ 下的所有内容，保持目录结构）</li>
+    </ul>
+</details>
+
+<h2 id="手动指定隐藏的依赖模块（解决动态导入导致的-“ModuleNotFoundError”）"><a href="#手动指定隐藏的依赖模块（解决动态导入导致的-“ModuleNotFoundError”）" class="headerlink" title="手动指定隐藏的依赖模块（解决动态导入导致的 “ModuleNotFoundError”）"></a>手动指定隐藏的依赖模块（解决动态导入导致的 “ModuleNotFoundError”）</h2><p>  <code>--hidden-import=模块名   #简写：-p</code></p>
+<h2 id="清理上次打包的临时文件，避免缓存干扰"><a href="#清理上次打包的临时文件，避免缓存干扰" class="headerlink" title="清理上次打包的临时文件，避免缓存干扰"></a><strong>清理上次打包的临时文件，避免缓存干扰</strong></h2><p>  <code>--clean</code></p>
+<h2 id="中文显示乱码"><a href="#中文显示乱码" class="headerlink" title="中文显示乱码"></a>中文显示乱码</h2><p>  <em>*<em>确保脚本中编码声明正确（# -</em>- coding: utf-8 -*-） 避免在路径或文件名中使用中文（尤其 Windows 系统）</em>**</p>
+<h2 id="打包后文件过大"><a href="#打包后文件过大" class="headerlink" title="打包后文件过大"></a>打包后文件过大</h2><p>  <strong>用 –exclude-module 排除不需要的模块（如 <code>--exclude-module=matplotlib</code>）</strong><br>  <strong>清理虚拟环境，仅保留必要依赖后再打包</strong></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Lyxy-szs</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://lyxy-szs.github.io/2025/08/26/python-package/">http://lyxy-szs.github.io/2025/08/26/python-package/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>永远相信<strong>美好的事情即将發生</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/python/"># python</a>
+                    
+                        <a href="/tags/python%E6%89%93%E5%8C%85/"># python打包</a>
+                    
+                        <a href="/tags/nuitka/"># nuitka</a>
+                    
+                        <a href="/tags/pyinstaller/"># pyinstaller</a>
+                    
+                        <a href="/tags/exe/"># exe</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2025/08/24/hello-world/">Hello World</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Lyxy-szs | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+    
+    
+<script src="/js/scrollbar.js"></script>
+
+    
+<script src="/js/typed.min.js"></script>
+
+    
+<script src="/js/tellu.js"></script>
+
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+
+</html>
