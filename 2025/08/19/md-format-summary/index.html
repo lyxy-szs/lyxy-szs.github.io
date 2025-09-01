@@ -15,7 +15,7 @@
 
 
 
-<title>the first blog for my felling | Johnson</title>
+<title>md格式汇总 | Johnson</title>
 
 
 
@@ -140,11 +140,76 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">the first blog for my felling</h1>
+            <h1 class="post-title">md格式汇总</h1>
             
                 <div class="post-meta">
                     
@@ -153,14 +218,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">七月 17, 2025&nbsp;&nbsp;23:26:09</a>
+                        Date: <a href="#">八月 19, 2025&nbsp;&nbsp;18:23:00</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/my-first-blog/">my first blog</a>
+                                <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/">技术教程</a>
                             
                         </span>
                     
@@ -169,8 +234,24 @@
         </header>
 
         <div class="post-content">
-            <p>#这是一篇有感<br><em>在写这篇有感的时候，用的还是Kate编辑器</em></p>
-<p>   这个博客在搭建的时候大概用了3h,其中有大部分时间都用在了网络环境～和没有建仓库～，导致无法上传本地文件上，倒是让人哭笑不得了。在这里要感谢可乐，deepseek和DID迪对我的帮助。目前还在练习markdown格式，打算每天开始准备学习python,应该以后每天会在这里汇报进度，that all. </p>
+            <p>必填项：title 和 date（date 不填会自动生成当前时间）。<br>选填项：tags（标签）、categories（分类）等，根据主题支持情况添加。</p>
+<h1 id="正文内容（Markdown-语法）"><a href="#正文内容（Markdown-语法）" class="headerlink" title="正文内容（Markdown 语法）"></a>正文内容（Markdown 语法）</h1><p>在 — 下方写正文，支持所有标准 Markdown 语法，常用示例：<br>markdown</p>
+<h1 id="一级标题（文章大标题）一个"><a href="#一级标题（文章大标题）一个" class="headerlink" title="一级标题（文章大标题）一个#"></a>一级标题（文章大标题）一个#</h1><h2 id="二级标题（小节标题）两个"><a href="#二级标题（小节标题）两个" class="headerlink" title="二级标题（小节标题）两个#"></a>二级标题（小节标题）两个#</h2><h3 id="三级标题（子标题）三个"><a href="#三级标题（子标题）三个" class="headerlink" title="三级标题（子标题）三个#"></a>三级标题（子标题）三个#</h3><p>这是正文段落，支持 <strong>加粗</strong><code>（两个*，前后）</code>、<em>斜体</em><code>（一个*，前后）</code>、<del>删除线</del><code>（两个个~，前后）</code> 等格式。</p>
+<ul>
+<li>无序列表项1</li>
+<li>无序列表项2<code>（-）</code><ul>
+<li>子列表项</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>有序列表项1</li>
+<li>有序列表项2</li>
+</ol>
+<p><code>[链接文字](https://example.com)</code>  # 插入链接 eg: <a href="www.baidu.com">baidu</a></p>
+<p><code>![图片描述](/images/你的图片名.jpg)</code>  # 插入图片（图片放 source&#x2F;images&#x2F; 目录下）eg: <img src="/%5Cimages%5C1.jpeg" alt="test"></p>
+<p><code>代码块</code>python</p>
+<h1 id="插入代码（指定语言可自动高亮）"><a href="#插入代码（指定语言可自动高亮）" class="headerlink" title="插入代码（指定语言可自动高亮）"></a>插入代码（指定语言可自动高亮）</h1><p>print(“Hello Hexo!”)</p>
 
         </div>
 
@@ -185,7 +266,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://lyxy-szs.github.io/2025/07/17/the-first-blog-for-my-felling/">http://lyxy-szs.github.io/2025/07/17/the-first-blog-for-my-felling/</a></span>
+                        <span><a href="http://lyxy-szs.github.io/2025/08/19/md-format-summary/">http://lyxy-szs.github.io/2025/08/19/md-format-summary/</a></span>
                     </p>
                 
                 
@@ -204,7 +285,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%84%9F%E5%8F%97/"># 个人感受</a>
+                        <a href="/tags/Hexo/"># Hexo</a>
+                    
+                        <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%8A%80%E5%B7%A7/"># 博客技巧</a>
                     
                         
                 </span>
@@ -217,8 +300,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2025/08/19/md-format-summary/">md格式汇总</a>
+                <a class="prev" rel="prev" href="/2025/08/20/python-venv/">python-创建虚拟环境</a>
             
+            
+            <a class="next" rel="next" href="/2025/07/17/the-first-blog-for-my-felling/">the first blog for my felling</a>
             
         </section>
 
