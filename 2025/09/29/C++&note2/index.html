@@ -15,7 +15,7 @@
 
 
 
-<title>C++/note1 | Johnson</title>
+<title>C++/note2 | Johnson</title>
 
 
 
@@ -209,7 +209,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">C++/note1</h1>
+            <h1 class="post-title">C++/note2</h1>
             
                 <div class="post-meta">
                     
@@ -218,7 +218,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">九月 11, 2025&nbsp;&nbsp;12:46:33</a>
+                        Date: <a href="#">九月 29, 2025&nbsp;&nbsp;11:08:26</a>
                         </span>
                     
                     
@@ -227,11 +227,7 @@
         </header>
 
         <div class="post-content">
-            <h1 id="1-常变量"><a href="#1-常变量" class="headerlink" title="1 常变量"></a>1 常变量</h1><h2 id="1-int-变量"><a href="#1-int-变量" class="headerlink" title="1 int 变量"></a>1 int 变量</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std；</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//变量创建的语法：数据类型 变量名 = 变量初始值   下方示例int整形 </span></span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt;<span class="string">&quot;a = &quot;</span>&lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-常量"><a href="#2-常量" class="headerlink" title="2 常量"></a>2 常量</h2><h3 id="2-1-define宏常量"><a href="#2-1-define宏常量" class="headerlink" title="2.1 #define宏常量"></a>2.1 #define宏常量</h3><h3 id="2-2-const修饰的变量"><a href="#2-2-const修饰的变量" class="headerlink" title="2.2 const修饰的变量"></a>2.2 const修饰的变量</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//法一：#define</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> day 7</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main3</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;一周里面有:&quot;</span> &lt;&lt; day &lt;&lt; <span class="string">&quot;月&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="comment">//day = 8; //报错，宏常量不可以修改</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//法二：const修饰变量</span></span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> month = <span class="number">12</span>;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;涓€骞撮噷闈㈡湁:&quot;</span> &lt;&lt; month &lt;&lt; <span class="string">&quot;鏈�&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="comment">///month = 12 会报错，=左边必须是可以改变的值</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="刷题遇到的"><a href="#刷题遇到的" class="headerlink" title="刷题遇到的"></a>刷题遇到的</h1><h2 id="取得一个数组的某一位数"><a href="#取得一个数组的某一位数" class="headerlink" title="取得一个数组的某一位数"></a>取得一个数组的某一位数</h2><hr>
+            <h1 id="刷题遇到的"><a href="#刷题遇到的" class="headerlink" title="刷题遇到的"></a>刷题遇到的</h1><h2 id="取得一个数组的某一位数"><a href="#取得一个数组的某一位数" class="headerlink" title="取得一个数组的某一位数"></a>取得一个数组的某一位数</h2><hr>
 <details>
 <summary>点击展开代码（cpp）</summary>
 
@@ -303,6 +299,15 @@
 </details>
 
 <hr>
+<h2 id="vector的动态数组"><a href="#vector的动态数组" class="headerlink" title="vector的动态数组"></a>vector的动态数组</h2><p>矩阵反转<br>&#x2F;*<br>输入：<br>2 3<br>1 2 3<br>4 5 6<br>输出<br>1 4<br>2 5<br>3 6*&#x2F;</p>
+<hr>
+<details>
+<summary>点击展开知识点</summary>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> x , y;</span><br><span class="line">    cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">a</span>(x, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt; (y, <span class="number">0</span>));<span class="comment">//一个名为a的动态数组</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>; i &lt; x; i++ )&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span> ; j &lt; y;j++)&#123;</span><br><span class="line">            cin &gt;&gt; a[i][j] ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j =<span class="number">0</span>; j &lt; y; j++ )&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i =<span class="number">0</span>; i &lt; x; i++ )&#123;</span><br><span class="line">            cout &lt;&lt;  a[i][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
 
         </div>
 
@@ -317,7 +322,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://lyxy-szs.github.io/2025/09/11/C++&note/">http://lyxy-szs.github.io/2025/09/11/C++&note/</a></span>
+                        <span><a href="http://lyxy-szs.github.io/2025/09/29/C++&note2/">http://lyxy-szs.github.io/2025/09/29/C++&note2/</a></span>
                     </p>
                 
                 
@@ -338,6 +343,8 @@
                     
                         <a href="/tags/C/"># C++</a>
                     
+                        <a href="/tags/note/"># note</a>
+                    
                         
                 </span>
             </div>
@@ -349,10 +356,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2025/09/14/bluebridge/">蓝桥杯</a>
+                <a class="prev" rel="prev" href="/2025/09/30/C++&note/"></a>
             
             
-            <a class="next" rel="next" href="/2025/09/11/C++for0/">C++基础入门</a>
+            <a class="next" rel="next" href="/2025/09/14/bluebridge/">蓝桥杯</a>
             
         </section>
 
