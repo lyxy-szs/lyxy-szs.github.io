@@ -83,11 +83,11 @@
                 
                 <a class="menu-item" href="/archives">Posts</a>
                 
-                <a class="menu-item" href="/category">Categories</a>
+                <a class="menu-item" href="/categories">Categories</a>
                 
-                <a class="menu-item" href="/tag">Tags</a>
+                <a class="menu-item" href="/tags">Tags</a>
                 
-                <a class="menu-item" href="/about">About</a>
+                <a class="menu-item" href="/links">Links</a>
                 
                 
                 <input id="switch_default" type="checkbox" class="switch_default">
@@ -112,11 +112,11 @@
                 
                 <a class="menu-item" href="/archives">Posts</a>
                 
-                <a class="menu-item" href="/category">Categories</a>
+                <a class="menu-item" href="/categories">Categories</a>
                 
-                <a class="menu-item" href="/tag">Tags</a>
+                <a class="menu-item" href="/tags">Tags</a>
                 
-                <a class="menu-item" href="/about">About</a>
+                <a class="menu-item" href="/links">Links</a>
                 
             </div>
         </div>
@@ -222,6 +222,13 @@
                         </span>
                     
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Cpp%E7%BC%96%E7%A8%8B/">Cpp编程</a>
+                            
+                        </span>
+                    
                 </div>
             
         </header>
@@ -310,7 +317,7 @@
 <li><strong>void不能定义变量</strong>：<code>void x;</code> 是错误的</li>
 <li><strong>void*需要类型转换</strong>：使用前需要转换为具体类型</li>
 </ol>
-<p>简单来说，**void最主要的意思就是”无”或”空”**，用来表示没有返回值或没有参数。</p>
+<p>简单来说，<strong>void最主要的意思就是”无”或”空”</strong>，用来表示没有返回值或没有参数。</p>
 </details>
 
 <hr>
@@ -319,28 +326,35 @@
 <summary>点击展开知识点</summary>
 
 <h3 id="一、基本概念与用法"><a href="#一、基本概念与用法" class="headerlink" title="一、基本概念与用法"></a>一、基本概念与用法</h3><ul>
-<li><p><strong><code>cin</code></strong></p>
-<ul>
+<li><strong><code>cin</code></strong><ul>
 <li><strong>所属头文件</strong>：<code>&lt;iostream&gt;</code> ，是 C++ 标准输入流对象，用于从标准输入设备（通常是键盘）读取数据。</li>
-<li><strong>用法示例</strong>：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    std::cin &gt;&gt; num;  <span class="comment">// 读取一个整数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>输入规则</strong>：使用提取运算符<code>&gt;&gt;</code>，它会自动跳过输入中的空白字符（空格、制表符、换行符等），直到遇到有效数据才开始读取。当读取不同类型数据时，会自动进行类型转换，但如果输入数据类型与目标变量类型不匹配，会导致输入失败，后续输入操作可能出现问题。</li>
+<li><strong>用法示例</strong>：</li>
 </ul>
 </li>
-<li><p><strong><code>scanf</code></strong></p>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    std::cin &gt;&gt; num;  <span class="comment">// 读取一个整数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>- **输入规则**：使用提取运算符`&gt;&gt;`，它会自动跳过输入中的空白字符（空格、制表符、换行符等），直到遇到有效数据才开始读取。当读取不同类型数据时，会自动进行类型转换，但如果输入数据类型与目标变量类型不匹配，会导致输入失败，后续输入操作可能出现问题。
+</code></pre>
 <ul>
+<li><strong><code>scanf</code></strong><ul>
 <li><strong>所属头文件</strong>：<code>&lt;stdio.h&gt;</code> ，是 C 语言中用于格式化输入的函数。</li>
-<li><strong>用法示例</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;num);  <span class="comment">// 读取一个整数，注意要传入变量的地址</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>输入规则</strong>：通过格式控制字符串指定要读取的数据类型和格式，对于基本数据类型（如 <code>int</code>、<code>float</code> 等），需要在变量名前加上取地址符 <code>&amp;</code> ，将变量的地址传递给函数，以便将读取的数据存储到对应变量中。<code>scanf</code> 也会跳过空白字符，但如果输入数据与格式控制字符串不匹配，会导致读取错误，并且会使输入缓冲区残留错误数据，影响后续输入操作。</li>
+<li><strong>用法示例</strong>：</li>
 </ul>
 </li>
-<li><p><strong><code>printf</code></strong></p>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;num);  <span class="comment">// 读取一个整数，注意要传入变量的地址</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>- **输入规则**：通过格式控制字符串指定要读取的数据类型和格式，对于基本数据类型（如 `int`、`float` 等），需要在变量名前加上取地址符 `&amp;` ，将变量的地址传递给函数，以便将读取的数据存储到对应变量中。`scanf` 也会跳过空白字符，但如果输入数据与格式控制字符串不匹配，会导致读取错误，并且会使输入缓冲区残留错误数据，影响后续输入操作。
+</code></pre>
 <ul>
+<li><strong><code>printf</code></strong><ul>
 <li><strong>所属头文件</strong>：<code>&lt;stdio.h&gt;</code> ，是 C 语言中用于格式化输出的函数。</li>
-<li><strong>用法示例</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;数字是 %d\n&quot;</span>, num);  <span class="comment">// 输出整数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><strong>输出规则</strong>：通过格式控制字符串指定输出数据的类型和格式，后面跟随要输出的变量列表。格式控制字符串中可以包含普通字符、转义字符和格式说明符（如 <code>%d</code> 表示输出整数，<code>%f</code> 表示输出浮点数等），可以灵活控制输出的格式和内容。</li>
+<li><strong>用法示例</strong>：</li>
 </ul>
 </li>
 </ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> num = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;数字是 %d\n&quot;</span>, num);  <span class="comment">// 输出整数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>- **输出规则**：通过格式控制字符串指定输出数据的类型和格式，后面跟随要输出的变量列表。格式控制字符串中可以包含普通字符、转义字符和格式说明符（如 `%d` 表示输出整数，`%f` 表示输出浮点数等），可以灵活控制输出的格式和内容。
+</code></pre>
 <h3 id="二、区别"><a href="#二、区别" class="headerlink" title="二、区别"></a>二、区别</h3><ul>
 <li><p><strong>类型安全性</strong></p>
 <ul>

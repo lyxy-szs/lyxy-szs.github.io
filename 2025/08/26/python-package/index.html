@@ -83,11 +83,11 @@
                 
                 <a class="menu-item" href="/archives">Posts</a>
                 
-                <a class="menu-item" href="/category">Categories</a>
+                <a class="menu-item" href="/categories">Categories</a>
                 
-                <a class="menu-item" href="/tag">Tags</a>
+                <a class="menu-item" href="/tags">Tags</a>
                 
-                <a class="menu-item" href="/about">About</a>
+                <a class="menu-item" href="/links">Links</a>
                 
                 
                 <input id="switch_default" type="checkbox" class="switch_default">
@@ -112,11 +112,11 @@
                 
                 <a class="menu-item" href="/archives">Posts</a>
                 
-                <a class="menu-item" href="/category">Categories</a>
+                <a class="menu-item" href="/categories">Categories</a>
                 
-                <a class="menu-item" href="/tag">Tags</a>
+                <a class="menu-item" href="/tags">Tags</a>
                 
-                <a class="menu-item" href="/about">About</a>
+                <a class="menu-item" href="/links">Links</a>
                 
             </div>
         </div>
@@ -222,14 +222,22 @@
                         </span>
                     
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Python/">Python</a>
+                            
+                        </span>
+                    
                 </div>
             
         </header>
 
         <div class="post-content">
-            <h1 id="虚拟环境篇（建议）"><a href="#虚拟环境篇（建议）" class="headerlink" title="虚拟环境篇（建议）"></a>虚拟环境篇（建议）</h1><h2 id="在项目文件夹中打开终端"><a href="#在项目文件夹中打开终端" class="headerlink" title="在项目文件夹中打开终端"></a>在项目文件夹中打开终端</h2><h2 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h2><p>  <strong><code>python3 -m venv venv_name</code></strong>  venv_name即为虚拟环境名称，建议英文</p>
-<h2 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h2><h3 id="Windows："><a href="#Windows：" class="headerlink" title="Windows："></a>Windows：</h3><p>  <strong><code>venv_name\Scripts\activate.bat  #cmd</code>or <code>.\venv_name\Scripts\Activate.ps1  #powershell</code></strong></p>
-<h3 id="macOS-Linux（终端）："><a href="#macOS-Linux（终端）：" class="headerlink" title="macOS&#x2F;Linux（终端）："></a>macOS&#x2F;Linux（终端）：</h3><p>  <strong><code>source venv_name/bin/activate</code></strong></p>
+            <h1 id="虚拟环境篇（建议）"><a href="#虚拟环境篇（建议）" class="headerlink" title="虚拟环境篇（建议）"></a>虚拟环境篇（建议）</h1><h2 id="在项目文件夹中打开终端"><a href="#在项目文件夹中打开终端" class="headerlink" title="在项目文件夹中打开终端"></a>在项目文件夹中打开终端</h2><h2 id="安装-python3-full（确保有完整的-venv-模块）："><a href="#安装-python3-full（确保有完整的-venv-模块）：" class="headerlink" title="安装 python3-full（确保有完整的 venv 模块）："></a>安装 python3-full（确保有完整的 venv 模块）：</h2><h3 id="macOS-Linux（终端）"><a href="#macOS-Linux（终端）" class="headerlink" title="macOS&#x2F;Linux（终端）"></a>macOS&#x2F;Linux（终端）</h3><p>  <strong><code>sudo apt install python3-full</code></strong></p>
+<h2 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h2><p>  <strong><code>python3 -m venv venv_name</code></strong>  venv_name即为虚拟环境名称，建议英文</p>
+<h2 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>  <strong><code>venv_name\Scripts\activate.bat  #cmd</code>or <code>.\venv_name\Scripts\Activate.ps1  #powershell</code></strong></p>
+<h3 id="macOS-Linux（终端）-1"><a href="#macOS-Linux（终端）-1" class="headerlink" title="macOS&#x2F;Linux（终端）"></a>macOS&#x2F;Linux（终端）</h3><p>  <strong><code>source venv_name/bin/activate</code></strong></p>
 <h2 id="使用虚拟环境-激活后，终端提示符前会显示-venv-name"><a href="#使用虚拟环境-激活后，终端提示符前会显示-venv-name" class="headerlink" title="使用虚拟环境 [激活后，终端提示符前会显示 (venv_name)]"></a>使用虚拟环境 [激活后，终端提示符前会显示 (venv_name)]</h2><p>  <strong><code>pip install 包名  # 例如：pip install requests</code></strong></p>
 <h2 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h2><p>  <strong><code>deactivate</code></strong><br>  <details><br>  <summary>点击展开virtualenv教程</summary><br>    <ul><br>      <li> 安装virtualenv：<code>pip install virtualenv</code></li><br>      <li> # 基本用法（默认使用当前 Python 版本）<br>          <code>virtualenv venv_name</code><br>          # 指定 Python 版本（需系统已安装对应版本）<br>          <code>virtualenv -p python3.13 venv_name  # 使用 Python 3.13</code></li><br>      <li> 激活 &#x2F; 退出虚拟环境：与 venv 完全相同</li><br>      <li> 导出当前环境的依赖列表：<br>          <code>pip freeze &gt; requirements.txt</code></li><br>      <li> 在新环境中导入依赖：<br>          <code>pip install -r requirements.txt</code></li><br>      <li> 恢复激活虚拟环境：在项目文件夹下用终端激活</li><br>    </ul></p>
 </details>
@@ -302,13 +310,7 @@
                     
                         <a href="/tags/python/"># python</a>
                     
-                        <a href="/tags/python%E6%89%93%E5%8C%85/"># python打包</a>
-                    
-                        <a href="/tags/nuitka/"># nuitka</a>
-                    
-                        <a href="/tags/pyinstaller/"># pyinstaller</a>
-                    
-                        <a href="/tags/exe/"># exe</a>
+                        <a href="/tags/python%E6%89%93%E5%8C%85exe/"># python打包exe</a>
                     
                         
                 </span>

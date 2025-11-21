@@ -83,11 +83,11 @@
                 
                 <a class="menu-item" href="/archives">Posts</a>
                 
-                <a class="menu-item" href="/category">Categories</a>
+                <a class="menu-item" href="/categories">Categories</a>
                 
-                <a class="menu-item" href="/tag">Tags</a>
+                <a class="menu-item" href="/tags">Tags</a>
                 
-                <a class="menu-item" href="/about">About</a>
+                <a class="menu-item" href="/links">Links</a>
                 
                 
                 <input id="switch_default" type="checkbox" class="switch_default">
@@ -112,11 +112,11 @@
                 
                 <a class="menu-item" href="/archives">Posts</a>
                 
-                <a class="menu-item" href="/category">Categories</a>
+                <a class="menu-item" href="/categories">Categories</a>
                 
-                <a class="menu-item" href="/tag">Tags</a>
+                <a class="menu-item" href="/tags">Tags</a>
                 
-                <a class="menu-item" href="/about">About</a>
+                <a class="menu-item" href="/links">Links</a>
                 
             </div>
         </div>
@@ -222,13 +222,19 @@
                         </span>
                     
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Cpp%E7%BC%96%E7%A8%8B/">Cpp编程</a>
+                            
+                        </span>
+                    
                 </div>
             
         </header>
 
         <div class="post-content">
-            <p>我来逐行详细解释这个OpenCV代码，让0基础的朋友也能完全理解！</p>
-<h2 id="1-头文件和命名空间"><a href="#1-头文件和命名空间" class="headerlink" title="1. 头文件和命名空间"></a>1. 头文件和命名空间</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span>  <span class="comment">// 包含OpenCV库的所有主要功能</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>            <span class="comment">// 输入输出流，用于在控制台显示信息</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span>              <span class="comment">// 向量容器，用于存储数据</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span>               <span class="comment">// 数学函数库</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;    <span class="comment">// 使用OpenCV的命名空间，这样就不用写cv::了</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;   <span class="comment">// 使用标准库的命名空间</span></span><br></pre></td></tr></table></figure>
+            <h1 id="Opencv的Gamma转换与二值化处理"><a href="#Opencv的Gamma转换与二值化处理" class="headerlink" title="Opencv的Gamma转换与二值化处理"></a>Opencv的Gamma转换与二值化处理</h1><h2 id="1-头文件和命名空间"><a href="#1-头文件和命名空间" class="headerlink" title="1. 头文件和命名空间"></a>1. 头文件和命名空间</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span>  <span class="comment">// 包含OpenCV库的所有主要功能</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>            <span class="comment">// 输入输出流，用于在控制台显示信息</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span>              <span class="comment">// 向量容器，用于存储数据</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span>               <span class="comment">// 数学函数库</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;    <span class="comment">// 使用OpenCV的命名空间，这样就不用写cv::了</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;   <span class="comment">// 使用标准库的命名空间</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>通俗理解</strong>：就像在游戏开始前要导入各种工具包，这些<code>#include</code>就是告诉编译器我们需要用到哪些工具。</p>
 <h2 id="2-Gamma变换函数详解"><a href="#2-Gamma变换函数详解" class="headerlink" title="2. Gamma变换函数详解"></a>2. Gamma变换函数详解</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Gamma变换函数 - 就像调整手机屏幕的亮度曲线</span></span><br><span class="line"><span class="function">Mat <span class="title">gammaCorrection</span><span class="params">(<span class="type">const</span> Mat&amp; src, <span class="type">double</span> gamma)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Mat是OpenCV的&quot;图片容器&quot;，可以想象成一个装图片数据的盒子</span></span><br><span class="line">    <span class="comment">// const Mat&amp; src 表示输入图片，&amp;表示引用（不复制数据），const表示不会修改原图</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建查找表 - 就像制作一个亮度转换表</span></span><br><span class="line">    <span class="function">Mat <span class="title">lookupTable</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    <span class="comment">// 这个表有1行，256列，每个元素是8位无符号整数(0-255)</span></span><br><span class="line">    </span><br><span class="line">    uchar* p = lookupTable.<span class="built_in">ptr</span>();  <span class="comment">// 获取表的指针，方便操作数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i) &#123;</span><br><span class="line">        <span class="comment">// 计算新的亮度值：pow(i/255.0, gamma) * 255.0</span></span><br><span class="line">        <span class="comment">// 就像把0-255的亮度值按照gamma曲线重新映射</span></span><br><span class="line">        p[i] = <span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">        <span class="comment">// saturate_cast确保计算结果在0-255范围内，不会溢出</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Mat dst;  <span class="comment">// 创建输出图片的容器</span></span><br><span class="line">    <span class="built_in">LUT</span>(src, lookupTable, dst);  <span class="comment">// 使用查找表转换图片</span></span><br><span class="line">    <span class="comment">// LUT = Look Up Table，就像根据转换表把每个像素的亮度值换成新的</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> dst;  <span class="comment">// 返回处理后的图片</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -297,6 +303,8 @@
                 <span class="tag">
                     
                     
+                        <a href="/tags/C/"># C++</a>
+                    
                         <a href="/tags/opencv/"># opencv</a>
                     
                         
@@ -310,10 +318,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2025/11/20/Map/">Map</a>
+                <a class="prev" rel="prev" href="/2025/11/20/string/">String</a>
             
             
-            <a class="next" rel="next" href="/2025/11/09/string/"></a>
+            <a class="next" rel="next" href="/2025/09/29/C++&note2/">C++/note2</a>
             
         </section>
 

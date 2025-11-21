@@ -1322,3 +1322,9 @@ body.dark-theme .highlight .code .deletion,
 body.dark-theme .highlight .code .meta {
   color: #7f7f7f;
 }
+/* ȷ�����������Զ����� */
+pre,
+code {
+  white-space: pre-wrap; /* �������뻻�� */
+  overflow-wrap: break-word; /* �ڵ����ڻ����Ա������ */
+}
