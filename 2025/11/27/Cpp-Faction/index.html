@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+    <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.js"></script>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Lyxy-szs">
+
+
+    <meta name="subtitle" content="Shi">
+
+
+
+
+<title>Cpp-Faction | Johnson</title>
+
+
+
+    <link rel="icon" href="/2.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+    <script src="/js/tellu.js"></script>
+    
+    <script src="/js/typed.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const pagebody = document.getElementsByTagName('body')[0]
+
+            function setTheme(status) {
+
+                if (status === 'dark') {
+                    window.sessionStorage.theme = 'dark'
+                    pagebody.classList.add('dark-theme');
+
+                } else if (status === 'light') {
+                    window.sessionStorage.theme = 'light'
+                    pagebody.classList.remove('dark-theme');
+                }
+            };
+
+            setTheme(window.sessionStorage.theme)
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Johnson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                <a class="menu-item" href="/archives">Posts</a>
+                
+                <a class="menu-item" href="/categories">Categories</a>
+                
+                <a class="menu-item" href="/tags">Tags</a>
+                
+                <a class="menu-item" href="/links">Links</a>
+                
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Johnson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
+                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
+                </div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                <a class="menu-item" href="/archives">Posts</a>
+                
+                <a class="menu-item" href="/categories">Categories</a>
+                
+                <a class="menu-item" href="/tags">Tags</a>
+                
+                <a class="menu-item" href="/links">Links</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.classList.contains("active")) {
+            toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        } else {
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Cpp-Faction</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Lyxy-szs</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十一月 27, 2025&nbsp;&nbsp;9:39:29</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="C-������д���װ�������"><a href="#C-������д���װ�������" class="headerlink" title="C++ ������д���װ�������"></a>C++ ������д���װ�������</h1><h2 id="1-�����L����u"><a href="#1-�����L����u" class="headerlink" title="1. �����Ļ����ṹ"></a>1. �����Ļ����ṹ</h2><h3 id="1-1-������������"><a href="#1-1-������������" class="headerlink" title="1.1 ������������"></a>1.1 ������������</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ��������</span></span><br><span class="line">�������� ������(�����б�);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ��������</span></span><br><span class="line">�������� ������(�����б�) &#123;</span><br><span class="line">    <span class="comment">// ������</span></span><br><span class="line">    <span class="keyword">return</span> ����ֵ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-����ʾ��"><a href="#1-2-����ʾ��" class="headerlink" title="1.2 ����ʾ��"></a>1.2 ����ʾ��</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ��������</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printMessage</span><span class="params">(<span class="type">const</span> string&amp; message)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ��������</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printMessage</span><span class="params">(<span class="type">const</span> string&amp; message)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Message: &quot;</span> &lt;&lt; message &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> result = <span class="built_in">add</span>(<span class="number">5</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">printMessage</span>(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-�������ݷ�ʽ"><a href="#2-�������ݷ�ʽ" class="headerlink" title="2. �������ݷ�ʽ"></a>2. �������ݷ�ʽ</h2><h3 id="2-1-ֵ����-Pass-by-Value"><a href="#2-1-ֵ����-Pass-by-Value" class="headerlink" title="2.1 ֵ���� (Pass by Value)"></a>2.1 ֵ���� (Pass by Value)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">modifyValue</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    x = <span class="number">100</span>;  <span class="comment">// ��Ӱ��ԭʼ����</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">modifyValue</span>(a);</span><br><span class="line">    cout &lt;&lt; a;  <span class="comment">// ���: 10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-���o���-Pass-by-Reference"><a href="#2-2-���o���-Pass-by-Reference" class="headerlink" title="2.2 ���ô��� (Pass by Reference)"></a>2.2 ���ô��� (Pass by Reference)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">modifyReference</span><span class="params">(<span class="type">int</span> &amp;x)</span> </span>&#123;</span><br><span class="line">    x = <span class="number">100</span>;  <span class="comment">// �޸�ԭʼ����</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">modifyReference</span>(a);</span><br><span class="line">    cout &lt;&lt; a;  <span class="comment">// ���: 100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-�������o���-Pass-by-Const-Reference"><a href="#2-3-�������o���-Pass-by-Const-Reference" class="headerlink" title="2.3 �������ô��� (Pass by Const Reference)"></a>2.3 �������ô��� (Pass by Const Reference)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">printLargeObject</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; vec)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ���Զ�ȡ�������޸�vec</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">const</span> <span class="keyword">auto</span>&amp; item : vec) &#123;</span><br><span class="line">        cout &lt;&lt; item &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-ָ�봫��-Pass-by-Pointer"><a href="#2-4-ָ�봫��-Pass-by-Pointer" class="headerlink" title="2.4 ָ�봫�� (Pass by Pointer)"></a>2.4 ָ�봫�� (Pass by Pointer)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">modifyPointer</span><span class="params">(<span class="type">int</span>* ptr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ptr) &#123;</span><br><span class="line">        *ptr = <span class="number">100</span>;  <span class="comment">// �����ò��޸�ֵ</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">modifyPointer</span>(&amp;a);</span><br><span class="line">    cout &lt;&lt; a;  <span class="comment">// ���: 100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-��������-Function-Overloading"><a href="#3-��������-Function-Overloading" class="headerlink" title="3. �������� (Function Overloading)"></a>3. �������� (Function Overloading)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Calculator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// ����add����</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">add</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">string <span class="title">add</span><span class="params">(<span class="type">const</span> string&amp; a, <span class="type">const</span> string&amp; b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b + c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ʹ��ʾ��</span></span><br><span class="line">Calculator calc;</span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>);        <span class="comment">// ����int�汾</span></span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">add</span>(<span class="number">1.5</span>, <span class="number">2.5</span>);    <span class="comment">// ����double�汾</span></span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">add</span>(<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot; World&quot;</span>); <span class="comment">// ����string�汾</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-I�ϲ���-Default-Parameters"><a href="#4-I�ϲ���-Default-Parameters" class="headerlink" title="4. Ĭ�ϲ��� (Default Parameters)"></a>4. Ĭ�ϲ��� (Default Parameters)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// ����Ĭ�ϲ����Ĺ��캯��</span></span><br><span class="line">    <span class="built_in">Student</span>(string name = <span class="string">&quot;Unknown&quot;</span>, <span class="type">int</span> age = <span class="number">18</span>, <span class="type">double</span> gpa = <span class="number">3.0</span>) </span><br><span class="line">        : <span class="built_in">name</span>(name), <span class="built_in">age</span>(age), <span class="built_in">gpa</span>(gpa) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">displayInfo</span><span class="params">(string prefix = <span class="string">&quot;Student: &quot;</span>)</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; prefix &lt;&lt; name &lt;&lt; <span class="string">&quot;, Age: &quot;</span> &lt;&lt; age &lt;&lt; <span class="string">&quot;, GPA: &quot;</span> &lt;&lt; gpa &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    string name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    <span class="type">double</span> gpa;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ʹ��ʾ��</span></span><br><span class="line">Student s1;                    <span class="comment">// ʹ������Ĭ�ϲ���</span></span><br><span class="line"><span class="function">Student <span class="title">s2</span><span class="params">(<span class="string">&quot;Alice&quot;</span>)</span></span>;           <span class="comment">// ֻ�ṩname</span></span><br><span class="line"><span class="function">Student <span class="title">s3</span><span class="params">(<span class="string">&quot;Bob&quot;</span>, <span class="number">20</span>)</span></span>;         <span class="comment">// �ṩname��age</span></span><br><span class="line"><span class="function">Student <span class="title">s4</span><span class="params">(<span class="string">&quot;Charlie&quot;</span>, <span class="number">22</span>, <span class="number">3.8</span>)</span></span>; <span class="comment">// �ṩ���в���</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-��������-Inline-Functions"><a href="#5-��������-Inline-Functions" class="headerlink" title="5. �������� (Inline Functions)"></a>5. �������� (Inline Functions)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// �������� - �ʺ϶�С�ĺ���</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">max</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a &gt; b) ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MathUtils</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// ���ڶ���ĺ���Ĭ��Ϊ����</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">cube</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x * x * x;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ��ʽ��������</span></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">double</span> <span class="title">circleArea</span><span class="params">(<span class="type">double</span> radius)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3.14159</span> * radius * radius;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-g�庯��-Template-Functions"><a href="#6-g�庯��-Template-Functions" class="headerlink" title="6. ģ�庯�� (Template Functions)"></a>6. ģ�庯�� (Template Functions)</h2><h3 id="6-1-����g�庯��"><a href="#6-1-����g�庯��" class="headerlink" title="6.1 ����ģ�庯��"></a>6.1 ����ģ�庯��</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">T <span class="title">getMax</span><span class="params">(T a, T b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a &gt; b) ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">addMixed</span><span class="params">(T1 a, T2 b)</span> -&gt; <span class="title">decltype</span><span class="params">(a + b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ʹ��ʾ��</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">getMax</span>(<span class="number">10</span>, <span class="number">20</span>);        <span class="comment">// int�汾</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">getMax</span>(<span class="number">3.14</span>, <span class="number">2.71</span>);    <span class="comment">// double�汾</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">getMax</span>(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;z&#x27;</span>);      <span class="comment">// char�汾</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-g���ػ�"><a href="#6-2-g���ػ�" class="headerlink" title="6.2 ģ���ػ�"></a>6.2 ģ���ػ�</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Storage</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">store</span><span class="params">(<span class="type">const</span> T&amp; data)</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Storing generic type: &quot;</span> &lt;&lt; data &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ģ���ػ� - ���string����</span></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Storage</span>&lt;string&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">store</span><span class="params">(<span class="type">const</span> string&amp; data)</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Storing string: \&quot;&quot;</span> &lt;&lt; data &lt;&lt; <span class="string">&quot;\&quot;&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Lambda-����ʽ"><a href="#7-Lambda-����ʽ" class="headerlink" title="7. Lambda ����ʽ"></a>7. Lambda ����ʽ</h2><h3 id="7-1-����Lambda"><a href="#7-1-����Lambda" class="headerlink" title="7.1 ����Lambda"></a>7.1 ����Lambda</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// �򵥵�lambda����ʽ</span></span><br><span class="line"><span class="keyword">auto</span> square = [](<span class="type">int</span> x) &#123; <span class="keyword">return</span> x * x; &#125;;</span><br><span class="line"><span class="keyword">auto</span> greet = [](<span class="type">const</span> string&amp; name) &#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello, &quot;</span> + name + <span class="string">&quot;!&quot;</span>; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ʹ��ʾ��</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">square</span>(<span class="number">5</span>);            <span class="comment">// ���: 25</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">greet</span>(<span class="string">&quot;World&quot;</span>);       <span class="comment">// ���: Hello, World!</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-�����б�"><a href="#7-2-�����б�" class="headerlink" title="7.2 �����б�"></a>7.2 �����б�</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LambdaDemo</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> multiplier = <span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">demonstrate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> localVar = <span class="number">5</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// ֵ����</span></span><br><span class="line">        <span class="keyword">auto</span> captureByValue = [localVar](<span class="type">int</span> x) &#123;</span><br><span class="line">            <span class="keyword">return</span> x + localVar;  <span class="comment">// ����ʱ��localVarֵ</span></span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// ���ò���</span></span><br><span class="line">        <span class="keyword">auto</span> captureByReference = [&amp;localVar](<span class="type">int</span> x) &#123;</span><br><span class="line">            localVar = x;  <span class="comment">// �޸�ԭʼlocalVar</span></span><br><span class="line">            <span class="keyword">return</span> localVar;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// ����thisָ��</span></span><br><span class="line">        <span class="keyword">auto</span> captureThis = [<span class="keyword">this</span>](<span class="type">int</span> x) &#123;</span><br><span class="line">            <span class="keyword">return</span> x * multiplier;  <span class="comment">// ���ʳ�Ա����</span></span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// ��ϲ���</span></span><br><span class="line">        <span class="keyword">auto</span> mixedCapture = [=, &amp;localVar](<span class="type">int</span> x) &#123;</span><br><span class="line">            <span class="comment">// Ĭ��ֵ���񣬵�localVar�����ò���</span></span><br><span class="line">            <span class="keyword">return</span> x + localVar + multiplier;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-����ָ��ͺ�������"><a href="#8-����ָ��ͺ�������" class="headerlink" title="8. ����ָ��ͺ�������"></a>8. ����ָ��ͺ�������</h2><h3 id="8-1-����ָ��"><a href="#8-1-����ָ��" class="headerlink" title="8.1 ����ָ��"></a>8.1 ����ָ��</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ��ͨ����</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a + b; &#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">multiply</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a * b; &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ����ָ������</span></span><br><span class="line"><span class="keyword">using</span> MathOperation = <span class="built_in">int</span>(*)(<span class="type">int</span>, <span class="type">int</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Calculator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">calculate</span><span class="params">(MathOperation op, <span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">op</span>(a, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ʹ��ʾ��</span></span><br><span class="line">Calculator calc;</span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">calculate</span>(add, <span class="number">5</span>, <span class="number">3</span>);        <span class="comment">// ���: 8</span></span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">calculate</span>(multiply, <span class="number">5</span>, <span class="number">3</span>);   <span class="comment">// ���: 15</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="8-2-��������-Functor"><a href="#8-2-��������-Functor" class="headerlink" title="8.2 �������� (Functor)"></a>8.2 �������� (Functor)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Adder</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> baseValue;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Adder</span>(<span class="type">int</span> base) : <span class="built_in">baseValue</span>(base) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ���غ������������</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> value)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> baseValue + value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Comparator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;  <span class="comment">// ����Ƚ�</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ʹ��ʾ��</span></span><br><span class="line"><span class="function">Adder <span class="title">add5</span><span class="params">(<span class="number">5</span>)</span></span>;</span><br><span class="line">cout &lt;&lt; <span class="built_in">add5</span>(<span class="number">10</span>);  <span class="comment">// ���: 15</span></span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; numbers = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="built_in">sort</span>(numbers.<span class="built_in">begin</span>(), numbers.<span class="built_in">end</span>(), <span class="built_in">Comparator</span>());</span><br><span class="line"><span class="comment">// numbers��Ϊ: 5, 4, 3, 1, 1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="9-��Ա������װ"><a href="#9-��Ա������װ" class="headerlink" title="9. ��Ա������װ"></a>9. ��Ա������װ</h2><h3 id="9-1-��L�����װ"><a href="#9-1-��L�����װ" class="headerlink" title="9.1 ��Ļ�����װ"></a>9.1 ��Ļ�����װ</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BankAccount</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    string accountNumber;</span><br><span class="line">    <span class="type">double</span> balance;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ˽�и�������</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidAmount</span><span class="params">(<span class="type">double</span> amount)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> amount &gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// ���캯��</span></span><br><span class="line">    <span class="built_in">BankAccount</span>(<span class="type">const</span> string&amp; accNum, <span class="type">double</span> initialBalance = <span class="number">0.0</span>)</span><br><span class="line">        : <span class="built_in">accountNumber</span>(accNum), <span class="built_in">balance</span>(initialBalance) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Getter����</span></span><br><span class="line">    <span class="function">string <span class="title">getAccountNumber</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> accountNumber; &#125;</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">getBalance</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> balance; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ҵ���߼�����</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">deposit</span><span class="params">(<span class="type">double</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">isValidAmount</span>(amount)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        balance += amount;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">withdraw</span><span class="params">(<span class="type">double</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">isValidAmount</span>(amount) || amount &gt; balance) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        balance -= amount;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ��̬��Ա����</span></span><br><span class="line">    <span class="function"><span class="type">static</span> string <span class="title">getBankName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;MyBank&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-2-�ӿں�ʵ�ַ���"><a href="#9-2-�ӿں�ʵ�ַ���" class="headerlink" title="9.2 �ӿں�ʵ�ַ���"></a>9.2 �ӿں�ʵ�ַ���</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ͷ�ļ�: math_interface.h</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IMathOperations</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">IMathOperations</span>() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">double</span> <span class="title">calculate</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> string <span class="title">getName</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Դ�ļ�: math_implementations.cpp</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Addition</span> : <span class="keyword">public</span> IMathOperations &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">calculate</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">string <span class="title">getName</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Addition&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Multiplication</span> : <span class="keyword">public</span> IMathOperations &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">calculate</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a * b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">string <span class="title">getName</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Multiplication&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="10-�ִ�C-����"><a href="#10-�ִ�C-����" class="headerlink" title="10. �ִ�C++����"></a>10. �ִ�C++����</h2><h3 id="10-1-constexpr-����"><a href="#10-1-constexpr-����" class="headerlink" title="10.1 constexpr ����"></a>10.1 constexpr ����</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ����ʱ���㺯��</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">factorial</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (n &lt;= <span class="number">1</span>) ? <span class="number">1</span> : n * <span class="built_in">factorial</span>(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">fibonacci</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (n &lt;= <span class="number">1</span>) ? n : <span class="built_in">fibonacci</span>(n - <span class="number">1</span>) + <span class="built_in">fibonacci</span>(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ʹ��ʾ��</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> fact5 = <span class="built_in">factorial</span>(<span class="number">5</span>);  <span class="comment">// ����ʱ����</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> fib10 = <span class="built_in">fibonacci</span>(<span class="number">10</span>); <span class="comment">// ����ʱ����</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="10-2-noexcept-����"><a href="#10-2-noexcept-����" class="headerlink" title="10.2 noexcept ����"></a>10.2 noexcept ����</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SafeCalculator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// ��֤���׳��쳣�ĺ���</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">safeDivide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// �������㣬���׳��쳣</span></span><br><span class="line">        <span class="keyword">return</span> a / b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ����noexcept</span></span><br><span class="line">    <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">    <span class="type">void</span> <span class="title">processData</span><span class="params">(T&amp;&amp; data)</span> <span class="title">noexcept</span><span class="params">(<span class="keyword">noexcept</span>(data.process()))</span> </span>&#123;</span><br><span class="line">        data.<span class="built_in">process</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-���������쳣��o"><a href="#11-���������쳣��o" class="headerlink" title="11. ���������쳣��ȫ"></a>11. ���������쳣��ȫ</h2><h3 id="11-1-�쳣����"><a href="#11-1-�쳣����" class="headerlink" title="11.1 �쳣����"></a>11.1 �쳣����</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FileProcessor</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">processFile</span><span class="params">(<span class="type">const</span> string&amp; filename)</span> </span>&#123;</span><br><span class="line">        <span class="function">ifstream <span class="title">file</span><span class="params">(filename)</span></span>;</span><br><span class="line">        <span class="keyword">if</span>(!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">runtime_error</span>(<span class="string">&quot;Cannot open file: &quot;</span> + filename);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// �ļ������߼�</span></span><br><span class="line">            string line;</span><br><span class="line">            <span class="keyword">while</span>(<span class="built_in">getline</span>(file, line)) &#123;</span><br><span class="line">                <span class="built_in">processLine</span>(line);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">catch</span>(<span class="type">const</span> exception&amp; e) &#123;</span><br><span class="line">            <span class="comment">// ������Դ</span></span><br><span class="line">            file.<span class="built_in">close</span>();</span><br><span class="line">            <span class="keyword">throw</span>;  <span class="comment">// �����׳��쳣</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">processLine</span><span class="params">(<span class="type">const</span> string&amp; line)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(line.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">invalid_argument</span>(<span class="string">&quot;Empty line encountered&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ����������</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="���ʵ���ܽ�"><a href="#���ʵ���ܽ�" class="headerlink" title="���ʵ���ܽ�"></a>���ʵ���ܽ�</h2><ol>
+<li><strong>��һְ��ԭ��</strong>��ÿ������ֻ��һ����</li>
+<li><strong>�����Ĳ�������</strong>��С����ֵ�������const����</li>
+<li><strong>����������</strong>��������Ӧ����ȷ�����书��</li>
+<li><strong>�ʵ��ķ�װ</strong>��ʹ��private�����ڲ�״̬</li>
+<li><strong>�쳣��ȫ</strong>��ȷ����Դ��ȷ�ͷ�</li>
+<li><strong>�ĵ�ע��</strong>��Ϊ�����ӿ��ṩ�������ĵ�</li>
+<li><strong>���Ը���</strong>��Ϊ�ؼ�������д��Ԫ����</li>
+</ol>
+<p>��Щ�������԰������д��������������ȫ������ά����C++���롣</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Lyxy-szs</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://lyxy-szs.github.io/2025/11/27/Cpp-Faction/">http://lyxy-szs.github.io/2025/11/27/Cpp-Faction/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>永远相信<strong>美好的事情即将發生</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C++</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2025/11/20/Map/">Map</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="footer-typing-container">
+        <span id="footer-typed-text"></span>
+    </div>
+    <div class="copyright">
+        <span>© Lyxy-szs | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+<script>
+    // 等待页面文档加载完毕
+    document.addEventListener('DOMContentLoaded', function () {
+        // 确保容器元素存在
+        const typedElement = document.getElementById('footer-typed-text');
+        if (typedElement) {
+            var typed = new Typed('#footer-typed-text', {
+                strings: [
+                    "永远相信 美好的事情即将發生 临渊羡鱼shi",
+                    "知识就是力量。 弗朗西斯·培根",  
+                    "我思故我在。 勒内·笛卡尔",  
+                    "人生苦短，及时行乐。 贺拉斯",  
+                    "活着就是为了改变世界，难道还有其他原因吗？ 史蒂夫·乔布斯",  
+                    "黑暗不能驱走黑暗，只有光可以做到；仇恨不能驱走仇恨，只有爱可以做到。 马丁·路德·金",  
+                    "成功是从一个失败到另一个失败而不失去热情的能力。 温斯顿·丘吉尔",  
+                    "教育不是填满一个桶，而是点燃一把火。 威廉·巴特勒·叶芝",  
+                    "战争就是和平，自由就是奴役，无知就是力量。 乔治·奥威尔《一九八四》",  
+                    "人是为了反抗而生的。 阿尔贝·加缪",  
+                    "幸福取决于我们自己。 亚里士多德",  
+                    "唯一值得我们恐惧的是恐惧本身。 富兰克林·D·罗斯福",  
+                    "生命的意义在于给予。 列夫·托尔斯泰",  
+                    "不要为小事烦恼，所有事都是小事。 理查德·卡尔森",  
+                    "梦想不会通过魔法实现；它需要汗水、决心和努力。 科林·鲍威尔",  
+                    "最好的报复是巨大的成功。 弗兰克·辛纳屈",  
+                    "你只活一次，但如果你做得对，一次就足够了。 梅·韦斯特"
+                ], // 字符串数组，会依次键入
+                typeSpeed: 60,    // 打字速度，数值越小越快[citation:2]
+                backSpeed: 40,    // 回退删除的速度[citation:2]
+                backDelay: 1500,  // 一句打完后的暂停时间（毫秒）[citation:2]
+                loop: true,       // 是否循环[citation:2]
+                showCursor: true, // 是否显示闪烁光标[citation:4]
+                cursorChar: '_'   // 自定义光标字符[citation:4]
+            });
+        }
+    });
+</script>
+    </div>
+    
+    
+<script src="/js/scrollbar.js"></script>
+
+    
+<script src="/js/typed.min.js"></script>
+
+    
+<script src="/js/tellu.js"></script>
+
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+
+</html>

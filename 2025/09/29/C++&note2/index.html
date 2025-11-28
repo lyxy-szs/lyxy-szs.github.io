@@ -400,6 +400,14 @@
 
 </details>
 
+<hr>
+<h1 id="欧几里得-最大公约数计算法"><a href="#欧几里得-最大公约数计算法" class="headerlink" title="欧几里得-最大公约数计算法"></a>欧几里得-最大公约数计算法</h1><hr>
+<details>
+<summary>老漂亮了</summary>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">cpp</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> ld;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//就是下面这个封装函数</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">ojld</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b == <span class="number">0</span> ? a : <span class="built_in">ojld</span>(b, a % b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">        <span class="type">int</span> m=<span class="built_in">ojld</span>(a,b);</span><br><span class="line">        cout&lt;&lt;m&lt;&lt;<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</details>
         </div>
 
         
@@ -484,11 +492,9 @@
                     "黑暗不能驱走黑暗，只有光可以做到；仇恨不能驱走仇恨，只有爱可以做到。 马丁·路德·金",  
                     "成功是从一个失败到另一个失败而不失去热情的能力。 温斯顿·丘吉尔",  
                     "教育不是填满一个桶，而是点燃一把火。 威廉·巴特勒·叶芝",  
-                    "所有动物都是平等的，但有些动物比其他动物更平等。 乔治·奥威尔《动物农场》",  
                     "战争就是和平，自由就是奴役，无知就是力量。 乔治·奥威尔《一九八四》",  
                     "人是为了反抗而生的。 阿尔贝·加缪",  
                     "幸福取决于我们自己。 亚里士多德",  
-                    "如果你想要和平，就为正义而战。 教皇保罗六世",  
                     "唯一值得我们恐惧的是恐惧本身。 富兰克林·D·罗斯福",  
                     "生命的意义在于给予。 列夫·托尔斯泰",  
                     "不要为小事烦恼，所有事都是小事。 理查德·卡尔森",  
