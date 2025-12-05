@@ -82,15 +82,29 @@
             <div class="navbar-header header-logo"><a href="/">Johnson&#39;s Blog</a></div>
             <div class="menu navbar-right">
                 
-                <a class="menu-item" href="/archives">Posts</a>
+                <a class="menu-item" href="/archives">文章</a>
                 
-                <a class="menu-item" href="/categories">Categories</a>
+                <a class="menu-item" href="/categories">类别</a>
                 
-                <a class="menu-item" href="/tags">Tags</a>
+                <a class="menu-item" href="/tags">标签</a>
                 
-                <a class="menu-item" href="/links">Links</a>
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
                 
                 
+                <!-- 1. 桌面端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 0 10px; /* 与其他导航项保持一致的内边距 */
+                ">
+                    搜索 <!-- 若有Font Awesome，可替换为 <i class="fa fa-search"></i> -->
+                </button>
+
                 <input id="switch_default" type="checkbox" class="switch_default">
                 <label for="switch_default" class="toggleBtn"></label>
             </div>
@@ -111,19 +125,159 @@
             </div>
             <div class="menu" id="mobile-menu">
                 
-                <a class="menu-item" href="/archives">Posts</a>
+                <a class="menu-item" href="/archives">文章</a>
                 
-                <a class="menu-item" href="/categories">Categories</a>
+                <a class="menu-item" href="/categories">类别</a>
                 
-                <a class="menu-item" href="/tags">Tags</a>
+                <a class="menu-item" href="/tags">标签</a>
                 
-                <a class="menu-item" href="/links">Links</a>
+                <a class="menu-item" href="/links">友链</a>
                 
+                <a class="menu-item" href="/downloads">下载</a>
+                
+
+                <!-- 2. 移动端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 10px 0; /* 与移动端导航项保持一致的内边距 */
+                    width: 100%; /* 移动端按钮占满宽度 */
+                    text-align: left; /* 与其他导航项对齐 */
+                ">
+                    搜索 <!-- 同上，可替换为图标 -->
+                </button>
             </div>
         </div>
     </nav>
 
 </header>
+
+<!-- 3. 添加搜索框HTML（默认隐藏） -->
+<div id="searchModal" style="
+    display: none; 
+    position: fixed; 
+    top: 20%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: transparent; 
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px); 
+    padding: 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
+    z-index: 9999; 
+    width: 80%; 
+    max-width: 500px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 id="searchTitle" style="margin: 0; font-size: 16px;">搜索文章</h3>
+        <span class="search-close" style="cursor: pointer; font-size: 20px;">&times;</span>
+    </div>
+    <input type="text" id="searchInput" placeholder="输入关键词搜索..." style="
+        width: 100%; 
+        padding: 12px; 
+        border: 1px solid #eee; 
+        border-radius: 8px; 
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+    ">
+    <ul id="searchResult" style="list-style: none; padding: 0; margin-top: 15px; max-height: 300px; overflow-y: auto;"></ul>
+</div>
+
+<!-- 主题适配样式（新增滚动条主题适配） -->
+<style>
+    /* 白主题样式 */
+    #searchTitle,
+    #searchInput,
+    #searchResult a {
+        color: #333 !important;
+    }
+    .search-close {
+        color: #999 !important;
+    }
+    #searchInput {
+        background: rgba(255, 255, 255, 0.8) !important;
+        border-color: #ddd !important;
+    }
+    #searchResult li {
+        border-bottom: 1px dashed #eee !important;
+    }
+    #searchInput::placeholder {
+        color: #999 !important;
+    }
+
+    /* 黑主题样式（关键修改：dark → dark-theme） */
+    body.dark-theme #searchTitle,
+    body.dark-theme #searchInput,
+    body.dark-theme #searchResult a {
+        color: #fff !important;
+    }
+    body.dark-theme .search-close {
+        color: #ccc !important;
+    }
+    body.dark-theme #searchInput {
+        background: rgba(50, 50, 50, 0.8) !important;
+        border-color: #666 !important;
+    }
+    body.dark-theme #searchResult li {
+        border-bottom: 1px dashed #555 !important;
+    }
+    body.dark-theme #searchResult li {
+        color: #aaa !important;
+    }
+    body.dark-theme #searchInput::placeholder {
+        color: #aaa !important;
+    }
+
+    /* ========== 新增：搜索结果滚动条主题适配 ========== */
+    /* 1. 白主题滚动条（默认） */
+    #searchResult {
+        scrollbar-width: thin; /* 火狐兼容 - 细滚动条 */
+        scrollbar-color: #ccc #f5f5f5; /* 火狐：滑块颜色 轨道颜色 */
+    }
+    /* 滚动条整体宽度（webkit内核：Chrome/Edge/Safari） */
+    #searchResult::-webkit-scrollbar {
+        width: 6px; /* 竖向滚动条宽度 */
+        height: 6px; /* 横向滚动条（备用） */
+    }
+    /* 滚动条轨道 */
+    #searchResult::-webkit-scrollbar-track {
+        background: #f5f5f5; /* 白主题轨道色 */
+        border-radius: 3px; /* 圆角更美观 */
+    }
+    /* 滚动条滑块 */
+    #searchResult::-webkit-scrollbar-thumb {
+        background: #ccc; /* 白主题滑块色 */
+        border-radius: 3px;
+    }
+    /* 滑块hover状态 */
+    #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+
+    /* 2. 黑主题滚动条 */
+    body.dark-theme #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #666 #333; /* 火狐：黑主题滑块/轨道 */
+    }
+    body.dark-theme #searchResult::-webkit-scrollbar-track {
+        background: #333; /* 黑主题轨道色 */
+    }
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb {
+        background: #666; /* 黑主题滑块色 */
+    }
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+</style>
+
+<!-- 4. 引入jQuery和搜索逻辑JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script>
     var mobileBtn = function f() {
         var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
@@ -136,6 +290,226 @@
             mobileMenu.classList.add("active")
         }
     }
+
+    // 主题切换逻辑（完全重构：适配Chic原生dark-theme + 同步session/localStorage）
+    // ========== 主题切换：自动识别系统深色模式 + 手动切换 + 持久化 ==========
+$(document).ready(function() {
+    const $switch = $('#switch_default');
+    const $mobileThemeToggle = $('#mobile-toggle-theme');
+    const $body = $('body');
+    const THEME_STORAGE_KEY = 'chic_theme_mode';
+    // 检测系统深色模式的媒体查询
+    const darkModeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // 核心函数：切换主题（同步DOM/存储/按钮文字）
+    const switchTheme = (isDark) => {
+        if (isDark) {
+            $body.addClass('dark-theme');
+            $switch.prop('checked', true);
+            $mobileThemeToggle.text('·&nbsp;Dark');
+            localStorage.setItem(THEME_STORAGE_KEY, 'dark');
+            window.sessionStorage.theme = 'dark';
+        } else {
+            $body.removeClass('dark-theme');
+            $switch.prop('checked', false);
+            $mobileThemeToggle.text('·&nbsp;Light');
+            localStorage.setItem(THEME_STORAGE_KEY, 'light');
+            window.sessionStorage.theme = 'light';
+        }
+    };
+
+    // 1. 初始化主题：优先用户手动设置 → 其次系统深色模式 → 默认浅色
+    const initTheme = () => {
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        if (savedTheme) {
+            // 有用户手动设置，用用户的
+            switchTheme(savedTheme === 'dark');
+        } else {
+            // 无手动设置，自动识别系统模式
+            switchTheme(darkModeMedia.matches);
+        }
+    };
+
+    // 2. 监听系统深色模式变化（用户切换系统主题时，自动同步）
+    darkModeMedia.addEventListener('change', (e) => {
+        // 仅当用户未手动设置过主题时，才跟随系统
+        if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+            switchTheme(e.matches);
+        }
+    });
+
+    // 3. 手动切换主题（开关/移动端按钮）
+    $switch.change(function() {
+        switchTheme($(this).is(':checked'));
+    });
+    $mobileThemeToggle.click(function(e) {
+        e.preventDefault();
+        $switch.trigger('click');
+    });
+
+    // 初始化执行
+    initTheme();
+});
+
+// ========== 原有搜索逻辑（保留不变） ==========
+$(document).ready(function () {
+    const $searchBtn = $('.search-btn');
+    const $searchModal = $('#searchModal');
+    const $searchInput = $('#searchInput');
+    const $searchResult = $('#searchResult');
+
+    // 显示/隐藏搜索框
+    $searchBtn.click(function (e) {
+        e.preventDefault();
+        $searchModal.toggle();
+        if ($searchModal.is(':visible')) {
+            $searchInput.focus();
+        } else {
+            $searchInput.val('');
+            $searchResult.empty();
+        }
+    });
+
+    // 关闭搜索框
+    $('.search-close').click(function () {
+        $searchModal.hide();
+        $searchInput.val('');
+        $searchResult.empty();
+    });
+
+    // 点击外部关闭
+    $(document).click(function (e) {
+        if (
+            !$searchModal.is(e.target) && 
+            !$searchModal.has(e.target).length && 
+            !$searchBtn.is(e.target)
+        ) {
+            $searchModal.hide();
+            $searchInput.val('');
+            $searchResult.empty();
+        }
+    });
+
+    // 关键词搜索
+    $searchInput.on('input', function () {
+        const searchText = $(this).val().trim().toLowerCase();
+        $searchResult.empty();
+
+        if (searchText.length < 2) return;
+
+        $.get('/search.xml', function (xml) {
+            let hasMatch = false;
+            $(xml).find('entry').each(function () {
+                const title = $(this).find('title').text().toLowerCase();
+                const link = $(this).find('url').text();
+                const content = $(this).find('content').text().toLowerCase();
+
+                if (title.includes(searchText) || content.includes(searchText)) {
+                    $searchResult.append(`
+                        <li style="padding: 10px 0;">
+                            <a href="${link}?keyword=${encodeURIComponent(searchText)}" 
+                               style="text-decoration: none;" 
+                               target="_blank">
+                                ${$(this).find('title').text()}
+                            </a>
+                        </li>
+                    `);
+                    hasMatch = true;
+                }
+            });
+
+            if (!hasMatch) {
+                $searchResult.append(`
+                    <li style="padding: 10px; text-align: center;">未找到匹配文章</li>
+                `);
+            }
+        }).fail(function () {
+            $searchResult.append(`
+                <li style="padding: 10px; color: #f44336; text-align: center;">搜索索引加载失败</li>
+            `);
+        });
+    });
+});
+
+    // 搜索逻辑（保持不变）
+    $(document).ready(function () {
+        const $searchBtn = $('.search-btn');
+        const $searchModal = $('#searchModal');
+        const $searchInput = $('#searchInput');
+        const $searchResult = $('#searchResult');
+
+        // 显示/隐藏搜索框
+        $searchBtn.click(function (e) {
+            e.preventDefault();
+            $searchModal.toggle();
+            if ($searchModal.is(':visible')) {
+                $searchInput.focus();
+            } else {
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 关闭搜索框
+        $('.search-close').click(function () {
+            $searchModal.hide();
+            $searchInput.val('');
+            $searchResult.empty();
+        });
+
+        // 点击外部关闭
+        $(document).click(function (e) {
+            if (
+                !$searchModal.is(e.target) && 
+                !$searchModal.has(e.target).length && 
+                !$searchBtn.is(e.target)
+            ) {
+                $searchModal.hide();
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 关键词搜索
+        $searchInput.on('input', function () {
+            const searchText = $(this).val().trim().toLowerCase();
+            $searchResult.empty();
+
+            if (searchText.length < 2) return;
+
+            $.get('/search.xml', function (xml) {
+                let hasMatch = false;
+                $(xml).find('entry').each(function () {
+                    const title = $(this).find('title').text().toLowerCase();
+                    const link = $(this).find('url').text();
+                    const content = $(this).find('content').text().toLowerCase();
+
+                    if (title.includes(searchText) || content.includes(searchText)) {
+                        $searchResult.append(`
+                            <li style="padding: 10px 0;">
+                                <a href="${link}?keyword=${encodeURIComponent(searchText)}" 
+                                   style="text-decoration: none;" 
+                                   target="_blank">
+                                    ${$(this).find('title').text()}
+                                </a>
+                            </li>
+                        `);
+                        hasMatch = true;
+                    }
+                });
+
+                if (!hasMatch) {
+                    $searchResult.append(`
+                        <li style="padding: 10px; text-align: center;">未找到匹配文章</li>
+                    `);
+                }
+            }).fail(function () {
+                $searchResult.append(`
+                    <li style="padding: 10px; color: #f44336; text-align: center;">搜索索引加载失败</li>
+                `);
+            });
+        });
+    });
 </script>
             <div class="main">
                 <div class="container">
@@ -441,6 +815,57 @@
     </article>
 </div>
 
+<!-- �����ڹؼ��ʶ�λ+�����߼� -->
+<script>
+// 1. ��URL�л�ȡ�ؼ��ʲ���
+function getUrlParam(name) {
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+  const r = window.location.search.substr(1).match(reg);
+  if (r != null) return decodeURIComponent(r[2]);
+  return null;
+}
+
+// 2. �������������ؼ���λ��
+function highlightAndScrollToKeyword() {
+  const keyword = getUrlParam('keyword');
+  if (!keyword || keyword.length < 2) return; // �޹ؼ���/�ؼ��ʹ���������
+
+  // ��λ������������Chic�����������ݵ�������������ȷ���Ƿ�ƥ�䣬Ĭ����.post-content��
+  const contentEl = document.querySelector('.post-content');
+  if (!contentEl) return;
+
+  // ��¡���ݣ�����ֱ���޸�ԭDOM���µ�����
+  const contentHtml = contentEl.innerHTML;
+  // ����ƥ��ؼ��ʣ����Դ�Сд��ȫ��ƥ�䣩
+  const reg = new RegExp(`(${keyword})`, 'gi');
+  // �滻�ؼ��ʲ����Ӹ�����ʽ
+  const newHtml = contentHtml.replace(reg, '<span style="background: #ffff00; color: #333; padding: 0 2px; border-radius: 2px;">$1</span>');
+  contentEl.innerHTML = newHtml;
+
+  // 3. ��������һ��ƥ��Ĺؼ���λ��
+  const firstHighlight = contentEl.querySelector('span[style*="background: #ffff00"]');
+  if (firstHighlight) {
+    // ƽ���������ؼ���λ�ã�ƫ��-80px�����ⱻ�������ڵ���
+    firstHighlight.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+    // ����һ������Ԫ��������˸Ч������ǿ�Ӿ���ʾ
+    firstHighlight.animate([
+      { opacity: 0.5 },
+      { opacity: 1 }
+    ], {
+      duration: 1000,
+      iterations: 2
+    });
+  }
+}
+
+// ҳ�������ɺ�ִ��
+window.onload = function() {
+  highlightAndScrollToKeyword();
+};
+</script>
             </div>
             <footer id="footer" class="footer">
     <div class="footer-typing-container">
