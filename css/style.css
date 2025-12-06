@@ -1372,23 +1372,6 @@ body.dark-theme .wrapper {
   background-color: rgba(0,0,0,0.65) !important;
   box-shadow: 0 0 8px rgba(255,255,255,0.05) !important;
 }
-@media (max-width: 768px) {
-  body,
-  body.dark-theme {
-    background-attachment: scroll !important;
-    background-size: cover !important;
-  }
-  body.dark-theme::before {
-    background-attachment: scroll !important;
-    box-shadow: inset 0 0 0 100vw rgba(255,255,255,0.12) !important;
-  }
-  .wrapper {
-    background-color: rgba(255,255,255,0.75) !important;
-  }
-  body.dark-theme .wrapper {
-    background-color: rgba(0,0,0,0.7) !important;
-  }
-}
 .post-content {
   border-radius: 16px !important;
   padding: 20px 24px !important;
@@ -1409,7 +1392,7 @@ body.dark-theme .post-content {
   box-shadow: 0 2px 12px rgba(0,0,0,0.1) !important;
 }
 .post-header {
-  border-radius: 12px 12px 12px 12px !important;
+  border-radius: 12px !important;
   background: rgba(255,255,255,0.6) !important;
   backdrop-filter: blur(5px) !important;
   -webkit-backdrop-filter: blur(5px) !important;
@@ -1434,7 +1417,6 @@ body.dark-theme .post-header {
 body.dark-theme .navbar {
   background-color: rgba(20,20,20,0.55) !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-  border-radius: 0 0 16px 16px !important;
 }
 .navbar-mobile {
   background: transparent !important;
@@ -1450,7 +1432,6 @@ body.dark-theme .navbar {
 body.dark-theme .navbar-mobile {
   background-color: rgba(20,20,20,0.6) !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-  border-radius: 0 0 12px 12px !important;
 }
 .menu-item {
   color: inherit !important;
@@ -1461,17 +1442,28 @@ body.dark-theme .menu-item {
   color: #e0e0e0 !important;
 }
 @media (max-width: 768px) {
+  body,
+  body.dark-theme {
+    background-attachment: scroll !important;
+    background-size: cover !important;
+  }
+  body.dark-theme::before {
+    background-attachment: scroll !important;
+    box-shadow: inset 0 0 0 100vw rgba(255,255,255,0.12) !important;
+  }
+  .wrapper {
+    background-color: rgba(255,255,255,0.75) !important;
+  }
+  body.dark-theme .wrapper {
+    background-color: rgba(0,0,0,0.7) !important;
+  }
   .navbar,
   .navbar-mobile {
     backdrop-filter: blur(4px) !important;
     -webkit-backdrop-filter: blur(4px) !important;
     border-radius: 0 0 10px 10px !important;
   }
-  body.dark-theme .navbar,
-  body.dark-theme .navbar-mobile {
-    border-radius: 0 0 10px 10px !important;
-  }
   .post-header {
-    border-radius: 10px 10px 10px 10px !important;
+    border-radius: 10px !important;
   }
 }

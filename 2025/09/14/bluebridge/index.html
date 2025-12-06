@@ -3,10 +3,12 @@
 
 <head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
     <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.js"></script>
-    <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- �ַ��������ӿ����� -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- վ��Ԫ��Ϣ -->
 
     <meta name="author" content="Lyxy-szs">
 
@@ -16,23 +18,24 @@
 
 
 
+<!-- ҳ����⶯̬���� -->
+
 <title>蓝桥杯 | Johnson</title>
 
-
+<!-- ��վͼ�� -->
 
     <link rel="icon" href="/2.ico">
 
 
+<!-- �Զ���CSS�б������������ü��أ� -->
 
-
-    <!-- stylesheets list from _config.yml -->
     
     <link rel="stylesheet" href="/css/style.css">
     
 
 
+<!-- �Զ���JS�б������������ü��أ� -->
 
-    <!-- scripts list from _config.yml -->
     
     <script src="/js/script.js"></script>
     
@@ -44,12 +47,9 @@
     
 
 
+<!-- MathJax��ʽ��Ⱦ֧�� -->
 
     
-    
-        
-    
-
 
 <meta name="generator" content="Hexo 7.3.0"></head>
 
@@ -93,18 +93,19 @@
                 <a class="menu-item" href="/downloads">下载</a>
                 
                 
-                <!-- 1. 桌面端搜索按钮 -->
+                <!-- 桌面端搜索按钮 -->
                 <button class="search-btn menu-item" style="
                     background: transparent; 
                     border: none; 
                     cursor: pointer; 
                     font-size: inherit; 
                     color: inherit;
-                    padding: 0 10px; /* 与其他导航项保持一致的内边距 */
+                    padding: 0 10px;
                 ">
-                    搜索 <!-- 若有Font Awesome，可替换为 <i class="fa fa-search"></i> -->
+                    搜索
                 </button>
 
+                <!-- 恢复默认主题切换结构 -->
                 <input id="switch_default" type="checkbox" class="switch_default">
                 <label for="switch_default" class="toggleBtn"></label>
             </div>
@@ -116,13 +117,12 @@
         <div class="container">
             <div class="navbar-header">
                 <div>
-                    <a href="/">Johnson&#39;s Blog</a>
-                    <!-- 关键修改1：给移动端按钮加可点击样式，避免点不到 -->
-                    <a id="mobile-toggle-theme" style="cursor: pointer; user-select: none; padding: 0 8px; text-decoration: none;">· Light</a>
+                    <!-- 恢复默认结构：&nbsp;改为空格 -->
+                    <a href="/">Johnson&#39;s Blog</a><a id="mobile-toggle-theme">· Light</a>
                 </div>
                 <div class="menu-toggle" onclick="mobileBtn()">
                     <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
-                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
+                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
                 </div>
             </div>
             <div class="menu" id="mobile-menu">
@@ -138,18 +138,18 @@
                 <a class="menu-item" href="/downloads">下载</a>
                 
 
-                <!-- 2. 移动端搜索按钮 -->
+                <!-- 移动端搜索按钮 -->
                 <button class="search-btn menu-item" style="
                     background: transparent; 
                     border: none; 
                     cursor: pointer; 
                     font-size: inherit; 
                     color: inherit;
-                    padding: 10px 0; /* 与移动端导航项保持一致的内边距 */
-                    width: 100%; /* 移动端按钮占满宽度 */
-                    text-align: left; /* 与其他导航项对齐 */
+                    padding: 10px 0;
+                    width: 100%;
+                    text-align: left;
                 ">
-                    搜索 <!-- 同上，可替换为图标 -->
+                    搜索
                 </button>
             </div>
         </div>
@@ -157,7 +157,7 @@
 
 </header>
 
-<!-- 3. 添加搜索框HTML（默认隐藏） -->
+<!-- 搜索框HTML -->
 <div id="searchModal" style="
     display: none; 
     position: fixed; 
@@ -191,7 +191,7 @@
     <ul id="searchResult" style="list-style: none; padding: 0; margin-top: 15px; max-height: 300px; overflow-y: auto;"></ul>
 </div>
 
-<!-- 主题适配样式（新增滚动条主题适配） -->
+<!-- 主题适配样式 -->
 <style>
     /* 白主题样式 */
     #searchTitle,
@@ -213,74 +213,81 @@
         color: #999 !important;
     }
 
-    /* 黑主题样式（关键修改：dark → dark-theme） */
+    /* 黑主题样式 */
+    body.dark #searchTitle,
     body.dark-theme #searchTitle,
+    body.dark #searchInput,
     body.dark-theme #searchInput,
+    body.dark #searchResult a,
     body.dark-theme #searchResult a {
         color: #fff !important;
     }
+    body.dark .search-close,
     body.dark-theme .search-close {
         color: #ccc !important;
     }
+    body.dark #searchInput,
     body.dark-theme #searchInput {
         background: rgba(50, 50, 50, 0.8) !important;
         border-color: #666 !important;
     }
+    body.dark #searchResult li,
     body.dark-theme #searchResult li {
         border-bottom: 1px dashed #555 !important;
     }
+    body.dark #searchResult li,
     body.dark-theme #searchResult li {
         color: #aaa !important;
     }
+    body.dark #searchInput::placeholder,
     body.dark-theme #searchInput::placeholder {
         color: #aaa !important;
     }
 
-    /* ========== 新增：搜索结果滚动条主题适配 ========== */
-    /* 1. 白主题滚动条（默认） */
+    /* 滚动条主题适配 */
     #searchResult {
-        scrollbar-width: thin; /* 火狐兼容 - 细滚动条 */
-        scrollbar-color: #ccc #f5f5f5; /* 火狐：滑块颜色 轨道颜色 */
+        scrollbar-width: thin;
+        scrollbar-color: #ccc #f5f5f5;
     }
-    /* 滚动条整体宽度（webkit内核：Chrome/Edge/Safari） */
     #searchResult::-webkit-scrollbar {
-        width: 6px; /* 竖向滚动条宽度 */
-        height: 6px; /* 横向滚动条（备用） */
+        width: 6px;
+        height: 6px;
     }
-    /* 滚动条轨道 */
     #searchResult::-webkit-scrollbar-track {
-        background: #f5f5f5; /* 白主题轨道色 */
-        border-radius: 3px; /* 圆角更美观 */
-    }
-    /* 滚动条滑块 */
-    #searchResult::-webkit-scrollbar-thumb {
-        background: #ccc; /* 白主题滑块色 */
+        background: #f5f5f5;
         border-radius: 3px;
     }
-    /* 滑块hover状态 */
+    #searchResult::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
     #searchResult::-webkit-scrollbar-thumb:hover {
         background: #999;
     }
 
-    /* 2. 黑主题滚动条 */
+    body.dark #searchResult,
     body.dark-theme #searchResult {
         scrollbar-width: thin;
-        scrollbar-color: #666 #333; /* 火狐：黑主题滑块/轨道 */
+        scrollbar-color: #666 #333;
     }
+    body.dark #searchResult::-webkit-scrollbar-track,
     body.dark-theme #searchResult::-webkit-scrollbar-track {
-        background: #333; /* 黑主题轨道色 */
+        background: #333;
     }
+    body.dark #searchResult::-webkit-scrollbar-thumb,
     body.dark-theme #searchResult::-webkit-scrollbar-thumb {
-        background: #666; /* 黑主题滑块色 */
+        background: #666;
     }
+    body.dark #searchResult::-webkit-scrollbar-thumb:hover,
     body.dark-theme #searchResult::-webkit-scrollbar-thumb:hover {
         background: #888;
     }
 </style>
 
-<!-- 4. 引入jQuery和搜索逻辑JS -->
+<!-- 引入jQuery和搜索逻辑JS -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script>
+    // 移动菜单切换函数（保持原样）
     var mobileBtn = function f() {
         var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
         var mobileMenu = document.getElementById("mobile-menu");
@@ -293,73 +300,7 @@
         }
     }
 
-    // 主题切换逻辑（完全重构：修复移动端切换 + 系统深色模式识别）
-    $(document).ready(function() {
-        const $switch = $('#switch_default');
-        const $mobileThemeToggle = $('#mobile-toggle-theme');
-        const $body = $('body');
-        const THEME_STORAGE_KEY = 'chic_theme_mode';
-        // 关键新增：检测系统深色模式
-        const darkModeMedia = window.matchMedia('(prefers-color-scheme: dark)');
-
-        // 核心函数：更新主题状态（统一桌面+移动端）
-        const updateTheme = (isDark) => {
-            // 1. 更新body类名
-            if (isDark) {
-                $body.addClass('dark-theme');
-            } else {
-                $body.removeClass('dark-theme');
-            }
-            // 2. 更新桌面开关状态
-            $switch.prop('checked', isDark);
-            // 3. 更新移动端按钮文字（修复乱码，用普通空格）
-            $mobileThemeToggle.text(isDark ? '· Dark' : '· Light');
-            // 4. 持久化存储
-            localStorage.setItem(THEME_STORAGE_KEY, isDark ? 'dark' : 'light');
-            window.sessionStorage.theme = isDark ? 'dark' : 'light';
-        };
-
-        // 关键修复1：初始化主题（解决卡在dark模式）
-        const initTheme = () => {
-            let isDark = false;
-            // 优先级：用户手动设置 > 系统深色模式 > 默认浅色
-            const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-            if (savedTheme) {
-                isDark = savedTheme === 'dark';
-            } else {
-                // 无用户设置时，自动识别系统模式
-                isDark = darkModeMedia.matches;
-            }
-            // 强制更新主题状态，避免卡在dark
-            updateTheme(isDark);
-        };
-
-        // 关键修复2：桌面端开关切换（重新绑定事件，避免失效）
-        $switch.off('change').on('change', function() {
-            updateTheme($(this).is(':checked'));
-        });
-
-        // 关键修复3：移动端按钮切换（阻止冒泡 + 强制触发开关）
-        $mobileThemeToggle.off('click').on('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation(); // 阻止事件冒泡到移动端菜单
-            // 强制触发桌面开关的change事件，确保逻辑同步
-            $switch.prop('checked', !$switch.is(':checked')).trigger('change');
-        });
-
-        // 关键新增：监听系统深色模式变化（用户切换系统主题时自动同步）
-        darkModeMedia.addEventListener('change', function(e) {
-            // 仅当用户未手动设置过主题时，才跟随系统
-            if (!localStorage.getItem(THEME_STORAGE_KEY)) {
-                updateTheme(e.matches);
-            }
-        });
-
-        // 初始化执行
-        initTheme();
-    });
-
-    // 搜索逻辑（保持不变）
+    // 搜索功能逻辑（保持不变）
     $(document).ready(function () {
         const $searchBtn = $('.search-btn');
         const $searchModal = $('#searchModal');
@@ -611,7 +552,7 @@
                 <a class="prev" rel="prev" href="/2025/11/15/opencv/">opencv</a>
             
             
-            <a class="next" rel="next" href="/2025/09/11/C++for0/">C++基础入门</a>
+            <a class="next" rel="next" href="/2025/09/11/C++&note1/">C++/note1</a>
             
         </section>
 
