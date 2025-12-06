@@ -1359,6 +1359,7 @@ body.dark-theme::before {
   pointer-events: none;
   background-color: transparent !important;
   background-blend-mode: unset !important;
+  box-shadow: inset 0 0 0 100vw rgba(255,255,255,0.1) !important;
 }
 .wrapper {
   background-color: rgba(255,255,255,0.7) !important;
@@ -1379,6 +1380,7 @@ body.dark-theme .wrapper {
   }
   body.dark-theme::before {
     background-attachment: scroll !important;
+    box-shadow: inset 0 0 0 100vw rgba(255,255,255,0.12) !important;
   }
   .wrapper {
     background-color: rgba(255,255,255,0.75) !important;
@@ -1390,10 +1392,10 @@ body.dark-theme .wrapper {
 .post-content {
   border-radius: 16px !important;
   padding: 20px 24px !important;
-  background: rgba(255,255,255,0.8) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05) !important;
+  background: rgba(255,255,255,0.65) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.03) !important;
   margin: 16px 0 !important;
 }
 @media (max-width: 768px) {
@@ -1403,17 +1405,73 @@ body.dark-theme .wrapper {
   }
 }
 body.dark-theme .post-content {
-  background: rgba(30,30,30,0.8) !important;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15) !important;
+  background: rgba(30,30,30,0.65) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1) !important;
 }
 .post-header {
-  border-radius: 12px 12px 0 0 !important;
-  background: rgba(255,255,255,0.7) !important;
-  backdrop-filter: blur(6px) !important;
-  -webkit-backdrop-filter: blur(6px) !important;
+  border-radius: 12px 12px 12px 12px !important;
+  background: rgba(255,255,255,0.6) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
   padding: 16px 24px !important;
-  margin-bottom: 0 !important;
+  margin-bottom: 8px !important;
 }
 body.dark-theme .post-header {
-  background: rgba(40,40,40,0.7) !important;
+  background: rgba(40,40,40,0.6) !important;
+}
+.navbar {
+  background: transparent !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  background-color: rgba(255,255,255,0.55) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important;
+  border-radius: 0 0 16px 16px !important;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+body.dark-theme .navbar {
+  background-color: rgba(20,20,20,0.55) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  border-radius: 0 0 16px 16px !important;
+}
+.navbar-mobile {
+  background: transparent !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  background-color: rgba(255,255,255,0.6) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important;
+  border-radius: 0 0 12px 12px !important;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+body.dark-theme .navbar-mobile {
+  background-color: rgba(20,20,20,0.6) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  border-radius: 0 0 12px 12px !important;
+}
+.menu-item {
+  color: inherit !important;
+  padding: 0 12px !important;
+  border-radius: 8px !important;
+}
+body.dark-theme .menu-item {
+  color: #e0e0e0 !important;
+}
+@media (max-width: 768px) {
+  .navbar,
+  .navbar-mobile {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    border-radius: 0 0 10px 10px !important;
+  }
+  body.dark-theme .navbar,
+  body.dark-theme .navbar-mobile {
+    border-radius: 0 0 10px 10px !important;
+  }
+  .post-header {
+    border-radius: 10px 10px 10px 10px !important;
+  }
 }
