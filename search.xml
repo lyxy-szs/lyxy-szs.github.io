@@ -160,20 +160,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C/note1</title>
-    <url>/2025/12/06/C&amp;note/</url>
-    <content><![CDATA[<h1 id="C���"><a href="#C���" class="headerlink" title="C���"></a>C���</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> d;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="���nʼ�"><a href="#���nʼ�" class="headerlink" title="���ñʼ�"></a>���ñʼ�</h1>]]></content>
-      <categories>
-        <category>C���</category>
-      </categories>
-      <tags>
-        <tag>note</tag>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++/note2</title>
     <url>/2025/12/05/C++&amp;note2/</url>
     <content><![CDATA[<h1 id="取得一个数组的某一位数"><a href="#取得一个数组的某一位数" class="headerlink" title="取得一个数组的某一位数"></a>取得一个数组的某一位数</h1><hr>
@@ -358,106 +344,17 @@
       </tags>
   </entry>
   <entry>
-    <title>bat脚本一日游</title>
-    <url>/2025/08/20/a-travel-of-bat/</url>
-    <content><![CDATA[<h1 id="这段时间在搞hexo博客"><a href="#这段时间在搞hexo博客" class="headerlink" title="这段时间在搞hexo博客"></a>这段时间在搞hexo博客</h1><p>  因为要本地编写、测试、上传博客，每次都要打代码，我嫌麻烦打算写个bat脚本来一键完成。</p>
-<h2 id="Part-0-创建脚本（基础须知-可跳转到-Part-1）"><a href="#Part-0-创建脚本（基础须知-可跳转到-Part-1）" class="headerlink" title="Part.0 创建脚本（基础须知,可跳转到 ###Part.1）"></a>Part.0 创建脚本（基础须知,可跳转到 ###Part.1）</h2><p>   先创建一个文本文档，将文件后缀名改为.bat，右键打开编辑。<br>   <code>@echo off</code>**@**是不显示当前行命令，<strong>echo off</strong>是不显示下述命令。<br>   <code>::或REM</code> 空格后加注释，<em><strong>注意换行</strong></em>。<br>   <code>pause</code>暂停，输入任意值继续。</p>
-<p>   <code>set</code>set 命令定义变量.eg:<code>set var=value</code>，这里 var 是变量名，value 是变量的值。<br>   <code> setlocal enabledelayedexpansion</code>当变量的值在循环中可能会发生变化时，需要开启延迟变量扩展,用<code>!var!</code>的形式访问变量。<br>   <code>%</code>访问变量的值需要用 % 括起来，eg:<code>echo %var%</code>会在命令提示符窗口输出变量 var 的值。</p>
-<p>   <code>echo</code>用于在命令提示符窗口输出文本信息。<br>   <code>mkdir</code>用于创建目录。eg:<code>mkdir new folder</code> 会在当前目录下创建一个名为 new folder 的新文件夹。<br>   <code>cd</code>切换目录。<code>cd new folder</code>会进入刚刚创建的 new folder 目录；<code>cd..</code>可以返回上一级目录。<br>   <code>dir</code>列出目录中的文件和子目录。dir 命令会显示当前目录下的内容,<code>dir /s</code>可以递归列出当前目录及其所有子目录下的内容。<br>   <code>explorer</code>可以打开路径（”文件路径”），直接后加<code> /select,文件路径</code>可选中文件</p>
-<h4 id="start命令"><a href="#start命令" class="headerlink" title="start命令"></a><code>start</code>命令</h4><p>   用法：<code>start [“title”] [parameters] “program name” [command line parameters]</code><br>   其中：<br>   **“title”**是可选的，是要启动的窗口的标题。<br>   <strong>parameters</strong>也是可选的，指定窗口的大小、状态等。eg:<code>/min</code>表示以最小化窗口启动,<code>/max</code>表示以最大化窗口启动。<br>   **“program name”**要启动的程序的名称或可执行文件的路径。如果路径包含空格，同样需要用双引号括起来。eg:<code>start “C:\Program Files\Microsoft Office\Excel.exe”</code>会启动 Excel 程序。(双引号不可省略)<br>   <strong>command - line parameters</strong>传递给程序的命令行参数。比如你有一个网址，想用edge打开 eg:<code>start &quot;Edge&quot; &quot;https://www.baidu.com&quot;</code></p>
-<p>  剩下的可以问AI，</p>
-<h2 id="Part-1-写个博客"><a href="#Part-1-写个博客" class="headerlink" title="Part.1 写个博客"></a>Part.1 写个博客</h2><p>   <code>@hexo new &quot;new&quot;&amp;&amp;explorer.exe /select,C:\Users\Admin\Desktop\hexo\source\_posts\new.md</code><br>解释：先用hexo创建一个名为new的文件，在打开并选中该文件，<strong><del>不实现自动改名是因为我试了半天都实现不了，连键入F2都不行</del></strong></p>
-<h2 id="Part-2-本地测试博客"><a href="#Part-2-本地测试博客" class="headerlink" title="Part.2 本地测试博客"></a>Part.2 本地测试博客</h2><p>   <code>hexo clean&amp;&amp;start &quot;Edge&quot; &quot;http://localhost:4000&quot;&amp;&amp;hexo s</code><br>解释：先清理缓存，用edge打开本地端口，再开启本地博客服务，因为代码是从前向后运行，所以顺序不可改，先运行<code>hexo s</code>会导致无法自动打开浏览器</p>
-<h2 id="Part-3-上传博客"><a href="#Part-3-上传博客" class="headerlink" title="Part.3 上传博客"></a>Part.3 上传博客</h2><p>   <code>hexo clean&amp;&amp;hexo generate&amp;&amp;hexo deploy&amp;&amp;pause</code><br>解释：<code>pause</code>的作用是在正常上传博客之后，留有一个任意键的窗口，从而知晓博客正常上传与否</p>
-<h3 id="保存为bat，你就获得的自动化脚本"><a href="#保存为bat，你就获得的自动化脚本" class="headerlink" title="保存为bat，你就获得的自动化脚本"></a>保存为bat，你就获得的自动化脚本</h3><p>另外，part·1中废稿粘在下面，希望有人可以解疑———为什么它无法正常运行</p>
-<details>
-<summary>点击展开完整代码（batch）</summary>
+    <title>C/note1</title>
+    <url>/2025/12/06/C&amp;note/</url>
+    <content><![CDATA[<h1 id="C���"><a href="#C���" class="headerlink" title="C���"></a>C���</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">double</span> d;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<pre><code class="language-batch">@echo off
-setlocal enabledelayedexpansion
-
-echo 正在创建新的Hexo博客文章...
-call hexo new &quot;new_blog&quot;
-
-if errorlevel 1 (
-    echo 错误: 创建博客文章失败
-    echo 请确保:
-    echo 1. Hexo已正确安装
-    echo 2. 当前目录是Hexo博客根目录
-    pause
-    exit /b 1
-)
-
-set &quot;postPath=C:\Users\Admin\Desktop\hexo\source\_posts\&quot;
-set &quot;oldFileName=new_blog.md&quot;
-
-rem 检查文章目录是否存在
-if not exist &quot;!postPath!&quot; (
-    echo 错误: 文章目录不存在: !postPath!
-    echo 请检查路径是否正确
-    pause
-    exit /b 1
-)
-
-echo.
-echo 请输入新的文件名(不含扩展名)，直接回车将保持原文件名:
-set /p &quot;newName=&quot;
-
-if &quot;!newName!&quot;==&quot;&quot; (
-    echo 保持原文件名: new_blog.md
-    set &quot;finalFileName=!oldFileName!&quot;
-) else (
-    echo 正在将文件重命名为: !newName!.md
-    
-    rem 检查原文件是否存在
-    if not exist &quot;!postPath!!oldFileName!&quot; (
-        echo 错误: 原文件 !postPath!!oldFileName! 不存在
-        echo 请检查Hexo是否成功创建了文章
-        pause
-        exit /b 1
-    )
-    
-    rem 执行重命名操作
-    ren &quot;!postPath!!oldFileName!&quot; &quot;!newName!.md&quot;
-    
-    if errorlevel 1 (
-        echo 错误: 重命名文件失败
-        echo 可能的原因:
-        echo 1. 新文件名包含非法字符
-        echo 2. 已存在同名文件
-        echo 3. 没有足够的权限
-        pause
-        exit /b 1
-    )
-    
-    set &quot;finalFileName=!newName!.md&quot;
-)
-
-echo 博客文章创建完成: !finalFileName!
-
-rem 打开文件
-if exist &quot;!postPath!!finalFileName!&quot; (
-    echo 正在打开文件...
-    start &quot;&quot; &quot;!postPath!!finalFileName!&quot;
-) else (
-    echo 警告: 文件 !postPath!!finalFileName! 不存在，无法打开
-)
-
-echo.
-echo 按任意键退出...
-pause &gt;nul
-
-
-
-
-
-</code></pre>
-]]></content>
+<h1 id="���nʼ�"><a href="#���nʼ�" class="headerlink" title="���ñʼ�"></a>���ñʼ�</h1>]]></content>
       <categories>
-        <category>Bat脚本</category>
+        <category>C���</category>
       </categories>
       <tags>
-        <tag>bat</tag>
+        <tag>note</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -2267,40 +2164,58 @@ pause &gt;nul
       </tags>
   </entry>
   <entry>
-    <title>蓝桥杯</title>
-    <url>/2025/09/14/bluebridge/</url>
-    <content><![CDATA[<h2 id="设计师调度分配"><a href="#设计师调度分配" class="headerlink" title="设计师调度分配"></a>设计师调度分配</h2><p>在一个创意工作室中，三位设计师李工、王工和张工分别负责三项独立的模型制作任务。李工完成任务需要a1秒，王工需要a2秒，张工需要a3秒。工作室的建模平台一次只能容纳两名设计师工作，第三位设计师需等待，直到平台空闲（即当前一位设计师完成任务离开）才能开始工作。所有模型全部完成时，项目才算正式交付。<br>现在，经理希望合理调度设计师的工作顺序，以最短时间完成所有任务。请你计算三位设计师完成三件模型的最小总时间。<br>输入格式<code>3 5 7</code><br>输出结果<code>8</code></p>
-<p>代码</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  vector&lt;<span class="type">int</span>&gt; numbers;</span><br><span class="line">  <span class="type">int</span> a1, a2, a3, c;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin &gt;&gt; a;</span><br><span class="line">    numbers.<span class="built_in">push_back</span>(a);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="built_in">sort</span>(numbers.<span class="built_in">begin</span>(), numbers.<span class="built_in">end</span>());</span><br><span class="line">  a1 = numbers[<span class="number">0</span>];</span><br><span class="line">  a2 = numbers[<span class="number">1</span>];</span><br><span class="line">  a3 = numbers[<span class="number">2</span>]; </span><br><span class="line">  </span><br><span class="line">  c=a1 + a2;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(c &gt;= a3)&#123;</span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">    cout &lt;&lt; a3 &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="妈妈的菜单"><a href="#妈妈的菜单" class="headerlink" title="妈妈的菜单"></a>妈妈的菜单</h2><p> 小蓝是个挑食但又容易饿的孩子。午餐时间，妈妈为他准备了 10 道菜，并写下了一份菜单。菜单上的每道菜都有一个“饱腹值”，表示吃下这道菜能增加多少饱腹感。</p>
-<p>妈妈会严格按照菜单的顺序，从第一道菜开始逐一端上餐桌。小蓝可以选择吃或不吃当前这道菜。然而，一旦他决定不吃某一道菜，妈妈就会认为他已经吃饱了，并停止端上后续的所有菜肴。</p>
-<p>小蓝虽然容易饿，但也不喜欢吃得太撑的感觉。因此，他希望午餐后自己的饱腹值能停留在 100 附近。</p>
-<p>现在，请你根据小蓝的情况计算，他最终会获得的饱腹值是多少。</p>
-<p>注意：如果存在两种选择，它们与 100 的差距相同（例如，饱腹值为 98 和 102），他总是会选择那个更高的值——毕竟，对于一个正在长身体的孩子来说，吃撑一点总比饿着肚子好。</p>
-<p>输入格式<code>20 10 10 10 10 10 10 10 15 15</code><br>输出格式<code>105</code></p>
-<p>代码</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span> <span class="comment">// 用于abs函数</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">short</span> food[<span class="number">10</span>]; <span class="comment">// 存储10道菜的饱腹值</span></span><br><span class="line">    <span class="type">int</span> best = <span class="number">0</span>;   <span class="comment">// 最佳饱腹值（初始为0，表示什么都不吃）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取10道菜的饱腹值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        cin &gt;&gt; food[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> current = <span class="number">0</span>; <span class="comment">// 当前累计饱腹值</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历所有可能的前缀和（吃前0道、前1道、...、前10道菜）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        current += food[i]; <span class="comment">// 吃当前这道菜</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查当前饱腹值是否比之前的最佳选择更好</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) &lt; <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            best = current; <span class="comment">// 更接近100，更新最佳值</span></span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) == <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (current &gt; best) &#123; <span class="comment">// 差距相同，选择更高的值</span></span><br><span class="line">                best = current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 注意：这里不能break，因为要继续考虑所有可能的前缀和</span></span><br><span class="line">        <span class="comment">// 即使当前已经超过100，后面可能还有更接近100的情况</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; best &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>Cpp-Faction</title>
+    <url>/2025/11/27/Cpp-Faction/</url>
+    <content><![CDATA[<h1 id="C-函数编写与封装方法详解"><a href="#C-函数编写与封装方法详解" class="headerlink" title="C++ 函数编写与封装方法详解"></a>C++ 函数编写与封装方法详解</h1><h2 id="1-函数的基本结构"><a href="#1-函数的基本结构" class="headerlink" title="1. 函数的基本结构"></a>1. 函数的基本结构</h2><h3 id="1-1-基本函数定义"><a href="#1-1-基本函数定义" class="headerlink" title="1.1 基本函数定义"></a>1.1 基本函数定义</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 函数声明</span></span><br><span class="line">返回类型 函数名(参数列表);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数定义</span></span><br><span class="line">返回类型 函数名(参数列表) &#123;</span><br><span class="line">    <span class="comment">// 函数体</span></span><br><span class="line">    <span class="keyword">return</span> 返回值;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="挑选题目"><a href="#挑选题目" class="headerlink" title="挑选题目"></a>挑选题目</h2><p>两位资深的审题专家，小蓝和小桥，各自收到了N道题目。小蓝收到的题目难度依次为 A1,A2,A3…An，小桥收到的题目难度依次为B1,B2,B3…Bn，为了准备即将举行的竞赛，他们需要从各自收到的题目中选出一道，用于竞赛。通过商量，两人决定通过一种特殊的方式来选择题目：两人轮流删除一道自己手中的题目，直到各自只剩下一道题目。小蓝先删除，然后小桥删除，依此交替进行，直到最后两人手中都只剩下一道题目。小蓝希望最终两人剩下的两道题目的难度差尽可能大，而小桥则希望难度差尽可能小。假设两人都采取最优策略，请问最终两人剩下的两道题目的难度差的绝对值是多少？</p>
-<details>
-<summary>for双层循环示例（cpp）</summary>
+<h3 id="1-2-完整示例"><a href="#1-2-完整示例" class="headerlink" title="1.2 完整示例"></a>1.2 完整示例</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数声明</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printMessage</span><span class="params">(<span class="type">const</span> string&amp; message)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数定义</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printMessage</span><span class="params">(<span class="type">const</span> string&amp; message)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Message: &quot;</span> &lt;&lt; message &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> result = <span class="built_in">add</span>(<span class="number">5</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">printMessage</span>(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a[<span class="number">999</span>],b[<span class="number">999</span>];</span><br><span class="line">  <span class="type">int</span> min=<span class="number">9999999</span>;</span><br><span class="line">  <span class="type">int</span> max=<span class="number">-1</span>;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  cin&gt;&gt;n;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
+<h2 id="2-参数传递方式"><a href="#2-参数传递方式" class="headerlink" title="2. 参数传递方式"></a>2. 参数传递方式</h2><h3 id="2-1-值传递-Pass-by-Value"><a href="#2-1-值传递-Pass-by-Value" class="headerlink" title="2.1 值传递 (Pass by Value)"></a>2.1 值传递 (Pass by Value)</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">modifyValue</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    x = <span class="number">100</span>;  <span class="comment">// 不影响原始变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">modifyValue</span>(a);</span><br><span class="line">    cout &lt;&lt; a;  <span class="comment">// 输出: 10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<details>
-<summary>我写的代码（cpp）</summary>
+<h3 id="2-2-引用传递-Pass-by-Reference"><a href="#2-2-引用传递-Pass-by-Reference" class="headerlink" title="2.2 引用传递 (Pass by Reference)"></a>2.2 引用传递 (Pass by Reference)</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">modifyReference</span><span class="params">(<span class="type">int</span> &amp;x)</span> </span>&#123;</span><br><span class="line">    x = <span class="number">100</span>;  <span class="comment">// 修改原始变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">modifyReference</span>(a);</span><br><span class="line">    cout &lt;&lt; a;  <span class="comment">// 输出: 100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; lan;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; qiao;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; c;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; d;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    c.<span class="built_in">resize</span>(n);<span class="comment">//定义数组c中有n项,需要先有n</span></span><br><span class="line">    d.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        lan.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        qiao.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>;j &lt; n;j++)&#123;</span><br><span class="line">            c[j]=<span class="built_in">abs</span>(lan[i]-qiao[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> small = *<span class="built_in">min_element</span>(c.<span class="built_in">begin</span>(), c.<span class="built_in">end</span>());</span><br><span class="line">        d[i]=small;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> big = *<span class="built_in">max_element</span>(d.<span class="built_in">begin</span>(), d.<span class="built_in">end</span>());</span><br><span class="line">    cout &lt;&lt; big &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
+<h3 id="2-3-常量引用传递-Pass-by-Const-Reference"><a href="#2-3-常量引用传递-Pass-by-Const-Reference" class="headerlink" title="2.3 常量引用传递 (Pass by Const Reference)"></a>2.3 常量引用传递 (Pass by Const Reference)</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">printLargeObject</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; vec)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 可以读取但不能修改vec</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">const</span> <span class="keyword">auto</span>&amp; item : vec) &#123;</span><br><span class="line">        cout &lt;&lt; item &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<details>
-<summary>copilot（cpp）</summary>
+<h3 id="2-4-指针传递-Pass-by-Pointer"><a href="#2-4-指针传递-Pass-by-Pointer" class="headerlink" title="2.4 指针传递 (Pass by Pointer)"></a>2.4 指针传递 (Pass by Pointer)</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">modifyPointer</span><span class="params">(<span class="type">int</span>* ptr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ptr) &#123;</span><br><span class="line">        *ptr = <span class="number">100</span>;  <span class="comment">// 解引用并修改值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">modifyPointer</span>(&amp;a);</span><br><span class="line">    cout &lt;&lt; a;  <span class="comment">// 输出: 100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">if</span> (!(cin &gt;&gt; n)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">A</span><span class="params">(n)</span>, <span class="title">B</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; A[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; B[i];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> nearestDistInB = [&amp;](<span class="type">int</span> x) &#123;</span><br><span class="line">        <span class="comment">// 找到 B 中距离 x 最近的元素的绝对差</span></span><br><span class="line">        <span class="keyword">auto</span> it = <span class="built_in">lower_bound</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>(), x);</span><br><span class="line">        <span class="type">int</span> dist = INT_MAX;</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">end</span>()) dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">            --it;</span><br><span class="line">            dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, <span class="built_in">nearestDistInB</span>(A[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
+<h2 id="3-函数重载-Function-Overloading"><a href="#3-函数重载-Function-Overloading" class="headerlink" title="3. 函数重载 (Function Overloading)"></a>3. 函数重载 (Function Overloading)</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Calculator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 重载add函数</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">add</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">string <span class="title">add</span><span class="params">(<span class="type">const</span> string&amp; a, <span class="type">const</span> string&amp; b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b + c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line">Calculator calc;</span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>);        <span class="comment">// 调用int版本</span></span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">add</span>(<span class="number">1.5</span>, <span class="number">2.5</span>);    <span class="comment">// 调用double版本</span></span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">add</span>(<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot; World&quot;</span>); <span class="comment">// 调用string版本</span></span><br></pre></td></tr></table></figure>
 
-<hr>
+<h2 id="4-默认参数-Default-Parameters"><a href="#4-默认参数-Default-Parameters" class="headerlink" title="4. 默认参数 (Default Parameters)"></a>4. 默认参数 (Default Parameters)</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 带有默认参数的构造函数</span></span><br><span class="line">    <span class="built_in">Student</span>(string name = <span class="string">&quot;Unknown&quot;</span>, <span class="type">int</span> age = <span class="number">18</span>, <span class="type">double</span> gpa = <span class="number">3.0</span>) </span><br><span class="line">        : <span class="built_in">name</span>(name), <span class="built_in">age</span>(age), <span class="built_in">gpa</span>(gpa) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">displayInfo</span><span class="params">(string prefix = <span class="string">&quot;Student: &quot;</span>)</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; prefix &lt;&lt; name &lt;&lt; <span class="string">&quot;, Age: &quot;</span> &lt;&lt; age &lt;&lt; <span class="string">&quot;, GPA: &quot;</span> &lt;&lt; gpa &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    string name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    <span class="type">double</span> gpa;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line">Student s1;                    <span class="comment">// 使用所有默认参数</span></span><br><span class="line"><span class="function">Student <span class="title">s2</span><span class="params">(<span class="string">&quot;Alice&quot;</span>)</span></span>;           <span class="comment">// 只提供name</span></span><br><span class="line"><span class="function">Student <span class="title">s3</span><span class="params">(<span class="string">&quot;Bob&quot;</span>, <span class="number">20</span>)</span></span>;         <span class="comment">// 提供name和age</span></span><br><span class="line"><span class="function">Student <span class="title">s4</span><span class="params">(<span class="string">&quot;Charlie&quot;</span>, <span class="number">22</span>, <span class="number">3.8</span>)</span></span>; <span class="comment">// 提供所有参数</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-内联函数-Inline-Functions"><a href="#5-内联函数-Inline-Functions" class="headerlink" title="5. 内联函数 (Inline Functions)"></a>5. 内联函数 (Inline Functions)</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 内联函数 - 适合短小的函数</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">max</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a &gt; b) ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MathUtils</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 类内定义的函数默认为内联</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">cube</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x * x * x;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 显式声明内联</span></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">double</span> <span class="title">circleArea</span><span class="params">(<span class="type">double</span> radius)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3.14159</span> * radius * radius;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-模板函数-Template-Functions"><a href="#6-模板函数-Template-Functions" class="headerlink" title="6. 模板函数 (Template Functions)"></a>6. 模板函数 (Template Functions)</h2><h3 id="6-1-基础模板函数"><a href="#6-1-基础模板函数" class="headerlink" title="6.1 基础模板函数"></a>6.1 基础模板函数</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">T <span class="title">getMax</span><span class="params">(T a, T b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a &gt; b) ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">addMixed</span><span class="params">(T1 a, T2 b)</span> -&gt; <span class="title">decltype</span><span class="params">(a + b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">getMax</span>(<span class="number">10</span>, <span class="number">20</span>);        <span class="comment">// int版本</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">getMax</span>(<span class="number">3.14</span>, <span class="number">2.71</span>);    <span class="comment">// double版本</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">getMax</span>(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;z&#x27;</span>);      <span class="comment">// char版本</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-模板特化"><a href="#6-2-模板特化" class="headerlink" title="6.2 模板特化"></a>6.2 模板特化</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Storage</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">store</span><span class="params">(<span class="type">const</span> T&amp; data)</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Storing generic type: &quot;</span> &lt;&lt; data &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模板特化 - 针对string类型</span></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Storage</span>&lt;string&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">store</span><span class="params">(<span class="type">const</span> string&amp; data)</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Storing string: \&quot;&quot;</span> &lt;&lt; data &lt;&lt; <span class="string">&quot;\&quot;&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Lambda-表达式"><a href="#7-Lambda-表达式" class="headerlink" title="7. Lambda 表达式"></a>7. Lambda 表达式</h2><h3 id="7-1-基础Lambda"><a href="#7-1-基础Lambda" class="headerlink" title="7.1 基础Lambda"></a>7.1 基础Lambda</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 简单的lambda表达式</span></span><br><span class="line"><span class="keyword">auto</span> square = [](<span class="type">int</span> x) &#123; <span class="keyword">return</span> x * x; &#125;;</span><br><span class="line"><span class="keyword">auto</span> greet = [](<span class="type">const</span> string&amp; name) &#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello, &quot;</span> + name + <span class="string">&quot;!&quot;</span>; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">square</span>(<span class="number">5</span>);            <span class="comment">// 输出: 25</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">greet</span>(<span class="string">&quot;World&quot;</span>);       <span class="comment">// 输出: Hello, World!</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-捕获列表"><a href="#7-2-捕获列表" class="headerlink" title="7.2 捕获列表"></a>7.2 捕获列表</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LambdaDemo</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> multiplier = <span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">demonstrate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> localVar = <span class="number">5</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 值捕获</span></span><br><span class="line">        <span class="keyword">auto</span> captureByValue = [localVar](<span class="type">int</span> x) &#123;</span><br><span class="line">            <span class="keyword">return</span> x + localVar;  <span class="comment">// 捕获时的localVar值</span></span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 引用捕获</span></span><br><span class="line">        <span class="keyword">auto</span> captureByReference = [&amp;localVar](<span class="type">int</span> x) &#123;</span><br><span class="line">            localVar = x;  <span class="comment">// 修改原始localVar</span></span><br><span class="line">            <span class="keyword">return</span> localVar;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 捕获this指针</span></span><br><span class="line">        <span class="keyword">auto</span> captureThis = [<span class="keyword">this</span>](<span class="type">int</span> x) &#123;</span><br><span class="line">            <span class="keyword">return</span> x * multiplier;  <span class="comment">// 访问成员变量</span></span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 混合捕获</span></span><br><span class="line">        <span class="keyword">auto</span> mixedCapture = [=, &amp;localVar](<span class="type">int</span> x) &#123;</span><br><span class="line">            <span class="comment">// 默认值捕获，但localVar是引用捕获</span></span><br><span class="line">            <span class="keyword">return</span> x + localVar + multiplier;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-函数指针和函数对象"><a href="#8-函数指针和函数对象" class="headerlink" title="8. 函数指针和函数对象"></a>8. 函数指针和函数对象</h2><h3 id="8-1-函数指针"><a href="#8-1-函数指针" class="headerlink" title="8.1 函数指针"></a>8.1 函数指针</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 普通函数</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a + b; &#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">multiply</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a * b; &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数指针类型</span></span><br><span class="line"><span class="keyword">using</span> MathOperation = <span class="built_in">int</span>(*)(<span class="type">int</span>, <span class="type">int</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Calculator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">calculate</span><span class="params">(MathOperation op, <span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">op</span>(a, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line">Calculator calc;</span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">calculate</span>(add, <span class="number">5</span>, <span class="number">3</span>);        <span class="comment">// 输出: 8</span></span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">calculate</span>(multiply, <span class="number">5</span>, <span class="number">3</span>);   <span class="comment">// 输出: 15</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="8-2-函数对象-Functor"><a href="#8-2-函数对象-Functor" class="headerlink" title="8.2 函数对象 (Functor)"></a>8.2 函数对象 (Functor)</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Adder</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> baseValue;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Adder</span>(<span class="type">int</span> base) : <span class="built_in">baseValue</span>(base) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 重载函数调用运算符</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> value)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> baseValue + value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Comparator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;  <span class="comment">// 降序比较</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line"><span class="function">Adder <span class="title">add5</span><span class="params">(<span class="number">5</span>)</span></span>;</span><br><span class="line">cout &lt;&lt; <span class="built_in">add5</span>(<span class="number">10</span>);  <span class="comment">// 输出: 15</span></span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; numbers = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="built_in">sort</span>(numbers.<span class="built_in">begin</span>(), numbers.<span class="built_in">end</span>(), <span class="built_in">Comparator</span>());</span><br><span class="line"><span class="comment">// numbers变为: 5, 4, 3, 1, 1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="9-成员函数封装"><a href="#9-成员函数封装" class="headerlink" title="9. 成员函数封装"></a>9. 成员函数封装</h2><h3 id="9-1-类的基本封装"><a href="#9-1-类的基本封装" class="headerlink" title="9.1 类的基本封装"></a>9.1 类的基本封装</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BankAccount</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    string accountNumber;</span><br><span class="line">    <span class="type">double</span> balance;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 私有辅助函数</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidAmount</span><span class="params">(<span class="type">double</span> amount)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> amount &gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">BankAccount</span>(<span class="type">const</span> string&amp; accNum, <span class="type">double</span> initialBalance = <span class="number">0.0</span>)</span><br><span class="line">        : <span class="built_in">accountNumber</span>(accNum), <span class="built_in">balance</span>(initialBalance) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Getter函数</span></span><br><span class="line">    <span class="function">string <span class="title">getAccountNumber</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> accountNumber; &#125;</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">getBalance</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> balance; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 业务逻辑函数</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">deposit</span><span class="params">(<span class="type">double</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">isValidAmount</span>(amount)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        balance += amount;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">withdraw</span><span class="params">(<span class="type">double</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">isValidAmount</span>(amount) || amount &gt; balance) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        balance -= amount;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 静态成员函数</span></span><br><span class="line">    <span class="function"><span class="type">static</span> string <span class="title">getBankName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;MyBank&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-2-接口和实现分离"><a href="#9-2-接口和实现分离" class="headerlink" title="9.2 接口和实现分离"></a>9.2 接口和实现分离</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 头文件: math_interface.h</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IMathOperations</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">IMathOperations</span>() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">double</span> <span class="title">calculate</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> string <span class="title">getName</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 源文件: math_implementations.cpp</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Addition</span> : <span class="keyword">public</span> IMathOperations &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">calculate</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">string <span class="title">getName</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Addition&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Multiplication</span> : <span class="keyword">public</span> IMathOperations &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">calculate</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a * b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">string <span class="title">getName</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Multiplication&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="10-现代C-特性"><a href="#10-现代C-特性" class="headerlink" title="10. 现代C++特性"></a>10. 现代C++特性</h2><h3 id="10-1-constexpr-函数"><a href="#10-1-constexpr-函数" class="headerlink" title="10.1 constexpr 函数"></a>10.1 constexpr 函数</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 编译时计算函数</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">factorial</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (n &lt;= <span class="number">1</span>) ? <span class="number">1</span> : n * <span class="built_in">factorial</span>(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">fibonacci</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (n &lt;= <span class="number">1</span>) ? n : <span class="built_in">fibonacci</span>(n - <span class="number">1</span>) + <span class="built_in">fibonacci</span>(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> fact5 = <span class="built_in">factorial</span>(<span class="number">5</span>);  <span class="comment">// 编译时计算</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> fib10 = <span class="built_in">fibonacci</span>(<span class="number">10</span>); <span class="comment">// 编译时计算</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="10-2-noexcept-函数"><a href="#10-2-noexcept-函数" class="headerlink" title="10.2 noexcept 函数"></a>10.2 noexcept 函数</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SafeCalculator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 保证不抛出异常的函数</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">safeDivide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 处理除零，不抛出异常</span></span><br><span class="line">        <span class="keyword">return</span> a / b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 条件noexcept</span></span><br><span class="line">    <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">    <span class="type">void</span> <span class="title">processData</span><span class="params">(T&amp;&amp; data)</span> <span class="title">noexcept</span><span class="params">(<span class="keyword">noexcept</span>(data.process()))</span> </span>&#123;</span><br><span class="line">        data.<span class="built_in">process</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-错误处理和异常安全"><a href="#11-错误处理和异常安全" class="headerlink" title="11. 错误处理和异常安全"></a>11. 错误处理和异常安全</h2><h3 id="11-1-异常处理"><a href="#11-1-异常处理" class="headerlink" title="11.1 异常处理"></a>11.1 异常处理</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FileProcessor</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">processFile</span><span class="params">(<span class="type">const</span> string&amp; filename)</span> </span>&#123;</span><br><span class="line">        <span class="function">ifstream <span class="title">file</span><span class="params">(filename)</span></span>;</span><br><span class="line">        <span class="keyword">if</span>(!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">runtime_error</span>(<span class="string">&quot;Cannot open file: &quot;</span> + filename);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 文件处理逻辑</span></span><br><span class="line">            string line;</span><br><span class="line">            <span class="keyword">while</span>(<span class="built_in">getline</span>(file, line)) &#123;</span><br><span class="line">                <span class="built_in">processLine</span>(line);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">catch</span>(<span class="type">const</span> exception&amp; e) &#123;</span><br><span class="line">            <span class="comment">// 清理资源</span></span><br><span class="line">            file.<span class="built_in">close</span>();</span><br><span class="line">            <span class="keyword">throw</span>;  <span class="comment">// 重新抛出异常</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">processLine</span><span class="params">(<span class="type">const</span> string&amp; line)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(line.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">invalid_argument</span>(<span class="string">&quot;Empty line encountered&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 处理行内容</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="最佳实践总结"><a href="#最佳实践总结" class="headerlink" title="最佳实践总结"></a>最佳实践总结</h2><ol>
+<li><strong>单一职责原则</strong>：每个函数只做一件事</li>
+<li><strong>合理的参数传递</strong>：小对象传值，大对象传const引用</li>
+<li><strong>清晰的命名</strong>：函数名应该明确表达其功能</li>
+<li><strong>适当的封装</strong>：使用private保护内部状态</li>
+<li><strong>异常安全</strong>：确保资源正确释放</li>
+<li><strong>文档注释</strong>：为公共接口提供清晰的文档</li>
+<li><strong>测试覆盖</strong>：为关键函数编写单元测试</li>
+</ol>
+<p>这些方法可以帮助你编写出更清晰、更安全、更易维护的C++代码。</p>
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -2415,30 +2330,107 @@ pause &gt;nul
       </tags>
   </entry>
   <entry>
-    <title>md格式汇总</title>
-    <url>/2025/08/19/md-format-summary/</url>
-    <content><![CDATA[<p>必填项：title 和 date（date 不填会自动生成当前时间）。<br>选填项：tags（标签）、categories（分类）等，根据主题支持情况添加。</p>
-<h1 id="正文内容（Markdown-语法）"><a href="#正文内容（Markdown-语法）" class="headerlink" title="正文内容（Markdown 语法）"></a>正文内容（Markdown 语法）</h1><p>在 — 下方写正文，支持所有标准 Markdown 语法，常用示例：<br>markdown</p>
-<h1 id="一级标题（文章大标题）一个"><a href="#一级标题（文章大标题）一个" class="headerlink" title="一级标题（文章大标题）一个#"></a>一级标题（文章大标题）一个#</h1><h2 id="二级标题（小节标题）两个"><a href="#二级标题（小节标题）两个" class="headerlink" title="二级标题（小节标题）两个#"></a>二级标题（小节标题）两个#</h2><h3 id="三级标题（子标题）三个"><a href="#三级标题（子标题）三个" class="headerlink" title="三级标题（子标题）三个#"></a>三级标题（子标题）三个#</h3><p>这是正文段落，支持 <strong>加粗</strong><code>（两个*，前后）</code>、<em>斜体</em><code>（一个*，前后）</code>、<del>删除线</del><code>（两个个~，前后）</code> 等格式。</p>
-<ul>
-<li>无序列表项1</li>
-<li>无序列表项2<code>（-）</code><ul>
-<li>子列表项</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li>有序列表项1</li>
-<li>有序列表项2</li>
-</ol>
-<p><code>[链接文字](https://example.com)</code>  # 插入链接 eg: <a href="www.baidu.com">baidu</a></p>
-<p><code>![图片描述](/images/你的图片名.jpg)</code>  # 插入图片（图片放 source&#x2F;images&#x2F; 目录下）eg: <img src="/%5Cimages%5C1.jpeg" alt="test"></p>
-<p><code>代码块</code>python</p>
-<h1 id="插入代码（指定语言可自动高亮）"><a href="#插入代码（指定语言可自动高亮）" class="headerlink" title="插入代码（指定语言可自动高亮）"></a>插入代码（指定语言可自动高亮）</h1><p>print(“Hello Hexo!”)</p>
+    <title>bat脚本一日游</title>
+    <url>/2025/08/20/a-travel-of-bat/</url>
+    <content><![CDATA[<h1 id="这段时间在搞hexo博客"><a href="#这段时间在搞hexo博客" class="headerlink" title="这段时间在搞hexo博客"></a>这段时间在搞hexo博客</h1><p>  因为要本地编写、测试、上传博客，每次都要打代码，我嫌麻烦打算写个bat脚本来一键完成。</p>
+<h2 id="Part-0-创建脚本（基础须知-可跳转到-Part-1）"><a href="#Part-0-创建脚本（基础须知-可跳转到-Part-1）" class="headerlink" title="Part.0 创建脚本（基础须知,可跳转到 ###Part.1）"></a>Part.0 创建脚本（基础须知,可跳转到 ###Part.1）</h2><p>   先创建一个文本文档，将文件后缀名改为.bat，右键打开编辑。<br>   <code>@echo off</code>**@**是不显示当前行命令，<strong>echo off</strong>是不显示下述命令。<br>   <code>::或REM</code> 空格后加注释，<em><strong>注意换行</strong></em>。<br>   <code>pause</code>暂停，输入任意值继续。</p>
+<p>   <code>set</code>set 命令定义变量.eg:<code>set var=value</code>，这里 var 是变量名，value 是变量的值。<br>   <code> setlocal enabledelayedexpansion</code>当变量的值在循环中可能会发生变化时，需要开启延迟变量扩展,用<code>!var!</code>的形式访问变量。<br>   <code>%</code>访问变量的值需要用 % 括起来，eg:<code>echo %var%</code>会在命令提示符窗口输出变量 var 的值。</p>
+<p>   <code>echo</code>用于在命令提示符窗口输出文本信息。<br>   <code>mkdir</code>用于创建目录。eg:<code>mkdir new folder</code> 会在当前目录下创建一个名为 new folder 的新文件夹。<br>   <code>cd</code>切换目录。<code>cd new folder</code>会进入刚刚创建的 new folder 目录；<code>cd..</code>可以返回上一级目录。<br>   <code>dir</code>列出目录中的文件和子目录。dir 命令会显示当前目录下的内容,<code>dir /s</code>可以递归列出当前目录及其所有子目录下的内容。<br>   <code>explorer</code>可以打开路径（”文件路径”），直接后加<code> /select,文件路径</code>可选中文件</p>
+<h4 id="start命令"><a href="#start命令" class="headerlink" title="start命令"></a><code>start</code>命令</h4><p>   用法：<code>start [“title”] [parameters] “program name” [command line parameters]</code><br>   其中：<br>   **“title”**是可选的，是要启动的窗口的标题。<br>   <strong>parameters</strong>也是可选的，指定窗口的大小、状态等。eg:<code>/min</code>表示以最小化窗口启动,<code>/max</code>表示以最大化窗口启动。<br>   **“program name”**要启动的程序的名称或可执行文件的路径。如果路径包含空格，同样需要用双引号括起来。eg:<code>start “C:\Program Files\Microsoft Office\Excel.exe”</code>会启动 Excel 程序。(双引号不可省略)<br>   <strong>command - line parameters</strong>传递给程序的命令行参数。比如你有一个网址，想用edge打开 eg:<code>start &quot;Edge&quot; &quot;https://www.baidu.com&quot;</code></p>
+<p>  剩下的可以问AI，</p>
+<h2 id="Part-1-写个博客"><a href="#Part-1-写个博客" class="headerlink" title="Part.1 写个博客"></a>Part.1 写个博客</h2><p>   <code>@hexo new &quot;new&quot;&amp;&amp;explorer.exe /select,C:\Users\Admin\Desktop\hexo\source\_posts\new.md</code><br>解释：先用hexo创建一个名为new的文件，在打开并选中该文件，<strong><del>不实现自动改名是因为我试了半天都实现不了，连键入F2都不行</del></strong></p>
+<h2 id="Part-2-本地测试博客"><a href="#Part-2-本地测试博客" class="headerlink" title="Part.2 本地测试博客"></a>Part.2 本地测试博客</h2><p>   <code>hexo clean&amp;&amp;start &quot;Edge&quot; &quot;http://localhost:4000&quot;&amp;&amp;hexo s</code><br>解释：先清理缓存，用edge打开本地端口，再开启本地博客服务，因为代码是从前向后运行，所以顺序不可改，先运行<code>hexo s</code>会导致无法自动打开浏览器</p>
+<h2 id="Part-3-上传博客"><a href="#Part-3-上传博客" class="headerlink" title="Part.3 上传博客"></a>Part.3 上传博客</h2><p>   <code>hexo clean&amp;&amp;hexo generate&amp;&amp;hexo deploy&amp;&amp;pause</code><br>解释：<code>pause</code>的作用是在正常上传博客之后，留有一个任意键的窗口，从而知晓博客正常上传与否</p>
+<h3 id="保存为bat，你就获得的自动化脚本"><a href="#保存为bat，你就获得的自动化脚本" class="headerlink" title="保存为bat，你就获得的自动化脚本"></a>保存为bat，你就获得的自动化脚本</h3><p>另外，part·1中废稿粘在下面，希望有人可以解疑———为什么它无法正常运行</p>
+<details>
+<summary>点击展开完整代码（batch）</summary>
+
+<pre><code class="language-batch">@echo off
+setlocal enabledelayedexpansion
+
+echo 正在创建新的Hexo博客文章...
+call hexo new &quot;new_blog&quot;
+
+if errorlevel 1 (
+    echo 错误: 创建博客文章失败
+    echo 请确保:
+    echo 1. Hexo已正确安装
+    echo 2. 当前目录是Hexo博客根目录
+    pause
+    exit /b 1
+)
+
+set &quot;postPath=C:\Users\Admin\Desktop\hexo\source\_posts\&quot;
+set &quot;oldFileName=new_blog.md&quot;
+
+rem 检查文章目录是否存在
+if not exist &quot;!postPath!&quot; (
+    echo 错误: 文章目录不存在: !postPath!
+    echo 请检查路径是否正确
+    pause
+    exit /b 1
+)
+
+echo.
+echo 请输入新的文件名(不含扩展名)，直接回车将保持原文件名:
+set /p &quot;newName=&quot;
+
+if &quot;!newName!&quot;==&quot;&quot; (
+    echo 保持原文件名: new_blog.md
+    set &quot;finalFileName=!oldFileName!&quot;
+) else (
+    echo 正在将文件重命名为: !newName!.md
+    
+    rem 检查原文件是否存在
+    if not exist &quot;!postPath!!oldFileName!&quot; (
+        echo 错误: 原文件 !postPath!!oldFileName! 不存在
+        echo 请检查Hexo是否成功创建了文章
+        pause
+        exit /b 1
+    )
+    
+    rem 执行重命名操作
+    ren &quot;!postPath!!oldFileName!&quot; &quot;!newName!.md&quot;
+    
+    if errorlevel 1 (
+        echo 错误: 重命名文件失败
+        echo 可能的原因:
+        echo 1. 新文件名包含非法字符
+        echo 2. 已存在同名文件
+        echo 3. 没有足够的权限
+        pause
+        exit /b 1
+    )
+    
+    set &quot;finalFileName=!newName!.md&quot;
+)
+
+echo 博客文章创建完成: !finalFileName!
+
+rem 打开文件
+if exist &quot;!postPath!!finalFileName!&quot; (
+    echo 正在打开文件...
+    start &quot;&quot; &quot;!postPath!!finalFileName!&quot;
+) else (
+    echo 警告: 文件 !postPath!!finalFileName! 不存在，无法打开
+)
+
+echo.
+echo 按任意键退出...
+pause &gt;nul
+
+
+
+
+
+</code></pre>
 ]]></content>
       <categories>
-        <category>Markdown</category>
+        <category>Bat脚本</category>
       </categories>
+      <tags>
+        <tag>bat</tag>
+      </tags>
   </entry>
   <entry>
     <title>Hello World</title>
@@ -2457,64 +2449,6 @@ pause &gt;nul
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Cpp-Faction</title>
-    <url>/2025/11/27/Cpp-Faction/</url>
-    <content><![CDATA[<h1 id="C-函数编写与封装方法详解"><a href="#C-函数编写与封装方法详解" class="headerlink" title="C++ 函数编写与封装方法详解"></a>C++ 函数编写与封装方法详解</h1><h2 id="1-函数的基本结构"><a href="#1-函数的基本结构" class="headerlink" title="1. 函数的基本结构"></a>1. 函数的基本结构</h2><h3 id="1-1-基本函数定义"><a href="#1-1-基本函数定义" class="headerlink" title="1.1 基本函数定义"></a>1.1 基本函数定义</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 函数声明</span></span><br><span class="line">返回类型 函数名(参数列表);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数定义</span></span><br><span class="line">返回类型 函数名(参数列表) &#123;</span><br><span class="line">    <span class="comment">// 函数体</span></span><br><span class="line">    <span class="keyword">return</span> 返回值;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-2-完整示例"><a href="#1-2-完整示例" class="headerlink" title="1.2 完整示例"></a>1.2 完整示例</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数声明</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printMessage</span><span class="params">(<span class="type">const</span> string&amp; message)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数定义</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">printMessage</span><span class="params">(<span class="type">const</span> string&amp; message)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Message: &quot;</span> &lt;&lt; message &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> result = <span class="built_in">add</span>(<span class="number">5</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">printMessage</span>(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-参数传递方式"><a href="#2-参数传递方式" class="headerlink" title="2. 参数传递方式"></a>2. 参数传递方式</h2><h3 id="2-1-值传递-Pass-by-Value"><a href="#2-1-值传递-Pass-by-Value" class="headerlink" title="2.1 值传递 (Pass by Value)"></a>2.1 值传递 (Pass by Value)</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">modifyValue</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    x = <span class="number">100</span>;  <span class="comment">// 不影响原始变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">modifyValue</span>(a);</span><br><span class="line">    cout &lt;&lt; a;  <span class="comment">// 输出: 10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2-引用传递-Pass-by-Reference"><a href="#2-2-引用传递-Pass-by-Reference" class="headerlink" title="2.2 引用传递 (Pass by Reference)"></a>2.2 引用传递 (Pass by Reference)</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">modifyReference</span><span class="params">(<span class="type">int</span> &amp;x)</span> </span>&#123;</span><br><span class="line">    x = <span class="number">100</span>;  <span class="comment">// 修改原始变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">modifyReference</span>(a);</span><br><span class="line">    cout &lt;&lt; a;  <span class="comment">// 输出: 100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-3-常量引用传递-Pass-by-Const-Reference"><a href="#2-3-常量引用传递-Pass-by-Const-Reference" class="headerlink" title="2.3 常量引用传递 (Pass by Const Reference)"></a>2.3 常量引用传递 (Pass by Const Reference)</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">printLargeObject</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; vec)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 可以读取但不能修改vec</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">const</span> <span class="keyword">auto</span>&amp; item : vec) &#123;</span><br><span class="line">        cout &lt;&lt; item &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-4-指针传递-Pass-by-Pointer"><a href="#2-4-指针传递-Pass-by-Pointer" class="headerlink" title="2.4 指针传递 (Pass by Pointer)"></a>2.4 指针传递 (Pass by Pointer)</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">modifyPointer</span><span class="params">(<span class="type">int</span>* ptr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ptr) &#123;</span><br><span class="line">        *ptr = <span class="number">100</span>;  <span class="comment">// 解引用并修改值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">modifyPointer</span>(&amp;a);</span><br><span class="line">    cout &lt;&lt; a;  <span class="comment">// 输出: 100</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-函数重载-Function-Overloading"><a href="#3-函数重载-Function-Overloading" class="headerlink" title="3. 函数重载 (Function Overloading)"></a>3. 函数重载 (Function Overloading)</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Calculator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 重载add函数</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">add</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">string <span class="title">add</span><span class="params">(<span class="type">const</span> string&amp; a, <span class="type">const</span> string&amp; b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b + c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line">Calculator calc;</span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>);        <span class="comment">// 调用int版本</span></span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">add</span>(<span class="number">1.5</span>, <span class="number">2.5</span>);    <span class="comment">// 调用double版本</span></span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">add</span>(<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot; World&quot;</span>); <span class="comment">// 调用string版本</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4-默认参数-Default-Parameters"><a href="#4-默认参数-Default-Parameters" class="headerlink" title="4. 默认参数 (Default Parameters)"></a>4. 默认参数 (Default Parameters)</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 带有默认参数的构造函数</span></span><br><span class="line">    <span class="built_in">Student</span>(string name = <span class="string">&quot;Unknown&quot;</span>, <span class="type">int</span> age = <span class="number">18</span>, <span class="type">double</span> gpa = <span class="number">3.0</span>) </span><br><span class="line">        : <span class="built_in">name</span>(name), <span class="built_in">age</span>(age), <span class="built_in">gpa</span>(gpa) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">displayInfo</span><span class="params">(string prefix = <span class="string">&quot;Student: &quot;</span>)</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; prefix &lt;&lt; name &lt;&lt; <span class="string">&quot;, Age: &quot;</span> &lt;&lt; age &lt;&lt; <span class="string">&quot;, GPA: &quot;</span> &lt;&lt; gpa &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    string name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    <span class="type">double</span> gpa;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line">Student s1;                    <span class="comment">// 使用所有默认参数</span></span><br><span class="line"><span class="function">Student <span class="title">s2</span><span class="params">(<span class="string">&quot;Alice&quot;</span>)</span></span>;           <span class="comment">// 只提供name</span></span><br><span class="line"><span class="function">Student <span class="title">s3</span><span class="params">(<span class="string">&quot;Bob&quot;</span>, <span class="number">20</span>)</span></span>;         <span class="comment">// 提供name和age</span></span><br><span class="line"><span class="function">Student <span class="title">s4</span><span class="params">(<span class="string">&quot;Charlie&quot;</span>, <span class="number">22</span>, <span class="number">3.8</span>)</span></span>; <span class="comment">// 提供所有参数</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="5-内联函数-Inline-Functions"><a href="#5-内联函数-Inline-Functions" class="headerlink" title="5. 内联函数 (Inline Functions)"></a>5. 内联函数 (Inline Functions)</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 内联函数 - 适合短小的函数</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">square</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">max</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a &gt; b) ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MathUtils</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 类内定义的函数默认为内联</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">cube</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x * x * x;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 显式声明内联</span></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">double</span> <span class="title">circleArea</span><span class="params">(<span class="type">double</span> radius)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3.14159</span> * radius * radius;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-模板函数-Template-Functions"><a href="#6-模板函数-Template-Functions" class="headerlink" title="6. 模板函数 (Template Functions)"></a>6. 模板函数 (Template Functions)</h2><h3 id="6-1-基础模板函数"><a href="#6-1-基础模板函数" class="headerlink" title="6.1 基础模板函数"></a>6.1 基础模板函数</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">T <span class="title">getMax</span><span class="params">(T a, T b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a &gt; b) ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">addMixed</span><span class="params">(T1 a, T2 b)</span> -&gt; <span class="title">decltype</span><span class="params">(a + b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">getMax</span>(<span class="number">10</span>, <span class="number">20</span>);        <span class="comment">// int版本</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">getMax</span>(<span class="number">3.14</span>, <span class="number">2.71</span>);    <span class="comment">// double版本</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">getMax</span>(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;z&#x27;</span>);      <span class="comment">// char版本</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="6-2-模板特化"><a href="#6-2-模板特化" class="headerlink" title="6.2 模板特化"></a>6.2 模板特化</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Storage</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">store</span><span class="params">(<span class="type">const</span> T&amp; data)</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Storing generic type: &quot;</span> &lt;&lt; data &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 模板特化 - 针对string类型</span></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Storage</span>&lt;string&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">store</span><span class="params">(<span class="type">const</span> string&amp; data)</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Storing string: \&quot;&quot;</span> &lt;&lt; data &lt;&lt; <span class="string">&quot;\&quot;&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="7-Lambda-表达式"><a href="#7-Lambda-表达式" class="headerlink" title="7. Lambda 表达式"></a>7. Lambda 表达式</h2><h3 id="7-1-基础Lambda"><a href="#7-1-基础Lambda" class="headerlink" title="7.1 基础Lambda"></a>7.1 基础Lambda</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 简单的lambda表达式</span></span><br><span class="line"><span class="keyword">auto</span> square = [](<span class="type">int</span> x) &#123; <span class="keyword">return</span> x * x; &#125;;</span><br><span class="line"><span class="keyword">auto</span> greet = [](<span class="type">const</span> string&amp; name) &#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello, &quot;</span> + name + <span class="string">&quot;!&quot;</span>; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">square</span>(<span class="number">5</span>);            <span class="comment">// 输出: 25</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">greet</span>(<span class="string">&quot;World&quot;</span>);       <span class="comment">// 输出: Hello, World!</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="7-2-捕获列表"><a href="#7-2-捕获列表" class="headerlink" title="7.2 捕获列表"></a>7.2 捕获列表</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LambdaDemo</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> multiplier = <span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">demonstrate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> localVar = <span class="number">5</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 值捕获</span></span><br><span class="line">        <span class="keyword">auto</span> captureByValue = [localVar](<span class="type">int</span> x) &#123;</span><br><span class="line">            <span class="keyword">return</span> x + localVar;  <span class="comment">// 捕获时的localVar值</span></span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 引用捕获</span></span><br><span class="line">        <span class="keyword">auto</span> captureByReference = [&amp;localVar](<span class="type">int</span> x) &#123;</span><br><span class="line">            localVar = x;  <span class="comment">// 修改原始localVar</span></span><br><span class="line">            <span class="keyword">return</span> localVar;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 捕获this指针</span></span><br><span class="line">        <span class="keyword">auto</span> captureThis = [<span class="keyword">this</span>](<span class="type">int</span> x) &#123;</span><br><span class="line">            <span class="keyword">return</span> x * multiplier;  <span class="comment">// 访问成员变量</span></span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 混合捕获</span></span><br><span class="line">        <span class="keyword">auto</span> mixedCapture = [=, &amp;localVar](<span class="type">int</span> x) &#123;</span><br><span class="line">            <span class="comment">// 默认值捕获，但localVar是引用捕获</span></span><br><span class="line">            <span class="keyword">return</span> x + localVar + multiplier;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="8-函数指针和函数对象"><a href="#8-函数指针和函数对象" class="headerlink" title="8. 函数指针和函数对象"></a>8. 函数指针和函数对象</h2><h3 id="8-1-函数指针"><a href="#8-1-函数指针" class="headerlink" title="8.1 函数指针"></a>8.1 函数指针</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 普通函数</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a + b; &#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">multiply</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a * b; &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数指针类型</span></span><br><span class="line"><span class="keyword">using</span> MathOperation = <span class="built_in">int</span>(*)(<span class="type">int</span>, <span class="type">int</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Calculator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">calculate</span><span class="params">(MathOperation op, <span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">op</span>(a, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line">Calculator calc;</span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">calculate</span>(add, <span class="number">5</span>, <span class="number">3</span>);        <span class="comment">// 输出: 8</span></span><br><span class="line">cout &lt;&lt; calc.<span class="built_in">calculate</span>(multiply, <span class="number">5</span>, <span class="number">3</span>);   <span class="comment">// 输出: 15</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="8-2-函数对象-Functor"><a href="#8-2-函数对象-Functor" class="headerlink" title="8.2 函数对象 (Functor)"></a>8.2 函数对象 (Functor)</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Adder</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> baseValue;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Adder</span>(<span class="type">int</span> base) : <span class="built_in">baseValue</span>(base) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 重载函数调用运算符</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> value)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> baseValue + value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Comparator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;  <span class="comment">// 降序比较</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line"><span class="function">Adder <span class="title">add5</span><span class="params">(<span class="number">5</span>)</span></span>;</span><br><span class="line">cout &lt;&lt; <span class="built_in">add5</span>(<span class="number">10</span>);  <span class="comment">// 输出: 15</span></span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; numbers = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="built_in">sort</span>(numbers.<span class="built_in">begin</span>(), numbers.<span class="built_in">end</span>(), <span class="built_in">Comparator</span>());</span><br><span class="line"><span class="comment">// numbers变为: 5, 4, 3, 1, 1</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="9-成员函数封装"><a href="#9-成员函数封装" class="headerlink" title="9. 成员函数封装"></a>9. 成员函数封装</h2><h3 id="9-1-类的基本封装"><a href="#9-1-类的基本封装" class="headerlink" title="9.1 类的基本封装"></a>9.1 类的基本封装</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BankAccount</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    string accountNumber;</span><br><span class="line">    <span class="type">double</span> balance;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 私有辅助函数</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidAmount</span><span class="params">(<span class="type">double</span> amount)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> amount &gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="built_in">BankAccount</span>(<span class="type">const</span> string&amp; accNum, <span class="type">double</span> initialBalance = <span class="number">0.0</span>)</span><br><span class="line">        : <span class="built_in">accountNumber</span>(accNum), <span class="built_in">balance</span>(initialBalance) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Getter函数</span></span><br><span class="line">    <span class="function">string <span class="title">getAccountNumber</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> accountNumber; &#125;</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">getBalance</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> balance; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 业务逻辑函数</span></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">deposit</span><span class="params">(<span class="type">double</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">isValidAmount</span>(amount)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        balance += amount;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">withdraw</span><span class="params">(<span class="type">double</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">isValidAmount</span>(amount) || amount &gt; balance) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        balance -= amount;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 静态成员函数</span></span><br><span class="line">    <span class="function"><span class="type">static</span> string <span class="title">getBankName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;MyBank&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="9-2-接口和实现分离"><a href="#9-2-接口和实现分离" class="headerlink" title="9.2 接口和实现分离"></a>9.2 接口和实现分离</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 头文件: math_interface.h</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IMathOperations</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">IMathOperations</span>() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">double</span> <span class="title">calculate</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> </span>= <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> string <span class="title">getName</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 源文件: math_implementations.cpp</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Addition</span> : <span class="keyword">public</span> IMathOperations &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">calculate</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">string <span class="title">getName</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Addition&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Multiplication</span> : <span class="keyword">public</span> IMathOperations &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">calculate</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a * b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">string <span class="title">getName</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Multiplication&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="10-现代C-特性"><a href="#10-现代C-特性" class="headerlink" title="10. 现代C++特性"></a>10. 现代C++特性</h2><h3 id="10-1-constexpr-函数"><a href="#10-1-constexpr-函数" class="headerlink" title="10.1 constexpr 函数"></a>10.1 constexpr 函数</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 编译时计算函数</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">factorial</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (n &lt;= <span class="number">1</span>) ? <span class="number">1</span> : n * <span class="built_in">factorial</span>(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">fibonacci</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (n &lt;= <span class="number">1</span>) ? n : <span class="built_in">fibonacci</span>(n - <span class="number">1</span>) + <span class="built_in">fibonacci</span>(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> fact5 = <span class="built_in">factorial</span>(<span class="number">5</span>);  <span class="comment">// 编译时计算</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> fib10 = <span class="built_in">fibonacci</span>(<span class="number">10</span>); <span class="comment">// 编译时计算</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="10-2-noexcept-函数"><a href="#10-2-noexcept-函数" class="headerlink" title="10.2 noexcept 函数"></a>10.2 noexcept 函数</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SafeCalculator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 保证不抛出异常的函数</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">safeDivide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 处理除零，不抛出异常</span></span><br><span class="line">        <span class="keyword">return</span> a / b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 条件noexcept</span></span><br><span class="line">    <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">    <span class="type">void</span> <span class="title">processData</span><span class="params">(T&amp;&amp; data)</span> <span class="title">noexcept</span><span class="params">(<span class="keyword">noexcept</span>(data.process()))</span> </span>&#123;</span><br><span class="line">        data.<span class="built_in">process</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="11-错误处理和异常安全"><a href="#11-错误处理和异常安全" class="headerlink" title="11. 错误处理和异常安全"></a>11. 错误处理和异常安全</h2><h3 id="11-1-异常处理"><a href="#11-1-异常处理" class="headerlink" title="11.1 异常处理"></a>11.1 异常处理</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FileProcessor</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">processFile</span><span class="params">(<span class="type">const</span> string&amp; filename)</span> </span>&#123;</span><br><span class="line">        <span class="function">ifstream <span class="title">file</span><span class="params">(filename)</span></span>;</span><br><span class="line">        <span class="keyword">if</span>(!file.<span class="built_in">is_open</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">runtime_error</span>(<span class="string">&quot;Cannot open file: &quot;</span> + filename);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 文件处理逻辑</span></span><br><span class="line">            string line;</span><br><span class="line">            <span class="keyword">while</span>(<span class="built_in">getline</span>(file, line)) &#123;</span><br><span class="line">                <span class="built_in">processLine</span>(line);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">catch</span>(<span class="type">const</span> exception&amp; e) &#123;</span><br><span class="line">            <span class="comment">// 清理资源</span></span><br><span class="line">            file.<span class="built_in">close</span>();</span><br><span class="line">            <span class="keyword">throw</span>;  <span class="comment">// 重新抛出异常</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">processLine</span><span class="params">(<span class="type">const</span> string&amp; line)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(line.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">invalid_argument</span>(<span class="string">&quot;Empty line encountered&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 处理行内容</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="最佳实践总结"><a href="#最佳实践总结" class="headerlink" title="最佳实践总结"></a>最佳实践总结</h2><ol>
-<li><strong>单一职责原则</strong>：每个函数只做一件事</li>
-<li><strong>合理的参数传递</strong>：小对象传值，大对象传const引用</li>
-<li><strong>清晰的命名</strong>：函数名应该明确表达其功能</li>
-<li><strong>适当的封装</strong>：使用private保护内部状态</li>
-<li><strong>异常安全</strong>：确保资源正确释放</li>
-<li><strong>文档注释</strong>：为公共接口提供清晰的文档</li>
-<li><strong>测试覆盖</strong>：为关键函数编写单元测试</li>
-</ol>
-<p>这些方法可以帮助你编写出更清晰、更安全、更易维护的C++代码。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
   </entry>
   <entry>
     <title>Ubuntu和Windows上YOLO模型训练与部署流程</title>
@@ -2618,19 +2552,70 @@ pause &gt;nul
       </tags>
   </entry>
   <entry>
-    <title>python-数字类型</title>
-    <url>/2025/08/27/python-note-1/</url>
-    <content><![CDATA[<h1 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h1><p><strong><code>+ - * /</code></strong> 加减乘除</p>
-<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><p>因为python使用的是IEEE754标准储存浮点数,故有误差，计算时需要引入decimal模块</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line">decimal.Decimal</span><br></pre></td></tr></table></figure>
+    <title>蓝桥杯</title>
+    <url>/2025/09/14/bluebridge/</url>
+    <content><![CDATA[<h2 id="设计师调度分配"><a href="#设计师调度分配" class="headerlink" title="设计师调度分配"></a>设计师调度分配</h2><p>在一个创意工作室中，三位设计师李工、王工和张工分别负责三项独立的模型制作任务。李工完成任务需要a1秒，王工需要a2秒，张工需要a3秒。工作室的建模平台一次只能容纳两名设计师工作，第三位设计师需等待，直到平台空闲（即当前一位设计师完成任务离开）才能开始工作。所有模型全部完成时，项目才算正式交付。<br>现在，经理希望合理调度设计师的工作顺序，以最短时间完成所有任务。请你计算三位设计师完成三件模型的最小总时间。<br>输入格式<code>3 5 7</code><br>输出结果<code>8</code></p>
+<p>代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  vector&lt;<span class="type">int</span>&gt; numbers;</span><br><span class="line">  <span class="type">int</span> a1, a2, a3, c;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin &gt;&gt; a;</span><br><span class="line">    numbers.<span class="built_in">push_back</span>(a);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="built_in">sort</span>(numbers.<span class="built_in">begin</span>(), numbers.<span class="built_in">end</span>());</span><br><span class="line">  a1 = numbers[<span class="number">0</span>];</span><br><span class="line">  a2 = numbers[<span class="number">1</span>];</span><br><span class="line">  a3 = numbers[<span class="number">2</span>]; </span><br><span class="line">  </span><br><span class="line">  c=a1 + a2;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(c &gt;= a3)&#123;</span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">    cout &lt;&lt; a3 &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="妈妈的菜单"><a href="#妈妈的菜单" class="headerlink" title="妈妈的菜单"></a>妈妈的菜单</h2><p> 小蓝是个挑食但又容易饿的孩子。午餐时间，妈妈为他准备了 10 道菜，并写下了一份菜单。菜单上的每道菜都有一个“饱腹值”，表示吃下这道菜能增加多少饱腹感。</p>
+<p>妈妈会严格按照菜单的顺序，从第一道菜开始逐一端上餐桌。小蓝可以选择吃或不吃当前这道菜。然而，一旦他决定不吃某一道菜，妈妈就会认为他已经吃饱了，并停止端上后续的所有菜肴。</p>
+<p>小蓝虽然容易饿，但也不喜欢吃得太撑的感觉。因此，他希望午餐后自己的饱腹值能停留在 100 附近。</p>
+<p>现在，请你根据小蓝的情况计算，他最终会获得的饱腹值是多少。</p>
+<p>注意：如果存在两种选择，它们与 100 的差距相同（例如，饱腹值为 98 和 102），他总是会选择那个更高的值——毕竟，对于一个正在长身体的孩子来说，吃撑一点总比饿着肚子好。</p>
+<p>输入格式<code>20 10 10 10 10 10 10 10 15 15</code><br>输出格式<code>105</code></p>
+<p>代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span> <span class="comment">// 用于abs函数</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">short</span> food[<span class="number">10</span>]; <span class="comment">// 存储10道菜的饱腹值</span></span><br><span class="line">    <span class="type">int</span> best = <span class="number">0</span>;   <span class="comment">// 最佳饱腹值（初始为0，表示什么都不吃）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取10道菜的饱腹值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        cin &gt;&gt; food[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> current = <span class="number">0</span>; <span class="comment">// 当前累计饱腹值</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历所有可能的前缀和（吃前0道、前1道、...、前10道菜）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        current += food[i]; <span class="comment">// 吃当前这道菜</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查当前饱腹值是否比之前的最佳选择更好</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) &lt; <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            best = current; <span class="comment">// 更接近100，更新最佳值</span></span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) == <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (current &gt; best) &#123; <span class="comment">// 差距相同，选择更高的值</span></span><br><span class="line">                best = current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 注意：这里不能break，因为要继续考虑所有可能的前缀和</span></span><br><span class="line">        <span class="comment">// 即使当前已经超过100，后面可能还有更接近100的情况</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; best &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="挑选题目"><a href="#挑选题目" class="headerlink" title="挑选题目"></a>挑选题目</h2><p>两位资深的审题专家，小蓝和小桥，各自收到了N道题目。小蓝收到的题目难度依次为 A1,A2,A3…An，小桥收到的题目难度依次为B1,B2,B3…Bn，为了准备即将举行的竞赛，他们需要从各自收到的题目中选出一道，用于竞赛。通过商量，两人决定通过一种特殊的方式来选择题目：两人轮流删除一道自己手中的题目，直到各自只剩下一道题目。小蓝先删除，然后小桥删除，依此交替进行，直到最后两人手中都只剩下一道题目。小蓝希望最终两人剩下的两道题目的难度差尽可能大，而小桥则希望难度差尽可能小。假设两人都采取最优策略，请问最终两人剩下的两道题目的难度差的绝对值是多少？</p>
+<details>
+<summary>for双层循环示例（cpp）</summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a[<span class="number">999</span>],b[<span class="number">999</span>];</span><br><span class="line">  <span class="type">int</span> min=<span class="number">9999999</span>;</span><br><span class="line">  <span class="type">int</span> max=<span class="number">-1</span>;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  cin&gt;&gt;n;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>我写的代码（cpp）</summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; lan;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; qiao;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; c;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; d;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    c.<span class="built_in">resize</span>(n);<span class="comment">//定义数组c中有n项,需要先有n</span></span><br><span class="line">    d.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        lan.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        qiao.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>;j &lt; n;j++)&#123;</span><br><span class="line">            c[j]=<span class="built_in">abs</span>(lan[i]-qiao[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> small = *<span class="built_in">min_element</span>(c.<span class="built_in">begin</span>(), c.<span class="built_in">end</span>());</span><br><span class="line">        d[i]=small;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> big = *<span class="built_in">max_element</span>(d.<span class="built_in">begin</span>(), d.<span class="built_in">end</span>());</span><br><span class="line">    cout &lt;&lt; big &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>copilot（cpp）</summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">if</span> (!(cin &gt;&gt; n)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">A</span><span class="params">(n)</span>, <span class="title">B</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; A[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; B[i];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> nearestDistInB = [&amp;](<span class="type">int</span> x) &#123;</span><br><span class="line">        <span class="comment">// 找到 B 中距离 x 最近的元素的绝对差</span></span><br><span class="line">        <span class="keyword">auto</span> it = <span class="built_in">lower_bound</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>(), x);</span><br><span class="line">        <span class="type">int</span> dist = INT_MAX;</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">end</span>()) dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">            --it;</span><br><span class="line">            dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, <span class="built_in">nearestDistInB</span>(A[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>md格式汇总</title>
+    <url>/2025/08/19/md-format-summary/</url>
+    <content><![CDATA[<p>必填项：title 和 date（date 不填会自动生成当前时间）。<br>选填项：tags（标签）、categories（分类）等，根据主题支持情况添加。</p>
+<h1 id="正文内容（Markdown-语法）"><a href="#正文内容（Markdown-语法）" class="headerlink" title="正文内容（Markdown 语法）"></a>正文内容（Markdown 语法）</h1><p>在 — 下方写正文，支持所有标准 Markdown 语法，常用示例：<br>markdown</p>
+<h1 id="一级标题（文章大标题）一个"><a href="#一级标题（文章大标题）一个" class="headerlink" title="一级标题（文章大标题）一个#"></a>一级标题（文章大标题）一个#</h1><h2 id="二级标题（小节标题）两个"><a href="#二级标题（小节标题）两个" class="headerlink" title="二级标题（小节标题）两个#"></a>二级标题（小节标题）两个#</h2><h3 id="三级标题（子标题）三个"><a href="#三级标题（子标题）三个" class="headerlink" title="三级标题（子标题）三个#"></a>三级标题（子标题）三个#</h3><p>这是正文段落，支持 <strong>加粗</strong><code>（两个*，前后）</code>、<em>斜体</em><code>（一个*，前后）</code>、<del>删除线</del><code>（两个个~，前后）</code> 等格式。</p>
+<ul>
+<li>无序列表项1</li>
+<li>无序列表项2<code>（-）</code><ul>
+<li>子列表项</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>有序列表项1</li>
+<li>有序列表项2</li>
+</ol>
+<p><code>[链接文字](https://example.com)</code>  # 插入链接 eg: <a href="www.baidu.com">baidu</a></p>
+<p><code>![图片描述](/images/你的图片名.jpg)</code>  # 插入图片（图片放 source&#x2F;images&#x2F; 目录下）eg: <img src="/%5Cimages%5C1.jpeg" alt="test"></p>
+<p><code>代码块</code>python</p>
+<h1 id="插入代码（指定语言可自动高亮）"><a href="#插入代码（指定语言可自动高亮）" class="headerlink" title="插入代码（指定语言可自动高亮）"></a>插入代码（指定语言可自动高亮）</h1><p>print(“Hello Hexo!”)</p>
 ]]></content>
       <categories>
-        <category>Python</category>
+        <category>Markdown</category>
       </categories>
-      <tags>
-        <tag>note</tag>
-        <tag>python</tag>
-      </tags>
   </entry>
   <entry>
     <title>opencv</title>
@@ -2891,188 +2876,6 @@ pause &gt;nul
 ]]></content>
   </entry>
   <entry>
-    <title>text</title>
-    <url>/2025/08/26/test/</url>
-    <content><![CDATA[<h1 id="Hexo-Markdown-测试文档"><a href="#Hexo-Markdown-测试文档" class="headerlink" title="Hexo Markdown 测试文档"></a>Hexo Markdown 测试文档</h1><p>本文件用于测试Hexo博客系统中的各种Markdown格式渲染效果。</p>
-<h2 id="1-标题测试"><a href="#1-标题测试" class="headerlink" title="1. 标题测试"></a>1. 标题测试</h2><h1 id="H1-标题"><a href="#H1-标题" class="headerlink" title="H1 标题"></a>H1 标题</h1><h2 id="H2-标题"><a href="#H2-标题" class="headerlink" title="H2 标题"></a>H2 标题</h2><h3 id="H3-标题"><a href="#H3-标题" class="headerlink" title="H3 标题"></a>H3 标题</h3><h4 id="H4-标题"><a href="#H4-标题" class="headerlink" title="H4 标题"></a>H4 标题</h4><h5 id="H5-标题"><a href="#H5-标题" class="headerlink" title="H5 标题"></a>H5 标题</h5><h6 id="H6-标题"><a href="#H6-标题" class="headerlink" title="H6 标题"></a>H6 标题</h6><h2 id="2-文本格式化"><a href="#2-文本格式化" class="headerlink" title="2. 文本格式化"></a>2. 文本格式化</h2><p><strong>粗体文本</strong><br><em>斜体文本</em><br><em><strong>粗斜体文本</strong></em><br><del>删除线文本</del><br>&#x3D;&#x3D;高亮文本&#x3D;&#x3D;<br>上标：X^2^<br>下标：H<del>2</del>O  </p>
-<h2 id="3-列表测试"><a href="#3-列表测试" class="headerlink" title="3. 列表测试"></a>3. 列表测试</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><ul>
-<li>项目一<ul>
-<li>子项目 A</li>
-<li>子项目 B</li>
-</ul>
-</li>
-<li>项目二</li>
-<li>项目三</li>
-</ul>
-<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><ol>
-<li>第一项</li>
-<li>第二项<ol>
-<li>子项 2.1</li>
-<li>子项 2.2</li>
-</ol>
-</li>
-<li>第三项</li>
-</ol>
-<h3 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h3><ul>
-<li><input checked="" disabled="" type="checkbox"> 已完成任务</li>
-<li><input disabled="" type="checkbox"> 未完成任务</li>
-<li><input disabled="" type="checkbox"> 另一个未完成任务</li>
-</ul>
-<h2 id="4-链接与图片"><a href="#4-链接与图片" class="headerlink" title="4. 链接与图片"></a>4. 链接与图片</h2><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><a href="https://hexo.io/">Hexo官方网站</a><br><a href="/about/">相对链接测试</a><br><a href="https://hexo.io/" title="Hexo官网">带标题的链接</a></p>
-<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><img src="https://hexo.io/icon/favicon-196x196.png" alt="Hexo Logo" title="Hexo Logo"><br><img src="/images/test.jpg" alt="本地图片测试"><br>![带尺寸的图片](<a href="https://hexo.io/icon/favicon-196x196.png">https://hexo.io/icon/favicon-196x196.png</a> &#x3D;100x100)</p>
-<h2 id="5-代码块"><a href="#5-代码块" class="headerlink" title="5. 代码块"></a>5. 代码块</h2><h3 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h3><p>这是 <code>行内代码</code> 的例子。</p>
-<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// JavaScript示例</span></span><br><span class="line"><span class="keyword">const</span> hello = <span class="string">&quot;Hello, Hexo!&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hello);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;This is a test function.&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python示例</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fibonacci</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> fibonacci(n-<span class="number">1</span>) + fibonacci(n-<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Fibonacci(10) = <span class="subst">&#123;fibonacci(<span class="number">10</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Bash示例</span></span><br><span class="line">git init</span><br><span class="line">npm install hexo --save</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-表格测试"><a href="#6-表格测试" class="headerlink" title="6. 表格测试"></a>6. 表格测试</h2><table>
-<thead>
-<tr>
-<th>姓名</th>
-<th>年龄</th>
-<th>城市</th>
-<th>职业</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>张三</td>
-<td>28</td>
-<td>北京</td>
-<td>工程师</td>
-</tr>
-<tr>
-<td>李四</td>
-<td>32</td>
-<td>上海</td>
-<td>设计师</td>
-</tr>
-<tr>
-<td>王五</td>
-<td>25</td>
-<td>广州</td>
-<td>学生</td>
-</tr>
-<tr>
-<td>赵六</td>
-<td>40</td>
-<td>深圳</td>
-<td>经理</td>
-</tr>
-</tbody></table>
-<h3 id="对齐表格"><a href="#对齐表格" class="headerlink" title="对齐表格"></a>对齐表格</h3><table>
-<thead>
-<tr>
-<th align="left">左对齐</th>
-<th align="center">居中对齐</th>
-<th align="right">右对齐</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">单元格</td>
-<td align="center">单元格</td>
-<td align="right">单元格</td>
-</tr>
-<tr>
-<td align="left">较长的左对齐内容</td>
-<td align="center">居中内容</td>
-<td align="right">右对齐数字 123</td>
-</tr>
-<tr>
-<td align="left">测试</td>
-<td align="center">测试</td>
-<td align="right">测试</td>
-</tr>
-</tbody></table>
-<h2 id="7-引用块"><a href="#7-引用块" class="headerlink" title="7. 引用块"></a>7. 引用块</h2><blockquote>
-<p>这是一级引用</p>
-<blockquote>
-<p>这是二级引用</p>
-<blockquote>
-<p>这是三级引用</p>
-</blockquote>
-<p>返回二级引用</p>
-</blockquote>
-<p>返回一级引用</p>
-</blockquote>
-<blockquote>
-<p><strong>注意：</strong> 这是一个带格式的引用块</p>
-<p>引用中可以包含其他Markdown元素，比如：</p>
-<ol>
-<li>列表</li>
-<li><strong>粗体文本</strong></li>
-<li><code>代码</code></li>
-</ol>
-</blockquote>
-<h2 id="8-数学公式"><a href="#8-数学公式" class="headerlink" title="8. 数学公式"></a>8. 数学公式</h2><h3 id="行内公式"><a href="#行内公式" class="headerlink" title="行内公式"></a>行内公式</h3><p>勾股定理：$a^2 + b^2 &#x3D; c^2$</p>
-<p>爱因斯坦质能方程：$E &#x3D; mc^2$</p>
-<p>二次方程求根公式：$x &#x3D; \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
-<h3 id="块级公式"><a href="#块级公式" class="headerlink" title="块级公式"></a>块级公式</h3><p><strong>等差数列求和公式：</strong></p>
-<p>$$<br>S_n &#x3D; \frac{n(a_1 + a_n)}{2}<br>$$</p>
-<p><strong>高斯积分公式：</strong></p>
-<p>$$<br>\int_{-\infty}^{\infty} e^{-x^2} dx &#x3D; \sqrt{\pi}<br>$$</p>
-<p><strong>矩阵乘法：</strong></p>
-<h1 id="begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix"><a href="#begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix" class="headerlink" title="$$\begin{bmatrix}a_{11} &amp; a_{12} \a_{21} &amp; a_{22}\end{bmatrix}\times\begin{bmatrix}b_{11} &amp; b_{12} \b_{21} &amp; b_{22}\end{bmatrix}"></a>$$<br>\begin{bmatrix}<br>a_{11} &amp; a_{12} \<br>a_{21} &amp; a_{22}<br>\end{bmatrix}<br>\times<br>\begin{bmatrix}<br>b_{11} &amp; b_{12} \<br>b_{21} &amp; b_{22}<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>a_{11}b_{11} + a_{12}b_{21} &amp; a_{11}b_{12} + a_{12}b_{22} \<br>a_{21}b_{11} + a_{22}b_{21} &amp; a_{21}b_{12} + a_{22}b_{22}<br>\end{bmatrix}<br>$$</p>
-<h2 id="9-脚注"><a href="#9-脚注" class="headerlink" title="9. 脚注"></a>9. 脚注</h2><p>这是一个带有脚注的句子<a href="%E8%BF%99%E6%98%AF%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%84%9A%E6%B3%A8%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E6%9B%B4%E5%A4%9A%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E3%80%82">^1</a>。<br>这是另一个引用<a href="%E7%AC%AC%E4%BA%8C%E4%B8%AA%E8%84%9A%E6%B3%A8%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E9%93%BE%E6%8E%A5%E5%92%8C%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%EF%BC%8C%E6%AF%94%E5%A6%82**%E7%B2%97%E4%BD%93**%E6%88%96%60%E4%BB%A3%E7%A0%81%60%E3%80%82">^2</a>。</p>
-<h2 id="10-分割线"><a href="#10-分割线" class="headerlink" title="10. 分割线"></a>10. 分割线</h2><hr>
-<hr>
-<hr>
-<h2 id="11-定义列表"><a href="#11-定义列表" class="headerlink" title="11. 定义列表"></a>11. 定义列表</h2><dl><dt>术语一</dt><dd>这是术语一的定义</dd></dl><dl><dt>术语二<br>: 这是术语二的定义</dt><dd>这是术语二的第二个定义</dd></dl><h2 id="12-特殊字符与HTML"><a href="#12-特殊字符与HTML" class="headerlink" title="12. 特殊字符与HTML"></a>12. 特殊字符与HTML</h2><p><kbd>Ctrl</kbd> + <kbd>C</kbd> 复制<br><kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</p>
-<p>上箭头：↑<br>版权符号：©<br>注册商标：®<br>欧元符号：€</p>
-<details>
-<summary>点击展开/收起详细信息</summary>
-这是一个使用HTML details元素创建的折叠内容区域。
-里面可以包含任何Markdown内容：
-
-<ul>
-<li>列表项1</li>
-<li>列表项2</li>
-<li>列表项3</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello from inside the details!&quot;</span>)</span><br></pre></td></tr></table></figure>
-</details>
-
-<h2 id="13-图表（如果支持Mermaid）"><a href="#13-图表（如果支持Mermaid）" class="headerlink" title="13. 图表（如果支持Mermaid）"></a>13. 图表（如果支持Mermaid）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[开始] --&gt; B(处理)</span><br><span class="line">    B --&gt; C&#123;判断&#125;</span><br><span class="line">    C --&gt;|是| D[执行A]</span><br><span class="line">    C --&gt;|否| E[执行B]</span><br><span class="line">    D --&gt; F[结束]</span><br><span class="line">    E --&gt; F</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant 用户</span><br><span class="line">    participant 系统</span><br><span class="line">    用户-&gt;&gt;系统: 登录请求</span><br><span class="line">    系统-&gt;&gt;系统: 验证凭据</span><br><span class="line">    alt 验证成功</span><br><span class="line">        系统-&gt;&gt;用户: 返回主页</span><br><span class="line">    else 验证失败</span><br><span class="line">        系统-&gt;&gt;用户: 显示错误</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
-
-<h2 id="14-表情符号和特殊符号"><a href="#14-表情符号和特殊符号" class="headerlink" title="14. 表情符号和特殊符号"></a>14. 表情符号和特殊符号</h2><p>:smile: :heart: :+1: :rocket:</p>
-<p>箭头：→ ← ↑ ↓<br>数学符号：≠ ≤ ≥ ≈ ∞</p>
-<h2 id="15-混合内容测试"><a href="#15-混合内容测试" class="headerlink" title="15. 混合内容测试"></a>15. 混合内容测试</h2><p>这是一个<strong>混合</strong>了各种格式的段落，包括<code>行内代码</code>、<a href="https://hexo.io/">链接</a>、<em>斜体</em>和<strong>粗体</strong>。我们可以引用某个公式：$E &#x3D; mc^2$，然后继续写正文。</p>
-<blockquote>
-<p>这是一个包含表格的引用块：</p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>数量</th>
-<th>价格</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>苹果</td>
-<td>5</td>
-<td>$10</td>
-</tr>
-<tr>
-<td>香蕉</td>
-<td>3</td>
-<td>$6</td>
-</tr>
-</tbody></table>
-</blockquote>
-<ol>
-<li><strong>有序列表项一</strong>，包含<code>代码</code>和<a href="https://example.com/">链接</a></li>
-<li><em>有序列表项二</em>，包含数学公式 $x^2 + y^2 &#x3D; r^2$</li>
-<li>有序列表项三，包含表情符号 :tada:</li>
-</ol>
-<h2 id="16-结束语"><a href="#16-结束语" class="headerlink" title="16. 结束语"></a>16. 结束语</h2><p>这个文档测试了Hexo中可能用到的各种Markdown格式。不同的Hexo主题和渲染器可能对这些格式的支持程度不同，请根据实际渲染效果进行调整。</p>
-<hr>
-<p><em>最后更新：2025年</em><br><em>测试完成</em></p>
-]]></content>
-  </entry>
-  <entry>
     <title>python打包成exe</title>
     <url>/2025/08/26/python-package/</url>
     <content><![CDATA[<h1 id="虚拟环境篇（建议）"><a href="#虚拟环境篇（建议）" class="headerlink" title="虚拟环境篇（建议）"></a>虚拟环境篇（建议）</h1><h2 id="在项目文件夹中打开终端"><a href="#在项目文件夹中打开终端" class="headerlink" title="在项目文件夹中打开终端"></a>在项目文件夹中打开终端</h2><h2 id="安装-python3-full（确保有完整的-venv-模块）："><a href="#安装-python3-full（确保有完整的-venv-模块）：" class="headerlink" title="安装 python3-full（确保有完整的 venv 模块）："></a>安装 python3-full（确保有完整的 venv 模块）：</h2><h3 id="macOS-Linux（终端）"><a href="#macOS-Linux（终端）" class="headerlink" title="macOS&#x2F;Linux（终端）"></a>macOS&#x2F;Linux（终端）</h3><p>  <strong><code>sudo apt install python3-full</code></strong></p>
@@ -3284,6 +3087,21 @@ pause &gt;nul
       </tags>
   </entry>
   <entry>
+    <title>python-数字类型</title>
+    <url>/2025/08/27/python-note-1/</url>
+    <content><![CDATA[<h1 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h1><p><strong><code>+ - * /</code></strong> 加减乘除</p>
+<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><p>因为python使用的是IEEE754标准储存浮点数,故有误差，计算时需要引入decimal模块</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line">decimal.Decimal</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>String</title>
     <url>/2025/11/20/string/</url>
     <content><![CDATA[<h1 id="C-string-类完整学习指南"><a href="#C-string-类完整学习指南" class="headerlink" title="C++ string 类完整学习指南"></a>C++ string 类完整学习指南</h1><h2 id="1-基础概念与头文件"><a href="#1-基础概念与头文件" class="headerlink" title="1. 基础概念与头文件"></a>1. 基础概念与头文件</h2><h3 id="必需头文件"><a href="#必需头文件" class="headerlink" title="必需头文件"></a>必需头文件</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span>      <span class="comment">// string 类</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>    <span class="comment">// 输入输出</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span>   <span class="comment">// 算法操作（sort, reverse等）</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span>     <span class="comment">// 字符串流</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cctype&gt;</span>      <span class="comment">// 字符处理（toupper等）</span></span></span><br></pre></td></tr></table></figure>
@@ -3467,6 +3285,188 @@ pause &gt;nul
         <tag>C++</tag>
         <tag>string</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>text</title>
+    <url>/2025/08/26/test/</url>
+    <content><![CDATA[<h1 id="Hexo-Markdown-测试文档"><a href="#Hexo-Markdown-测试文档" class="headerlink" title="Hexo Markdown 测试文档"></a>Hexo Markdown 测试文档</h1><p>本文件用于测试Hexo博客系统中的各种Markdown格式渲染效果。</p>
+<h2 id="1-标题测试"><a href="#1-标题测试" class="headerlink" title="1. 标题测试"></a>1. 标题测试</h2><h1 id="H1-标题"><a href="#H1-标题" class="headerlink" title="H1 标题"></a>H1 标题</h1><h2 id="H2-标题"><a href="#H2-标题" class="headerlink" title="H2 标题"></a>H2 标题</h2><h3 id="H3-标题"><a href="#H3-标题" class="headerlink" title="H3 标题"></a>H3 标题</h3><h4 id="H4-标题"><a href="#H4-标题" class="headerlink" title="H4 标题"></a>H4 标题</h4><h5 id="H5-标题"><a href="#H5-标题" class="headerlink" title="H5 标题"></a>H5 标题</h5><h6 id="H6-标题"><a href="#H6-标题" class="headerlink" title="H6 标题"></a>H6 标题</h6><h2 id="2-文本格式化"><a href="#2-文本格式化" class="headerlink" title="2. 文本格式化"></a>2. 文本格式化</h2><p><strong>粗体文本</strong><br><em>斜体文本</em><br><em><strong>粗斜体文本</strong></em><br><del>删除线文本</del><br>&#x3D;&#x3D;高亮文本&#x3D;&#x3D;<br>上标：X^2^<br>下标：H<del>2</del>O  </p>
+<h2 id="3-列表测试"><a href="#3-列表测试" class="headerlink" title="3. 列表测试"></a>3. 列表测试</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><ul>
+<li>项目一<ul>
+<li>子项目 A</li>
+<li>子项目 B</li>
+</ul>
+</li>
+<li>项目二</li>
+<li>项目三</li>
+</ul>
+<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><ol>
+<li>第一项</li>
+<li>第二项<ol>
+<li>子项 2.1</li>
+<li>子项 2.2</li>
+</ol>
+</li>
+<li>第三项</li>
+</ol>
+<h3 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> 已完成任务</li>
+<li><input disabled="" type="checkbox"> 未完成任务</li>
+<li><input disabled="" type="checkbox"> 另一个未完成任务</li>
+</ul>
+<h2 id="4-链接与图片"><a href="#4-链接与图片" class="headerlink" title="4. 链接与图片"></a>4. 链接与图片</h2><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><a href="https://hexo.io/">Hexo官方网站</a><br><a href="/about/">相对链接测试</a><br><a href="https://hexo.io/" title="Hexo官网">带标题的链接</a></p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><img src="https://hexo.io/icon/favicon-196x196.png" alt="Hexo Logo" title="Hexo Logo"><br><img src="/images/test.jpg" alt="本地图片测试"><br>![带尺寸的图片](<a href="https://hexo.io/icon/favicon-196x196.png">https://hexo.io/icon/favicon-196x196.png</a> &#x3D;100x100)</p>
+<h2 id="5-代码块"><a href="#5-代码块" class="headerlink" title="5. 代码块"></a>5. 代码块</h2><h3 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h3><p>这是 <code>行内代码</code> 的例子。</p>
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// JavaScript示例</span></span><br><span class="line"><span class="keyword">const</span> hello = <span class="string">&quot;Hello, Hexo!&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hello);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;This is a test function.&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python示例</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fibonacci</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> fibonacci(n-<span class="number">1</span>) + fibonacci(n-<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Fibonacci(10) = <span class="subst">&#123;fibonacci(<span class="number">10</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Bash示例</span></span><br><span class="line">git init</span><br><span class="line">npm install hexo --save</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-表格测试"><a href="#6-表格测试" class="headerlink" title="6. 表格测试"></a>6. 表格测试</h2><table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>年龄</th>
+<th>城市</th>
+<th>职业</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>张三</td>
+<td>28</td>
+<td>北京</td>
+<td>工程师</td>
+</tr>
+<tr>
+<td>李四</td>
+<td>32</td>
+<td>上海</td>
+<td>设计师</td>
+</tr>
+<tr>
+<td>王五</td>
+<td>25</td>
+<td>广州</td>
+<td>学生</td>
+</tr>
+<tr>
+<td>赵六</td>
+<td>40</td>
+<td>深圳</td>
+<td>经理</td>
+</tr>
+</tbody></table>
+<h3 id="对齐表格"><a href="#对齐表格" class="headerlink" title="对齐表格"></a>对齐表格</h3><table>
+<thead>
+<tr>
+<th align="left">左对齐</th>
+<th align="center">居中对齐</th>
+<th align="right">右对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单元格</td>
+<td align="center">单元格</td>
+<td align="right">单元格</td>
+</tr>
+<tr>
+<td align="left">较长的左对齐内容</td>
+<td align="center">居中内容</td>
+<td align="right">右对齐数字 123</td>
+</tr>
+<tr>
+<td align="left">测试</td>
+<td align="center">测试</td>
+<td align="right">测试</td>
+</tr>
+</tbody></table>
+<h2 id="7-引用块"><a href="#7-引用块" class="headerlink" title="7. 引用块"></a>7. 引用块</h2><blockquote>
+<p>这是一级引用</p>
+<blockquote>
+<p>这是二级引用</p>
+<blockquote>
+<p>这是三级引用</p>
+</blockquote>
+<p>返回二级引用</p>
+</blockquote>
+<p>返回一级引用</p>
+</blockquote>
+<blockquote>
+<p><strong>注意：</strong> 这是一个带格式的引用块</p>
+<p>引用中可以包含其他Markdown元素，比如：</p>
+<ol>
+<li>列表</li>
+<li><strong>粗体文本</strong></li>
+<li><code>代码</code></li>
+</ol>
+</blockquote>
+<h2 id="8-数学公式"><a href="#8-数学公式" class="headerlink" title="8. 数学公式"></a>8. 数学公式</h2><h3 id="行内公式"><a href="#行内公式" class="headerlink" title="行内公式"></a>行内公式</h3><p>勾股定理：$a^2 + b^2 &#x3D; c^2$</p>
+<p>爱因斯坦质能方程：$E &#x3D; mc^2$</p>
+<p>二次方程求根公式：$x &#x3D; \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
+<h3 id="块级公式"><a href="#块级公式" class="headerlink" title="块级公式"></a>块级公式</h3><p><strong>等差数列求和公式：</strong></p>
+<p>$$<br>S_n &#x3D; \frac{n(a_1 + a_n)}{2}<br>$$</p>
+<p><strong>高斯积分公式：</strong></p>
+<p>$$<br>\int_{-\infty}^{\infty} e^{-x^2} dx &#x3D; \sqrt{\pi}<br>$$</p>
+<p><strong>矩阵乘法：</strong></p>
+<h1 id="begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix"><a href="#begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix" class="headerlink" title="$$\begin{bmatrix}a_{11} &amp; a_{12} \a_{21} &amp; a_{22}\end{bmatrix}\times\begin{bmatrix}b_{11} &amp; b_{12} \b_{21} &amp; b_{22}\end{bmatrix}"></a>$$<br>\begin{bmatrix}<br>a_{11} &amp; a_{12} \<br>a_{21} &amp; a_{22}<br>\end{bmatrix}<br>\times<br>\begin{bmatrix}<br>b_{11} &amp; b_{12} \<br>b_{21} &amp; b_{22}<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>a_{11}b_{11} + a_{12}b_{21} &amp; a_{11}b_{12} + a_{12}b_{22} \<br>a_{21}b_{11} + a_{22}b_{21} &amp; a_{21}b_{12} + a_{22}b_{22}<br>\end{bmatrix}<br>$$</p>
+<h2 id="9-脚注"><a href="#9-脚注" class="headerlink" title="9. 脚注"></a>9. 脚注</h2><p>这是一个带有脚注的句子<a href="%E8%BF%99%E6%98%AF%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%84%9A%E6%B3%A8%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E6%9B%B4%E5%A4%9A%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E3%80%82">^1</a>。<br>这是另一个引用<a href="%E7%AC%AC%E4%BA%8C%E4%B8%AA%E8%84%9A%E6%B3%A8%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E9%93%BE%E6%8E%A5%E5%92%8C%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%EF%BC%8C%E6%AF%94%E5%A6%82**%E7%B2%97%E4%BD%93**%E6%88%96%60%E4%BB%A3%E7%A0%81%60%E3%80%82">^2</a>。</p>
+<h2 id="10-分割线"><a href="#10-分割线" class="headerlink" title="10. 分割线"></a>10. 分割线</h2><hr>
+<hr>
+<hr>
+<h2 id="11-定义列表"><a href="#11-定义列表" class="headerlink" title="11. 定义列表"></a>11. 定义列表</h2><dl><dt>术语一</dt><dd>这是术语一的定义</dd></dl><dl><dt>术语二<br>: 这是术语二的定义</dt><dd>这是术语二的第二个定义</dd></dl><h2 id="12-特殊字符与HTML"><a href="#12-特殊字符与HTML" class="headerlink" title="12. 特殊字符与HTML"></a>12. 特殊字符与HTML</h2><p><kbd>Ctrl</kbd> + <kbd>C</kbd> 复制<br><kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</p>
+<p>上箭头：↑<br>版权符号：©<br>注册商标：®<br>欧元符号：€</p>
+<details>
+<summary>点击展开/收起详细信息</summary>
+这是一个使用HTML details元素创建的折叠内容区域。
+里面可以包含任何Markdown内容：
+
+<ul>
+<li>列表项1</li>
+<li>列表项2</li>
+<li>列表项3</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello from inside the details!&quot;</span>)</span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="13-图表（如果支持Mermaid）"><a href="#13-图表（如果支持Mermaid）" class="headerlink" title="13. 图表（如果支持Mermaid）"></a>13. 图表（如果支持Mermaid）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[开始] --&gt; B(处理)</span><br><span class="line">    B --&gt; C&#123;判断&#125;</span><br><span class="line">    C --&gt;|是| D[执行A]</span><br><span class="line">    C --&gt;|否| E[执行B]</span><br><span class="line">    D --&gt; F[结束]</span><br><span class="line">    E --&gt; F</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant 用户</span><br><span class="line">    participant 系统</span><br><span class="line">    用户-&gt;&gt;系统: 登录请求</span><br><span class="line">    系统-&gt;&gt;系统: 验证凭据</span><br><span class="line">    alt 验证成功</span><br><span class="line">        系统-&gt;&gt;用户: 返回主页</span><br><span class="line">    else 验证失败</span><br><span class="line">        系统-&gt;&gt;用户: 显示错误</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+
+<h2 id="14-表情符号和特殊符号"><a href="#14-表情符号和特殊符号" class="headerlink" title="14. 表情符号和特殊符号"></a>14. 表情符号和特殊符号</h2><p>:smile: :heart: :+1: :rocket:</p>
+<p>箭头：→ ← ↑ ↓<br>数学符号：≠ ≤ ≥ ≈ ∞</p>
+<h2 id="15-混合内容测试"><a href="#15-混合内容测试" class="headerlink" title="15. 混合内容测试"></a>15. 混合内容测试</h2><p>这是一个<strong>混合</strong>了各种格式的段落，包括<code>行内代码</code>、<a href="https://hexo.io/">链接</a>、<em>斜体</em>和<strong>粗体</strong>。我们可以引用某个公式：$E &#x3D; mc^2$，然后继续写正文。</p>
+<blockquote>
+<p>这是一个包含表格的引用块：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>数量</th>
+<th>价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>苹果</td>
+<td>5</td>
+<td>$10</td>
+</tr>
+<tr>
+<td>香蕉</td>
+<td>3</td>
+<td>$6</td>
+</tr>
+</tbody></table>
+</blockquote>
+<ol>
+<li><strong>有序列表项一</strong>，包含<code>代码</code>和<a href="https://example.com/">链接</a></li>
+<li><em>有序列表项二</em>，包含数学公式 $x^2 + y^2 &#x3D; r^2$</li>
+<li>有序列表项三，包含表情符号 :tada:</li>
+</ol>
+<h2 id="16-结束语"><a href="#16-结束语" class="headerlink" title="16. 结束语"></a>16. 结束语</h2><p>这个文档测试了Hexo中可能用到的各种Markdown格式。不同的Hexo主题和渲染器可能对这些格式的支持程度不同，请根据实际渲染效果进行调整。</p>
+<hr>
+<p><em>最后更新：2025年</em><br><em>测试完成</em></p>
+]]></content>
   </entry>
   <entry>
     <title>the first blog for my felling</title>
