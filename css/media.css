@@ -117,10 +117,15 @@
     line-height: 1.5rem;
     padding-top: 2em;
   }
-  .post-warp {
-    padding-top: 6em;
+  .post-wrap {
+    padding: 1rem;
+    margin: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
-  .post-warp .archive-item-date {
+  .dark-theme .post-wrap {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .post-wrap .archive-item-date {
     display: none;
   }
   .categories .categories-card .card-item {
