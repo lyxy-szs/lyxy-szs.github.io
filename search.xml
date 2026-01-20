@@ -416,6 +416,107 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu和Windows上YOLO模型训练与部署流程</title>
+    <url>/2025/12/13/Ubuntu%E5%92%8CWindows%E4%B8%8AYOLO%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<p>针对在Ubuntu 22.04和Windows 11系统上，使用纯Intel CPU进行YOLO模型训练与应用的需求，我将为你梳理一个清晰的流程。核心是利用<strong>OpenVINO工具套件</strong>对YOLO模型进行优化，以在CPU上获得最佳的推理性能。</p>
+<h3 id="双系统方案概览"><a href="#双系统方案概览" class="headerlink" title="? 双系统方案概览"></a>? 双系统方案概览</h3><p>在开始具体步骤前，你可以通过下面的对比了解两个系统的主要异同，这有助于你根据熟悉的操作环境进行选择。</p>
+<p><strong>Ubuntu 22.04 方案</strong></p>
+<ul>
+<li><strong>核心优势</strong><ul>
+<li><strong>开发友好性</strong>：对Python、C++等开发环境支持原生，命令行操作高效。</li>
+<li><strong>资源开销</strong>：系统本身资源占用相对较低，可将更多算力用于训练。</li>
+<li><strong>部署一致性</strong>：服务器端主流系统，一次开发，部署环境统一。</li>
+</ul>
+</li>
+<li><strong>潜在考虑</strong><ul>
+<li><strong>硬件驱动</strong>：需自行确保CPU等驱动为最新版本以发挥全部性能。</li>
+<li><strong>操作习惯</strong>：若习惯图形界面，需要适应命令行操作。</li>
+</ul>
+</li>
+<li><strong>推荐适用场景</strong><ul>
+<li>模型训练、算法开发、生产服务器部署。</li>
+</ul>
+</li>
+</ul>
+<p><strong>Windows 11 方案</strong></p>
+<ul>
+<li><strong>核心优势</strong><ul>
+<li><strong>生态兼容性</strong>：与常用办公软件、专业工具兼容性好。</li>
+<li><strong>硬件支持</strong>：通常能通过系统更新自动获得最新的硬件驱动支持。</li>
+<li><strong>图形化界面</strong>：拥有丰富的图形化工具（如OpenVINO? C# API），便于快速搭建演示程序。</li>
+</ul>
+</li>
+<li><strong>潜在考虑</strong><ul>
+<li><strong>系统开销</strong>：图形界面本身会占用部分系统资源。</li>
+<li><strong>路径与依赖</strong>：需注意Python环境、路径分隔符（<code>\</code>）与Linux（<code>/</code>）的区别。</li>
+</ul>
+</li>
+<li><strong>推荐适用场景</strong><ul>
+<li>快速原型验证、桌面端应用集成、边缘设备部署（如英特尔开发套件）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>两者的共同核心</strong><br>无论选择哪个系统，后续的<strong>核心工作流程是通用的</strong>，都遵循：准备环境 → 准备数据与训练 → 模型优化 → 应用部署。两个系统的主要区别集中在初始环境配置和部分依赖安装命令上。</p>
+<h3 id="详细步骤指南"><a href="#详细步骤指南" class="headerlink" title="?? 详细步骤指南"></a>?? 详细步骤指南</h3><p>下面以当前主流的 <strong>YOLOv8</strong> 为例（其流程也适用于更新的v9&#x2F;v10等版本），介绍从环境配置到部署的完整步骤。</p>
+<h4 id="第一步：环境配置与项目初始化"><a href="#第一步：环境配置与项目初始化" class="headerlink" title="第一步：环境配置与项目初始化"></a>第一步：环境配置与项目初始化</h4><p>这是操作系统差异最明显的环节，主要是安装方式不同。</p>
+<p><strong>在 Ubuntu 22.04 上</strong></p>
+<ol>
+<li><strong>安装Python及基础工具</strong>：打开终端，运行以下命令。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install python3 python3-pip git</span><br></pre></td></tr></table></figure></li>
+<li><strong>创建虚拟环境</strong>：推荐使用 <code>venv</code> 或 <code>conda</code> 隔离环境。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 -m pip install --user virtualenv</span><br><span class="line">python3 -m virtualenv openvino_env</span><br><span class="line"><span class="built_in">source</span> openvino_env/bin/activate</span><br></pre></td></tr></table></figure></li>
+<li><strong>安装关键库</strong>：在激活的虚拟环境中安装。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>在 Windows 11 上</strong></p>
+<ol>
+<li><strong>安装Python</strong>：访问 <a href="https://www.python.org/">python.org</a> 下载并安装Python 3.10或3.11，安装时请勾选“Add Python to PATH”。</li>
+<li><strong>使用命令行</strong>：以管理员身份打开“命令提示符”或“PowerShell”。</li>
+<li><strong>创建并激活虚拟环境</strong>：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m venv openvino_win_env</span><br><span class="line">openvino_win_env\Scripts\activate</span><br></pre></td></tr></table></figure></li>
+<li><strong>安装关键库</strong>：命令与Linux相同。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="第二步：准备数据并训练模型"><a href="#第二步：准备数据并训练模型" class="headerlink" title="第二步：准备数据并训练模型"></a>第二步：准备数据并训练模型</h4><p>两个系统在此步骤的命令完全相同。</p>
+<ol>
+<li><strong>准备数据集</strong>：将你的图片和标签按YOLO格式组织。标签文件是 <code>.txt</code> 格式，内容为 <code>类别id x_center y_center width height</code>（归一化坐标）。目录结构参考如下：<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">your_dataset<span class="symbol">/</span></span><br><span class="line">├── images<span class="symbol">/</span></span><br><span class="line">│   ├── train<span class="symbol">/</span></span><br><span class="line">│   └── val<span class="symbol">/</span></span><br><span class="line">└── labels<span class="symbol">/</span></span><br><span class="line">    ├── train<span class="symbol">/</span></span><br><span class="line">    └── val<span class="operator">/</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>创建数据集配置文件</strong>：创建一个 <code>data.yaml</code> 文件，指明路径和类别。<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">train:</span> <span class="string">/path/to/your_dataset/images/train</span></span><br><span class="line"><span class="attr">val:</span> <span class="string">/path/to/your_dataset/images/val</span></span><br><span class="line"><span class="attr">nc:</span> <span class="number">2</span>  <span class="comment"># 你的物体类别数，例如2类</span></span><br><span class="line"><span class="attr">names:</span> [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>]  <span class="comment"># 类别名称列表</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>启动训练</strong>：使用Ultralytics YOLO简洁的CLI命令进行训练。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo detect train data=data.yaml model=yolov8n.pt epochs=50 imgsz=640</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>yolov8n.pt</code>：可更换为 <code>yolov8s.pt</code>, <code>yolov8m.pt</code> 等不同大小的预训练模型。</li>
+<li><code>epochs</code>、<code>imgsz</code>：可根据你的计算资源和任务调整。</li>
+</ul>
+</li>
+</ol>
+<h4 id="第三步：模型测试与导出"><a href="#第三步：模型测试与导出" class="headerlink" title="第三步：模型测试与导出"></a>第三步：模型测试与导出</h4><ol>
+<li><strong>模型测试</strong>：训练完成后，最佳模型会保存在 <code>runs/detect/train/weights/best.pt</code>。使用它进行预测。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo predict model=runs/detect/train/weights/best.pt <span class="built_in">source</span>=<span class="string">&#x27;path/to/test_image.jpg&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>导出为OpenVINO格式</strong>：这是为Intel CPU优化的关键步骤。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo <span class="built_in">export</span> model=runs/detect/train/weights/best.pt format=openvino</span><br></pre></td></tr></table></figure>
+导出后，你会得到一个 <code>.xml</code>（模型结构）和一个 <code>.bin</code>（模型权重）文件。</li>
+</ol>
+<h4 id="第四步：使用OpenVINO优化与部署"><a href="#第四步：使用OpenVINO优化与部署" class="headerlink" title="第四步：使用OpenVINO优化与部署"></a>第四步：使用OpenVINO优化与部署</h4><p>这是发挥Intel CPU性能潜力的核心。</p>
+<ol>
+<li><strong>编写OpenVINO推理脚本</strong>：创建一个Python脚本（如 <code>openvino_infer.py</code>），使用导出的模型进行高性能推理。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> openvino <span class="keyword">import</span> runtime <span class="keyword">as</span> ov</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 初始化并加载模型</span></span><br><span class="line">core = ov.Core()</span><br><span class="line">compiled_model = core.compile_model(<span class="string">&quot;path/to/best.xml&quot;</span>, <span class="string">&quot;CPU&quot;</span>)  <span class="comment"># 指定CPU设备</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 准备输入数据（需要根据模型要求进行预处理，如调整大小、归一化）</span></span><br><span class="line">image = cv2.imread(<span class="string">&quot;test.jpg&quot;</span>)</span><br><span class="line">input_tensor = np.expand_dims(preprocessed_image, <span class="number">0</span>)  <span class="comment"># 添加batch维度</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 推理</span></span><br><span class="line">results = compiled_model(input_tensor)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 后处理（解析YOLO输出，画框等）</span></span><br><span class="line"><span class="comment"># ... (后处理代码，取决于具体的YOLO版本和导出参数)</span></span><br></pre></td></tr></table></figure>
+<strong>关键说明</strong>：YOLO模型通过OpenVINO导出后，其前处理（如图像归一化）和后处理（解码边界框）可能需要你根据模型原始定义手动完成，或参考OpenVINO官方提供的YOLO范例代码。</li>
+<li><strong>进一步优化（可选）</strong>：<ul>
+<li><strong>量化</strong>：使用OpenVINO的<code>nncf</code>库将FP32模型转换为INT8，可以大幅提升推理速度，精度损失很小。</li>
+<li><strong>性能调优</strong>：在<code>compile_model</code>时，可以配置CPU线程数、推理精度等参数。</li>
+</ul>
+</li>
+</ol>
+<h3 id="核心建议与后续方向"><a href="#核心建议与后续方向" class="headerlink" title="? 核心建议与后续方向"></a>? 核心建议与后续方向</h3><p>为了让你的项目更顺利，这里有一些关键建议：</p>
+<ul>
+<li><strong>从轻量模型开始</strong>：在CPU上训练和推理，建议从 <code>yolov8n</code>（nano）或 <code>yolov8s</code>（small）开始，速度更快。</li>
+<li><strong>利用官方资源</strong>：OpenVINO工具包提供了丰富的<a href="https://github.com/openvinotoolkit/openvino_notebooks">示例代码</a>，其中有完整的YOLO系列从导出到部署的笔记本，是解决具体问题的最佳参考。</li>
+<li><strong>性能对比</strong>：在部署前，用OpenVINO推理脚本和原始的PyTorch模型（<code>best.pt</code>）在相同输入上对比结果，确保转换无误。</li>
+</ul>
+<p>如果你想继续深入，以下几个方向可能会对你有帮助：</p>
+<ol>
+<li><strong>性能瓶颈分析</strong>：如果你的应用对实时性要求高，是否需要分析是CPU算力瓶颈还是推理代码本身的效率问题？</li>
+<li><strong>高级优化技巧</strong>：是否有兴趣了解更深入的OpenVINO优化技术，例如模型剪枝与INT8量化的具体操作？</li>
+<li><strong>部署形态</strong>：你的最终目标是部署成什么样的应用？是桌面软件、Web服务还是嵌入式设备？这会影响技术选型。</li>
+</ol>
+<p>你可以告诉我更具体的兴趣点，我能提供更有针对性的信息。</p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Map</title>
     <url>/2025/11/20/Map/</url>
     <content><![CDATA[<h1 id="C-std-map-使用详细指南"><a href="#C-std-map-使用详细指南" class="headerlink" title="C++ std::map 使用详细指南"></a>C++ std::map 使用详细指南</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
@@ -522,6 +623,167 @@
         <tag>C++</tag>
         <tag>map</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>bat脚本一日游</title>
+    <url>/2025/08/20/a-travel-of-bat/</url>
+    <content><![CDATA[<h1 id="这段时间在搞hexo博客"><a href="#这段时间在搞hexo博客" class="headerlink" title="这段时间在搞hexo博客"></a>这段时间在搞hexo博客</h1><p>  因为要本地编写、测试、上传博客，每次都要打代码，我嫌麻烦打算写个bat脚本来一键完成。</p>
+<h2 id="Part-0-创建脚本（基础须知-可跳转到-Part-1）"><a href="#Part-0-创建脚本（基础须知-可跳转到-Part-1）" class="headerlink" title="Part.0 创建脚本（基础须知,可跳转到 ###Part.1）"></a>Part.0 创建脚本（基础须知,可跳转到 ###Part.1）</h2><p>   先创建一个文本文档，将文件后缀名改为.bat，右键打开编辑。<br>   <code>@echo off</code>**@**是不显示当前行命令，<strong>echo off</strong>是不显示下述命令。<br>   <code>::或REM</code> 空格后加注释，<em><strong>注意换行</strong></em>。<br>   <code>pause</code>暂停，输入任意值继续。</p>
+<p>   <code>set</code>set 命令定义变量.eg:<code>set var=value</code>，这里 var 是变量名，value 是变量的值。<br>   <code> setlocal enabledelayedexpansion</code>当变量的值在循环中可能会发生变化时，需要开启延迟变量扩展,用<code>!var!</code>的形式访问变量。<br>   <code>%</code>访问变量的值需要用 % 括起来，eg:<code>echo %var%</code>会在命令提示符窗口输出变量 var 的值。</p>
+<p>   <code>echo</code>用于在命令提示符窗口输出文本信息。<br>   <code>mkdir</code>用于创建目录。eg:<code>mkdir new folder</code> 会在当前目录下创建一个名为 new folder 的新文件夹。<br>   <code>cd</code>切换目录。<code>cd new folder</code>会进入刚刚创建的 new folder 目录；<code>cd..</code>可以返回上一级目录。<br>   <code>dir</code>列出目录中的文件和子目录。dir 命令会显示当前目录下的内容,<code>dir /s</code>可以递归列出当前目录及其所有子目录下的内容。<br>   <code>explorer</code>可以打开路径（”文件路径”），直接后加<code> /select,文件路径</code>可选中文件</p>
+<h4 id="start命令"><a href="#start命令" class="headerlink" title="start命令"></a><code>start</code>命令</h4><p>   用法：<code>start [“title”] [parameters] “program name” [command line parameters]</code><br>   其中：<br>   **“title”**是可选的，是要启动的窗口的标题。<br>   <strong>parameters</strong>也是可选的，指定窗口的大小、状态等。eg:<code>/min</code>表示以最小化窗口启动,<code>/max</code>表示以最大化窗口启动。<br>   **“program name”**要启动的程序的名称或可执行文件的路径。如果路径包含空格，同样需要用双引号括起来。eg:<code>start “C:\Program Files\Microsoft Office\Excel.exe”</code>会启动 Excel 程序。(双引号不可省略)<br>   <strong>command - line parameters</strong>传递给程序的命令行参数。比如你有一个网址，想用edge打开 eg:<code>start &quot;Edge&quot; &quot;https://www.baidu.com&quot;</code></p>
+<p>  剩下的可以问AI，</p>
+<h2 id="Part-1-写个博客"><a href="#Part-1-写个博客" class="headerlink" title="Part.1 写个博客"></a>Part.1 写个博客</h2><p>   <code>@hexo new &quot;new&quot;&amp;&amp;explorer.exe /select,C:\Users\Admin\Desktop\hexo\source\_posts\new.md</code><br>解释：先用hexo创建一个名为new的文件，在打开并选中该文件，<strong><del>不实现自动改名是因为我试了半天都实现不了，连键入F2都不行</del></strong></p>
+<h2 id="Part-2-本地测试博客"><a href="#Part-2-本地测试博客" class="headerlink" title="Part.2 本地测试博客"></a>Part.2 本地测试博客</h2><p>   <code>hexo clean&amp;&amp;start &quot;Edge&quot; &quot;http://localhost:4000&quot;&amp;&amp;hexo s</code><br>解释：先清理缓存，用edge打开本地端口，再开启本地博客服务，因为代码是从前向后运行，所以顺序不可改，先运行<code>hexo s</code>会导致无法自动打开浏览器</p>
+<h2 id="Part-3-上传博客"><a href="#Part-3-上传博客" class="headerlink" title="Part.3 上传博客"></a>Part.3 上传博客</h2><p>   <code>hexo clean&amp;&amp;hexo generate&amp;&amp;hexo deploy&amp;&amp;pause</code><br>解释：<code>pause</code>的作用是在正常上传博客之后，留有一个任意键的窗口，从而知晓博客正常上传与否</p>
+<h3 id="保存为bat，你就获得的自动化脚本"><a href="#保存为bat，你就获得的自动化脚本" class="headerlink" title="保存为bat，你就获得的自动化脚本"></a>保存为bat，你就获得的自动化脚本</h3><p>另外，part·1中废稿粘在下面，希望有人可以解疑———为什么它无法正常运行</p>
+<details>
+<summary>点击展开完整代码（batch）</summary>
+
+<pre><code class="language-batch">@echo off
+setlocal enabledelayedexpansion
+
+echo 正在创建新的Hexo博客文章...
+call hexo new &quot;new_blog&quot;
+
+if errorlevel 1 (
+    echo 错误: 创建博客文章失败
+    echo 请确保:
+    echo 1. Hexo已正确安装
+    echo 2. 当前目录是Hexo博客根目录
+    pause
+    exit /b 1
+)
+
+set &quot;postPath=C:\Users\Admin\Desktop\hexo\source\_posts\&quot;
+set &quot;oldFileName=new_blog.md&quot;
+
+rem 检查文章目录是否存在
+if not exist &quot;!postPath!&quot; (
+    echo 错误: 文章目录不存在: !postPath!
+    echo 请检查路径是否正确
+    pause
+    exit /b 1
+)
+
+echo.
+echo 请输入新的文件名(不含扩展名)，直接回车将保持原文件名:
+set /p &quot;newName=&quot;
+
+if &quot;!newName!&quot;==&quot;&quot; (
+    echo 保持原文件名: new_blog.md
+    set &quot;finalFileName=!oldFileName!&quot;
+) else (
+    echo 正在将文件重命名为: !newName!.md
+    
+    rem 检查原文件是否存在
+    if not exist &quot;!postPath!!oldFileName!&quot; (
+        echo 错误: 原文件 !postPath!!oldFileName! 不存在
+        echo 请检查Hexo是否成功创建了文章
+        pause
+        exit /b 1
+    )
+    
+    rem 执行重命名操作
+    ren &quot;!postPath!!oldFileName!&quot; &quot;!newName!.md&quot;
+    
+    if errorlevel 1 (
+        echo 错误: 重命名文件失败
+        echo 可能的原因:
+        echo 1. 新文件名包含非法字符
+        echo 2. 已存在同名文件
+        echo 3. 没有足够的权限
+        pause
+        exit /b 1
+    )
+    
+    set &quot;finalFileName=!newName!.md&quot;
+)
+
+echo 博客文章创建完成: !finalFileName!
+
+rem 打开文件
+if exist &quot;!postPath!!finalFileName!&quot; (
+    echo 正在打开文件...
+    start &quot;&quot; &quot;!postPath!!finalFileName!&quot;
+) else (
+    echo 警告: 文件 !postPath!!finalFileName! 不存在，无法打开
+)
+
+echo.
+echo 按任意键退出...
+pause &gt;nul
+
+
+
+
+
+</code></pre>
+]]></content>
+      <categories>
+        <category>Bat脚本</category>
+      </categories>
+      <tags>
+        <tag>bat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>蓝桥杯</title>
+    <url>/2025/09/14/bluebridge/</url>
+    <content><![CDATA[<h2 id="设计师调度分配"><a href="#设计师调度分配" class="headerlink" title="设计师调度分配"></a>设计师调度分配</h2><p>在一个创意工作室中，三位设计师李工、王工和张工分别负责三项独立的模型制作任务。李工完成任务需要a1秒，王工需要a2秒，张工需要a3秒。工作室的建模平台一次只能容纳两名设计师工作，第三位设计师需等待，直到平台空闲（即当前一位设计师完成任务离开）才能开始工作。所有模型全部完成时，项目才算正式交付。<br>现在，经理希望合理调度设计师的工作顺序，以最短时间完成所有任务。请你计算三位设计师完成三件模型的最小总时间。<br>输入格式<code>3 5 7</code><br>输出结果<code>8</code></p>
+<p>代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  vector&lt;<span class="type">int</span>&gt; numbers;</span><br><span class="line">  <span class="type">int</span> a1, a2, a3, c;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin &gt;&gt; a;</span><br><span class="line">    numbers.<span class="built_in">push_back</span>(a);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="built_in">sort</span>(numbers.<span class="built_in">begin</span>(), numbers.<span class="built_in">end</span>());</span><br><span class="line">  a1 = numbers[<span class="number">0</span>];</span><br><span class="line">  a2 = numbers[<span class="number">1</span>];</span><br><span class="line">  a3 = numbers[<span class="number">2</span>]; </span><br><span class="line">  </span><br><span class="line">  c=a1 + a2;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(c &gt;= a3)&#123;</span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">    cout &lt;&lt; a3 &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="妈妈的菜单"><a href="#妈妈的菜单" class="headerlink" title="妈妈的菜单"></a>妈妈的菜单</h2><p> 小蓝是个挑食但又容易饿的孩子。午餐时间，妈妈为他准备了 10 道菜，并写下了一份菜单。菜单上的每道菜都有一个“饱腹值”，表示吃下这道菜能增加多少饱腹感。</p>
+<p>妈妈会严格按照菜单的顺序，从第一道菜开始逐一端上餐桌。小蓝可以选择吃或不吃当前这道菜。然而，一旦他决定不吃某一道菜，妈妈就会认为他已经吃饱了，并停止端上后续的所有菜肴。</p>
+<p>小蓝虽然容易饿，但也不喜欢吃得太撑的感觉。因此，他希望午餐后自己的饱腹值能停留在 100 附近。</p>
+<p>现在，请你根据小蓝的情况计算，他最终会获得的饱腹值是多少。</p>
+<p>注意：如果存在两种选择，它们与 100 的差距相同（例如，饱腹值为 98 和 102），他总是会选择那个更高的值——毕竟，对于一个正在长身体的孩子来说，吃撑一点总比饿着肚子好。</p>
+<p>输入格式<code>20 10 10 10 10 10 10 10 15 15</code><br>输出格式<code>105</code></p>
+<p>代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span> <span class="comment">// 用于abs函数</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">short</span> food[<span class="number">10</span>]; <span class="comment">// 存储10道菜的饱腹值</span></span><br><span class="line">    <span class="type">int</span> best = <span class="number">0</span>;   <span class="comment">// 最佳饱腹值（初始为0，表示什么都不吃）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取10道菜的饱腹值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        cin &gt;&gt; food[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> current = <span class="number">0</span>; <span class="comment">// 当前累计饱腹值</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历所有可能的前缀和（吃前0道、前1道、...、前10道菜）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        current += food[i]; <span class="comment">// 吃当前这道菜</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查当前饱腹值是否比之前的最佳选择更好</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) &lt; <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            best = current; <span class="comment">// 更接近100，更新最佳值</span></span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) == <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (current &gt; best) &#123; <span class="comment">// 差距相同，选择更高的值</span></span><br><span class="line">                best = current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 注意：这里不能break，因为要继续考虑所有可能的前缀和</span></span><br><span class="line">        <span class="comment">// 即使当前已经超过100，后面可能还有更接近100的情况</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; best &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="挑选题目"><a href="#挑选题目" class="headerlink" title="挑选题目"></a>挑选题目</h2><p>两位资深的审题专家，小蓝和小桥，各自收到了N道题目。小蓝收到的题目难度依次为 A1,A2,A3…An，小桥收到的题目难度依次为B1,B2,B3…Bn，为了准备即将举行的竞赛，他们需要从各自收到的题目中选出一道，用于竞赛。通过商量，两人决定通过一种特殊的方式来选择题目：两人轮流删除一道自己手中的题目，直到各自只剩下一道题目。小蓝先删除，然后小桥删除，依此交替进行，直到最后两人手中都只剩下一道题目。小蓝希望最终两人剩下的两道题目的难度差尽可能大，而小桥则希望难度差尽可能小。假设两人都采取最优策略，请问最终两人剩下的两道题目的难度差的绝对值是多少？</p>
+<details>
+<summary>for双层循环示例（cpp）</summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a[<span class="number">999</span>],b[<span class="number">999</span>];</span><br><span class="line">  <span class="type">int</span> min=<span class="number">9999999</span>;</span><br><span class="line">  <span class="type">int</span> max=<span class="number">-1</span>;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  cin&gt;&gt;n;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>我写的代码（cpp）</summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; lan;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; qiao;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; c;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; d;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    c.<span class="built_in">resize</span>(n);<span class="comment">//定义数组c中有n项,需要先有n</span></span><br><span class="line">    d.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        lan.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        qiao.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>;j &lt; n;j++)&#123;</span><br><span class="line">            c[j]=<span class="built_in">abs</span>(lan[i]-qiao[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> small = *<span class="built_in">min_element</span>(c.<span class="built_in">begin</span>(), c.<span class="built_in">end</span>());</span><br><span class="line">        d[i]=small;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> big = *<span class="built_in">max_element</span>(d.<span class="built_in">begin</span>(), d.<span class="built_in">end</span>());</span><br><span class="line">    cout &lt;&lt; big &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>copilot（cpp）</summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">if</span> (!(cin &gt;&gt; n)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">A</span><span class="params">(n)</span>, <span class="title">B</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; A[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; B[i];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> nearestDistInB = [&amp;](<span class="type">int</span> x) &#123;</span><br><span class="line">        <span class="comment">// 找到 B 中距离 x 最近的元素的绝对差</span></span><br><span class="line">        <span class="keyword">auto</span> it = <span class="built_in">lower_bound</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>(), x);</span><br><span class="line">        <span class="type">int</span> dist = INT_MAX;</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">end</span>()) dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">            --it;</span><br><span class="line">            dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, <span class="built_in">nearestDistInB</span>(A[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2026/01/20/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>C++基础入门</title>
@@ -2330,268 +2592,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu和Windows上YOLO模型训练与部署流程</title>
-    <url>/2025/12/13/Ubuntu%E5%92%8CWindows%E4%B8%8AYOLO%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B/</url>
-    <content><![CDATA[<p>针对在Ubuntu 22.04和Windows 11系统上，使用纯Intel CPU进行YOLO模型训练与应用的需求，我将为你梳理一个清晰的流程。核心是利用<strong>OpenVINO工具套件</strong>对YOLO模型进行优化，以在CPU上获得最佳的推理性能。</p>
-<h3 id="双系统方案概览"><a href="#双系统方案概览" class="headerlink" title="? 双系统方案概览"></a>? 双系统方案概览</h3><p>在开始具体步骤前，你可以通过下面的对比了解两个系统的主要异同，这有助于你根据熟悉的操作环境进行选择。</p>
-<p><strong>Ubuntu 22.04 方案</strong></p>
-<ul>
-<li><strong>核心优势</strong><ul>
-<li><strong>开发友好性</strong>：对Python、C++等开发环境支持原生，命令行操作高效。</li>
-<li><strong>资源开销</strong>：系统本身资源占用相对较低，可将更多算力用于训练。</li>
-<li><strong>部署一致性</strong>：服务器端主流系统，一次开发，部署环境统一。</li>
-</ul>
-</li>
-<li><strong>潜在考虑</strong><ul>
-<li><strong>硬件驱动</strong>：需自行确保CPU等驱动为最新版本以发挥全部性能。</li>
-<li><strong>操作习惯</strong>：若习惯图形界面，需要适应命令行操作。</li>
-</ul>
-</li>
-<li><strong>推荐适用场景</strong><ul>
-<li>模型训练、算法开发、生产服务器部署。</li>
-</ul>
-</li>
-</ul>
-<p><strong>Windows 11 方案</strong></p>
-<ul>
-<li><strong>核心优势</strong><ul>
-<li><strong>生态兼容性</strong>：与常用办公软件、专业工具兼容性好。</li>
-<li><strong>硬件支持</strong>：通常能通过系统更新自动获得最新的硬件驱动支持。</li>
-<li><strong>图形化界面</strong>：拥有丰富的图形化工具（如OpenVINO? C# API），便于快速搭建演示程序。</li>
-</ul>
-</li>
-<li><strong>潜在考虑</strong><ul>
-<li><strong>系统开销</strong>：图形界面本身会占用部分系统资源。</li>
-<li><strong>路径与依赖</strong>：需注意Python环境、路径分隔符（<code>\</code>）与Linux（<code>/</code>）的区别。</li>
-</ul>
-</li>
-<li><strong>推荐适用场景</strong><ul>
-<li>快速原型验证、桌面端应用集成、边缘设备部署（如英特尔开发套件）。</li>
-</ul>
-</li>
-</ul>
-<p><strong>两者的共同核心</strong><br>无论选择哪个系统，后续的<strong>核心工作流程是通用的</strong>，都遵循：准备环境 → 准备数据与训练 → 模型优化 → 应用部署。两个系统的主要区别集中在初始环境配置和部分依赖安装命令上。</p>
-<h3 id="详细步骤指南"><a href="#详细步骤指南" class="headerlink" title="?? 详细步骤指南"></a>?? 详细步骤指南</h3><p>下面以当前主流的 <strong>YOLOv8</strong> 为例（其流程也适用于更新的v9&#x2F;v10等版本），介绍从环境配置到部署的完整步骤。</p>
-<h4 id="第一步：环境配置与项目初始化"><a href="#第一步：环境配置与项目初始化" class="headerlink" title="第一步：环境配置与项目初始化"></a>第一步：环境配置与项目初始化</h4><p>这是操作系统差异最明显的环节，主要是安装方式不同。</p>
-<p><strong>在 Ubuntu 22.04 上</strong></p>
-<ol>
-<li><strong>安装Python及基础工具</strong>：打开终端，运行以下命令。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install python3 python3-pip git</span><br></pre></td></tr></table></figure></li>
-<li><strong>创建虚拟环境</strong>：推荐使用 <code>venv</code> 或 <code>conda</code> 隔离环境。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 -m pip install --user virtualenv</span><br><span class="line">python3 -m virtualenv openvino_env</span><br><span class="line"><span class="built_in">source</span> openvino_env/bin/activate</span><br></pre></td></tr></table></figure></li>
-<li><strong>安装关键库</strong>：在激活的虚拟环境中安装。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p><strong>在 Windows 11 上</strong></p>
-<ol>
-<li><strong>安装Python</strong>：访问 <a href="https://www.python.org/">python.org</a> 下载并安装Python 3.10或3.11，安装时请勾选“Add Python to PATH”。</li>
-<li><strong>使用命令行</strong>：以管理员身份打开“命令提示符”或“PowerShell”。</li>
-<li><strong>创建并激活虚拟环境</strong>：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m venv openvino_win_env</span><br><span class="line">openvino_win_env\Scripts\activate</span><br></pre></td></tr></table></figure></li>
-<li><strong>安装关键库</strong>：命令与Linux相同。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="第二步：准备数据并训练模型"><a href="#第二步：准备数据并训练模型" class="headerlink" title="第二步：准备数据并训练模型"></a>第二步：准备数据并训练模型</h4><p>两个系统在此步骤的命令完全相同。</p>
-<ol>
-<li><strong>准备数据集</strong>：将你的图片和标签按YOLO格式组织。标签文件是 <code>.txt</code> 格式，内容为 <code>类别id x_center y_center width height</code>（归一化坐标）。目录结构参考如下：<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">your_dataset<span class="symbol">/</span></span><br><span class="line">├── images<span class="symbol">/</span></span><br><span class="line">│   ├── train<span class="symbol">/</span></span><br><span class="line">│   └── val<span class="symbol">/</span></span><br><span class="line">└── labels<span class="symbol">/</span></span><br><span class="line">    ├── train<span class="symbol">/</span></span><br><span class="line">    └── val<span class="operator">/</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>创建数据集配置文件</strong>：创建一个 <code>data.yaml</code> 文件，指明路径和类别。<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">train:</span> <span class="string">/path/to/your_dataset/images/train</span></span><br><span class="line"><span class="attr">val:</span> <span class="string">/path/to/your_dataset/images/val</span></span><br><span class="line"><span class="attr">nc:</span> <span class="number">2</span>  <span class="comment"># 你的物体类别数，例如2类</span></span><br><span class="line"><span class="attr">names:</span> [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>]  <span class="comment"># 类别名称列表</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>启动训练</strong>：使用Ultralytics YOLO简洁的CLI命令进行训练。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo detect train data=data.yaml model=yolov8n.pt epochs=50 imgsz=640</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>yolov8n.pt</code>：可更换为 <code>yolov8s.pt</code>, <code>yolov8m.pt</code> 等不同大小的预训练模型。</li>
-<li><code>epochs</code>、<code>imgsz</code>：可根据你的计算资源和任务调整。</li>
-</ul>
-</li>
-</ol>
-<h4 id="第三步：模型测试与导出"><a href="#第三步：模型测试与导出" class="headerlink" title="第三步：模型测试与导出"></a>第三步：模型测试与导出</h4><ol>
-<li><strong>模型测试</strong>：训练完成后，最佳模型会保存在 <code>runs/detect/train/weights/best.pt</code>。使用它进行预测。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo predict model=runs/detect/train/weights/best.pt <span class="built_in">source</span>=<span class="string">&#x27;path/to/test_image.jpg&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>导出为OpenVINO格式</strong>：这是为Intel CPU优化的关键步骤。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo <span class="built_in">export</span> model=runs/detect/train/weights/best.pt format=openvino</span><br></pre></td></tr></table></figure>
-导出后，你会得到一个 <code>.xml</code>（模型结构）和一个 <code>.bin</code>（模型权重）文件。</li>
-</ol>
-<h4 id="第四步：使用OpenVINO优化与部署"><a href="#第四步：使用OpenVINO优化与部署" class="headerlink" title="第四步：使用OpenVINO优化与部署"></a>第四步：使用OpenVINO优化与部署</h4><p>这是发挥Intel CPU性能潜力的核心。</p>
-<ol>
-<li><strong>编写OpenVINO推理脚本</strong>：创建一个Python脚本（如 <code>openvino_infer.py</code>），使用导出的模型进行高性能推理。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> openvino <span class="keyword">import</span> runtime <span class="keyword">as</span> ov</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 初始化并加载模型</span></span><br><span class="line">core = ov.Core()</span><br><span class="line">compiled_model = core.compile_model(<span class="string">&quot;path/to/best.xml&quot;</span>, <span class="string">&quot;CPU&quot;</span>)  <span class="comment"># 指定CPU设备</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 准备输入数据（需要根据模型要求进行预处理，如调整大小、归一化）</span></span><br><span class="line">image = cv2.imread(<span class="string">&quot;test.jpg&quot;</span>)</span><br><span class="line">input_tensor = np.expand_dims(preprocessed_image, <span class="number">0</span>)  <span class="comment"># 添加batch维度</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 推理</span></span><br><span class="line">results = compiled_model(input_tensor)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 后处理（解析YOLO输出，画框等）</span></span><br><span class="line"><span class="comment"># ... (后处理代码，取决于具体的YOLO版本和导出参数)</span></span><br></pre></td></tr></table></figure>
-<strong>关键说明</strong>：YOLO模型通过OpenVINO导出后，其前处理（如图像归一化）和后处理（解码边界框）可能需要你根据模型原始定义手动完成，或参考OpenVINO官方提供的YOLO范例代码。</li>
-<li><strong>进一步优化（可选）</strong>：<ul>
-<li><strong>量化</strong>：使用OpenVINO的<code>nncf</code>库将FP32模型转换为INT8，可以大幅提升推理速度，精度损失很小。</li>
-<li><strong>性能调优</strong>：在<code>compile_model</code>时，可以配置CPU线程数、推理精度等参数。</li>
-</ul>
-</li>
-</ol>
-<h3 id="核心建议与后续方向"><a href="#核心建议与后续方向" class="headerlink" title="? 核心建议与后续方向"></a>? 核心建议与后续方向</h3><p>为了让你的项目更顺利，这里有一些关键建议：</p>
-<ul>
-<li><strong>从轻量模型开始</strong>：在CPU上训练和推理，建议从 <code>yolov8n</code>（nano）或 <code>yolov8s</code>（small）开始，速度更快。</li>
-<li><strong>利用官方资源</strong>：OpenVINO工具包提供了丰富的<a href="https://github.com/openvinotoolkit/openvino_notebooks">示例代码</a>，其中有完整的YOLO系列从导出到部署的笔记本，是解决具体问题的最佳参考。</li>
-<li><strong>性能对比</strong>：在部署前，用OpenVINO推理脚本和原始的PyTorch模型（<code>best.pt</code>）在相同输入上对比结果，确保转换无误。</li>
-</ul>
-<p>如果你想继续深入，以下几个方向可能会对你有帮助：</p>
-<ol>
-<li><strong>性能瓶颈分析</strong>：如果你的应用对实时性要求高，是否需要分析是CPU算力瓶颈还是推理代码本身的效率问题？</li>
-<li><strong>高级优化技巧</strong>：是否有兴趣了解更深入的OpenVINO优化技术，例如模型剪枝与INT8量化的具体操作？</li>
-<li><strong>部署形态</strong>：你的最终目标是部署成什么样的应用？是桌面软件、Web服务还是嵌入式设备？这会影响技术选型。</li>
-</ol>
-<p>你可以告诉我更具体的兴趣点，我能提供更有针对性的信息。</p>
-]]></content>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>bat脚本一日游</title>
-    <url>/2025/08/20/a-travel-of-bat/</url>
-    <content><![CDATA[<h1 id="这段时间在搞hexo博客"><a href="#这段时间在搞hexo博客" class="headerlink" title="这段时间在搞hexo博客"></a>这段时间在搞hexo博客</h1><p>  因为要本地编写、测试、上传博客，每次都要打代码，我嫌麻烦打算写个bat脚本来一键完成。</p>
-<h2 id="Part-0-创建脚本（基础须知-可跳转到-Part-1）"><a href="#Part-0-创建脚本（基础须知-可跳转到-Part-1）" class="headerlink" title="Part.0 创建脚本（基础须知,可跳转到 ###Part.1）"></a>Part.0 创建脚本（基础须知,可跳转到 ###Part.1）</h2><p>   先创建一个文本文档，将文件后缀名改为.bat，右键打开编辑。<br>   <code>@echo off</code>**@**是不显示当前行命令，<strong>echo off</strong>是不显示下述命令。<br>   <code>::或REM</code> 空格后加注释，<em><strong>注意换行</strong></em>。<br>   <code>pause</code>暂停，输入任意值继续。</p>
-<p>   <code>set</code>set 命令定义变量.eg:<code>set var=value</code>，这里 var 是变量名，value 是变量的值。<br>   <code> setlocal enabledelayedexpansion</code>当变量的值在循环中可能会发生变化时，需要开启延迟变量扩展,用<code>!var!</code>的形式访问变量。<br>   <code>%</code>访问变量的值需要用 % 括起来，eg:<code>echo %var%</code>会在命令提示符窗口输出变量 var 的值。</p>
-<p>   <code>echo</code>用于在命令提示符窗口输出文本信息。<br>   <code>mkdir</code>用于创建目录。eg:<code>mkdir new folder</code> 会在当前目录下创建一个名为 new folder 的新文件夹。<br>   <code>cd</code>切换目录。<code>cd new folder</code>会进入刚刚创建的 new folder 目录；<code>cd..</code>可以返回上一级目录。<br>   <code>dir</code>列出目录中的文件和子目录。dir 命令会显示当前目录下的内容,<code>dir /s</code>可以递归列出当前目录及其所有子目录下的内容。<br>   <code>explorer</code>可以打开路径（”文件路径”），直接后加<code> /select,文件路径</code>可选中文件</p>
-<h4 id="start命令"><a href="#start命令" class="headerlink" title="start命令"></a><code>start</code>命令</h4><p>   用法：<code>start [“title”] [parameters] “program name” [command line parameters]</code><br>   其中：<br>   **“title”**是可选的，是要启动的窗口的标题。<br>   <strong>parameters</strong>也是可选的，指定窗口的大小、状态等。eg:<code>/min</code>表示以最小化窗口启动,<code>/max</code>表示以最大化窗口启动。<br>   **“program name”**要启动的程序的名称或可执行文件的路径。如果路径包含空格，同样需要用双引号括起来。eg:<code>start “C:\Program Files\Microsoft Office\Excel.exe”</code>会启动 Excel 程序。(双引号不可省略)<br>   <strong>command - line parameters</strong>传递给程序的命令行参数。比如你有一个网址，想用edge打开 eg:<code>start &quot;Edge&quot; &quot;https://www.baidu.com&quot;</code></p>
-<p>  剩下的可以问AI，</p>
-<h2 id="Part-1-写个博客"><a href="#Part-1-写个博客" class="headerlink" title="Part.1 写个博客"></a>Part.1 写个博客</h2><p>   <code>@hexo new &quot;new&quot;&amp;&amp;explorer.exe /select,C:\Users\Admin\Desktop\hexo\source\_posts\new.md</code><br>解释：先用hexo创建一个名为new的文件，在打开并选中该文件，<strong><del>不实现自动改名是因为我试了半天都实现不了，连键入F2都不行</del></strong></p>
-<h2 id="Part-2-本地测试博客"><a href="#Part-2-本地测试博客" class="headerlink" title="Part.2 本地测试博客"></a>Part.2 本地测试博客</h2><p>   <code>hexo clean&amp;&amp;start &quot;Edge&quot; &quot;http://localhost:4000&quot;&amp;&amp;hexo s</code><br>解释：先清理缓存，用edge打开本地端口，再开启本地博客服务，因为代码是从前向后运行，所以顺序不可改，先运行<code>hexo s</code>会导致无法自动打开浏览器</p>
-<h2 id="Part-3-上传博客"><a href="#Part-3-上传博客" class="headerlink" title="Part.3 上传博客"></a>Part.3 上传博客</h2><p>   <code>hexo clean&amp;&amp;hexo generate&amp;&amp;hexo deploy&amp;&amp;pause</code><br>解释：<code>pause</code>的作用是在正常上传博客之后，留有一个任意键的窗口，从而知晓博客正常上传与否</p>
-<h3 id="保存为bat，你就获得的自动化脚本"><a href="#保存为bat，你就获得的自动化脚本" class="headerlink" title="保存为bat，你就获得的自动化脚本"></a>保存为bat，你就获得的自动化脚本</h3><p>另外，part·1中废稿粘在下面，希望有人可以解疑———为什么它无法正常运行</p>
-<details>
-<summary>点击展开完整代码（batch）</summary>
-
-<pre><code class="language-batch">@echo off
-setlocal enabledelayedexpansion
-
-echo 正在创建新的Hexo博客文章...
-call hexo new &quot;new_blog&quot;
-
-if errorlevel 1 (
-    echo 错误: 创建博客文章失败
-    echo 请确保:
-    echo 1. Hexo已正确安装
-    echo 2. 当前目录是Hexo博客根目录
-    pause
-    exit /b 1
-)
-
-set &quot;postPath=C:\Users\Admin\Desktop\hexo\source\_posts\&quot;
-set &quot;oldFileName=new_blog.md&quot;
-
-rem 检查文章目录是否存在
-if not exist &quot;!postPath!&quot; (
-    echo 错误: 文章目录不存在: !postPath!
-    echo 请检查路径是否正确
-    pause
-    exit /b 1
-)
-
-echo.
-echo 请输入新的文件名(不含扩展名)，直接回车将保持原文件名:
-set /p &quot;newName=&quot;
-
-if &quot;!newName!&quot;==&quot;&quot; (
-    echo 保持原文件名: new_blog.md
-    set &quot;finalFileName=!oldFileName!&quot;
-) else (
-    echo 正在将文件重命名为: !newName!.md
-    
-    rem 检查原文件是否存在
-    if not exist &quot;!postPath!!oldFileName!&quot; (
-        echo 错误: 原文件 !postPath!!oldFileName! 不存在
-        echo 请检查Hexo是否成功创建了文章
-        pause
-        exit /b 1
-    )
-    
-    rem 执行重命名操作
-    ren &quot;!postPath!!oldFileName!&quot; &quot;!newName!.md&quot;
-    
-    if errorlevel 1 (
-        echo 错误: 重命名文件失败
-        echo 可能的原因:
-        echo 1. 新文件名包含非法字符
-        echo 2. 已存在同名文件
-        echo 3. 没有足够的权限
-        pause
-        exit /b 1
-    )
-    
-    set &quot;finalFileName=!newName!.md&quot;
-)
-
-echo 博客文章创建完成: !finalFileName!
-
-rem 打开文件
-if exist &quot;!postPath!!finalFileName!&quot; (
-    echo 正在打开文件...
-    start &quot;&quot; &quot;!postPath!!finalFileName!&quot;
-) else (
-    echo 警告: 文件 !postPath!!finalFileName! 不存在，无法打开
-)
-
-echo.
-echo 按任意键退出...
-pause &gt;nul
-
-
-
-
-
-</code></pre>
-]]></content>
-      <categories>
-        <category>Bat脚本</category>
-      </categories>
-      <tags>
-        <tag>bat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>蓝桥杯</title>
-    <url>/2025/09/14/bluebridge/</url>
-    <content><![CDATA[<h2 id="设计师调度分配"><a href="#设计师调度分配" class="headerlink" title="设计师调度分配"></a>设计师调度分配</h2><p>在一个创意工作室中，三位设计师李工、王工和张工分别负责三项独立的模型制作任务。李工完成任务需要a1秒，王工需要a2秒，张工需要a3秒。工作室的建模平台一次只能容纳两名设计师工作，第三位设计师需等待，直到平台空闲（即当前一位设计师完成任务离开）才能开始工作。所有模型全部完成时，项目才算正式交付。<br>现在，经理希望合理调度设计师的工作顺序，以最短时间完成所有任务。请你计算三位设计师完成三件模型的最小总时间。<br>输入格式<code>3 5 7</code><br>输出结果<code>8</code></p>
-<p>代码</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  vector&lt;<span class="type">int</span>&gt; numbers;</span><br><span class="line">  <span class="type">int</span> a1, a2, a3, c;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin &gt;&gt; a;</span><br><span class="line">    numbers.<span class="built_in">push_back</span>(a);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="built_in">sort</span>(numbers.<span class="built_in">begin</span>(), numbers.<span class="built_in">end</span>());</span><br><span class="line">  a1 = numbers[<span class="number">0</span>];</span><br><span class="line">  a2 = numbers[<span class="number">1</span>];</span><br><span class="line">  a3 = numbers[<span class="number">2</span>]; </span><br><span class="line">  </span><br><span class="line">  c=a1 + a2;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(c &gt;= a3)&#123;</span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">    cout &lt;&lt; a3 &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="妈妈的菜单"><a href="#妈妈的菜单" class="headerlink" title="妈妈的菜单"></a>妈妈的菜单</h2><p> 小蓝是个挑食但又容易饿的孩子。午餐时间，妈妈为他准备了 10 道菜，并写下了一份菜单。菜单上的每道菜都有一个“饱腹值”，表示吃下这道菜能增加多少饱腹感。</p>
-<p>妈妈会严格按照菜单的顺序，从第一道菜开始逐一端上餐桌。小蓝可以选择吃或不吃当前这道菜。然而，一旦他决定不吃某一道菜，妈妈就会认为他已经吃饱了，并停止端上后续的所有菜肴。</p>
-<p>小蓝虽然容易饿，但也不喜欢吃得太撑的感觉。因此，他希望午餐后自己的饱腹值能停留在 100 附近。</p>
-<p>现在，请你根据小蓝的情况计算，他最终会获得的饱腹值是多少。</p>
-<p>注意：如果存在两种选择，它们与 100 的差距相同（例如，饱腹值为 98 和 102），他总是会选择那个更高的值——毕竟，对于一个正在长身体的孩子来说，吃撑一点总比饿着肚子好。</p>
-<p>输入格式<code>20 10 10 10 10 10 10 10 15 15</code><br>输出格式<code>105</code></p>
-<p>代码</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span> <span class="comment">// 用于abs函数</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">short</span> food[<span class="number">10</span>]; <span class="comment">// 存储10道菜的饱腹值</span></span><br><span class="line">    <span class="type">int</span> best = <span class="number">0</span>;   <span class="comment">// 最佳饱腹值（初始为0，表示什么都不吃）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取10道菜的饱腹值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        cin &gt;&gt; food[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> current = <span class="number">0</span>; <span class="comment">// 当前累计饱腹值</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历所有可能的前缀和（吃前0道、前1道、...、前10道菜）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        current += food[i]; <span class="comment">// 吃当前这道菜</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查当前饱腹值是否比之前的最佳选择更好</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) &lt; <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            best = current; <span class="comment">// 更接近100，更新最佳值</span></span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) == <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (current &gt; best) &#123; <span class="comment">// 差距相同，选择更高的值</span></span><br><span class="line">                best = current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 注意：这里不能break，因为要继续考虑所有可能的前缀和</span></span><br><span class="line">        <span class="comment">// 即使当前已经超过100，后面可能还有更接近100的情况</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; best &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="挑选题目"><a href="#挑选题目" class="headerlink" title="挑选题目"></a>挑选题目</h2><p>两位资深的审题专家，小蓝和小桥，各自收到了N道题目。小蓝收到的题目难度依次为 A1,A2,A3…An，小桥收到的题目难度依次为B1,B2,B3…Bn，为了准备即将举行的竞赛，他们需要从各自收到的题目中选出一道，用于竞赛。通过商量，两人决定通过一种特殊的方式来选择题目：两人轮流删除一道自己手中的题目，直到各自只剩下一道题目。小蓝先删除，然后小桥删除，依此交替进行，直到最后两人手中都只剩下一道题目。小蓝希望最终两人剩下的两道题目的难度差尽可能大，而小桥则希望难度差尽可能小。假设两人都采取最优策略，请问最终两人剩下的两道题目的难度差的绝对值是多少？</p>
-<details>
-<summary>for双层循环示例（cpp）</summary>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a[<span class="number">999</span>],b[<span class="number">999</span>];</span><br><span class="line">  <span class="type">int</span> min=<span class="number">9999999</span>;</span><br><span class="line">  <span class="type">int</span> max=<span class="number">-1</span>;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  cin&gt;&gt;n;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<details>
-<summary>我写的代码（cpp）</summary>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; lan;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; qiao;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; c;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; d;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    c.<span class="built_in">resize</span>(n);<span class="comment">//定义数组c中有n项,需要先有n</span></span><br><span class="line">    d.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        lan.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        qiao.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>;j &lt; n;j++)&#123;</span><br><span class="line">            c[j]=<span class="built_in">abs</span>(lan[i]-qiao[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> small = *<span class="built_in">min_element</span>(c.<span class="built_in">begin</span>(), c.<span class="built_in">end</span>());</span><br><span class="line">        d[i]=small;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> big = *<span class="built_in">max_element</span>(d.<span class="built_in">begin</span>(), d.<span class="built_in">end</span>());</span><br><span class="line">    cout &lt;&lt; big &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<details>
-<summary>copilot（cpp）</summary>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">if</span> (!(cin &gt;&gt; n)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">A</span><span class="params">(n)</span>, <span class="title">B</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; A[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; B[i];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> nearestDistInB = [&amp;](<span class="type">int</span> x) &#123;</span><br><span class="line">        <span class="comment">// 找到 B 中距离 x 最近的元素的绝对差</span></span><br><span class="line">        <span class="keyword">auto</span> it = <span class="built_in">lower_bound</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>(), x);</span><br><span class="line">        <span class="type">int</span> dist = INT_MAX;</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">end</span>()) dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">            --it;</span><br><span class="line">            dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, <span class="built_in">nearestDistInB</span>(A[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2026/01/20/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>md格式汇总</title>
     <url>/2025/08/19/md-format-summary/</url>
     <content><![CDATA[<p>必填项：title 和 date（date 不填会自动生成当前时间）。<br>选填项：tags（标签）、categories（分类）等，根据主题支持情况添加。</p>
@@ -2616,6 +2616,122 @@ pause &gt;nul
       <categories>
         <category>Markdown</category>
       </categories>
+  </entry>
+  <entry>
+    <title>opencv</title>
+    <url>/2025/11/15/opencv/</url>
+    <content><![CDATA[<h1 id="Opencv的Gamma转换与二值化处理"><a href="#Opencv的Gamma转换与二值化处理" class="headerlink" title="Opencv的Gamma转换与二值化处理"></a>Opencv的Gamma转换与二值化处理</h1><h2 id="1-头文件和命名空间"><a href="#1-头文件和命名空间" class="headerlink" title="1. 头文件和命名空间"></a>1. 头文件和命名空间</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span>  <span class="comment">// 包含OpenCV库的所有主要功能</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>            <span class="comment">// 输入输出流，用于在控制台显示信息</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span>              <span class="comment">// 向量容器，用于存储数据</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span>               <span class="comment">// 数学函数库</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;    <span class="comment">// 使用OpenCV的命名空间，这样就不用写cv::了</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;   <span class="comment">// 使用标准库的命名空间</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>通俗理解</strong>：就像在游戏开始前要导入各种工具包，这些<code>#include</code>就是告诉编译器我们需要用到哪些工具。</p>
+<h2 id="2-Gamma变换函数详解"><a href="#2-Gamma变换函数详解" class="headerlink" title="2. Gamma变换函数详解"></a>2. Gamma变换函数详解</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Gamma变换函数 - 就像调整手机屏幕的亮度曲线</span></span><br><span class="line"><span class="function">Mat <span class="title">gammaCorrection</span><span class="params">(<span class="type">const</span> Mat&amp; src, <span class="type">double</span> gamma)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Mat是OpenCV的&quot;图片容器&quot;，可以想象成一个装图片数据的盒子</span></span><br><span class="line">    <span class="comment">// const Mat&amp; src 表示输入图片，&amp;表示引用（不复制数据），const表示不会修改原图</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建查找表 - 就像制作一个亮度转换表</span></span><br><span class="line">    <span class="function">Mat <span class="title">lookupTable</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    <span class="comment">// 这个表有1行，256列，每个元素是8位无符号整数(0-255)</span></span><br><span class="line">    </span><br><span class="line">    uchar* p = lookupTable.<span class="built_in">ptr</span>();  <span class="comment">// 获取表的指针，方便操作数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i) &#123;</span><br><span class="line">        <span class="comment">// 计算新的亮度值：pow(i/255.0, gamma) * 255.0</span></span><br><span class="line">        <span class="comment">// 就像把0-255的亮度值按照gamma曲线重新映射</span></span><br><span class="line">        p[i] = <span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">        <span class="comment">// saturate_cast确保计算结果在0-255范围内，不会溢出</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Mat dst;  <span class="comment">// 创建输出图片的容器</span></span><br><span class="line">    <span class="built_in">LUT</span>(src, lookupTable, dst);  <span class="comment">// 使用查找表转换图片</span></span><br><span class="line">    <span class="comment">// LUT = Look Up Table，就像根据转换表把每个像素的亮度值换成新的</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> dst;  <span class="comment">// 返回处理后的图片</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Gamma变换原理</strong>：</p>
+<ul>
+<li><code>gamma &lt; 1</code>：增强暗部细节（让暗的地方变亮）</li>
+<li><code>gamma &gt; 1</code>：增强亮部细节（让亮的地方更突出）</li>
+<li><code>gamma = 1</code>：不做任何改变</li>
+</ul>
+<h2 id="3-二值化函数详解"><a href="#3-二值化函数详解" class="headerlink" title="3. 二值化函数详解"></a>3. 二值化函数详解</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 自适应二值化处理 - 把图片变成黑白两色</span></span><br><span class="line"><span class="function">Mat <span class="title">adaptiveBinary</span><span class="params">(<span class="type">const</span> Mat&amp; src)</span> </span>&#123;</span><br><span class="line">    Mat gray, binary;  <span class="comment">// 创建灰度图和二值图的容器</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断输入图片是彩色还是灰度</span></span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">channels</span>() == <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果是彩色图片（3个通道：蓝、绿、红）</span></span><br><span class="line">        <span class="built_in">cvtColor</span>(src, gray, COLOR_BGR2GRAY);</span><br><span class="line">        <span class="comment">// cvtColor是颜色转换函数，把BGR彩色图转成灰度图</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        gray = src.<span class="built_in">clone</span>();  <span class="comment">// 如果已经是灰度图，就复制一份</span></span><br><span class="line">        <span class="comment">// clone()是深拷贝，创建完全独立的新副本</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 自适应阈值二值化 - 智能黑白化</span></span><br><span class="line">    <span class="built_in">adaptiveThreshold</span>(gray, binary, <span class="number">255</span>, ADAPTIVE_THRESH_GAUSSIAN_C, </span><br><span class="line">                     THRESH_BINARY, <span class="number">11</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="comment">// 参数解释：</span></span><br><span class="line">    <span class="comment">// gray: 输入灰度图</span></span><br><span class="line">    <span class="comment">// binary: 输出二值图</span></span><br><span class="line">    <span class="comment">// 255: 超过阈值的像素设为白色(255)</span></span><br><span class="line">    <span class="comment">// ADAPTIVE_THRESH_GAUSSIAN_C: 使用高斯加权计算局部阈值</span></span><br><span class="line">    <span class="comment">// THRESH_BINARY: 二值化模式（大于阈值=白，小于阈值=黑）</span></span><br><span class="line">    <span class="comment">// 11: 邻域大小（计算阈值时考虑的局部区域大小）</span></span><br><span class="line">    <span class="comment">// 2: 从平均权重中减去的常数</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> binary;  <span class="comment">// 返回黑白图片</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-主函数详细解析"><a href="#4-主函数详细解析" class="headerlink" title="4. 主函数详细解析"></a>4. 主函数详细解析</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 读取图像 - 就像从文件里加载一张图片</span></span><br><span class="line">    Mat src = <span class="built_in">imread</span>(<span class="string">&quot;src.png&quot;</span>);</span><br><span class="line">    <span class="comment">// Mat是OpenCV的核心类，用来存储图片数据</span></span><br><span class="line">    <span class="comment">// 可以想象成一种智能的图片容器</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">empty</span>()) &#123;  <span class="comment">// 检查图片是否加载成功</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;无法读取图像文件 src.png&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;  <span class="comment">// 返回-1表示程序异常结束</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 显示图片信息</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;图像尺寸: &quot;</span> &lt;&lt; src.<span class="built_in">size</span>() &lt;&lt; endl;      <span class="comment">// 图片的宽度和高度</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;图像通道数: &quot;</span> &lt;&lt; src.<span class="built_in">channels</span>() &lt;&lt; endl; <span class="comment">// 颜色通道数（3=彩色，1=灰度）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建窗口并显示原始图像</span></span><br><span class="line">    <span class="built_in">namedWindow</span>(<span class="string">&quot;原始图像&quot;</span>, WINDOW_NORMAL);  <span class="comment">// 创建可调整大小的窗口</span></span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;原始图像&quot;</span>, src);  <span class="comment">// 在窗口中显示图片</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤1: Gamma变换增强对比度</span></span><br><span class="line">    <span class="type">double</span> gamma = <span class="number">0.5</span>;  <span class="comment">// Gamma值，这里设为0.5来增强暗部细节</span></span><br><span class="line">    Mat gamma_img = <span class="built_in">gammaCorrection</span>(src, gamma);</span><br><span class="line">    <span class="comment">// 调用我们之前写的Gamma变换函数</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">namedWindow</span>(<span class="string">&quot;Gamma变换后&quot;</span>, WINDOW_NORMAL);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;Gamma变换后&quot;</span>, gamma_img);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤2: 转换为灰度图</span></span><br><span class="line">    Mat gray;</span><br><span class="line">    <span class="built_in">cvtColor</span>(gamma_img, gray, COLOR_BGR2GRAY);</span><br><span class="line">    <span class="comment">// 把Gamma处理后的彩色图转成灰度图，减少计算量</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤3: 自适应二值化</span></span><br><span class="line">    Mat binary = <span class="built_in">adaptiveBinary</span>(gray);</span><br><span class="line">    <span class="comment">// 调用二值化函数，得到黑白图片</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤4: 形态学操作去除噪声 - 就像给图片&quot;美容&quot;</span></span><br><span class="line">    Mat kernel = <span class="built_in">getStructuringElement</span>(MORPH_RECT, <span class="built_in">Size</span>(<span class="number">3</span>, <span class="number">3</span>));</span><br><span class="line">    <span class="comment">// 创建3x3的矩形结构元素，用于形态学操作</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">morphologyEx</span>(binary, binary, MORPH_OPEN, kernel);</span><br><span class="line">    <span class="comment">// 开运算：先腐蚀后膨胀，去除小噪点，平滑边界</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 显示最终的二值化结果</span></span><br><span class="line">    <span class="built_in">namedWindow</span>(<span class="string">&quot;二值化结果&quot;</span>, WINDOW_NORMAL);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;二值化结果&quot;</span>, binary);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 保存处理后的图像</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; compression_params;  <span class="comment">// 创建整数向量存储压缩参数</span></span><br><span class="line">    compression_params.<span class="built_in">push_back</span>(IMWRITE_PNG_COMPRESSION);  <span class="comment">// 添加压缩类型</span></span><br><span class="line">    compression_params.<span class="built_in">push_back</span>(<span class="number">9</span>);  <span class="comment">// 压缩级别(0-9，9=最高压缩)</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">imwrite</span>(<span class="string">&quot;processed_result.png&quot;</span>, binary, compression_params);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;处理后的图像已保存为 processed_result.png&quot;</span> &lt;&lt; endl;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 等待按键 - 程序停在这里，直到用户按任意键</span></span><br><span class="line">    <span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 程序正常结束</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="核心概念解释"><a href="#核心概念解释" class="headerlink" title="核心概念解释"></a>核心概念解释</h2><h3 id="1-Mat-是什么？"><a href="#1-Mat-是什么？" class="headerlink" title="1. Mat 是什么？"></a>1. <code>Mat</code> 是什么？</h3><p><code>Mat</code> 是OpenCV的<strong>图片容器类</strong>，可以理解为：</p>
+<ul>
+<li>一个智能的<strong>图片数据盒子</strong></li>
+<li>自动管理内存，不用手动分配和释放</li>
+<li>存储像素数据、尺寸、颜色通道等信息</li>
+</ul>
+<h3 id="2-关键函数的作用："><a href="#2-关键函数的作用：" class="headerlink" title="2. 关键函数的作用："></a>2. 关键函数的作用：</h3><ul>
+<li><code>imread()</code>：读取图片文件</li>
+<li><code>imshow()</code>：显示图片</li>
+<li><code>imwrite()</code>：保存图片</li>
+<li><code>cvtColor()</code>：颜色空间转换</li>
+<li><code>namedWindow()</code>：创建显示窗口</li>
+<li><code>waitKey()</code>：等待用户输入</li>
+</ul>
+<h3 id="3-处理流程总结："><a href="#3-处理流程总结：" class="headerlink" title="3. 处理流程总结："></a>3. 处理流程总结：</h3><ol>
+<li><strong>读图</strong> → 2. <strong>Gamma增强</strong> → 3. <strong>转灰度</strong> → 4. <strong>二值化</strong> → 5. <strong>去噪</strong> → 6. <strong>显示保存</strong></li>
+</ol>
+<h2 id="完整可运行代码"><a href="#完整可运行代码" class="headerlink" title="完整可运行代码"></a>完整可运行代码</h2><p>把以下代码保存为 <code>main.cpp</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Gamma变换：调整图片亮度曲线</span></span><br><span class="line"><span class="function">Mat <span class="title">gammaCorrection</span><span class="params">(<span class="type">const</span> Mat&amp; src, <span class="type">double</span> gamma)</span> </span>&#123;</span><br><span class="line">    <span class="function">Mat <span class="title">lookupTable</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    uchar* p = lookupTable.<span class="built_in">ptr</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i) &#123;</span><br><span class="line">        p[i] = <span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Mat dst;</span><br><span class="line">    <span class="built_in">LUT</span>(src, lookupTable, dst);</span><br><span class="line">    <span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二值化：把图片变成黑白两色</span></span><br><span class="line"><span class="function">Mat <span class="title">adaptiveBinary</span><span class="params">(<span class="type">const</span> Mat&amp; src)</span> </span>&#123;</span><br><span class="line">    Mat gray, binary;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">channels</span>() == <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="built_in">cvtColor</span>(src, gray, COLOR_BGR2GRAY);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        gray = src.<span class="built_in">clone</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">adaptiveThreshold</span>(gray, binary, <span class="number">255</span>, ADAPTIVE_THRESH_GAUSSIAN_C, </span><br><span class="line">                     THRESH_BINARY, <span class="number">11</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> binary;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 读取图片</span></span><br><span class="line">    Mat src = <span class="built_in">imread</span>(<span class="string">&quot;src.png&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;错误：找不到src.png文件！&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. Gamma变换增强</span></span><br><span class="line">    Mat gamma_img = <span class="built_in">gammaCorrection</span>(src, <span class="number">0.5</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 3. 二值化处理</span></span><br><span class="line">    Mat binary = <span class="built_in">adaptiveBinary</span>(gamma_img);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4. 显示结果</span></span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;原始图像&quot;</span>, src);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;处理结果&quot;</span>, binary);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 5. 保存结果</span></span><br><span class="line">    <span class="built_in">imwrite</span>(<span class="string">&quot;processed_result.png&quot;</span>, binary);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;处理完成！结果已保存为processed_result.png&quot;</span> &lt;&lt; endl;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样解释后，你应该能理解每一行代码的作用了！这个程序的核心思想就是：<strong>先调整亮度让数字更明显，然后转换成黑白图让数字突出显示</strong>。</p>
+]]></content>
+      <categories>
+        <category>Cpp编程</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python-数字类型</title>
+    <url>/2025/08/27/python-note-1/</url>
+    <content><![CDATA[<h1 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h1><p><strong><code>+ - * /</code></strong> 加减乘除</p>
+<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><p>因为python使用的是IEEE754标准储存浮点数,故有误差，计算时需要引入decimal模块</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line">decimal.Decimal</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python打包成exe</title>
+    <url>/2025/08/26/python-package/</url>
+    <content><![CDATA[<h1 id="虚拟环境篇（建议）"><a href="#虚拟环境篇（建议）" class="headerlink" title="虚拟环境篇（建议）"></a>虚拟环境篇（建议）</h1><h2 id="在项目文件夹中打开终端"><a href="#在项目文件夹中打开终端" class="headerlink" title="在项目文件夹中打开终端"></a>在项目文件夹中打开终端</h2><h2 id="安装-python3-full（确保有完整的-venv-模块）："><a href="#安装-python3-full（确保有完整的-venv-模块）：" class="headerlink" title="安装 python3-full（确保有完整的 venv 模块）："></a>安装 python3-full（确保有完整的 venv 模块）：</h2><h3 id="macOS-Linux（终端）"><a href="#macOS-Linux（终端）" class="headerlink" title="macOS&#x2F;Linux（终端）"></a>macOS&#x2F;Linux（终端）</h3><p>  <strong><code>sudo apt install python3-full</code></strong></p>
+<h2 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h2><p>  <strong><code>python3 -m venv venv_name</code></strong>  venv_name即为虚拟环境名称，建议英文</p>
+<h2 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>  <strong><code>venv_name\Scripts\activate.bat  #cmd</code>or <code>.\venv_name\Scripts\Activate.ps1  #powershell</code></strong></p>
+<h3 id="macOS-Linux（终端）-1"><a href="#macOS-Linux（终端）-1" class="headerlink" title="macOS&#x2F;Linux（终端）"></a>macOS&#x2F;Linux（终端）</h3><p>  <strong><code>source venv_name/bin/activate</code></strong></p>
+<h2 id="使用虚拟环境-激活后，终端提示符前会显示-venv-name"><a href="#使用虚拟环境-激活后，终端提示符前会显示-venv-name" class="headerlink" title="使用虚拟环境 [激活后，终端提示符前会显示 (venv_name)]"></a>使用虚拟环境 [激活后，终端提示符前会显示 (venv_name)]</h2><p>  <strong><code>pip install 包名  # 例如：pip install requests</code></strong></p>
+<h2 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h2><p>  <strong><code>deactivate</code></strong><br>  <details><br>  <summary>点击展开virtualenv教程</summary><br>    <ul><br>      <li> 安装virtualenv：<code>pip install virtualenv</code></li><br>      <li> # 基本用法（默认使用当前 Python 版本）<br>          <code>virtualenv venv_name</code><br>          # 指定 Python 版本（需系统已安装对应版本）<br>          <code>virtualenv -p python3.13 venv_name  # 使用 Python 3.13</code></li><br>      <li> 激活 &#x2F; 退出虚拟环境：与 venv 完全相同</li><br>      <li> 导出当前环境的依赖列表：<br>          <code>pip freeze &gt; requirements.txt</code></li><br>      <li> 在新环境中导入依赖：<br>          <code>pip install -r requirements.txt</code></li><br>      <li> 恢复激活虚拟环境：在项目文件夹下用终端激活</li><br>    </ul></p>
+</details>
+
+
+<h1 id="Nuitka篇"><a href="#Nuitka篇" class="headerlink" title="Nuitka篇"></a><a href="https://www.bilibili.com/video/BV1VLPWeREVd/">Nuitka篇</a></h1><p>  这是一个将python转译成C，再打包成exe的工具，打包速度慢，但运行速度快，打包后的文件小。</p>
+<h2 id="安装nuitka"><a href="#安装nuitka" class="headerlink" title="安装nuitka"></a>安装nuitka</h2><p>  <strong><code>pip install nuitka</code></strong></p>
+<h2 id="测试py文件能否执行"><a href="#测试py文件能否执行" class="headerlink" title="测试py文件能否执行"></a>测试py文件能否执行</h2><p>  <strong><code>python xxx.py</code></strong></p>
+<h2 id="打包需要的依赖；打包成单文件"><a href="#打包需要的依赖；打包成单文件" class="headerlink" title="打包需要的依赖；打包成单文件"></a>打包需要的依赖；打包成单文件</h2><p>  <strong><code>nuitka xxx.py --standalone --onefile</code></strong></p>
+<h2 id="补充文件路径"><a href="#补充文件路径" class="headerlink" title="补充文件路径"></a>补充文件路径</h2><p>  <strong><code>--include-data-file=电脑中文件的路径=程序中引用的路径</code></strong></p>
+<h2 id="补充文件夹路径"><a href="#补充文件夹路径" class="headerlink" title="补充文件夹路径"></a>补充文件夹路径</h2><p>  <strong><code>--include-data-dir=文件夹路径=电脑中文件夹的路径=程序中调用的路径</code></strong></p>
+<h2 id="为-Windows-可执行文件设置图标（需-ico-格式）"><a href="#为-Windows-可执行文件设置图标（需-ico-格式）" class="headerlink" title="为 Windows 可执行文件设置图标（需 .ico 格式）"></a>为 Windows 可执行文件设置图标（需 .ico 格式）</h2><p>  <strong><code>--windows-icon-from-ico=图标路径</code></strong></p>
+<h2 id="生成无控制台窗口的程序（适合-GUI-应用，如-PyQt、Tkinter）"><a href="#生成无控制台窗口的程序（适合-GUI-应用，如-PyQt、Tkinter）" class="headerlink" title="生成无控制台窗口的程序（适合 GUI 应用，如 PyQt、Tkinter）"></a>生成无控制台窗口的程序（适合 GUI 应用，如 PyQt、Tkinter）</h2><p>  <strong><code>--disable-console</code></strong></p>
+<h2 id="eg"><a href="#eg" class="headerlink" title="eg:"></a>eg:</h2><p>  <strong><code>nuitka xxx.py --standalone --onefile --include-data-file=电脑中文件的路径=程序中引用的路径 --include-data-dir=文件夹路径=电脑中文件夹的路径=程序中调用的路径 --windows-icon-from-ico=图标路径 --disable-console</code></strong></p>
+<h2 id="查看报错"><a href="#查看报错" class="headerlink" title="查看报错"></a>查看报错</h2><p>  **<code>xxx.exe</code>**在cmd中查看</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><blockquote>
+<p>用最新版的python3.13出现MinGW64 编译器不兼容<br>解决办法：<a href="https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/">安装最新 MSVC 编译器</a>,运行安装器，<br>勾选 <strong>“使用 C++ 的桌面开发”</strong>（无需安装完整 Visual Studio，仅需组件）。<br>在右侧 “可选组件” 中，确保勾选 <strong>“MSVC v143 - VS 2022 C++ x64&#x2F;x86 生成工具”</strong>（版本需 ≥14.3）<br>和 <strong>“Windows 10 SDK”</strong>（或 Windows 11 SDK，匹配你的系统版本）<br>之后再重新打包<code>nuitka 2.py --standalone --onefile --msvc=latest</code></p>
+</blockquote>
+<h1 id="PyInstaller"><a href="#PyInstaller" class="headerlink" title="PyInstaller"></a><a href="https://www.bilibili.com/video/BV15i4y1U7F7/">PyInstaller</a></h1><p>  这是一个将python直接打包成exe的工具，打包速度快，但运行速度满，且打包后的文件大。(简写的大小写不能改)</p>
+<h2 id="安装PyInstaller"><a href="#安装PyInstaller" class="headerlink" title="安装PyInstaller"></a>安装PyInstaller</h2><p>  <strong><code>pip install pyinstaller</code></strong></p>
+<h2 id="单文件打包"><a href="#单文件打包" class="headerlink" title="单文件打包"></a>单文件打包</h2><p>  <strong><code>pyinstaller --onefile xxx.py  # 简写：-F</code></strong></p>
+<h2 id="自定义生成的可执行文件名称（默认与脚本名一致）"><a href="#自定义生成的可执行文件名称（默认与脚本名一致）" class="headerlink" title="自定义生成的可执行文件名称（默认与脚本名一致）"></a>自定义生成的可执行文件名称（默认与脚本名一致）</h2><p>  <strong><code>--name=程序名  # 简写：-n</code></strong></p>
+<h2 id="生成无-有-控制台窗口的程序"><a href="#生成无-有-控制台窗口的程序" class="headerlink" title="生成无(有)控制台窗口的程序"></a>生成无(有)控制台窗口的程序</h2><p>  <strong><code>--noconsole  #简写：-w</code>  （<code>--console   #简写：-c</code>）</strong></p>
+<h2 id="打包额外资源文件（如图片、配置文件）"><a href="#打包额外资源文件（如图片、配置文件）" class="headerlink" title="打包额外资源文件（如图片、配置文件）"></a>打包额外资源文件（如图片、配置文件）</h2><p>  <strong><code>--add-data=源文件:目标路径（Windows 用 ; 分隔）  #简写：-a</code></strong></p>
+<details>
+  <summary>点击展开打包示例</summary>
+    <ul>
+      <li> 单个文件：  --add-data "src/file.txt;dest"  （仅打包 file.txt 到 dest/ 目录）</li>
+      <li> 同类型文件：  --add-data "src/*.png;dest/images"  （打包所有 .png 图片到 dest/images/）</li>
+      <li> 整个文件夹（包括子目录）：   --add-data "src/folder/*;dest/folder"  （打包 folder/ 下的所有内容，保持目录结构）</li>
+    </ul>
+</details>
+
+<h2 id="手动指定隐藏的依赖模块（解决动态导入导致的-“ModuleNotFoundError”）"><a href="#手动指定隐藏的依赖模块（解决动态导入导致的-“ModuleNotFoundError”）" class="headerlink" title="手动指定隐藏的依赖模块（解决动态导入导致的 “ModuleNotFoundError”）"></a>手动指定隐藏的依赖模块（解决动态导入导致的 “ModuleNotFoundError”）</h2><p>  <strong><code>--hidden-import=模块名   #简写：-p</code></strong></p>
+<h2 id="清理上次打包的临时文件，避免缓存干扰"><a href="#清理上次打包的临时文件，避免缓存干扰" class="headerlink" title="清理上次打包的临时文件，避免缓存干扰"></a><strong>清理上次打包的临时文件，避免缓存干扰</strong></h2><p>  <strong><code>--clean</code></strong></p>
+<h2 id="中文显示乱码"><a href="#中文显示乱码" class="headerlink" title="中文显示乱码"></a>中文显示乱码</h2><p>  <em>*<em>确保脚本中编码声明正确（# -</em>- coding: utf-8 -*-） 避免在路径或文件名中使用中文（尤其 Windows 系统）</em>**</p>
+<h2 id="打包后文件过大"><a href="#打包后文件过大" class="headerlink" title="打包后文件过大"></a>打包后文件过大</h2><p>  <strong>用 –exclude-module 排除不需要的模块（如 <code>--exclude-module=matplotlib</code>）</strong><br>  <strong>清理虚拟环境，仅保留必要依赖后再打包</strong></p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>python打包exe</tag>
+      </tags>
   </entry>
   <entry>
     <title>new</title>
@@ -2828,119 +2944,161 @@ pause &gt;nul
 ]]></content>
   </entry>
   <entry>
-    <title>opencv</title>
-    <url>/2025/11/15/opencv/</url>
-    <content><![CDATA[<h1 id="Opencv的Gamma转换与二值化处理"><a href="#Opencv的Gamma转换与二值化处理" class="headerlink" title="Opencv的Gamma转换与二值化处理"></a>Opencv的Gamma转换与二值化处理</h1><h2 id="1-头文件和命名空间"><a href="#1-头文件和命名空间" class="headerlink" title="1. 头文件和命名空间"></a>1. 头文件和命名空间</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span>  <span class="comment">// 包含OpenCV库的所有主要功能</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>            <span class="comment">// 输入输出流，用于在控制台显示信息</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span>              <span class="comment">// 向量容器，用于存储数据</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span>               <span class="comment">// 数学函数库</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;    <span class="comment">// 使用OpenCV的命名空间，这样就不用写cv::了</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;   <span class="comment">// 使用标准库的命名空间</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>通俗理解</strong>：就像在游戏开始前要导入各种工具包，这些<code>#include</code>就是告诉编译器我们需要用到哪些工具。</p>
-<h2 id="2-Gamma变换函数详解"><a href="#2-Gamma变换函数详解" class="headerlink" title="2. Gamma变换函数详解"></a>2. Gamma变换函数详解</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Gamma变换函数 - 就像调整手机屏幕的亮度曲线</span></span><br><span class="line"><span class="function">Mat <span class="title">gammaCorrection</span><span class="params">(<span class="type">const</span> Mat&amp; src, <span class="type">double</span> gamma)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Mat是OpenCV的&quot;图片容器&quot;，可以想象成一个装图片数据的盒子</span></span><br><span class="line">    <span class="comment">// const Mat&amp; src 表示输入图片，&amp;表示引用（不复制数据），const表示不会修改原图</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建查找表 - 就像制作一个亮度转换表</span></span><br><span class="line">    <span class="function">Mat <span class="title">lookupTable</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    <span class="comment">// 这个表有1行，256列，每个元素是8位无符号整数(0-255)</span></span><br><span class="line">    </span><br><span class="line">    uchar* p = lookupTable.<span class="built_in">ptr</span>();  <span class="comment">// 获取表的指针，方便操作数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i) &#123;</span><br><span class="line">        <span class="comment">// 计算新的亮度值：pow(i/255.0, gamma) * 255.0</span></span><br><span class="line">        <span class="comment">// 就像把0-255的亮度值按照gamma曲线重新映射</span></span><br><span class="line">        p[i] = <span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">        <span class="comment">// saturate_cast确保计算结果在0-255范围内，不会溢出</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Mat dst;  <span class="comment">// 创建输出图片的容器</span></span><br><span class="line">    <span class="built_in">LUT</span>(src, lookupTable, dst);  <span class="comment">// 使用查找表转换图片</span></span><br><span class="line">    <span class="comment">// LUT = Look Up Table，就像根据转换表把每个像素的亮度值换成新的</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> dst;  <span class="comment">// 返回处理后的图片</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Gamma变换原理</strong>：</p>
+    <title>Set</title>
+    <url>/2025/12/02/set/</url>
+    <content><![CDATA[<h1 id="C-set-使用完全指南"><a href="#C-set-使用完全指南" class="headerlink" title="C++ set 使用完全指南"></a>C++ set 使用完全指南</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>std::set</code> 是 C++ STL 中的有序集合容器，具有以下核心特性：</p>
 <ul>
-<li><code>gamma &lt; 1</code>：增强暗部细节（让暗的地方变亮）</li>
-<li><code>gamma &gt; 1</code>：增强亮部细节（让亮的地方更突出）</li>
-<li><code>gamma = 1</code>：不做任何改变</li>
+<li><strong>元素唯一性</strong>：不会存储重复元素</li>
+<li><strong>自动排序</strong>：元素默认按升序排列（可自定义规则）</li>
+<li><strong>对数复杂度</strong>：所有查找、插入、删除操作均为 O(log n)</li>
+<li><strong>红黑树实现</strong>：底层基于平衡二叉搜索树</li>
 </ul>
-<h2 id="3-二值化函数详解"><a href="#3-二值化函数详解" class="headerlink" title="3. 二值化函数详解"></a>3. 二值化函数详解</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 自适应二值化处理 - 把图片变成黑白两色</span></span><br><span class="line"><span class="function">Mat <span class="title">adaptiveBinary</span><span class="params">(<span class="type">const</span> Mat&amp; src)</span> </span>&#123;</span><br><span class="line">    Mat gray, binary;  <span class="comment">// 创建灰度图和二值图的容器</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断输入图片是彩色还是灰度</span></span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">channels</span>() == <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果是彩色图片（3个通道：蓝、绿、红）</span></span><br><span class="line">        <span class="built_in">cvtColor</span>(src, gray, COLOR_BGR2GRAY);</span><br><span class="line">        <span class="comment">// cvtColor是颜色转换函数，把BGR彩色图转成灰度图</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        gray = src.<span class="built_in">clone</span>();  <span class="comment">// 如果已经是灰度图，就复制一份</span></span><br><span class="line">        <span class="comment">// clone()是深拷贝，创建完全独立的新副本</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 自适应阈值二值化 - 智能黑白化</span></span><br><span class="line">    <span class="built_in">adaptiveThreshold</span>(gray, binary, <span class="number">255</span>, ADAPTIVE_THRESH_GAUSSIAN_C, </span><br><span class="line">                     THRESH_BINARY, <span class="number">11</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="comment">// 参数解释：</span></span><br><span class="line">    <span class="comment">// gray: 输入灰度图</span></span><br><span class="line">    <span class="comment">// binary: 输出二值图</span></span><br><span class="line">    <span class="comment">// 255: 超过阈值的像素设为白色(255)</span></span><br><span class="line">    <span class="comment">// ADAPTIVE_THRESH_GAUSSIAN_C: 使用高斯加权计算局部阈值</span></span><br><span class="line">    <span class="comment">// THRESH_BINARY: 二值化模式（大于阈值=白，小于阈值=黑）</span></span><br><span class="line">    <span class="comment">// 11: 邻域大小（计算阈值时考虑的局部区域大小）</span></span><br><span class="line">    <span class="comment">// 2: 从平均权重中减去的常数</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> binary;  <span class="comment">// 返回黑白图片</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与之对应的 <code>std::unordered_set</code> 基于哈希表实现，元素无序但平均操作复杂度为 O(1)。</p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="头文件与声明"><a href="#头文件与声明" class="headerlink" title="头文件与声明"></a>头文件与声明</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认升序</span></span><br><span class="line">set&lt;<span class="type">int</span>&gt; s1;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 降序</span></span><br><span class="line">set&lt;<span class="type">int</span>, greater&lt;<span class="type">int</span>&gt;&gt; s2;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化列表</span></span><br><span class="line">set&lt;<span class="type">int</span>&gt; s3 = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">4</span>&#125;;</span><br></pre></td></tr></table></figure>
 
-<h2 id="4-主函数详细解析"><a href="#4-主函数详细解析" class="headerlink" title="4. 主函数详细解析"></a>4. 主函数详细解析</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 读取图像 - 就像从文件里加载一张图片</span></span><br><span class="line">    Mat src = <span class="built_in">imread</span>(<span class="string">&quot;src.png&quot;</span>);</span><br><span class="line">    <span class="comment">// Mat是OpenCV的核心类，用来存储图片数据</span></span><br><span class="line">    <span class="comment">// 可以想象成一种智能的图片容器</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">empty</span>()) &#123;  <span class="comment">// 检查图片是否加载成功</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;无法读取图像文件 src.png&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;  <span class="comment">// 返回-1表示程序异常结束</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 显示图片信息</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;图像尺寸: &quot;</span> &lt;&lt; src.<span class="built_in">size</span>() &lt;&lt; endl;      <span class="comment">// 图片的宽度和高度</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;图像通道数: &quot;</span> &lt;&lt; src.<span class="built_in">channels</span>() &lt;&lt; endl; <span class="comment">// 颜色通道数（3=彩色，1=灰度）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建窗口并显示原始图像</span></span><br><span class="line">    <span class="built_in">namedWindow</span>(<span class="string">&quot;原始图像&quot;</span>, WINDOW_NORMAL);  <span class="comment">// 创建可调整大小的窗口</span></span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;原始图像&quot;</span>, src);  <span class="comment">// 在窗口中显示图片</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤1: Gamma变换增强对比度</span></span><br><span class="line">    <span class="type">double</span> gamma = <span class="number">0.5</span>;  <span class="comment">// Gamma值，这里设为0.5来增强暗部细节</span></span><br><span class="line">    Mat gamma_img = <span class="built_in">gammaCorrection</span>(src, gamma);</span><br><span class="line">    <span class="comment">// 调用我们之前写的Gamma变换函数</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">namedWindow</span>(<span class="string">&quot;Gamma变换后&quot;</span>, WINDOW_NORMAL);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;Gamma变换后&quot;</span>, gamma_img);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤2: 转换为灰度图</span></span><br><span class="line">    Mat gray;</span><br><span class="line">    <span class="built_in">cvtColor</span>(gamma_img, gray, COLOR_BGR2GRAY);</span><br><span class="line">    <span class="comment">// 把Gamma处理后的彩色图转成灰度图，减少计算量</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤3: 自适应二值化</span></span><br><span class="line">    Mat binary = <span class="built_in">adaptiveBinary</span>(gray);</span><br><span class="line">    <span class="comment">// 调用二值化函数，得到黑白图片</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤4: 形态学操作去除噪声 - 就像给图片&quot;美容&quot;</span></span><br><span class="line">    Mat kernel = <span class="built_in">getStructuringElement</span>(MORPH_RECT, <span class="built_in">Size</span>(<span class="number">3</span>, <span class="number">3</span>));</span><br><span class="line">    <span class="comment">// 创建3x3的矩形结构元素，用于形态学操作</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">morphologyEx</span>(binary, binary, MORPH_OPEN, kernel);</span><br><span class="line">    <span class="comment">// 开运算：先腐蚀后膨胀，去除小噪点，平滑边界</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 显示最终的二值化结果</span></span><br><span class="line">    <span class="built_in">namedWindow</span>(<span class="string">&quot;二值化结果&quot;</span>, WINDOW_NORMAL);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;二值化结果&quot;</span>, binary);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 保存处理后的图像</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; compression_params;  <span class="comment">// 创建整数向量存储压缩参数</span></span><br><span class="line">    compression_params.<span class="built_in">push_back</span>(IMWRITE_PNG_COMPRESSION);  <span class="comment">// 添加压缩类型</span></span><br><span class="line">    compression_params.<span class="built_in">push_back</span>(<span class="number">9</span>);  <span class="comment">// 压缩级别(0-9，9=最高压缩)</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">imwrite</span>(<span class="string">&quot;processed_result.png&quot;</span>, binary, compression_params);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;处理后的图像已保存为 processed_result.png&quot;</span> &lt;&lt; endl;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 等待按键 - 程序停在这里，直到用户按任意键</span></span><br><span class="line">    <span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 程序正常结束</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">s.<span class="built_in">insert</span>(<span class="number">10</span>);           <span class="comment">// 插入元素，若已经存在，则无法插入，返回 pair&lt;iterator, bool&gt;</span></span><br><span class="line">s.<span class="built_in">emplace</span>(<span class="number">20</span>);         <span class="comment">// 原地构造（对非POD类型更高效）</span></span><br><span class="line">s.<span class="built_in">insert</span>(&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;);   <span class="comment">// 批量插入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// insert 返回值示例</span></span><br><span class="line"><span class="keyword">auto</span> result = s.<span class="built_in">insert</span>(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">if</span> (result.second) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;插入成功，位置：&quot;</span> &lt;&lt; *result.first &lt;&lt; endl;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;元素已存在&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="核心概念解释"><a href="#核心概念解释" class="headerlink" title="核心概念解释"></a>核心概念解释</h2><h3 id="1-Mat-是什么？"><a href="#1-Mat-是什么？" class="headerlink" title="1. Mat 是什么？"></a>1. <code>Mat</code> 是什么？</h3><p><code>Mat</code> 是OpenCV的<strong>图片容器类</strong>，可以理解为：</p>
-<ul>
-<li>一个智能的<strong>图片数据盒子</strong></li>
-<li>自动管理内存，不用手动分配和释放</li>
-<li>存储像素数据、尺寸、颜色通道等信息</li>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">s.<span class="built_in">erase</span>(<span class="number">5</span>);            <span class="comment">// 按值删除，返回删除个数（0或1）</span></span><br><span class="line">s.<span class="built_in">erase</span>(s.<span class="built_in">begin</span>());    <span class="comment">// 按迭代器删除</span></span><br><span class="line">s.<span class="built_in">erase</span>(it1, it2);     <span class="comment">// 删除区间 [it1, it2)</span></span><br><span class="line">s.<span class="built_in">clear</span>();             <span class="comment">// 清空集合</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> it = s.<span class="built_in">find</span>(<span class="number">10</span>);   <span class="comment">// 查找元素，返回迭代器</span></span><br><span class="line"><span class="keyword">if</span> (it != s.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;找到：&quot;</span> &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// count 检查存在性</span></span><br><span class="line"><span class="keyword">if</span> (s.<span class="built_in">count</span>(<span class="number">10</span>)) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;元素存在&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="边界查询"><a href="#边界查询" class="headerlink" title="边界查询"></a>边界查询</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">set&lt;<span class="type">int</span>&gt; s = &#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">12</span>, <span class="number">16</span>, <span class="number">24</span>, <span class="number">32</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个 &gt;=10 的元素</span></span><br><span class="line"><span class="keyword">auto</span> lb = s.<span class="built_in">lower_bound</span>(<span class="number">10</span>);  <span class="comment">// 指向 12</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个 &gt;10 的元素  </span></span><br><span class="line"><span class="keyword">auto</span> ub = s.<span class="built_in">upper_bound</span>(<span class="number">10</span>);  <span class="comment">// 指向 12</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 相等范围</span></span><br><span class="line"><span class="keyword">auto</span> range = s.<span class="built_in">equal_range</span>(<span class="number">10</span>);  <span class="comment">// [lb, ub)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="大小与状态"><a href="#大小与状态" class="headerlink" title="大小与状态"></a>大小与状态</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; <span class="string">&quot;元素个数：&quot;</span> &lt;&lt; s.<span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;是否为空：&quot;</span> &lt;&lt; s.<span class="built_in">empty</span>() &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
+<li><code>insert()</code>: O(log n)</li>
+<li><code>erase()</code>: O(log n)  </li>
+<li><code>find()</code>: O(log n)</li>
+<li><code>lower_bound()</code>: O(log n)</li>
+<li><code>count()</code>: O(log n)</li>
+<li>遍历：O(n)</li>
 </ul>
-<h3 id="2-关键函数的作用："><a href="#2-关键函数的作用：" class="headerlink" title="2. 关键函数的作用："></a>2. 关键函数的作用：</h3><ul>
-<li><code>imread()</code>：读取图片文件</li>
-<li><code>imshow()</code>：显示图片</li>
-<li><code>imwrite()</code>：保存图片</li>
-<li><code>cvtColor()</code>：颜色空间转换</li>
-<li><code>namedWindow()</code>：创建显示窗口</li>
-<li><code>waitKey()</code>：等待用户输入</li>
-</ul>
-<h3 id="3-处理流程总结："><a href="#3-处理流程总结：" class="headerlink" title="3. 处理流程总结："></a>3. 处理流程总结：</h3><ol>
-<li><strong>读图</strong> → 2. <strong>Gamma增强</strong> → 3. <strong>转灰度</strong> → 4. <strong>二值化</strong> → 5. <strong>去噪</strong> → 6. <strong>显示保存</strong></li>
+<h2 id="遍历与有序查询"><a href="#遍历与有序查询" class="headerlink" title="遍历与有序查询"></a>遍历与有序查询</h2><h3 id="基本遍历方式"><a href="#基本遍历方式" class="headerlink" title="基本遍历方式"></a>基本遍历方式</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正向遍历</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = s.<span class="built_in">begin</span>(); it != s.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 范围for（C++11）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x : s) &#123;</span><br><span class="line">    cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 逆序遍历</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = s.<span class="built_in">rbegin</span>(); it != s.<span class="built_in">rend</span>(); ++it) &#123;</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="范围查询（利用有序性）"><a href="#范围查询（利用有序性）" class="headerlink" title="范围查询（利用有序性）"></a>范围查询（利用有序性）</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 查询 (5, 20] 范围内的元素</span></span><br><span class="line"><span class="keyword">auto</span> left = s.<span class="built_in">upper_bound</span>(<span class="number">5</span>);   <span class="comment">// 第一个 &gt;5 的元素</span></span><br><span class="line"><span class="keyword">auto</span> right = s.<span class="built_in">upper_bound</span>(<span class="number">20</span>); <span class="comment">// 第一个 &gt;20 的元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = left; it != right; ++it) &#123;</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="集合运算"><a href="#集合运算" class="headerlink" title="集合运算"></a>集合运算</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line">set&lt;<span class="type">int</span>&gt; a = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>&#125;;</span><br><span class="line">set&lt;<span class="type">int</span>&gt; b = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并集</span></span><br><span class="line"><span class="built_in">set_union</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), b.<span class="built_in">begin</span>(), b.<span class="built_in">end</span>(), <span class="built_in">back_inserter</span>(result));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 交集  </span></span><br><span class="line"><span class="built_in">set_intersection</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), b.<span class="built_in">begin</span>(), b.<span class="built_in">end</span>(), <span class="built_in">back_inserter</span>(result));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 差集</span></span><br><span class="line"><span class="built_in">set_difference</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), b.<span class="built_in">begin</span>(), b.<span class="built_in">end</span>(), <span class="built_in">back_inserter</span>(result));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对称差集</span></span><br><span class="line"><span class="built_in">set_symmetric_difference</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), b.<span class="built_in">begin</span>(), b.<span class="built_in">end</span>(), <span class="built_in">back_inserter</span>(result));</span><br></pre></td></tr></table></figure>
+
+<h2 id="高级用法：自定义比较器"><a href="#高级用法：自定义比较器" class="headerlink" title="高级用法：自定义比较器"></a>高级用法：自定义比较器</h2><h3 id="基本自定义比较器"><a href="#基本自定义比较器" class="headerlink" title="基本自定义比较器"></a>基本自定义比较器</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 降序比较器</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Descending</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">set&lt;<span class="type">int</span>, Descending&gt; s = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>&#125;;</span><br><span class="line"><span class="comment">// 元素顺序：5, 4, 3, 2, 1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="结构体集合"><a href="#结构体集合" class="headerlink" title="结构体集合"></a>结构体集合</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="type">int</span> id;</span><br><span class="line">    string name;</span><br><span class="line">    <span class="type">int</span> score;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较器：先按分数降序，再按ID升序</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">StudentCmp</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> Student&amp; a, <span class="type">const</span> Student&amp; b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a.score != b.score) &#123;</span><br><span class="line">            <span class="keyword">return</span> a.score &gt; b.score;  <span class="comment">// 高分在前</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a.id &lt; b.id;  <span class="comment">// 同分时ID小的在前</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">set&lt;Student, StudentCmp&gt; students;</span><br><span class="line">students.<span class="built_in">insert</span>(&#123;<span class="number">3</span>, <span class="string">&quot;Li&quot;</span>, <span class="number">90</span>&#125;);</span><br><span class="line">students.<span class="built_in">insert</span>(&#123;<span class="number">1</span>, <span class="string">&quot;Zhang&quot;</span>, <span class="number">95</span>&#125;);</span><br><span class="line">students.<span class="built_in">insert</span>(&#123;<span class="number">2</span>, <span class="string">&quot;Wang&quot;</span>, <span class="number">95</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历顺序：</span></span><br><span class="line"><span class="comment">// &#123;1, &quot;Zhang&quot;, 95&#125;</span></span><br><span class="line"><span class="comment">// &#123;2, &quot;Wang&quot;, 95&#125;</span></span><br><span class="line"><span class="comment">// &#123;3, &quot;Li&quot;, 90&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="严格弱序要求"><a href="#严格弱序要求" class="headerlink" title="严格弱序要求"></a>严格弱序要求</h3><p>自定义比较器必须满足严格弱序（Strict Weak Ordering）：</p>
+<ol>
+<li>非自反性：<code>comp(a, a)</code> 为 false</li>
+<li>不对称性：若 <code>comp(a, b)</code> 为 true，则 <code>comp(b, a)</code> 为 false</li>
+<li>传递性：若 <code>comp(a, b)</code> 且 <code>comp(b, c)</code>，则 <code>comp(a, c)</code></li>
+<li>等价传递：若 <code>!comp(a, b) &amp;&amp; !comp(b, a)</code> 且 <code>!comp(b, c) &amp;&amp; !comp(c, b)</code>，则 <code>!comp(a, c) &amp;&amp; !comp(c, a)</code></li>
 </ol>
-<h2 id="完整可运行代码"><a href="#完整可运行代码" class="headerlink" title="完整可运行代码"></a>完整可运行代码</h2><p>把以下代码保存为 <code>main.cpp</code>：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Gamma变换：调整图片亮度曲线</span></span><br><span class="line"><span class="function">Mat <span class="title">gammaCorrection</span><span class="params">(<span class="type">const</span> Mat&amp; src, <span class="type">double</span> gamma)</span> </span>&#123;</span><br><span class="line">    <span class="function">Mat <span class="title">lookupTable</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    uchar* p = lookupTable.<span class="built_in">ptr</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i) &#123;</span><br><span class="line">        p[i] = <span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Mat dst;</span><br><span class="line">    <span class="built_in">LUT</span>(src, lookupTable, dst);</span><br><span class="line">    <span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二值化：把图片变成黑白两色</span></span><br><span class="line"><span class="function">Mat <span class="title">adaptiveBinary</span><span class="params">(<span class="type">const</span> Mat&amp; src)</span> </span>&#123;</span><br><span class="line">    Mat gray, binary;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">channels</span>() == <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="built_in">cvtColor</span>(src, gray, COLOR_BGR2GRAY);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        gray = src.<span class="built_in">clone</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">adaptiveThreshold</span>(gray, binary, <span class="number">255</span>, ADAPTIVE_THRESH_GAUSSIAN_C, </span><br><span class="line">                     THRESH_BINARY, <span class="number">11</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> binary;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 读取图片</span></span><br><span class="line">    Mat src = <span class="built_in">imread</span>(<span class="string">&quot;src.png&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;错误：找不到src.png文件！&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. Gamma变换增强</span></span><br><span class="line">    Mat gamma_img = <span class="built_in">gammaCorrection</span>(src, <span class="number">0.5</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 3. 二值化处理</span></span><br><span class="line">    Mat binary = <span class="built_in">adaptiveBinary</span>(gamma_img);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4. 显示结果</span></span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;原始图像&quot;</span>, src);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;处理结果&quot;</span>, binary);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 5. 保存结果</span></span><br><span class="line">    <span class="built_in">imwrite</span>(<span class="string">&quot;processed_result.png&quot;</span>, binary);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;处理完成！结果已保存为processed_result.png&quot;</span> &lt;&lt; endl;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="与-unordered-set-的对比"><a href="#与-unordered-set-的对比" class="headerlink" title="与 unordered_set 的对比"></a>与 unordered_set 的对比</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>set（有序集合）</th>
+<th>unordered_set（哈希集合）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>底层结构</strong></td>
+<td>红黑树（平衡BST）</td>
+<td>哈希表</td>
+</tr>
+<tr>
+<td><strong>元素顺序</strong></td>
+<td>自动排序</td>
+<td>无序（插入顺序不保证）</td>
+</tr>
+<tr>
+<td><strong>时间复杂度</strong></td>
+<td>查找&#x2F;插入&#x2F;删除：O(log n)</td>
+<td>平均 O(1)，最坏 O(n)</td>
+</tr>
+<tr>
+<td><strong>内存占用</strong></td>
+<td>较低（每个节点额外指针）</td>
+<td>较高（哈希桶和负载因子）</td>
+</tr>
+<tr>
+<td><strong>迭代器稳定性</strong></td>
+<td>插入&#x2F;删除不使其他迭代器失效</td>
+<td>重新哈希会使所有迭代器失效</td>
+</tr>
+<tr>
+<td><strong>特殊操作</strong></td>
+<td>支持 <code>lower_bound()</code>、<code>upper_bound()</code></td>
+<td>不支持有序查询</td>
+</tr>
+</tbody></table>
+<h3 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a>选择建议</h3><ul>
+<li><p>使用 <code>set</code> 的场景：</p>
+<ul>
+<li>需要元素自动排序</li>
+<li>需要范围查询或边界查找</li>
+<li>需要按顺序遍历</li>
+<li>元素数量不大或对最坏性能有要求</li>
+</ul>
+</li>
+<li><p>使用 <code>unordered_set</code> 的场景：</p>
+<ul>
+<li>只需快速查找存在性</li>
+<li>不需要元素有序</li>
+<li>大量数据且哈希函数良好</li>
+<li>对平均性能要求高</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_set&gt;</span></span></span><br><span class="line"></span><br><span class="line">set&lt;<span class="type">int</span>&gt; ordered_set = &#123;<span class="number">8</span>, <span class="number">4</span>, <span class="number">16</span>, <span class="number">2</span>, <span class="number">24</span>, <span class="number">12</span>&#125;;</span><br><span class="line">unordered_set&lt;<span class="type">int</span>&gt; unordered_set = &#123;<span class="number">8</span>, <span class="number">4</span>, <span class="number">16</span>, <span class="number">2</span>, <span class="number">24</span>, <span class="number">12</span>&#125;;</span><br><span class="line"></span><br><span class="line">cout &lt;&lt; <span class="string">&quot;set (有序): &quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x : ordered_set) cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;  <span class="comment">// 2 4 8 12 16 24</span></span><br><span class="line"></span><br><span class="line">cout &lt;&lt; <span class="string">&quot;\nunordered_set (无序): &quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x : unordered_set) cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;  <span class="comment">// 顺序不确定</span></span><br></pre></td></tr></table></figure>
 
-<p>这样解释后，你应该能理解每一行代码的作用了！这个程序的核心思想就是：<strong>先调整亮度让数字更明显，然后转换成黑白图让数字突出显示</strong>。</p>
+<h2 id="常见问题与最佳实践"><a href="#常见问题与最佳实践" class="headerlink" title="常见问题与最佳实践"></a>常见问题与最佳实践</h2><h3 id="1-遍历时安全删除"><a href="#1-遍历时安全删除" class="headerlink" title="1. 遍历时安全删除"></a>1. 遍历时安全删除</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">set&lt;<span class="type">int</span>&gt; s = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误：删除后迭代器失效</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = s.<span class="built_in">begin</span>(); it != s.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    <span class="keyword">if</span> (*it % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        s.<span class="built_in">erase</span>(it);  <span class="comment">// 错误！it 已失效</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确：使用返回值更新迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = s.<span class="built_in">begin</span>(); it != s.<span class="built_in">end</span>(); ) &#123;</span><br><span class="line">    <span class="keyword">if</span> (*it % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        it = s.<span class="built_in">erase</span>(it);  <span class="comment">// erase 返回下一个有效迭代器</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ++it;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-元素不可变性"><a href="#2-元素不可变性" class="headerlink" title="2. 元素不可变性"></a>2. 元素不可变性</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">set&lt;<span class="type">int</span>&gt; s = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误：修改元素可能破坏有序性</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span>&amp; x : s) &#123;</span><br><span class="line">    x = x * <span class="number">2</span>;  <span class="comment">// 错误！不能修改 set 元素</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确：先删除再插入</span></span><br><span class="line"><span class="keyword">auto</span> it = s.<span class="built_in">find</span>(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">if</span> (it != s.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    s.<span class="built_in">erase</span>(it);</span><br><span class="line">    s.<span class="built_in">insert</span>(<span class="number">6</span>);  <span class="comment">// 使用新值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-性能优化"><a href="#3-性能优化" class="headerlink" title="3. 性能优化"></a>3. 性能优化</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 批量构造比逐个插入快</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; data = &#123;<span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 较慢：O(n log n)</span></span><br><span class="line">set&lt;<span class="type">int</span>&gt; s1;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x : data) s<span class="number">1.</span><span class="built_in">insert</span>(x);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 较快：O(n log n) 但常数更小</span></span><br><span class="line"><span class="function">set&lt;<span class="type">int</span>&gt; <span class="title">s2</span><span class="params">(data.begin(), data.end())</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最快：如果数据已排序</span></span><br><span class="line"><span class="built_in">sort</span>(data.<span class="built_in">begin</span>(), data.<span class="built_in">end</span>());</span><br><span class="line"><span class="function">set&lt;<span class="type">int</span>&gt; <span class="title">s3</span><span class="params">(data.begin(), data.end())</span></span>;  <span class="comment">// O(n)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-与-vector-互转"><a href="#4-与-vector-互转" class="headerlink" title="4. 与 vector 互转"></a>4. 与 vector 互转</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// set 转 vector（已排序）</span></span><br><span class="line">set&lt;<span class="type">int</span>&gt; s = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">9</span>&#125;;</span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">v</span><span class="params">(s.begin(), s.end())</span></span>;  <span class="comment">// &#123;1, 3, 4, 5, 9&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// vector 转 set（去重排序）</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; data = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">6</span>&#125;;</span><br><span class="line"><span class="function">set&lt;<span class="type">int</span>&gt; <span class="title">s2</span><span class="params">(data.begin(), data.end())</span></span>;  <span class="comment">// &#123;1, 2, 3, 4, 5, 6, 9&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="实战示例"><a href="#实战示例" class="headerlink" title="实战示例"></a>实战示例</h2><h3 id="示例1：两集合乘积去重排序"><a href="#示例1：两集合乘积去重排序" class="headerlink" title="示例1：两集合乘积去重排序"></a>示例1：两集合乘积去重排序</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 计算两个集合的乘积集，去重并排序</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">productSet</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; A, <span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; B)</span> </span>&#123;</span><br><span class="line">    set&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> a : A) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> b : B) &#123;</span><br><span class="line">            result.<span class="built_in">insert</span>(a * b);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(result.<span class="built_in">begin</span>(), result.<span class="built_in">end</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; A = &#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; B = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">auto</span> products = <span class="built_in">productSet</span>(A, B);</span><br><span class="line">    <span class="comment">// 输出：2 4 6 8 12 16 24 32</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> p : products) cout &lt;&lt; p &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="示例2：范围统计系统"><a href="#示例2：范围统计系统" class="headerlink" title="示例2：范围统计系统"></a>示例2：范围统计系统</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RangeCounter</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    set&lt;<span class="type">int</span>&gt; points;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 添加点</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addPoint</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        points.<span class="built_in">insert</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 统计 [l, r] 范围内的点数</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">countInRange</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> left = points.<span class="built_in">lower_bound</span>(l);</span><br><span class="line">        <span class="keyword">auto</span> right = points.<span class="built_in">upper_bound</span>(r);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">distance</span>(left, right);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取范围内的所有点</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">getPointsInRange</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        <span class="keyword">auto</span> left = points.<span class="built_in">lower_bound</span>(l);</span><br><span class="line">        <span class="keyword">auto</span> right = points.<span class="built_in">upper_bound</span>(r);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> it = left; it != right; ++it) &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(*it);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="示例3：最近邻查找"><a href="#示例3：最近邻查找" class="headerlink" title="示例3：最近邻查找"></a>示例3：最近邻查找</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在有序集合中查找最近邻</span></span><br><span class="line"><span class="function">pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; <span class="title">findNearest</span><span class="params">(set&lt;<span class="type">int</span>&gt;&amp; s, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s.<span class="built_in">empty</span>()) <span class="keyword">return</span> &#123;INT_MIN, INT_MIN&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 查找第一个 &gt;= target 的元素</span></span><br><span class="line">    <span class="keyword">auto</span> it = s.<span class="built_in">lower_bound</span>(target);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> right = (it != s.<span class="built_in">end</span>()) ? *it : INT_MIN;</span><br><span class="line">    <span class="type">int</span> left = (it != s.<span class="built_in">begin</span>()) ? *<span class="built_in">prev</span>(it) : INT_MIN;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> &#123;left, right&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    set&lt;<span class="type">int</span>&gt; s = &#123;<span class="number">1</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">10</span>, <span class="number">15</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">auto</span> nearest = <span class="built_in">findNearest</span>(s, <span class="number">8</span>);</span><br><span class="line">    <span class="comment">// nearest = &#123;7, 10&#125;，距离8最近的是7和10</span></span><br><span class="line">    </span><br><span class="line">    nearest = <span class="built_in">findNearest</span>(s, <span class="number">20</span>);</span><br><span class="line">    <span class="comment">// nearest = &#123;15, INT_MIN&#125;，只有左邻居</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>std::set</code> 是 C++ 中功能强大的有序集合容器：</p>
+<ol>
+<li><p><strong>适用场景</strong>：需要元素唯一且有序的场景，如去重排序、范围查询、最近邻查找等</p>
+</li>
+<li><p><strong>性能特点</strong>：</p>
+<ul>
+<li>所有操作 O(log n) 时间复杂度</li>
+<li>适合元素数量适中（数千到数百万）</li>
+<li>对最坏情况性能有保障</li>
+</ul>
+</li>
+<li><p><strong>使用建议</strong>：</p>
+<ul>
+<li>优先使用 <code>emplace()</code> 而非 <code>insert()</code> 减少拷贝</li>
+<li>利用有序性进行范围查询和边界查找</li>
+<li>避免在遍历时直接修改元素</li>
+<li>根据需求选择 <code>set</code> 或 <code>unordered_set</code></li>
+</ul>
+</li>
+<li><p><strong>扩展学习</strong>：</p>
+<ul>
+<li><code>multiset</code>：允许重复元素的有序集合</li>
+<li><code>map</code>：键值对的有序映射</li>
+<li><code>unordered_map</code>：哈希映射</li>
+</ul>
+</li>
+</ol>
+<p>掌握 <code>set</code> 的用法能够极大提升处理有序唯一数据的能力，是 C++ 开发者的必备技能之一。</p>
 ]]></content>
       <categories>
         <category>Cpp编程</category>
       </categories>
       <tags>
         <tag>C++</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python-数字类型</title>
-    <url>/2025/08/27/python-note-1/</url>
-    <content><![CDATA[<h1 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h1><p><strong><code>+ - * /</code></strong> 加减乘除</p>
-<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><p>因为python使用的是IEEE754标准储存浮点数,故有误差，计算时需要引入decimal模块</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line">decimal.Decimal</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>note</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python打包成exe</title>
-    <url>/2025/08/26/python-package/</url>
-    <content><![CDATA[<h1 id="虚拟环境篇（建议）"><a href="#虚拟环境篇（建议）" class="headerlink" title="虚拟环境篇（建议）"></a>虚拟环境篇（建议）</h1><h2 id="在项目文件夹中打开终端"><a href="#在项目文件夹中打开终端" class="headerlink" title="在项目文件夹中打开终端"></a>在项目文件夹中打开终端</h2><h2 id="安装-python3-full（确保有完整的-venv-模块）："><a href="#安装-python3-full（确保有完整的-venv-模块）：" class="headerlink" title="安装 python3-full（确保有完整的 venv 模块）："></a>安装 python3-full（确保有完整的 venv 模块）：</h2><h3 id="macOS-Linux（终端）"><a href="#macOS-Linux（终端）" class="headerlink" title="macOS&#x2F;Linux（终端）"></a>macOS&#x2F;Linux（终端）</h3><p>  <strong><code>sudo apt install python3-full</code></strong></p>
-<h2 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h2><p>  <strong><code>python3 -m venv venv_name</code></strong>  venv_name即为虚拟环境名称，建议英文</p>
-<h2 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>  <strong><code>venv_name\Scripts\activate.bat  #cmd</code>or <code>.\venv_name\Scripts\Activate.ps1  #powershell</code></strong></p>
-<h3 id="macOS-Linux（终端）-1"><a href="#macOS-Linux（终端）-1" class="headerlink" title="macOS&#x2F;Linux（终端）"></a>macOS&#x2F;Linux（终端）</h3><p>  <strong><code>source venv_name/bin/activate</code></strong></p>
-<h2 id="使用虚拟环境-激活后，终端提示符前会显示-venv-name"><a href="#使用虚拟环境-激活后，终端提示符前会显示-venv-name" class="headerlink" title="使用虚拟环境 [激活后，终端提示符前会显示 (venv_name)]"></a>使用虚拟环境 [激活后，终端提示符前会显示 (venv_name)]</h2><p>  <strong><code>pip install 包名  # 例如：pip install requests</code></strong></p>
-<h2 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h2><p>  <strong><code>deactivate</code></strong><br>  <details><br>  <summary>点击展开virtualenv教程</summary><br>    <ul><br>      <li> 安装virtualenv：<code>pip install virtualenv</code></li><br>      <li> # 基本用法（默认使用当前 Python 版本）<br>          <code>virtualenv venv_name</code><br>          # 指定 Python 版本（需系统已安装对应版本）<br>          <code>virtualenv -p python3.13 venv_name  # 使用 Python 3.13</code></li><br>      <li> 激活 &#x2F; 退出虚拟环境：与 venv 完全相同</li><br>      <li> 导出当前环境的依赖列表：<br>          <code>pip freeze &gt; requirements.txt</code></li><br>      <li> 在新环境中导入依赖：<br>          <code>pip install -r requirements.txt</code></li><br>      <li> 恢复激活虚拟环境：在项目文件夹下用终端激活</li><br>    </ul></p>
-</details>
-
-
-<h1 id="Nuitka篇"><a href="#Nuitka篇" class="headerlink" title="Nuitka篇"></a><a href="https://www.bilibili.com/video/BV1VLPWeREVd/">Nuitka篇</a></h1><p>  这是一个将python转译成C，再打包成exe的工具，打包速度慢，但运行速度快，打包后的文件小。</p>
-<h2 id="安装nuitka"><a href="#安装nuitka" class="headerlink" title="安装nuitka"></a>安装nuitka</h2><p>  <strong><code>pip install nuitka</code></strong></p>
-<h2 id="测试py文件能否执行"><a href="#测试py文件能否执行" class="headerlink" title="测试py文件能否执行"></a>测试py文件能否执行</h2><p>  <strong><code>python xxx.py</code></strong></p>
-<h2 id="打包需要的依赖；打包成单文件"><a href="#打包需要的依赖；打包成单文件" class="headerlink" title="打包需要的依赖；打包成单文件"></a>打包需要的依赖；打包成单文件</h2><p>  <strong><code>nuitka xxx.py --standalone --onefile</code></strong></p>
-<h2 id="补充文件路径"><a href="#补充文件路径" class="headerlink" title="补充文件路径"></a>补充文件路径</h2><p>  <strong><code>--include-data-file=电脑中文件的路径=程序中引用的路径</code></strong></p>
-<h2 id="补充文件夹路径"><a href="#补充文件夹路径" class="headerlink" title="补充文件夹路径"></a>补充文件夹路径</h2><p>  <strong><code>--include-data-dir=文件夹路径=电脑中文件夹的路径=程序中调用的路径</code></strong></p>
-<h2 id="为-Windows-可执行文件设置图标（需-ico-格式）"><a href="#为-Windows-可执行文件设置图标（需-ico-格式）" class="headerlink" title="为 Windows 可执行文件设置图标（需 .ico 格式）"></a>为 Windows 可执行文件设置图标（需 .ico 格式）</h2><p>  <strong><code>--windows-icon-from-ico=图标路径</code></strong></p>
-<h2 id="生成无控制台窗口的程序（适合-GUI-应用，如-PyQt、Tkinter）"><a href="#生成无控制台窗口的程序（适合-GUI-应用，如-PyQt、Tkinter）" class="headerlink" title="生成无控制台窗口的程序（适合 GUI 应用，如 PyQt、Tkinter）"></a>生成无控制台窗口的程序（适合 GUI 应用，如 PyQt、Tkinter）</h2><p>  <strong><code>--disable-console</code></strong></p>
-<h2 id="eg"><a href="#eg" class="headerlink" title="eg:"></a>eg:</h2><p>  <strong><code>nuitka xxx.py --standalone --onefile --include-data-file=电脑中文件的路径=程序中引用的路径 --include-data-dir=文件夹路径=电脑中文件夹的路径=程序中调用的路径 --windows-icon-from-ico=图标路径 --disable-console</code></strong></p>
-<h2 id="查看报错"><a href="#查看报错" class="headerlink" title="查看报错"></a>查看报错</h2><p>  **<code>xxx.exe</code>**在cmd中查看</p>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><blockquote>
-<p>用最新版的python3.13出现MinGW64 编译器不兼容<br>解决办法：<a href="https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/">安装最新 MSVC 编译器</a>,运行安装器，<br>勾选 <strong>“使用 C++ 的桌面开发”</strong>（无需安装完整 Visual Studio，仅需组件）。<br>在右侧 “可选组件” 中，确保勾选 <strong>“MSVC v143 - VS 2022 C++ x64&#x2F;x86 生成工具”</strong>（版本需 ≥14.3）<br>和 <strong>“Windows 10 SDK”</strong>（或 Windows 11 SDK，匹配你的系统版本）<br>之后再重新打包<code>nuitka 2.py --standalone --onefile --msvc=latest</code></p>
-</blockquote>
-<h1 id="PyInstaller"><a href="#PyInstaller" class="headerlink" title="PyInstaller"></a><a href="https://www.bilibili.com/video/BV15i4y1U7F7/">PyInstaller</a></h1><p>  这是一个将python直接打包成exe的工具，打包速度快，但运行速度满，且打包后的文件大。(简写的大小写不能改)</p>
-<h2 id="安装PyInstaller"><a href="#安装PyInstaller" class="headerlink" title="安装PyInstaller"></a>安装PyInstaller</h2><p>  <strong><code>pip install pyinstaller</code></strong></p>
-<h2 id="单文件打包"><a href="#单文件打包" class="headerlink" title="单文件打包"></a>单文件打包</h2><p>  <strong><code>pyinstaller --onefile xxx.py  # 简写：-F</code></strong></p>
-<h2 id="自定义生成的可执行文件名称（默认与脚本名一致）"><a href="#自定义生成的可执行文件名称（默认与脚本名一致）" class="headerlink" title="自定义生成的可执行文件名称（默认与脚本名一致）"></a>自定义生成的可执行文件名称（默认与脚本名一致）</h2><p>  <strong><code>--name=程序名  # 简写：-n</code></strong></p>
-<h2 id="生成无-有-控制台窗口的程序"><a href="#生成无-有-控制台窗口的程序" class="headerlink" title="生成无(有)控制台窗口的程序"></a>生成无(有)控制台窗口的程序</h2><p>  <strong><code>--noconsole  #简写：-w</code>  （<code>--console   #简写：-c</code>）</strong></p>
-<h2 id="打包额外资源文件（如图片、配置文件）"><a href="#打包额外资源文件（如图片、配置文件）" class="headerlink" title="打包额外资源文件（如图片、配置文件）"></a>打包额外资源文件（如图片、配置文件）</h2><p>  <strong><code>--add-data=源文件:目标路径（Windows 用 ; 分隔）  #简写：-a</code></strong></p>
-<details>
-  <summary>点击展开打包示例</summary>
-    <ul>
-      <li> 单个文件：  --add-data "src/file.txt;dest"  （仅打包 file.txt 到 dest/ 目录）</li>
-      <li> 同类型文件：  --add-data "src/*.png;dest/images"  （打包所有 .png 图片到 dest/images/）</li>
-      <li> 整个文件夹（包括子目录）：   --add-data "src/folder/*;dest/folder"  （打包 folder/ 下的所有内容，保持目录结构）</li>
-    </ul>
-</details>
-
-<h2 id="手动指定隐藏的依赖模块（解决动态导入导致的-“ModuleNotFoundError”）"><a href="#手动指定隐藏的依赖模块（解决动态导入导致的-“ModuleNotFoundError”）" class="headerlink" title="手动指定隐藏的依赖模块（解决动态导入导致的 “ModuleNotFoundError”）"></a>手动指定隐藏的依赖模块（解决动态导入导致的 “ModuleNotFoundError”）</h2><p>  <strong><code>--hidden-import=模块名   #简写：-p</code></strong></p>
-<h2 id="清理上次打包的临时文件，避免缓存干扰"><a href="#清理上次打包的临时文件，避免缓存干扰" class="headerlink" title="清理上次打包的临时文件，避免缓存干扰"></a><strong>清理上次打包的临时文件，避免缓存干扰</strong></h2><p>  <strong><code>--clean</code></strong></p>
-<h2 id="中文显示乱码"><a href="#中文显示乱码" class="headerlink" title="中文显示乱码"></a>中文显示乱码</h2><p>  <em>*<em>确保脚本中编码声明正确（# -</em>- coding: utf-8 -*-） 避免在路径或文件名中使用中文（尤其 Windows 系统）</em>**</p>
-<h2 id="打包后文件过大"><a href="#打包后文件过大" class="headerlink" title="打包后文件过大"></a>打包后文件过大</h2><p>  <strong>用 –exclude-module 排除不需要的模块（如 <code>--exclude-module=matplotlib</code>）</strong><br>  <strong>清理虚拟环境，仅保留必要依赖后再打包</strong></p>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>python打包exe</tag>
+        <tag>set</tag>
       </tags>
   </entry>
   <entry>
@@ -3126,164 +3284,6 @@ pause &gt;nul
       <tags>
         <tag>C++</tag>
         <tag>string</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Set</title>
-    <url>/2025/12/02/set/</url>
-    <content><![CDATA[<h1 id="C-set-使用完全指南"><a href="#C-set-使用完全指南" class="headerlink" title="C++ set 使用完全指南"></a>C++ set 使用完全指南</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>std::set</code> 是 C++ STL 中的有序集合容器，具有以下核心特性：</p>
-<ul>
-<li><strong>元素唯一性</strong>：不会存储重复元素</li>
-<li><strong>自动排序</strong>：元素默认按升序排列（可自定义规则）</li>
-<li><strong>对数复杂度</strong>：所有查找、插入、删除操作均为 O(log n)</li>
-<li><strong>红黑树实现</strong>：底层基于平衡二叉搜索树</li>
-</ul>
-<p>与之对应的 <code>std::unordered_set</code> 基于哈希表实现，元素无序但平均操作复杂度为 O(1)。</p>
-<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="头文件与声明"><a href="#头文件与声明" class="headerlink" title="头文件与声明"></a>头文件与声明</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认升序</span></span><br><span class="line">set&lt;<span class="type">int</span>&gt; s1;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 降序</span></span><br><span class="line">set&lt;<span class="type">int</span>, greater&lt;<span class="type">int</span>&gt;&gt; s2;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化列表</span></span><br><span class="line">set&lt;<span class="type">int</span>&gt; s3 = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">4</span>&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">s.<span class="built_in">insert</span>(<span class="number">10</span>);           <span class="comment">// 插入元素，若已经存在，则无法插入，返回 pair&lt;iterator, bool&gt;</span></span><br><span class="line">s.<span class="built_in">emplace</span>(<span class="number">20</span>);         <span class="comment">// 原地构造（对非POD类型更高效）</span></span><br><span class="line">s.<span class="built_in">insert</span>(&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;);   <span class="comment">// 批量插入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// insert 返回值示例</span></span><br><span class="line"><span class="keyword">auto</span> result = s.<span class="built_in">insert</span>(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">if</span> (result.second) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;插入成功，位置：&quot;</span> &lt;&lt; *result.first &lt;&lt; endl;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;元素已存在&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">s.<span class="built_in">erase</span>(<span class="number">5</span>);            <span class="comment">// 按值删除，返回删除个数（0或1）</span></span><br><span class="line">s.<span class="built_in">erase</span>(s.<span class="built_in">begin</span>());    <span class="comment">// 按迭代器删除</span></span><br><span class="line">s.<span class="built_in">erase</span>(it1, it2);     <span class="comment">// 删除区间 [it1, it2)</span></span><br><span class="line">s.<span class="built_in">clear</span>();             <span class="comment">// 清空集合</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> it = s.<span class="built_in">find</span>(<span class="number">10</span>);   <span class="comment">// 查找元素，返回迭代器</span></span><br><span class="line"><span class="keyword">if</span> (it != s.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;找到：&quot;</span> &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// count 检查存在性</span></span><br><span class="line"><span class="keyword">if</span> (s.<span class="built_in">count</span>(<span class="number">10</span>)) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;元素存在&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="边界查询"><a href="#边界查询" class="headerlink" title="边界查询"></a>边界查询</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">set&lt;<span class="type">int</span>&gt; s = &#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">12</span>, <span class="number">16</span>, <span class="number">24</span>, <span class="number">32</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个 &gt;=10 的元素</span></span><br><span class="line"><span class="keyword">auto</span> lb = s.<span class="built_in">lower_bound</span>(<span class="number">10</span>);  <span class="comment">// 指向 12</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个 &gt;10 的元素  </span></span><br><span class="line"><span class="keyword">auto</span> ub = s.<span class="built_in">upper_bound</span>(<span class="number">10</span>);  <span class="comment">// 指向 12</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 相等范围</span></span><br><span class="line"><span class="keyword">auto</span> range = s.<span class="built_in">equal_range</span>(<span class="number">10</span>);  <span class="comment">// [lb, ub)</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="大小与状态"><a href="#大小与状态" class="headerlink" title="大小与状态"></a>大小与状态</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">cout &lt;&lt; <span class="string">&quot;元素个数：&quot;</span> &lt;&lt; s.<span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;是否为空：&quot;</span> &lt;&lt; s.<span class="built_in">empty</span>() &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-
-<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ul>
-<li><code>insert()</code>: O(log n)</li>
-<li><code>erase()</code>: O(log n)  </li>
-<li><code>find()</code>: O(log n)</li>
-<li><code>lower_bound()</code>: O(log n)</li>
-<li><code>count()</code>: O(log n)</li>
-<li>遍历：O(n)</li>
-</ul>
-<h2 id="遍历与有序查询"><a href="#遍历与有序查询" class="headerlink" title="遍历与有序查询"></a>遍历与有序查询</h2><h3 id="基本遍历方式"><a href="#基本遍历方式" class="headerlink" title="基本遍历方式"></a>基本遍历方式</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正向遍历</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = s.<span class="built_in">begin</span>(); it != s.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 范围for（C++11）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x : s) &#123;</span><br><span class="line">    cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 逆序遍历</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = s.<span class="built_in">rbegin</span>(); it != s.<span class="built_in">rend</span>(); ++it) &#123;</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="范围查询（利用有序性）"><a href="#范围查询（利用有序性）" class="headerlink" title="范围查询（利用有序性）"></a>范围查询（利用有序性）</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 查询 (5, 20] 范围内的元素</span></span><br><span class="line"><span class="keyword">auto</span> left = s.<span class="built_in">upper_bound</span>(<span class="number">5</span>);   <span class="comment">// 第一个 &gt;5 的元素</span></span><br><span class="line"><span class="keyword">auto</span> right = s.<span class="built_in">upper_bound</span>(<span class="number">20</span>); <span class="comment">// 第一个 &gt;20 的元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = left; it != right; ++it) &#123;</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="集合运算"><a href="#集合运算" class="headerlink" title="集合运算"></a>集合运算</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line">set&lt;<span class="type">int</span>&gt; a = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>&#125;;</span><br><span class="line">set&lt;<span class="type">int</span>&gt; b = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line"></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并集</span></span><br><span class="line"><span class="built_in">set_union</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), b.<span class="built_in">begin</span>(), b.<span class="built_in">end</span>(), <span class="built_in">back_inserter</span>(result));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 交集  </span></span><br><span class="line"><span class="built_in">set_intersection</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), b.<span class="built_in">begin</span>(), b.<span class="built_in">end</span>(), <span class="built_in">back_inserter</span>(result));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 差集</span></span><br><span class="line"><span class="built_in">set_difference</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), b.<span class="built_in">begin</span>(), b.<span class="built_in">end</span>(), <span class="built_in">back_inserter</span>(result));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对称差集</span></span><br><span class="line"><span class="built_in">set_symmetric_difference</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), b.<span class="built_in">begin</span>(), b.<span class="built_in">end</span>(), <span class="built_in">back_inserter</span>(result));</span><br></pre></td></tr></table></figure>
-
-<h2 id="高级用法：自定义比较器"><a href="#高级用法：自定义比较器" class="headerlink" title="高级用法：自定义比较器"></a>高级用法：自定义比较器</h2><h3 id="基本自定义比较器"><a href="#基本自定义比较器" class="headerlink" title="基本自定义比较器"></a>基本自定义比较器</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 降序比较器</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Descending</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">set&lt;<span class="type">int</span>, Descending&gt; s = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>&#125;;</span><br><span class="line"><span class="comment">// 元素顺序：5, 4, 3, 2, 1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="结构体集合"><a href="#结构体集合" class="headerlink" title="结构体集合"></a>结构体集合</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="type">int</span> id;</span><br><span class="line">    string name;</span><br><span class="line">    <span class="type">int</span> score;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较器：先按分数降序，再按ID升序</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">StudentCmp</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> Student&amp; a, <span class="type">const</span> Student&amp; b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a.score != b.score) &#123;</span><br><span class="line">            <span class="keyword">return</span> a.score &gt; b.score;  <span class="comment">// 高分在前</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a.id &lt; b.id;  <span class="comment">// 同分时ID小的在前</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">set&lt;Student, StudentCmp&gt; students;</span><br><span class="line">students.<span class="built_in">insert</span>(&#123;<span class="number">3</span>, <span class="string">&quot;Li&quot;</span>, <span class="number">90</span>&#125;);</span><br><span class="line">students.<span class="built_in">insert</span>(&#123;<span class="number">1</span>, <span class="string">&quot;Zhang&quot;</span>, <span class="number">95</span>&#125;);</span><br><span class="line">students.<span class="built_in">insert</span>(&#123;<span class="number">2</span>, <span class="string">&quot;Wang&quot;</span>, <span class="number">95</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历顺序：</span></span><br><span class="line"><span class="comment">// &#123;1, &quot;Zhang&quot;, 95&#125;</span></span><br><span class="line"><span class="comment">// &#123;2, &quot;Wang&quot;, 95&#125;</span></span><br><span class="line"><span class="comment">// &#123;3, &quot;Li&quot;, 90&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="严格弱序要求"><a href="#严格弱序要求" class="headerlink" title="严格弱序要求"></a>严格弱序要求</h3><p>自定义比较器必须满足严格弱序（Strict Weak Ordering）：</p>
-<ol>
-<li>非自反性：<code>comp(a, a)</code> 为 false</li>
-<li>不对称性：若 <code>comp(a, b)</code> 为 true，则 <code>comp(b, a)</code> 为 false</li>
-<li>传递性：若 <code>comp(a, b)</code> 且 <code>comp(b, c)</code>，则 <code>comp(a, c)</code></li>
-<li>等价传递：若 <code>!comp(a, b) &amp;&amp; !comp(b, a)</code> 且 <code>!comp(b, c) &amp;&amp; !comp(c, b)</code>，则 <code>!comp(a, c) &amp;&amp; !comp(c, a)</code></li>
-</ol>
-<h2 id="与-unordered-set-的对比"><a href="#与-unordered-set-的对比" class="headerlink" title="与 unordered_set 的对比"></a>与 unordered_set 的对比</h2><table>
-<thead>
-<tr>
-<th>特性</th>
-<th>set（有序集合）</th>
-<th>unordered_set（哈希集合）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>底层结构</strong></td>
-<td>红黑树（平衡BST）</td>
-<td>哈希表</td>
-</tr>
-<tr>
-<td><strong>元素顺序</strong></td>
-<td>自动排序</td>
-<td>无序（插入顺序不保证）</td>
-</tr>
-<tr>
-<td><strong>时间复杂度</strong></td>
-<td>查找&#x2F;插入&#x2F;删除：O(log n)</td>
-<td>平均 O(1)，最坏 O(n)</td>
-</tr>
-<tr>
-<td><strong>内存占用</strong></td>
-<td>较低（每个节点额外指针）</td>
-<td>较高（哈希桶和负载因子）</td>
-</tr>
-<tr>
-<td><strong>迭代器稳定性</strong></td>
-<td>插入&#x2F;删除不使其他迭代器失效</td>
-<td>重新哈希会使所有迭代器失效</td>
-</tr>
-<tr>
-<td><strong>特殊操作</strong></td>
-<td>支持 <code>lower_bound()</code>、<code>upper_bound()</code></td>
-<td>不支持有序查询</td>
-</tr>
-</tbody></table>
-<h3 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a>选择建议</h3><ul>
-<li><p>使用 <code>set</code> 的场景：</p>
-<ul>
-<li>需要元素自动排序</li>
-<li>需要范围查询或边界查找</li>
-<li>需要按顺序遍历</li>
-<li>元素数量不大或对最坏性能有要求</li>
-</ul>
-</li>
-<li><p>使用 <code>unordered_set</code> 的场景：</p>
-<ul>
-<li>只需快速查找存在性</li>
-<li>不需要元素有序</li>
-<li>大量数据且哈希函数良好</li>
-<li>对平均性能要求高</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_set&gt;</span></span></span><br><span class="line"></span><br><span class="line">set&lt;<span class="type">int</span>&gt; ordered_set = &#123;<span class="number">8</span>, <span class="number">4</span>, <span class="number">16</span>, <span class="number">2</span>, <span class="number">24</span>, <span class="number">12</span>&#125;;</span><br><span class="line">unordered_set&lt;<span class="type">int</span>&gt; unordered_set = &#123;<span class="number">8</span>, <span class="number">4</span>, <span class="number">16</span>, <span class="number">2</span>, <span class="number">24</span>, <span class="number">12</span>&#125;;</span><br><span class="line"></span><br><span class="line">cout &lt;&lt; <span class="string">&quot;set (有序): &quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x : ordered_set) cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;  <span class="comment">// 2 4 8 12 16 24</span></span><br><span class="line"></span><br><span class="line">cout &lt;&lt; <span class="string">&quot;\nunordered_set (无序): &quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x : unordered_set) cout &lt;&lt; x &lt;&lt; <span class="string">&quot; &quot;</span>;  <span class="comment">// 顺序不确定</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="常见问题与最佳实践"><a href="#常见问题与最佳实践" class="headerlink" title="常见问题与最佳实践"></a>常见问题与最佳实践</h2><h3 id="1-遍历时安全删除"><a href="#1-遍历时安全删除" class="headerlink" title="1. 遍历时安全删除"></a>1. 遍历时安全删除</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">set&lt;<span class="type">int</span>&gt; s = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误：删除后迭代器失效</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = s.<span class="built_in">begin</span>(); it != s.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    <span class="keyword">if</span> (*it % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        s.<span class="built_in">erase</span>(it);  <span class="comment">// 错误！it 已失效</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确：使用返回值更新迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = s.<span class="built_in">begin</span>(); it != s.<span class="built_in">end</span>(); ) &#123;</span><br><span class="line">    <span class="keyword">if</span> (*it % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        it = s.<span class="built_in">erase</span>(it);  <span class="comment">// erase 返回下一个有效迭代器</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ++it;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-元素不可变性"><a href="#2-元素不可变性" class="headerlink" title="2. 元素不可变性"></a>2. 元素不可变性</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">set&lt;<span class="type">int</span>&gt; s = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误：修改元素可能破坏有序性</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span>&amp; x : s) &#123;</span><br><span class="line">    x = x * <span class="number">2</span>;  <span class="comment">// 错误！不能修改 set 元素</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确：先删除再插入</span></span><br><span class="line"><span class="keyword">auto</span> it = s.<span class="built_in">find</span>(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">if</span> (it != s.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    s.<span class="built_in">erase</span>(it);</span><br><span class="line">    s.<span class="built_in">insert</span>(<span class="number">6</span>);  <span class="comment">// 使用新值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-性能优化"><a href="#3-性能优化" class="headerlink" title="3. 性能优化"></a>3. 性能优化</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 批量构造比逐个插入快</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; data = &#123;<span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 较慢：O(n log n)</span></span><br><span class="line">set&lt;<span class="type">int</span>&gt; s1;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> x : data) s<span class="number">1.</span><span class="built_in">insert</span>(x);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 较快：O(n log n) 但常数更小</span></span><br><span class="line"><span class="function">set&lt;<span class="type">int</span>&gt; <span class="title">s2</span><span class="params">(data.begin(), data.end())</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最快：如果数据已排序</span></span><br><span class="line"><span class="built_in">sort</span>(data.<span class="built_in">begin</span>(), data.<span class="built_in">end</span>());</span><br><span class="line"><span class="function">set&lt;<span class="type">int</span>&gt; <span class="title">s3</span><span class="params">(data.begin(), data.end())</span></span>;  <span class="comment">// O(n)</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-与-vector-互转"><a href="#4-与-vector-互转" class="headerlink" title="4. 与 vector 互转"></a>4. 与 vector 互转</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// set 转 vector（已排序）</span></span><br><span class="line">set&lt;<span class="type">int</span>&gt; s = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">9</span>&#125;;</span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">v</span><span class="params">(s.begin(), s.end())</span></span>;  <span class="comment">// &#123;1, 3, 4, 5, 9&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// vector 转 set（去重排序）</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; data = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">6</span>&#125;;</span><br><span class="line"><span class="function">set&lt;<span class="type">int</span>&gt; <span class="title">s2</span><span class="params">(data.begin(), data.end())</span></span>;  <span class="comment">// &#123;1, 2, 3, 4, 5, 6, 9&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="实战示例"><a href="#实战示例" class="headerlink" title="实战示例"></a>实战示例</h2><h3 id="示例1：两集合乘积去重排序"><a href="#示例1：两集合乘积去重排序" class="headerlink" title="示例1：两集合乘积去重排序"></a>示例1：两集合乘积去重排序</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 计算两个集合的乘积集，去重并排序</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">productSet</span><span class="params">(<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; A, <span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&amp; B)</span> </span>&#123;</span><br><span class="line">    set&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> a : A) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> b : B) &#123;</span><br><span class="line">            result.<span class="built_in">insert</span>(a * b);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(result.<span class="built_in">begin</span>(), result.<span class="built_in">end</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; A = &#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>&#125;;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; B = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">auto</span> products = <span class="built_in">productSet</span>(A, B);</span><br><span class="line">    <span class="comment">// 输出：2 4 6 8 12 16 24 32</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> p : products) cout &lt;&lt; p &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="示例2：范围统计系统"><a href="#示例2：范围统计系统" class="headerlink" title="示例2：范围统计系统"></a>示例2：范围统计系统</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RangeCounter</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    set&lt;<span class="type">int</span>&gt; points;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 添加点</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addPoint</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">        points.<span class="built_in">insert</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 统计 [l, r] 范围内的点数</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">countInRange</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> left = points.<span class="built_in">lower_bound</span>(l);</span><br><span class="line">        <span class="keyword">auto</span> right = points.<span class="built_in">upper_bound</span>(r);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">distance</span>(left, right);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取范围内的所有点</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">getPointsInRange</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        <span class="keyword">auto</span> left = points.<span class="built_in">lower_bound</span>(l);</span><br><span class="line">        <span class="keyword">auto</span> right = points.<span class="built_in">upper_bound</span>(r);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> it = left; it != right; ++it) &#123;</span><br><span class="line">            result.<span class="built_in">push_back</span>(*it);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="示例3：最近邻查找"><a href="#示例3：最近邻查找" class="headerlink" title="示例3：最近邻查找"></a>示例3：最近邻查找</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在有序集合中查找最近邻</span></span><br><span class="line"><span class="function">pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; <span class="title">findNearest</span><span class="params">(set&lt;<span class="type">int</span>&gt;&amp; s, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s.<span class="built_in">empty</span>()) <span class="keyword">return</span> &#123;INT_MIN, INT_MIN&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 查找第一个 &gt;= target 的元素</span></span><br><span class="line">    <span class="keyword">auto</span> it = s.<span class="built_in">lower_bound</span>(target);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> right = (it != s.<span class="built_in">end</span>()) ? *it : INT_MIN;</span><br><span class="line">    <span class="type">int</span> left = (it != s.<span class="built_in">begin</span>()) ? *<span class="built_in">prev</span>(it) : INT_MIN;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> &#123;left, right&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    set&lt;<span class="type">int</span>&gt; s = &#123;<span class="number">1</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">10</span>, <span class="number">15</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">auto</span> nearest = <span class="built_in">findNearest</span>(s, <span class="number">8</span>);</span><br><span class="line">    <span class="comment">// nearest = &#123;7, 10&#125;，距离8最近的是7和10</span></span><br><span class="line">    </span><br><span class="line">    nearest = <span class="built_in">findNearest</span>(s, <span class="number">20</span>);</span><br><span class="line">    <span class="comment">// nearest = &#123;15, INT_MIN&#125;，只有左邻居</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>std::set</code> 是 C++ 中功能强大的有序集合容器：</p>
-<ol>
-<li><p><strong>适用场景</strong>：需要元素唯一且有序的场景，如去重排序、范围查询、最近邻查找等</p>
-</li>
-<li><p><strong>性能特点</strong>：</p>
-<ul>
-<li>所有操作 O(log n) 时间复杂度</li>
-<li>适合元素数量适中（数千到数百万）</li>
-<li>对最坏情况性能有保障</li>
-</ul>
-</li>
-<li><p><strong>使用建议</strong>：</p>
-<ul>
-<li>优先使用 <code>emplace()</code> 而非 <code>insert()</code> 减少拷贝</li>
-<li>利用有序性进行范围查询和边界查找</li>
-<li>避免在遍历时直接修改元素</li>
-<li>根据需求选择 <code>set</code> 或 <code>unordered_set</code></li>
-</ul>
-</li>
-<li><p><strong>扩展学习</strong>：</p>
-<ul>
-<li><code>multiset</code>：允许重复元素的有序集合</li>
-<li><code>map</code>：键值对的有序映射</li>
-<li><code>unordered_map</code>：哈希映射</li>
-</ul>
-</li>
-</ol>
-<p>掌握 <code>set</code> 的用法能够极大提升处理有序唯一数据的能力，是 C++ 开发者的必备技能之一。</p>
-]]></content>
-      <categories>
-        <category>Cpp编程</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>set</tag>
       </tags>
   </entry>
   <entry>
