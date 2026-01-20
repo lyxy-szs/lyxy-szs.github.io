@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+    <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.js"></script>
+    <!-- �ַ��������ӿ����� -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- վ��Ԫ��Ϣ -->
+
+    <meta name="author" content="Lyxy-szs">
+
+
+    <meta name="subtitle" content="Shi">
+
+
+
+
+<!-- ҳ����⶯̬���� -->
+
+<title>list | Johnson</title>
+
+<!-- ��վͼ�� -->
+
+    <link rel="icon" href="/2.ico">
+
+
+<!-- �Զ���CSS�б������������ü��أ� -->
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+<!-- �Զ���JS�б������������ü��أ� -->
+
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+    <script src="/js/tellu.js"></script>
+    
+    <script src="/js/typed.min.js"></script>
+    
+
+
+<!-- MathJax��ʽ��Ⱦ֧�� -->
+
+    
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const pagebody = document.getElementsByTagName('body')[0]
+
+            function setTheme(status) {
+
+                if (status === 'dark') {
+                    window.sessionStorage.theme = 'dark'
+                    pagebody.classList.add('dark-theme');
+
+                } else if (status === 'light') {
+                    window.sessionStorage.theme = 'light'
+                    pagebody.classList.remove('dark-theme');
+                }
+            };
+
+            setTheme(window.sessionStorage.theme)
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Johnson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                <a class="menu-item" href="/archives">文章</a>
+                
+                <a class="menu-item" href="/categories">类别</a>
+                
+                <a class="menu-item" href="/tags">标签</a>
+                
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
+                
+                
+                <!-- 桌面端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 0 10px;
+                ">
+                    搜索
+                </button>
+
+                <!-- 恢复默认主题切换结构 -->
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <!-- 恢复默认结构：&nbsp;改为空格 -->
+                    <a href="/">Johnson&#39;s Blog</a><a id="mobile-toggle-theme">· Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
+                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
+                </div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                <a class="menu-item" href="/archives">文章</a>
+                
+                <a class="menu-item" href="/categories">类别</a>
+                
+                <a class="menu-item" href="/tags">标签</a>
+                
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
+                
+
+                <!-- 移动端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 10px 0;
+                    width: 100%;
+                    text-align: left;
+                ">
+                    搜索
+                </button>
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+<div id="searchModal" style="
+    display: none; 
+    position: fixed; 
+    top: 20%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: transparent; 
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px); 
+    padding: 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
+    z-index: 9999; 
+    width: 80%; 
+    max-width: 500px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 id="searchTitle" style="margin: 0; font-size: 16px;">搜索文章</h3>
+        <span class="search-close" style="cursor: pointer; font-size: 20px;">&times;</span>
+    </div>
+    <input type="text" id="searchInput" placeholder="输入关键词搜索..." style="
+        width: 100%; 
+        padding: 12px; 
+        border: 1px solid #eee; 
+        border-radius: 8px; 
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+    ">
+    <ul id="searchResult" style="list-style: none; padding: 0; margin-top: 15px; max-height: 300px; overflow-y: auto;"></ul>
+</div>
+
+<!-- 主题适配样式（优化搜索结果上下文和输入框样式） -->
+<!-- 主题适配样式（优化搜索结果上下文和输入框样式） -->
+<style>
+    /* 白主题样式 - 搜索框和文字 */
+    #searchTitle,
+    #searchInput {
+        color: #333 !important;
+    }
+    .search-close {
+        color: #999 !important;
+    }
+    #searchInput {
+        background: rgba(255, 255, 255, 0.85) !important;
+        border-color: #ddd !important;
+        color: #333 !important;
+    }
+    #searchResult li {
+        border-bottom: 1px dashed #eee !important;
+    }
+    #searchInput::placeholder {
+        color: #999 !important;
+    }
+
+    /* 搜索结果链接（文章名）样式 */
+    #searchResult a {
+        text-decoration: none;
+        font-weight: 500;
+        display: block;
+        color: #333; /* 白主题下的文章名颜色 */
+    }
+    
+    body.dark #searchResult a,
+    body.dark-theme #searchResult a {
+        color: #fff; /* 深色主题下的文章名颜色 */
+    }
+
+    /* 黑主题样式 - 搜索框和文字 */
+    body.dark #searchTitle,
+    body.dark-theme #searchTitle,
+    body.dark #searchInput,
+    body.dark-theme #searchInput {
+        color: #fff !important;
+    }
+    body.dark .search-close,
+    body.dark-theme .search-close {
+        color: #ccc !important;
+    }
+    body.dark #searchInput,
+    body.dark-theme #searchInput {
+        background: rgba(50, 50, 50, 0.85) !important;
+        border-color: #666 !important;
+        color: #fff !important;
+    }
+    body.dark #searchResult li,
+    body.dark-theme #searchResult li {
+        border-bottom: 1px dashed #555 !important;
+    }
+    body.dark #searchInput::placeholder,
+    body.dark-theme #searchInput::placeholder {
+        color: #aaa !important;
+    }
+
+    /* 修改：搜索结果上下文样式 - 使用与文章名相同的颜色 */
+    .search-context {
+        display: block;
+        font-size: 13px;
+        margin-top: 6px;
+        line-height: 1.5;
+        height: 39px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        word-break: break-all;
+        color: #333; /* 默认使用与文章名相同的浅色主题颜色 */
+    }
+    
+    /* 深色主题下上下文使用与文章名相同的颜色 */
+    body.dark .search-context,
+    body.dark-theme .search-context {
+        color: #fff; /* 使用与深色主题文章名相同的颜色 */
+    }
+    
+    /* 保留关键词高亮样式 */
+    .search-context mark {
+        background-color: rgba(255, 215, 0, 0.3);
+        color: inherit; /* 继承父元素的颜色 */
+        padding: 0 2px;
+        border-radius: 2px;
+        font-weight: bold;
+    }
+    
+    /* 深色主题下的关键词高亮 */
+    body.dark .search-context mark,
+    body.dark-theme .search-context mark {
+        background-color: rgba(255, 215, 0, 0.4);
+        color: #fff; /* 深色主题下mark标签文字颜色 */
+    }
+
+    /* ========== 搜索结果滚动条主题适配 ========== */
+    /* 1. 白主题滚动条（默认） */
+    #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #ccc #f5f5f5;
+    }
+    
+    /* 滚动条整体宽度 */
+    #searchResult::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    /* 滚动条轨道 */
+    #searchResult::-webkit-scrollbar-track {
+        background: #f5f5f5;
+        border-radius: 3px;
+    }
+    
+    /* 滚动条滑块 */
+    #searchResult::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    
+    /* 滑块hover状态 */
+    #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+
+    /* 2. 黑主题滚动条 */
+    body.dark #searchResult,
+    body.dark-theme #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #666 #333;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-track,
+    body.dark-theme #searchResult::-webkit-scrollbar-track {
+        background: #333;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-thumb,
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb {
+        background: #666;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-thumb:hover,
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+
+    /* 3. 搜索结果项目样式 */
+    #searchResult li {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    body.dark #searchResult li,
+    body.dark-theme #searchResult li {
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* 文章链接悬停效果 */
+    #searchResult a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<!-- 引入jQuery和搜索逻辑JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script>
+    // 移动菜单切换函数（保持不变）
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.classList.contains("active")) {
+            toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        } else {
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+
+    // 搜索功能逻辑（增加上下文提取功能）
+    $(document).ready(function () {
+        const $searchBtn = $('.search-btn');
+        const $searchModal = $('#searchModal');
+        const $searchInput = $('#searchInput');
+        const $searchResult = $('#searchResult');
+
+        // 显示/隐藏搜索框（保持不变）
+        $searchBtn.click(function (e) {
+            e.preventDefault();
+            $searchModal.toggle();
+            if ($searchModal.is(':visible')) {
+                $searchInput.focus();
+            } else {
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 关闭搜索框（保持不变）
+        $('.search-close').click(function () {
+            $searchModal.hide();
+            $searchInput.val('');
+            $searchResult.empty();
+        });
+
+        // 点击外部关闭（保持不变）
+        $(document).click(function (e) {
+            if (
+                !$searchModal.is(e.target) && 
+                !$searchModal.has(e.target).length && 
+                !$searchBtn.is(e.target)
+            ) {
+                $searchModal.hide();
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 从文本中提取关键词上下文（优化版）
+        function extractContext(text, keyword, maxLength = 150) {
+            if (!text || !keyword) return '';
+            
+            // 将文本和关键词都转为小写进行匹配
+            const lowerText = text.toLowerCase();
+            const lowerKeyword = keyword.toLowerCase();
+            
+            // 查找关键词在文本中的位置
+            const index = lowerText.indexOf(lowerKeyword);
+            
+            if (index === -1) {
+                // 如果没有找到关键词，返回文本开头部分
+                const shortText = text.substring(0, maxLength);
+                return shortText + (text.length > maxLength ? '...' : '');
+            }
+            
+            // 计算截取范围：关键词前后各取一半
+            const start = Math.max(0, index - maxLength / 2);
+            const end = Math.min(text.length, index + keyword.length + maxLength / 2);
+            
+            let context = text.substring(start, end);
+            
+            // 在开头和结尾添加省略号
+            if (start > 0) context = '...' + context;
+            if (end < text.length) context = context + '...';
+            
+            // 高亮关键词（保持原始大小写）
+            const originalKeyword = text.substring(index, index + keyword.length);
+            const regex = new RegExp(originalKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            
+            return context.replace(regex, match => `<mark>${match}</mark>`);
+        }
+
+        // 去除HTML标签，获取纯文本
+        function stripHtml(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || '';
+        }
+
+        // 关键词搜索（显示带上下文的搜索结果）
+        $searchInput.on('input', function () {
+            const searchText = $(this).val().trim().toLowerCase();
+            $searchResult.empty();
+
+            if (searchText.length < 2) return;
+
+            $.get('/search.xml', function (xml) {
+                let hasMatch = false;
+                $(xml).find('entry').each(function () {
+                    const $entry = $(this);
+                    const title = $entry.find('title').text();
+                    const link = $entry.find('url').text();
+                    const rawContent = $entry.find('content').text();
+                    const content = stripHtml(rawContent);
+                    
+                    // 搜索标题和内容
+                    const titleMatch = title.toLowerCase().includes(searchText);
+                    const contentMatch = content.toLowerCase().includes(searchText);
+                    
+                    if (titleMatch || contentMatch) {
+                        // 提取上下文
+                        let context = '';
+                        if (contentMatch) {
+                            context = extractContext(content, searchText, 150);
+                        } else if (titleMatch) {
+                            // 如果只是标题匹配，高亮标题中的关键词
+                            const titleContext = title.replace(
+                                new RegExp(searchText, 'gi'), 
+                                match => `<mark>${match}</mark>`
+                            );
+                            context = `标题匹配: ${titleContext}`;
+                        }
+                        
+                        $searchResult.append(`
+                            <li>
+                                <a href="${link}?keyword=${encodeURIComponent(searchText)}" target="_blank">
+                                    ${title}
+                                </a>
+                                <span class="search-context">${context}</span>
+                            </li>
+                        `);
+                        hasMatch = true;
+                    }
+                });
+
+                if (!hasMatch) {
+                    $searchResult.append(`
+                        <li style="padding: 10px; text-align: center; color: #888;">
+                            未找到包含"${searchText}"的文章
+                        </li>
+                    `);
+                }
+            }).fail(function () {
+                $searchResult.append(`
+                    <li style="padding: 10px; color: #f44336; text-align: center;">
+                        搜索索引加载失败，请确保已生成search.xml
+                    </li>
+                `);
+            });
+        });
+    });
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">list</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Lyxy-szs</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十二月 30, 2025&nbsp;&nbsp;21:26:50</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 🪜 简练学习路线</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> <span class="strong">**class**</span> </span><br><span class="line"><span class="bullet">   -</span> 学习 C++ OOP：类、继承、封装，打好基础。  </span><br><span class="line"></span><br><span class="line"><span class="bullet">2.</span> <span class="strong">**鱼香ROS**</span>  </span><br><span class="line"><span class="bullet">   -</span> 入门 ROS2：节点、话题、服务，掌握基本通信。  </span><br><span class="line"></span><br><span class="line"><span class="bullet">3.</span> <span class="strong">**Qt + ROS2 接口（无线调参）**</span>  </span><br><span class="line"><span class="bullet">   -</span> 用 Qt 做 GUI，结合 ROS2 参数动态调节。  </span><br><span class="line"></span><br><span class="line"><span class="bullet">4.</span> <span class="strong">**ros2<span class="emphasis">_control**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - 学习控制框架：硬件接口、控制器插件，理解抽象层次。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">5. **UnityROS 联合仿真**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - Unity 与 ROS2 联合仿真，练习跨平台数据交互。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">6. **Point-LIO**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - 激光+IMU 融合里程计，理解点云处理与优化。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">7. **FAST-LIO**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - 在 Point-LIO 基础上掌握实时优化与稀疏矩阵处理。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">8. **VLA**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - 学习视觉+激光+IMU 多传感器融合，难度最高。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">9. **IssacSim**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - NVIDIA 高级仿真平台，结合 GPU 加速与 ROS2 接口。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">---</span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">## 📊 总结顺序</span></span></span><br></pre></td></tr></table></figure>
+
+<p>class → 鱼香ROS → Qt+ROS2接口 → ros2_control → UnityROS → Point-LIO → FAST-LIO → VLA → IssacSim</p>
+<h1 id="class学习笔记"><a href="#class学习笔记" class="headerlink" title="class学习笔记"></a>class学习笔记</h1><details>
+<summary>class1基础构造与析构</summary>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">// 类的声明</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Bird</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:<span class="comment">//共有：外部可用</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">fly</span><span class="params">(<span class="type">int</span> h)</span></span>; <span class="comment">// 成员函数 功能</span></span><br><span class="line">    <span class="built_in">Bird</span>(<span class="type">int</span> color); <span class="comment">// 构造函数———初始化</span></span><br><span class="line">    ~<span class="built_in">Bird</span>();         <span class="comment">// 析构函数————结束后怎么做</span></span><br><span class="line"><span class="keyword">private</span>:<span class="comment">//私有：对外不能用</span></span><br><span class="line">    <span class="type">int</span> color;       <span class="comment">// 成员变量 属性 特征</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="function">Bird <span class="title">yw</span><span class="params">(<span class="number">100</span>)</span></span>;</span><br><span class="line">    yw.<span class="built_in">fly</span>(<span class="number">800</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Bird::fly</span><span class="params">(<span class="type">int</span> h)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;鸟飞&quot;</span>&lt;&lt;h&lt;&lt;<span class="string">&quot;米&quot;</span>&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Bird::Bird(int color  )//构造函数-出厂设置</span></span><br><span class="line"><span class="comment">// &#123;</span></span><br><span class="line"><span class="comment">//     this-&gt;color=color; //“this-&gt;”指当前运行的变量是成员变量</span></span><br><span class="line"><span class="comment">//     cout &lt;&lt; &quot;鸟出生了&quot;&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line">Bird::<span class="built_in">Bird</span>(<span class="type">int</span> color):<span class="built_in">color</span>(color)<span class="comment">//构造函数-出厂设置</span></span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;鸟出生了&quot;</span>&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line">Bird::~<span class="built_in">Bird</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;鸟死了。。。&quot;</span>&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</details>
+
+
+<details>
+<summary>class2基础构造与析构</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Tree</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> height;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">grow</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="built_in">Tree</span>();             <span class="comment">// 无参构造</span></span><br><span class="line">    <span class="built_in">Tree</span>(<span class="type">int</span> a, <span class="type">int</span> h); <span class="comment">// 有参构造</span></span><br><span class="line">    ~<span class="built_in">Tree</span>();            <span class="comment">// 析构</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">Tree <span class="title">t1</span><span class="params">(<span class="number">1</span>, <span class="number">3</span>)</span></span>;</span><br><span class="line">    Tree t2;</span><br><span class="line">    t<span class="number">1.</span><span class="built_in">grow</span>();</span><br><span class="line">    t<span class="number">2.</span><span class="built_in">grow</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line">Tree::<span class="built_in">Tree</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;age = <span class="number">0</span>;</span><br><span class="line">    height = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 初始化  成员属性 变量值</span></span><br><span class="line">Tree::<span class="built_in">Tree</span>(<span class="type">int</span> a, <span class="type">int</span> h) : <span class="built_in">age</span>(a), <span class="built_in">height</span>(h)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Tree::grow</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;height += <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">this</span>-&gt;age++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Tree::~<span class="built_in">Tree</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;家具厂&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>class3单一继承</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>: <span class="comment">// 保护的 家族内可见</span></span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    string name;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Dog</span>() &#123;&#125;</span><br><span class="line">    <span class="built_in">Dog</span>(<span class="type">int</span> a, string n);</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">eat</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Dog</span>();</span><br><span class="line">    <span class="built_in">Dog</span>(<span class="type">const</span> Dog &amp;other);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PetDog</span> : <span class="keyword">public</span> Dog</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> price;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">PetDog</span>(<span class="type">int</span> age, string name, <span class="type">int</span> price);</span><br><span class="line">    <span class="built_in">PetDog</span>(<span class="type">const</span> Dog &amp;dog, <span class="type">int</span> price);</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">emoValue</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line">    ~<span class="built_in">PetDog</span>();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">Dog <span class="title">hh</span><span class="params">(<span class="number">1</span>, <span class="string">&quot;欢欢&quot;</span>)</span></span>;</span><br><span class="line">    hh.<span class="built_in">eat</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// PetDog pp(2, &quot;peach&quot;, 1000);</span></span><br><span class="line">    <span class="comment">// pp.eat();</span></span><br><span class="line">    <span class="comment">// pp.emoValue();</span></span><br><span class="line"></span><br><span class="line">    <span class="function">PetDog <span class="title">aa</span><span class="params">(hh, <span class="number">2000</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PetDog::<span class="built_in">PetDog</span>(<span class="type">const</span> Dog &amp;dog, <span class="type">int</span> price)</span><br><span class="line">    : <span class="built_in">Dog</span>(dog), <span class="built_in">price</span>(price)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;PetDog子类初始化 (from Dog)&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dog::<span class="built_in">Dog</span>(<span class="type">int</span> a, string n) : <span class="built_in">age</span>(a), <span class="built_in">name</span>(n)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Dog父类初始化&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Dog::eat</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;吃 米田共&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PetDog::<span class="built_in">PetDog</span>(<span class="type">int</span> age, string name, <span class="type">int</span> price) : <span class="built_in">Dog</span>(age, name), <span class="built_in">price</span>(price)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;PetDog子类初始化&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">PetDog::emoValue</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;emotional value&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">Dog::~<span class="built_in">Dog</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;~Dog dead&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line">PetDog::~<span class="built_in">PetDog</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;~PetDog dead&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dog::<span class="built_in">Dog</span>(<span class="type">const</span> Dog &amp;other) : <span class="built_in">age</span>(other.age), <span class="built_in">name</span>(other.nclass4多项继承t &lt;&lt; <span class="string">&quot;Dog拷贝构造&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>class4多项继承</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Eagle</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">eyeLook</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Wolf</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">earListen</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Bear</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">power</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cheetah</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">WBQ</span> : <span class="keyword">public</span> Eagle, <span class="keyword">public</span> Wolf, <span class="keyword">public</span> Bear, <span class="keyword">public</span> Cheetah</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">fight</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    WBQ wbq;</span><br><span class="line">    wbq.<span class="built_in">fight</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Eagle::eyeLook</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     cout &lt;&lt; <span class="string">&quot;Eagle&#x27;s eye&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Wolf::earListen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Wolf&#x27;s ear&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Bear::power</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Bear&#x27;s power&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Cheetah::run</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Cheetah&#x27;s run&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">WBQ::fight</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">eyeLook</span>();</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">earListen</span>();</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">power</span>();</span><br><span class="line">    <span class="keyword">this</span>-&gt;<span class="built_in">run</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>class5抽象类-纯虚函数</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">YueQi</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="type">int</span> price;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">YueQi</span>(<span class="type">int</span> jia);</span><br><span class="line">    <span class="comment">/*演奏*/</span></span><br><span class="line">    <span class="comment">// virtual 虚拟</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">play</span><span class="params">()</span> </span>= <span class="number">0</span>; <span class="comment">// 纯虚函数，此功能不需要本类实现，子类实现</span></span><br><span class="line">    ~<span class="built_in">YueQi</span>();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">JiaZiGu</span> : <span class="keyword">public</span> YueQi</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">JiaZiGu</span>(<span class="type">int</span> jia) : <span class="built_in">YueQi</span>(jia) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">play</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;kick kick&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SaKeSi</span> : <span class="keyword">public</span> YueQi</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">SaKeSi</span>(<span class="type">int</span> jia) : <span class="built_in">YueQi</span>(jia) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">play</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;didi dada&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Piano</span> : <span class="keyword">public</span> YueQi</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Piano</span>(<span class="type">int</span> jia) : <span class="built_in">YueQi</span>(jia) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">play</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Juebieshu&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// //在栈区创建对象</span></span><br><span class="line">    <span class="comment">// JiaZiGu jzg(1000);</span></span><br><span class="line">    <span class="comment">// jzg.play();</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//组建乐队</span></span><br><span class="line">    <span class="comment">//创建指针类型的数组</span></span><br><span class="line">    <span class="comment">//new：相当于malloc 在堆区创建对象</span></span><br><span class="line">    <span class="comment">//delete: 相当于free 释放堆区内存空间</span></span><br><span class="line">    YueQi* yd[<span class="number">3</span>]=&#123;<span class="keyword">new</span> <span class="built_in">JiaZiGu</span>(<span class="number">1000</span>),<span class="keyword">new</span> <span class="built_in">SaKeSi</span>(<span class="number">800</span>),<span class="keyword">new</span> <span class="built_in">Piano</span>(<span class="number">2000</span>)&#125;;</span><br><span class="line">    <span class="comment">//表演起来</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">        yd[i%<span class="number">3</span>]-&gt;<span class="built_in">play</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">delete</span> yd[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// YueQi = musical instruments</span></span><br><span class="line">YueQi::<span class="built_in">YueQi</span>(<span class="type">int</span> jia) : <span class="built_in">price</span>(jia)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;YueQi is initialization(初始化).&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">YueQi::~<span class="built_in">YueQi</span>()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;YueQi has been reclaimed(回收).&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>class6运算符重载</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//函数 重载overload</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">double</span> <span class="title">add</span><span class="params">(<span class="type">double</span> a,<span class="type">double</span> b)</span></span>;</span><br><span class="line">    <span class="function">string <span class="title">add</span><span class="params">(string a,string b)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">void</span> <span class="keyword">operator</span>+(Student &amp; stu);</span><br><span class="line">    <span class="type">void</span> <span class="keyword">operator</span>-(Student &amp; stu);</span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Student xm;</span><br><span class="line">    cout&lt;&lt;xm.<span class="built_in">add</span>(<span class="number">3</span>,<span class="number">6</span>)&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;xm.<span class="built_in">add</span>(<span class="number">3.5</span>,<span class="number">6.8</span>)&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;xm.<span class="built_in">add</span>(<span class="string">&quot;hello&quot;</span>,<span class="string">&quot;world&quot;</span>)&lt;&lt;endl;</span><br><span class="line">    Student xh;</span><br><span class="line">    xm+xh;</span><br><span class="line">    xm-xh;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Student::add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">Student::add</span><span class="params">(<span class="type">double</span> a,<span class="type">double</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">string <span class="title">Student::add</span><span class="params">(string a,string b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line">    <span class="type">void</span> <span class="keyword">operator</span>+(Student &amp; stu)&#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;合作&quot;</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">void</span> <span class="keyword">operator</span>-(Student &amp; stu)&#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;消耗&quot;</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>class7友元函数的使用</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TanGuan</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">JianChaGuan</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> sumZangKuan;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">JianChaGuan</span>() &#123; sumZangKuan = <span class="number">0</span>; &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">souCha</span><span class="params">(<span class="type">const</span> TanGuan &amp;tg)</span></span>; <span class="comment">// 搜查</span></span><br><span class="line">    <span class="type">int</span> <span class="keyword">operator</span>+(<span class="type">const</span> TanGuan &amp;tg);</span><br><span class="line">&#125;; <span class="comment">// 注意编译顺序（从上到下）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TanGuan</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> tanMoney;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">TanGuan</span>() &#123; tanMoney = <span class="number">0</span>; &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setMoney</span><span class="params">(<span class="type">int</span> m)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        tanMoney += m;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// friend void JianChaGuan::souCha(const TanGuan &amp;tg);</span></span><br><span class="line">    <span class="comment">// friend int JianChaGuan::operator+(const TanGuan &amp;tg);</span></span><br><span class="line">    <span class="comment">// 授权给某个成员函数</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">class</span> <span class="title class_">JianChaGuan</span>;<span class="comment">//授权给类的所有操作</span></span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TanGuan zdh; <span class="comment">// 赵德汉</span></span><br><span class="line">    zdh.<span class="built_in">setMoney</span>(<span class="number">1000</span>);</span><br><span class="line">    zdh.<span class="built_in">setMoney</span>(<span class="number">8888</span>);</span><br><span class="line">    JianChaGuan hlp;</span><br><span class="line">    hlp.<span class="built_in">souCha</span>(zdh);</span><br><span class="line">    TanGuan zz;</span><br><span class="line">    zz.<span class="built_in">setMoney</span> (<span class="number">20000</span>);</span><br><span class="line">    cout&lt;&lt;hlp+zdh&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;hlp+zz&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">JianChaGuan::souCha</span><span class="params">(<span class="type">const</span> TanGuan &amp;tg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;搜查出人民币：&quot;</span> &lt;&lt; tg.tanMoney &lt;&lt; <span class="string">&quot;元\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> JianChaGuan::<span class="keyword">operator</span>+(<span class="type">const</span> TanGuan &amp;tg)</span><br><span class="line">&#123;</span><br><span class="line">    sumZangKuan += tg.tanMoney;</span><br><span class="line">    <span class="keyword">return</span> sumZangKuan;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>class8示例例题</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">/*题目名:神妖比拼</span></span><br><span class="line"><span class="comment">题目描述:</span></span><br><span class="line"><span class="comment">    1.用给定抽象类Actor(演员类)与主函数main()，</span></span><br><span class="line"><span class="comment">设计Actor类公有派生类God类Monster类完成西游记神妖大比拼。</span></span><br><span class="line"><span class="comment">    2.God类数据成员:Name(神仙名，string)，Place(福仙居所，string)，</span></span><br><span class="line"><span class="comment">Power(神仙攻击力，int):</span></span><br><span class="line"><span class="comment">    3.Monster类数据成员:Name(妖名，string)，</span></span><br><span class="line"><span class="comment">Prototype(妖怪原型，string)，Power(怪攻击力，int);</span></span><br><span class="line"><span class="comment">    4.通过键盘输入神仙和一妖怪的数据，二者攻击力进行比拼，输出相应信息。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入描述:输入为两行数据，第一行是神仙的相关数据，包含神仙名(string)、</span></span><br><span class="line"><span class="comment">神仙居所(string)、神仙攻击力(int)，空格分隔;第二行是妖怪的相关数据，</span></span><br><span class="line"><span class="comment">包含妖怪名(string)、妖怪原型(string)、妖怪攻击力(int)，空格分隔。</span></span><br><span class="line"><span class="comment">输出描述:针对输入数据，输出一行数据，输出格式参照样例，根据神仙和妖怪的攻击力比较结果，</span></span><br><span class="line"><span class="comment">按“神仙居所,神仙名 [比较符号] 妖怪名 whose prototype was 妖怪原型”的格式输出(比较符号为&gt;、=、&lt;)。示例:</span></span><br><span class="line"><span class="comment">示例1</span></span><br><span class="line"><span class="comment">-输入:</span></span><br><span class="line"><span class="comment">KingDragon EasternSea 2000</span></span><br><span class="line"><span class="comment">KingSilverHorn Boy 1800</span></span><br><span class="line"><span class="comment">-输出:</span></span><br><span class="line"><span class="comment">EasternSea,KingDragon &gt; KingSilverHorn whose prototype was Boy    </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Actor</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">show</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">God</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Monster</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">God</span> : <span class="keyword">public</span> Actor</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    string Name;</span><br><span class="line">    string Place;</span><br><span class="line">    <span class="type">int</span> Power;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">God</span>(string n, string p, <span class="type">int</span> po);</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">show</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt;Place&lt;&lt;<span class="string">&quot;,&quot;</span>&lt;&lt;Name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="keyword">operator</span>-(<span class="type">const</span> Monster &amp;yg) <span class="type">const</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Monster</span> : <span class="keyword">public</span> Actor</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    string Name;</span><br><span class="line">    string Prototype;</span><br><span class="line">    <span class="type">int</span> Power;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">set</span><span class="params">(string n, string p, <span class="type">int</span> po)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">show</span><span class="params">()</span> <span class="type">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout&lt;&lt;Name&lt;&lt;<span class="string">&quot;whose Prototype is&quot;</span>&lt;&lt;Prototype;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">class</span> <span class="title class_">God</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string n, p;</span><br><span class="line">    <span class="type">int</span> po, s;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; p &gt;&gt; po;</span><br><span class="line">    <span class="function">God <span class="title">g</span><span class="params">(n, p, po)</span></span>;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; p &gt;&gt; po;</span><br><span class="line">    Monster m;</span><br><span class="line">    m.<span class="built_in">set</span>(n, p, po);</span><br><span class="line">    s = g - m;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (s &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        g.<span class="built_in">show</span>();</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;&gt;&quot;</span>;</span><br><span class="line">        m.<span class="built_in">show</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (s == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        g.<span class="built_in">show</span>();</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;=&quot;</span>;</span><br><span class="line">        m.<span class="built_in">show</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        g.<span class="built_in">show</span>();</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;&lt;&quot;</span>;</span><br><span class="line">        m.<span class="built_in">show</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">God::<span class="built_in">God</span>(string n, string p, <span class="type">int</span> po) : <span class="built_in">Name</span>(n), <span class="built_in">Place</span>(p), <span class="built_in">Power</span>(po)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Monster::set</span><span class="params">(string n, string p, <span class="type">int</span> po)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Name = n;</span><br><span class="line">    Prototype = p;</span><br><span class="line">    Power = po;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> God::<span class="keyword">operator</span>-(<span class="type">const</span> Monster &amp;yg) <span class="type">const</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>-&gt;Power - yg.Power;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>示例</summary>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</details>
+
+
+<h1 id="鱼香ros"><a href="#鱼香ros" class="headerlink" title="鱼香ros"></a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jz421B7Ey/">鱼香ros</a></h1><h1 id="用qt写一个ros2接口"><a href="#用qt写一个ros2接口" class="headerlink" title="用qt写一个ros2接口"></a>用qt写一个ros2接口</h1><h1 id="ros2-control"><a href="#ros2-control" class="headerlink" title="ros2_control"></a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV186pjzzEKY/">ros2_control</a></h1><h1 id="unityros联合仿真"><a href="#unityros联合仿真" class="headerlink" title="unityros联合仿真"></a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CGZbY6ESv/">unityros联合仿真</a></h1><h1 id="pointlio重定向"><a href="#pointlio重定向" class="headerlink" title="pointlio重定向"></a><a target="_blank" rel="noopener" href="https://github.com/hku-mars/Point-LIO">pointlio重定向</a></h1><h1 id="fastlio重定向"><a href="#fastlio重定向" class="headerlink" title="fastlio重定向"></a><a target="_blank" rel="noopener" href="https://github.com/hku-mars/FAST_LIO">fastlio重定向</a></h1><h1 id="issacsim"><a href="#issacsim" class="headerlink" title="issacsim"></a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1G8kBBvEzR/">issacsim</a></h1><h1 id="vla"><a href="#vla" class="headerlink" title="vla"></a>vla</h1>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Lyxy-szs</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://lyxy-szs.github.io/2025/12/30/list/">http://lyxy-szs.github.io/2025/12/30/list/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>永远相信<strong>美好的事情即将發生</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2026/01/20/hello-world/">Hello World</a>
+            
+            
+            <a class="next" rel="next" href="/2025/12/16/new/">new</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+<!-- �����ڹؼ��ʶ�λ+�����߼� -->
+<script>
+// 1. ��URL�л�ȡ�ؼ��ʲ���
+function getUrlParam(name) {
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+  const r = window.location.search.substr(1).match(reg);
+  if (r != null) return decodeURIComponent(r[2]);
+  return null;
+}
+
+// 2. �������������ؼ���λ��
+function highlightAndScrollToKeyword() {
+  const keyword = getUrlParam('keyword');
+  if (!keyword || keyword.length < 2) return; // �޹ؼ���/�ؼ��ʹ���������
+
+  // ��λ������������Chic�����������ݵ�������������ȷ���Ƿ�ƥ�䣬Ĭ����.post-content��
+  const contentEl = document.querySelector('.post-content');
+  if (!contentEl) return;
+
+  // ��¡���ݣ�����ֱ���޸�ԭDOM���µ�����
+  const contentHtml = contentEl.innerHTML;
+  // ����ƥ��ؼ��ʣ����Դ�Сд��ȫ��ƥ�䣩
+  const reg = new RegExp(`(${keyword})`, 'gi');
+  // �滻�ؼ��ʲ����Ӹ�����ʽ
+  const newHtml = contentHtml.replace(reg, '<span style="background: #ffff00; color: #333; padding: 0 2px; border-radius: 2px;">$1</span>');
+  contentEl.innerHTML = newHtml;
+
+  // 3. ��������һ��ƥ��Ĺؼ���λ��
+  const firstHighlight = contentEl.querySelector('span[style*="background: #ffff00"]');
+  if (firstHighlight) {
+    // ƽ���������ؼ���λ�ã�ƫ��-80px�����ⱻ�������ڵ���
+    firstHighlight.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+    // ����һ������Ԫ��������˸Ч������ǿ�Ӿ���ʾ
+    firstHighlight.animate([
+      { opacity: 0.5 },
+      { opacity: 1 }
+    ], {
+      duration: 1000,
+      iterations: 2
+    });
+  }
+}
+
+// ҳ�������ɺ�ִ��
+window.onload = function() {
+  highlightAndScrollToKeyword();
+};
+</script>
+            </div>
+            <footer id="footer" class="footer">
+    <div class="footer-typing-container">
+        <span id="footer-typed-text"></span>
+    </div>
+    <div class="copyright">
+        <span>© Lyxy-szs | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+<script>
+    // 等待页面文档加载完毕
+    document.addEventListener('DOMContentLoaded', function () {
+        // 确保容器元素存在
+        const typedElement = document.getElementById('footer-typed-text');
+        if (typedElement) {
+            var typed = new Typed('#footer-typed-text', {
+                strings: [
+                    "永远相信 美好的事情即将發生 临渊羡鱼shi",
+                    "知识就是力量。 弗朗西斯·培根",  
+                    "我思故我在。 勒内·笛卡尔",  
+                    "人生苦短，及时行乐。 贺拉斯",  
+                    "活着就是为了改变世界，难道还有其他原因吗？ 史蒂夫·乔布斯",  
+                    "黑暗不能驱走黑暗，只有光可以做到；仇恨不能驱走仇恨，只有爱可以做到。 马丁·路德·金",  
+                    "成功是从一个失败到另一个失败而不失去热情的能力。 温斯顿·丘吉尔",  
+                    "教育不是填满一个桶，而是点燃一把火。 威廉·巴特勒·叶芝",  
+                    "战争就是和平，自由就是奴役，无知就是力量。 乔治·奥威尔《一九八四》",  
+                    "人是为了反抗而生的。 阿尔贝·加缪",  
+                    "幸福取决于我们自己。 亚里士多德",  
+                    "唯一值得我们恐惧的是恐惧本身。 富兰克林·D·罗斯福",  
+                    "生命的意义在于给予。 列夫·托尔斯泰",  
+                    "不要为小事烦恼，所有事都是小事。 理查德·卡尔森",  
+                    "梦想不会通过魔法实现；它需要汗水、决心和努力。 科林·鲍威尔",  
+                    "最好的报复是巨大的成功。 弗兰克·辛纳屈",  
+                    "你只活一次，但如果你做得对，一次就足够了。 梅·韦斯特"
+                ], // 字符串数组，会依次键入
+                typeSpeed: 60,    // 打字速度，数值越小越快[citation:2]
+                backSpeed: 40,    // 回退删除的速度[citation:2]
+                backDelay: 1500,  // 一句打完后的暂停时间（毫秒）[citation:2]
+                loop: true,       // 是否循环[citation:2]
+                showCursor: true, // 是否显示闪烁光标[citation:4]
+                cursorChar: '_'   // 自定义光标字符[citation:4]
+            });
+        }
+    });
+</script>
+    </div>
+    
+    
+<script src="/js/scrollbar.js"></script>
+
+    
+<script src="/js/typed.min.js"></script>
+
+    
+<script src="/js/tellu.js"></script>
+
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+
+</html>
