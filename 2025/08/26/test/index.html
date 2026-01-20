@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+    <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.js"></script>
+    <!-- �ַ��������ӿ����� -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- վ��Ԫ��Ϣ -->
+
+    <meta name="author" content="Lyxy-szs">
+
+
+    <meta name="subtitle" content="Shi">
+
+
+
+
+<!-- ҳ����⶯̬���� -->
+
+<title>text | Johnson</title>
+
+<!-- ��վͼ�� -->
+
+    <link rel="icon" href="/2.ico">
+
+
+<!-- �Զ���CSS�б������������ü��أ� -->
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+<!-- �Զ���JS�б������������ü��أ� -->
+
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+    <script src="/js/tellu.js"></script>
+    
+    <script src="/js/typed.min.js"></script>
+    
+
+
+<!-- MathJax��ʽ��Ⱦ֧�� -->
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const pagebody = document.getElementsByTagName('body')[0]
+
+            function setTheme(status) {
+
+                if (status === 'dark') {
+                    window.sessionStorage.theme = 'dark'
+                    pagebody.classList.add('dark-theme');
+
+                } else if (status === 'light') {
+                    window.sessionStorage.theme = 'light'
+                    pagebody.classList.remove('dark-theme');
+                }
+            };
+
+            setTheme(window.sessionStorage.theme)
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Johnson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                <a class="menu-item" href="/archives">文章</a>
+                
+                <a class="menu-item" href="/categories">类别</a>
+                
+                <a class="menu-item" href="/tags">标签</a>
+                
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
+                
+                
+                <!-- 桌面端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 0 10px;
+                ">
+                    搜索
+                </button>
+
+                <!-- 恢复默认主题切换结构 -->
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <!-- 恢复默认结构：&nbsp;改为空格 -->
+                    <a href="/">Johnson&#39;s Blog</a><a id="mobile-toggle-theme">· Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
+                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
+                </div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                <a class="menu-item" href="/archives">文章</a>
+                
+                <a class="menu-item" href="/categories">类别</a>
+                
+                <a class="menu-item" href="/tags">标签</a>
+                
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
+                
+
+                <!-- 移动端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 10px 0;
+                    width: 100%;
+                    text-align: left;
+                ">
+                    搜索
+                </button>
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+<div id="searchModal" style="
+    display: none; 
+    position: fixed; 
+    top: 20%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: transparent; 
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px); 
+    padding: 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
+    z-index: 9999; 
+    width: 80%; 
+    max-width: 500px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 id="searchTitle" style="margin: 0; font-size: 16px;">搜索文章</h3>
+        <span class="search-close" style="cursor: pointer; font-size: 20px;">&times;</span>
+    </div>
+    <input type="text" id="searchInput" placeholder="输入关键词搜索..." style="
+        width: 100%; 
+        padding: 12px; 
+        border: 1px solid #eee; 
+        border-radius: 8px; 
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+    ">
+    <ul id="searchResult" style="list-style: none; padding: 0; margin-top: 15px; max-height: 300px; overflow-y: auto;"></ul>
+</div>
+
+<!-- 主题适配样式（优化搜索结果上下文和输入框样式） -->
+<!-- 主题适配样式（优化搜索结果上下文和输入框样式） -->
+<style>
+    /* 白主题样式 - 搜索框和文字 */
+    #searchTitle,
+    #searchInput {
+        color: #333 !important;
+    }
+    .search-close {
+        color: #999 !important;
+    }
+    #searchInput {
+        background: rgba(255, 255, 255, 0.85) !important;
+        border-color: #ddd !important;
+        color: #333 !important;
+    }
+    #searchResult li {
+        border-bottom: 1px dashed #eee !important;
+    }
+    #searchInput::placeholder {
+        color: #999 !important;
+    }
+
+    /* 搜索结果链接（文章名）样式 */
+    #searchResult a {
+        text-decoration: none;
+        font-weight: 500;
+        display: block;
+        color: #333; /* 白主题下的文章名颜色 */
+    }
+    
+    body.dark #searchResult a,
+    body.dark-theme #searchResult a {
+        color: #fff; /* 深色主题下的文章名颜色 */
+    }
+
+    /* 黑主题样式 - 搜索框和文字 */
+    body.dark #searchTitle,
+    body.dark-theme #searchTitle,
+    body.dark #searchInput,
+    body.dark-theme #searchInput {
+        color: #fff !important;
+    }
+    body.dark .search-close,
+    body.dark-theme .search-close {
+        color: #ccc !important;
+    }
+    body.dark #searchInput,
+    body.dark-theme #searchInput {
+        background: rgba(50, 50, 50, 0.85) !important;
+        border-color: #666 !important;
+        color: #fff !important;
+    }
+    body.dark #searchResult li,
+    body.dark-theme #searchResult li {
+        border-bottom: 1px dashed #555 !important;
+    }
+    body.dark #searchInput::placeholder,
+    body.dark-theme #searchInput::placeholder {
+        color: #aaa !important;
+    }
+
+    /* 修改：搜索结果上下文样式 - 使用与文章名相同的颜色 */
+    .search-context {
+        display: block;
+        font-size: 13px;
+        margin-top: 6px;
+        line-height: 1.5;
+        height: 39px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        word-break: break-all;
+        color: #333; /* 默认使用与文章名相同的浅色主题颜色 */
+    }
+    
+    /* 深色主题下上下文使用与文章名相同的颜色 */
+    body.dark .search-context,
+    body.dark-theme .search-context {
+        color: #fff; /* 使用与深色主题文章名相同的颜色 */
+    }
+    
+    /* 保留关键词高亮样式 */
+    .search-context mark {
+        background-color: rgba(255, 215, 0, 0.3);
+        color: inherit; /* 继承父元素的颜色 */
+        padding: 0 2px;
+        border-radius: 2px;
+        font-weight: bold;
+    }
+    
+    /* 深色主题下的关键词高亮 */
+    body.dark .search-context mark,
+    body.dark-theme .search-context mark {
+        background-color: rgba(255, 215, 0, 0.4);
+        color: #fff; /* 深色主题下mark标签文字颜色 */
+    }
+
+    /* ========== 搜索结果滚动条主题适配 ========== */
+    /* 1. 白主题滚动条（默认） */
+    #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #ccc #f5f5f5;
+    }
+    
+    /* 滚动条整体宽度 */
+    #searchResult::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    /* 滚动条轨道 */
+    #searchResult::-webkit-scrollbar-track {
+        background: #f5f5f5;
+        border-radius: 3px;
+    }
+    
+    /* 滚动条滑块 */
+    #searchResult::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    
+    /* 滑块hover状态 */
+    #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+
+    /* 2. 黑主题滚动条 */
+    body.dark #searchResult,
+    body.dark-theme #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #666 #333;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-track,
+    body.dark-theme #searchResult::-webkit-scrollbar-track {
+        background: #333;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-thumb,
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb {
+        background: #666;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-thumb:hover,
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+
+    /* 3. 搜索结果项目样式 */
+    #searchResult li {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    body.dark #searchResult li,
+    body.dark-theme #searchResult li {
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* 文章链接悬停效果 */
+    #searchResult a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<!-- 引入jQuery和搜索逻辑JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script>
+    // 移动菜单切换函数（保持不变）
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.classList.contains("active")) {
+            toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        } else {
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+
+    // 搜索功能逻辑（增加上下文提取功能）
+    $(document).ready(function () {
+        const $searchBtn = $('.search-btn');
+        const $searchModal = $('#searchModal');
+        const $searchInput = $('#searchInput');
+        const $searchResult = $('#searchResult');
+
+        // 显示/隐藏搜索框（保持不变）
+        $searchBtn.click(function (e) {
+            e.preventDefault();
+            $searchModal.toggle();
+            if ($searchModal.is(':visible')) {
+                $searchInput.focus();
+            } else {
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 关闭搜索框（保持不变）
+        $('.search-close').click(function () {
+            $searchModal.hide();
+            $searchInput.val('');
+            $searchResult.empty();
+        });
+
+        // 点击外部关闭（保持不变）
+        $(document).click(function (e) {
+            if (
+                !$searchModal.is(e.target) && 
+                !$searchModal.has(e.target).length && 
+                !$searchBtn.is(e.target)
+            ) {
+                $searchModal.hide();
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 从文本中提取关键词上下文（优化版）
+        function extractContext(text, keyword, maxLength = 150) {
+            if (!text || !keyword) return '';
+            
+            // 将文本和关键词都转为小写进行匹配
+            const lowerText = text.toLowerCase();
+            const lowerKeyword = keyword.toLowerCase();
+            
+            // 查找关键词在文本中的位置
+            const index = lowerText.indexOf(lowerKeyword);
+            
+            if (index === -1) {
+                // 如果没有找到关键词，返回文本开头部分
+                const shortText = text.substring(0, maxLength);
+                return shortText + (text.length > maxLength ? '...' : '');
+            }
+            
+            // 计算截取范围：关键词前后各取一半
+            const start = Math.max(0, index - maxLength / 2);
+            const end = Math.min(text.length, index + keyword.length + maxLength / 2);
+            
+            let context = text.substring(start, end);
+            
+            // 在开头和结尾添加省略号
+            if (start > 0) context = '...' + context;
+            if (end < text.length) context = context + '...';
+            
+            // 高亮关键词（保持原始大小写）
+            const originalKeyword = text.substring(index, index + keyword.length);
+            const regex = new RegExp(originalKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            
+            return context.replace(regex, match => `<mark>${match}</mark>`);
+        }
+
+        // 去除HTML标签，获取纯文本
+        function stripHtml(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || '';
+        }
+
+        // 关键词搜索（显示带上下文的搜索结果）
+        $searchInput.on('input', function () {
+            const searchText = $(this).val().trim().toLowerCase();
+            $searchResult.empty();
+
+            if (searchText.length < 2) return;
+
+            $.get('/search.xml', function (xml) {
+                let hasMatch = false;
+                $(xml).find('entry').each(function () {
+                    const $entry = $(this);
+                    const title = $entry.find('title').text();
+                    const link = $entry.find('url').text();
+                    const rawContent = $entry.find('content').text();
+                    const content = stripHtml(rawContent);
+                    
+                    // 搜索标题和内容
+                    const titleMatch = title.toLowerCase().includes(searchText);
+                    const contentMatch = content.toLowerCase().includes(searchText);
+                    
+                    if (titleMatch || contentMatch) {
+                        // 提取上下文
+                        let context = '';
+                        if (contentMatch) {
+                            context = extractContext(content, searchText, 150);
+                        } else if (titleMatch) {
+                            // 如果只是标题匹配，高亮标题中的关键词
+                            const titleContext = title.replace(
+                                new RegExp(searchText, 'gi'), 
+                                match => `<mark>${match}</mark>`
+                            );
+                            context = `标题匹配: ${titleContext}`;
+                        }
+                        
+                        $searchResult.append(`
+                            <li>
+                                <a href="${link}?keyword=${encodeURIComponent(searchText)}" target="_blank">
+                                    ${title}
+                                </a>
+                                <span class="search-context">${context}</span>
+                            </li>
+                        `);
+                        hasMatch = true;
+                    }
+                });
+
+                if (!hasMatch) {
+                    $searchResult.append(`
+                        <li style="padding: 10px; text-align: center; color: #888;">
+                            未找到包含"${searchText}"的文章
+                        </li>
+                    `);
+                }
+            }).fail(function () {
+                $searchResult.append(`
+                    <li style="padding: 10px; color: #f44336; text-align: center;">
+                        搜索索引加载失败，请确保已生成search.xml
+                    </li>
+                `);
+            });
+        });
+    });
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">text</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Lyxy-szs</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">八月 26, 2025&nbsp;&nbsp;15:45:09</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Hexo-Markdown-测试文档"><a href="#Hexo-Markdown-测试文档" class="headerlink" title="Hexo Markdown 测试文档"></a>Hexo Markdown 测试文档</h1><p>本文件用于测试Hexo博客系统中的各种Markdown格式渲染效果。</p>
+<h2 id="1-标题测试"><a href="#1-标题测试" class="headerlink" title="1. 标题测试"></a>1. 标题测试</h2><h1 id="H1-标题"><a href="#H1-标题" class="headerlink" title="H1 标题"></a>H1 标题</h1><h2 id="H2-标题"><a href="#H2-标题" class="headerlink" title="H2 标题"></a>H2 标题</h2><h3 id="H3-标题"><a href="#H3-标题" class="headerlink" title="H3 标题"></a>H3 标题</h3><h4 id="H4-标题"><a href="#H4-标题" class="headerlink" title="H4 标题"></a>H4 标题</h4><h5 id="H5-标题"><a href="#H5-标题" class="headerlink" title="H5 标题"></a>H5 标题</h5><h6 id="H6-标题"><a href="#H6-标题" class="headerlink" title="H6 标题"></a>H6 标题</h6><h2 id="2-文本格式化"><a href="#2-文本格式化" class="headerlink" title="2. 文本格式化"></a>2. 文本格式化</h2><p><strong>粗体文本</strong><br><em>斜体文本</em><br><em><strong>粗斜体文本</strong></em><br><del>删除线文本</del><br>&#x3D;&#x3D;高亮文本&#x3D;&#x3D;<br>上标：X^2^<br>下标：H<del>2</del>O  </p>
+<h2 id="3-列表测试"><a href="#3-列表测试" class="headerlink" title="3. 列表测试"></a>3. 列表测试</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><ul>
+<li>项目一<ul>
+<li>子项目 A</li>
+<li>子项目 B</li>
+</ul>
+</li>
+<li>项目二</li>
+<li>项目三</li>
+</ul>
+<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><ol>
+<li>第一项</li>
+<li>第二项<ol>
+<li>子项 2.1</li>
+<li>子项 2.2</li>
+</ol>
+</li>
+<li>第三项</li>
+</ol>
+<h3 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> 已完成任务</li>
+<li><input disabled="" type="checkbox"> 未完成任务</li>
+<li><input disabled="" type="checkbox"> 另一个未完成任务</li>
+</ul>
+<h2 id="4-链接与图片"><a href="#4-链接与图片" class="headerlink" title="4. 链接与图片"></a>4. 链接与图片</h2><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/">Hexo官方网站</a><br><a href="/about/">相对链接测试</a><br><a target="_blank" rel="noopener" href="https://hexo.io/" title="Hexo官网">带标题的链接</a></p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><img src="https://hexo.io/icon/favicon-196x196.png" alt="Hexo Logo" title="Hexo Logo"><br><img src="/images/test.jpg" alt="本地图片测试"><br>![带尺寸的图片](<a target="_blank" rel="noopener" href="https://hexo.io/icon/favicon-196x196.png">https://hexo.io/icon/favicon-196x196.png</a> &#x3D;100x100)</p>
+<h2 id="5-代码块"><a href="#5-代码块" class="headerlink" title="5. 代码块"></a>5. 代码块</h2><h3 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h3><p>这是 <code>行内代码</code> 的例子。</p>
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JavaScript示例</span></span><br><span class="line"><span class="keyword">const</span> hello = <span class="string">&quot;Hello, Hexo!&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hello);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;This is a test function.&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python示例</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fibonacci</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> fibonacci(n-<span class="number">1</span>) + fibonacci(n-<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Fibonacci(10) = <span class="subst">&#123;fibonacci(<span class="number">10</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Bash示例</span></span><br><span class="line">git init</span><br><span class="line">npm install hexo --save</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-表格测试"><a href="#6-表格测试" class="headerlink" title="6. 表格测试"></a>6. 表格测试</h2><table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>年龄</th>
+<th>城市</th>
+<th>职业</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>张三</td>
+<td>28</td>
+<td>北京</td>
+<td>工程师</td>
+</tr>
+<tr>
+<td>李四</td>
+<td>32</td>
+<td>上海</td>
+<td>设计师</td>
+</tr>
+<tr>
+<td>王五</td>
+<td>25</td>
+<td>广州</td>
+<td>学生</td>
+</tr>
+<tr>
+<td>赵六</td>
+<td>40</td>
+<td>深圳</td>
+<td>经理</td>
+</tr>
+</tbody></table>
+<h3 id="对齐表格"><a href="#对齐表格" class="headerlink" title="对齐表格"></a>对齐表格</h3><table>
+<thead>
+<tr>
+<th align="left">左对齐</th>
+<th align="center">居中对齐</th>
+<th align="right">右对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单元格</td>
+<td align="center">单元格</td>
+<td align="right">单元格</td>
+</tr>
+<tr>
+<td align="left">较长的左对齐内容</td>
+<td align="center">居中内容</td>
+<td align="right">右对齐数字 123</td>
+</tr>
+<tr>
+<td align="left">测试</td>
+<td align="center">测试</td>
+<td align="right">测试</td>
+</tr>
+</tbody></table>
+<h2 id="7-引用块"><a href="#7-引用块" class="headerlink" title="7. 引用块"></a>7. 引用块</h2><blockquote>
+<p>这是一级引用</p>
+<blockquote>
+<p>这是二级引用</p>
+<blockquote>
+<p>这是三级引用</p>
+</blockquote>
+<p>返回二级引用</p>
+</blockquote>
+<p>返回一级引用</p>
+</blockquote>
+<blockquote>
+<p><strong>注意：</strong> 这是一个带格式的引用块</p>
+<p>引用中可以包含其他Markdown元素，比如：</p>
+<ol>
+<li>列表</li>
+<li><strong>粗体文本</strong></li>
+<li><code>代码</code></li>
+</ol>
+</blockquote>
+<h2 id="8-数学公式"><a href="#8-数学公式" class="headerlink" title="8. 数学公式"></a>8. 数学公式</h2><h3 id="行内公式"><a href="#行内公式" class="headerlink" title="行内公式"></a>行内公式</h3><p>勾股定理：$a^2 + b^2 &#x3D; c^2$</p>
+<p>爱因斯坦质能方程：$E &#x3D; mc^2$</p>
+<p>二次方程求根公式：$x &#x3D; \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
+<h3 id="块级公式"><a href="#块级公式" class="headerlink" title="块级公式"></a>块级公式</h3><p><strong>等差数列求和公式：</strong></p>
+<p>$$<br>S_n &#x3D; \frac{n(a_1 + a_n)}{2}<br>$$</p>
+<p><strong>高斯积分公式：</strong></p>
+<p>$$<br>\int_{-\infty}^{\infty} e^{-x^2} dx &#x3D; \sqrt{\pi}<br>$$</p>
+<p><strong>矩阵乘法：</strong></p>
+<h1 id="begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix"><a href="#begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix" class="headerlink" title="$$\begin{bmatrix}a_{11} &amp; a_{12} \a_{21} &amp; a_{22}\end{bmatrix}\times\begin{bmatrix}b_{11} &amp; b_{12} \b_{21} &amp; b_{22}\end{bmatrix}"></a>$$<br>\begin{bmatrix}<br>a_{11} &amp; a_{12} \<br>a_{21} &amp; a_{22}<br>\end{bmatrix}<br>\times<br>\begin{bmatrix}<br>b_{11} &amp; b_{12} \<br>b_{21} &amp; b_{22}<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>a_{11}b_{11} + a_{12}b_{21} &amp; a_{11}b_{12} + a_{12}b_{22} \<br>a_{21}b_{11} + a_{22}b_{21} &amp; a_{21}b_{12} + a_{22}b_{22}<br>\end{bmatrix}<br>$$</p>
+<h2 id="9-脚注"><a href="#9-脚注" class="headerlink" title="9. 脚注"></a>9. 脚注</h2><p>这是一个带有脚注的句子<a href="%E8%BF%99%E6%98%AF%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%84%9A%E6%B3%A8%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E6%9B%B4%E5%A4%9A%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E3%80%82">^1</a>。<br>这是另一个引用<a href="%E7%AC%AC%E4%BA%8C%E4%B8%AA%E8%84%9A%E6%B3%A8%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E9%93%BE%E6%8E%A5%E5%92%8C%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%EF%BC%8C%E6%AF%94%E5%A6%82**%E7%B2%97%E4%BD%93**%E6%88%96%60%E4%BB%A3%E7%A0%81%60%E3%80%82">^2</a>。</p>
+<h2 id="10-分割线"><a href="#10-分割线" class="headerlink" title="10. 分割线"></a>10. 分割线</h2><hr>
+<hr>
+<hr>
+<h2 id="11-定义列表"><a href="#11-定义列表" class="headerlink" title="11. 定义列表"></a>11. 定义列表</h2><dl><dt>术语一</dt><dd>这是术语一的定义</dd></dl><dl><dt>术语二<br>: 这是术语二的定义</dt><dd>这是术语二的第二个定义</dd></dl><h2 id="12-特殊字符与HTML"><a href="#12-特殊字符与HTML" class="headerlink" title="12. 特殊字符与HTML"></a>12. 特殊字符与HTML</h2><p><kbd>Ctrl</kbd> + <kbd>C</kbd> 复制<br><kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</p>
+<p>上箭头：↑<br>版权符号：©<br>注册商标：®<br>欧元符号：€</p>
+<details>
+<summary>点击展开/收起详细信息</summary>
+这是一个使用HTML details元素创建的折叠内容区域。
+里面可以包含任何Markdown内容：
+
+<ul>
+<li>列表项1</li>
+<li>列表项2</li>
+<li>列表项3</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello from inside the details!&quot;</span>)</span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="13-图表（如果支持Mermaid）"><a href="#13-图表（如果支持Mermaid）" class="headerlink" title="13. 图表（如果支持Mermaid）"></a>13. 图表（如果支持Mermaid）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[开始] --&gt; B(处理)</span><br><span class="line">    B --&gt; C&#123;判断&#125;</span><br><span class="line">    C --&gt;|是| D[执行A]</span><br><span class="line">    C --&gt;|否| E[执行B]</span><br><span class="line">    D --&gt; F[结束]</span><br><span class="line">    E --&gt; F</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant 用户</span><br><span class="line">    participant 系统</span><br><span class="line">    用户-&gt;&gt;系统: 登录请求</span><br><span class="line">    系统-&gt;&gt;系统: 验证凭据</span><br><span class="line">    alt 验证成功</span><br><span class="line">        系统-&gt;&gt;用户: 返回主页</span><br><span class="line">    else 验证失败</span><br><span class="line">        系统-&gt;&gt;用户: 显示错误</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+
+<h2 id="14-表情符号和特殊符号"><a href="#14-表情符号和特殊符号" class="headerlink" title="14. 表情符号和特殊符号"></a>14. 表情符号和特殊符号</h2><p>:smile: :heart: :+1: :rocket:</p>
+<p>箭头：→ ← ↑ ↓<br>数学符号：≠ ≤ ≥ ≈ ∞</p>
+<h2 id="15-混合内容测试"><a href="#15-混合内容测试" class="headerlink" title="15. 混合内容测试"></a>15. 混合内容测试</h2><p>这是一个<strong>混合</strong>了各种格式的段落，包括<code>行内代码</code>、<a target="_blank" rel="noopener" href="https://hexo.io/">链接</a>、<em>斜体</em>和<strong>粗体</strong>。我们可以引用某个公式：$E &#x3D; mc^2$，然后继续写正文。</p>
+<blockquote>
+<p>这是一个包含表格的引用块：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>数量</th>
+<th>价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>苹果</td>
+<td>5</td>
+<td>$10</td>
+</tr>
+<tr>
+<td>香蕉</td>
+<td>3</td>
+<td>$6</td>
+</tr>
+</tbody></table>
+</blockquote>
+<ol>
+<li><strong>有序列表项一</strong>，包含<code>代码</code>和<a target="_blank" rel="noopener" href="https://example.com/">链接</a></li>
+<li><em>有序列表项二</em>，包含数学公式 $x^2 + y^2 &#x3D; r^2$</li>
+<li>有序列表项三，包含表情符号 :tada:</li>
+</ol>
+<h2 id="16-结束语"><a href="#16-结束语" class="headerlink" title="16. 结束语"></a>16. 结束语</h2><p>这个文档测试了Hexo中可能用到的各种Markdown格式。不同的Hexo主题和渲染器可能对这些格式的支持程度不同，请根据实际渲染效果进行调整。</p>
+<hr>
+<p><em>最后更新：2025年</em><br><em>测试完成</em></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Lyxy-szs</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://lyxy-szs.github.io/2025/08/26/test/">http://lyxy-szs.github.io/2025/08/26/test/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>永远相信<strong>美好的事情即将發生</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2025/08/27/python-note-1/">python-数字类型</a>
+            
+            
+            <a class="next" rel="next" href="/2025/08/26/python-package/">python打包成exe</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+<!-- �����ڹؼ��ʶ�λ+�����߼� -->
+<script>
+// 1. ��URL�л�ȡ�ؼ��ʲ���
+function getUrlParam(name) {
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+  const r = window.location.search.substr(1).match(reg);
+  if (r != null) return decodeURIComponent(r[2]);
+  return null;
+}
+
+// 2. �������������ؼ���λ��
+function highlightAndScrollToKeyword() {
+  const keyword = getUrlParam('keyword');
+  if (!keyword || keyword.length < 2) return; // �޹ؼ���/�ؼ��ʹ���������
+
+  // ��λ������������Chic�����������ݵ�������������ȷ���Ƿ�ƥ�䣬Ĭ����.post-content��
+  const contentEl = document.querySelector('.post-content');
+  if (!contentEl) return;
+
+  // ��¡���ݣ�����ֱ���޸�ԭDOM���µ�����
+  const contentHtml = contentEl.innerHTML;
+  // ����ƥ��ؼ��ʣ����Դ�Сд��ȫ��ƥ�䣩
+  const reg = new RegExp(`(${keyword})`, 'gi');
+  // �滻�ؼ��ʲ����Ӹ�����ʽ
+  const newHtml = contentHtml.replace(reg, '<span style="background: #ffff00; color: #333; padding: 0 2px; border-radius: 2px;">$1</span>');
+  contentEl.innerHTML = newHtml;
+
+  // 3. ��������һ��ƥ��Ĺؼ���λ��
+  const firstHighlight = contentEl.querySelector('span[style*="background: #ffff00"]');
+  if (firstHighlight) {
+    // ƽ���������ؼ���λ�ã�ƫ��-80px�����ⱻ�������ڵ���
+    firstHighlight.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+    // ����һ������Ԫ��������˸Ч������ǿ�Ӿ���ʾ
+    firstHighlight.animate([
+      { opacity: 0.5 },
+      { opacity: 1 }
+    ], {
+      duration: 1000,
+      iterations: 2
+    });
+  }
+}
+
+// ҳ�������ɺ�ִ��
+window.onload = function() {
+  highlightAndScrollToKeyword();
+};
+</script>
+            </div>
+            <footer id="footer" class="footer">
+    <div class="footer-typing-container">
+        <span id="footer-typed-text"></span>
+    </div>
+    <div class="copyright">
+        <span>© Lyxy-szs | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+<script>
+    // 等待页面文档加载完毕
+    document.addEventListener('DOMContentLoaded', function () {
+        // 确保容器元素存在
+        const typedElement = document.getElementById('footer-typed-text');
+        if (typedElement) {
+            var typed = new Typed('#footer-typed-text', {
+                strings: [
+                    "永远相信 美好的事情即将發生 临渊羡鱼shi",
+                    "知识就是力量。 弗朗西斯·培根",  
+                    "我思故我在。 勒内·笛卡尔",  
+                    "人生苦短，及时行乐。 贺拉斯",  
+                    "活着就是为了改变世界，难道还有其他原因吗？ 史蒂夫·乔布斯",  
+                    "黑暗不能驱走黑暗，只有光可以做到；仇恨不能驱走仇恨，只有爱可以做到。 马丁·路德·金",  
+                    "成功是从一个失败到另一个失败而不失去热情的能力。 温斯顿·丘吉尔",  
+                    "教育不是填满一个桶，而是点燃一把火。 威廉·巴特勒·叶芝",  
+                    "战争就是和平，自由就是奴役，无知就是力量。 乔治·奥威尔《一九八四》",  
+                    "人是为了反抗而生的。 阿尔贝·加缪",  
+                    "幸福取决于我们自己。 亚里士多德",  
+                    "唯一值得我们恐惧的是恐惧本身。 富兰克林·D·罗斯福",  
+                    "生命的意义在于给予。 列夫·托尔斯泰",  
+                    "不要为小事烦恼，所有事都是小事。 理查德·卡尔森",  
+                    "梦想不会通过魔法实现；它需要汗水、决心和努力。 科林·鲍威尔",  
+                    "最好的报复是巨大的成功。 弗兰克·辛纳屈",  
+                    "你只活一次，但如果你做得对，一次就足够了。 梅·韦斯特"
+                ], // 字符串数组，会依次键入
+                typeSpeed: 60,    // 打字速度，数值越小越快[citation:2]
+                backSpeed: 40,    // 回退删除的速度[citation:2]
+                backDelay: 1500,  // 一句打完后的暂停时间（毫秒）[citation:2]
+                loop: true,       // 是否循环[citation:2]
+                showCursor: true, // 是否显示闪烁光标[citation:4]
+                cursorChar: '_'   // 自定义光标字符[citation:4]
+            });
+        }
+    });
+</script>
+    </div>
+    
+    
+<script src="/js/scrollbar.js"></script>
+
+    
+<script src="/js/typed.min.js"></script>
+
+    
+<script src="/js/tellu.js"></script>
+
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+
+</html>

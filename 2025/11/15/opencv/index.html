@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+    <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.js"></script>
+    <!-- �ַ��������ӿ����� -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- վ��Ԫ��Ϣ -->
+
+    <meta name="author" content="Lyxy-szs">
+
+
+    <meta name="subtitle" content="Shi">
+
+
+
+
+<!-- ҳ����⶯̬���� -->
+
+<title>opencv | Johnson</title>
+
+<!-- ��վͼ�� -->
+
+    <link rel="icon" href="/2.ico">
+
+
+<!-- �Զ���CSS�б������������ü��أ� -->
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+<!-- �Զ���JS�б������������ü��أ� -->
+
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+    <script src="/js/tellu.js"></script>
+    
+    <script src="/js/typed.min.js"></script>
+    
+
+
+<!-- MathJax��ʽ��Ⱦ֧�� -->
+
+    
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const pagebody = document.getElementsByTagName('body')[0]
+
+            function setTheme(status) {
+
+                if (status === 'dark') {
+                    window.sessionStorage.theme = 'dark'
+                    pagebody.classList.add('dark-theme');
+
+                } else if (status === 'light') {
+                    window.sessionStorage.theme = 'light'
+                    pagebody.classList.remove('dark-theme');
+                }
+            };
+
+            setTheme(window.sessionStorage.theme)
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Johnson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                <a class="menu-item" href="/archives">文章</a>
+                
+                <a class="menu-item" href="/categories">类别</a>
+                
+                <a class="menu-item" href="/tags">标签</a>
+                
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
+                
+                
+                <!-- 桌面端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 0 10px;
+                ">
+                    搜索
+                </button>
+
+                <!-- 恢复默认主题切换结构 -->
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <!-- 恢复默认结构：&nbsp;改为空格 -->
+                    <a href="/">Johnson&#39;s Blog</a><a id="mobile-toggle-theme">· Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
+                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
+                </div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                <a class="menu-item" href="/archives">文章</a>
+                
+                <a class="menu-item" href="/categories">类别</a>
+                
+                <a class="menu-item" href="/tags">标签</a>
+                
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
+                
+
+                <!-- 移动端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 10px 0;
+                    width: 100%;
+                    text-align: left;
+                ">
+                    搜索
+                </button>
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+<div id="searchModal" style="
+    display: none; 
+    position: fixed; 
+    top: 20%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: transparent; 
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px); 
+    padding: 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
+    z-index: 9999; 
+    width: 80%; 
+    max-width: 500px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 id="searchTitle" style="margin: 0; font-size: 16px;">搜索文章</h3>
+        <span class="search-close" style="cursor: pointer; font-size: 20px;">&times;</span>
+    </div>
+    <input type="text" id="searchInput" placeholder="输入关键词搜索..." style="
+        width: 100%; 
+        padding: 12px; 
+        border: 1px solid #eee; 
+        border-radius: 8px; 
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+    ">
+    <ul id="searchResult" style="list-style: none; padding: 0; margin-top: 15px; max-height: 300px; overflow-y: auto;"></ul>
+</div>
+
+<!-- 主题适配样式（优化搜索结果上下文和输入框样式） -->
+<!-- 主题适配样式（优化搜索结果上下文和输入框样式） -->
+<style>
+    /* 白主题样式 - 搜索框和文字 */
+    #searchTitle,
+    #searchInput {
+        color: #333 !important;
+    }
+    .search-close {
+        color: #999 !important;
+    }
+    #searchInput {
+        background: rgba(255, 255, 255, 0.85) !important;
+        border-color: #ddd !important;
+        color: #333 !important;
+    }
+    #searchResult li {
+        border-bottom: 1px dashed #eee !important;
+    }
+    #searchInput::placeholder {
+        color: #999 !important;
+    }
+
+    /* 搜索结果链接（文章名）样式 */
+    #searchResult a {
+        text-decoration: none;
+        font-weight: 500;
+        display: block;
+        color: #333; /* 白主题下的文章名颜色 */
+    }
+    
+    body.dark #searchResult a,
+    body.dark-theme #searchResult a {
+        color: #fff; /* 深色主题下的文章名颜色 */
+    }
+
+    /* 黑主题样式 - 搜索框和文字 */
+    body.dark #searchTitle,
+    body.dark-theme #searchTitle,
+    body.dark #searchInput,
+    body.dark-theme #searchInput {
+        color: #fff !important;
+    }
+    body.dark .search-close,
+    body.dark-theme .search-close {
+        color: #ccc !important;
+    }
+    body.dark #searchInput,
+    body.dark-theme #searchInput {
+        background: rgba(50, 50, 50, 0.85) !important;
+        border-color: #666 !important;
+        color: #fff !important;
+    }
+    body.dark #searchResult li,
+    body.dark-theme #searchResult li {
+        border-bottom: 1px dashed #555 !important;
+    }
+    body.dark #searchInput::placeholder,
+    body.dark-theme #searchInput::placeholder {
+        color: #aaa !important;
+    }
+
+    /* 修改：搜索结果上下文样式 - 使用与文章名相同的颜色 */
+    .search-context {
+        display: block;
+        font-size: 13px;
+        margin-top: 6px;
+        line-height: 1.5;
+        height: 39px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        word-break: break-all;
+        color: #333; /* 默认使用与文章名相同的浅色主题颜色 */
+    }
+    
+    /* 深色主题下上下文使用与文章名相同的颜色 */
+    body.dark .search-context,
+    body.dark-theme .search-context {
+        color: #fff; /* 使用与深色主题文章名相同的颜色 */
+    }
+    
+    /* 保留关键词高亮样式 */
+    .search-context mark {
+        background-color: rgba(255, 215, 0, 0.3);
+        color: inherit; /* 继承父元素的颜色 */
+        padding: 0 2px;
+        border-radius: 2px;
+        font-weight: bold;
+    }
+    
+    /* 深色主题下的关键词高亮 */
+    body.dark .search-context mark,
+    body.dark-theme .search-context mark {
+        background-color: rgba(255, 215, 0, 0.4);
+        color: #fff; /* 深色主题下mark标签文字颜色 */
+    }
+
+    /* ========== 搜索结果滚动条主题适配 ========== */
+    /* 1. 白主题滚动条（默认） */
+    #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #ccc #f5f5f5;
+    }
+    
+    /* 滚动条整体宽度 */
+    #searchResult::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    /* 滚动条轨道 */
+    #searchResult::-webkit-scrollbar-track {
+        background: #f5f5f5;
+        border-radius: 3px;
+    }
+    
+    /* 滚动条滑块 */
+    #searchResult::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    
+    /* 滑块hover状态 */
+    #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+
+    /* 2. 黑主题滚动条 */
+    body.dark #searchResult,
+    body.dark-theme #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #666 #333;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-track,
+    body.dark-theme #searchResult::-webkit-scrollbar-track {
+        background: #333;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-thumb,
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb {
+        background: #666;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-thumb:hover,
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+
+    /* 3. 搜索结果项目样式 */
+    #searchResult li {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    body.dark #searchResult li,
+    body.dark-theme #searchResult li {
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* 文章链接悬停效果 */
+    #searchResult a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<!-- 引入jQuery和搜索逻辑JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script>
+    // 移动菜单切换函数（保持不变）
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.classList.contains("active")) {
+            toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        } else {
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+
+    // 搜索功能逻辑（增加上下文提取功能）
+    $(document).ready(function () {
+        const $searchBtn = $('.search-btn');
+        const $searchModal = $('#searchModal');
+        const $searchInput = $('#searchInput');
+        const $searchResult = $('#searchResult');
+
+        // 显示/隐藏搜索框（保持不变）
+        $searchBtn.click(function (e) {
+            e.preventDefault();
+            $searchModal.toggle();
+            if ($searchModal.is(':visible')) {
+                $searchInput.focus();
+            } else {
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 关闭搜索框（保持不变）
+        $('.search-close').click(function () {
+            $searchModal.hide();
+            $searchInput.val('');
+            $searchResult.empty();
+        });
+
+        // 点击外部关闭（保持不变）
+        $(document).click(function (e) {
+            if (
+                !$searchModal.is(e.target) && 
+                !$searchModal.has(e.target).length && 
+                !$searchBtn.is(e.target)
+            ) {
+                $searchModal.hide();
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 从文本中提取关键词上下文（优化版）
+        function extractContext(text, keyword, maxLength = 150) {
+            if (!text || !keyword) return '';
+            
+            // 将文本和关键词都转为小写进行匹配
+            const lowerText = text.toLowerCase();
+            const lowerKeyword = keyword.toLowerCase();
+            
+            // 查找关键词在文本中的位置
+            const index = lowerText.indexOf(lowerKeyword);
+            
+            if (index === -1) {
+                // 如果没有找到关键词，返回文本开头部分
+                const shortText = text.substring(0, maxLength);
+                return shortText + (text.length > maxLength ? '...' : '');
+            }
+            
+            // 计算截取范围：关键词前后各取一半
+            const start = Math.max(0, index - maxLength / 2);
+            const end = Math.min(text.length, index + keyword.length + maxLength / 2);
+            
+            let context = text.substring(start, end);
+            
+            // 在开头和结尾添加省略号
+            if (start > 0) context = '...' + context;
+            if (end < text.length) context = context + '...';
+            
+            // 高亮关键词（保持原始大小写）
+            const originalKeyword = text.substring(index, index + keyword.length);
+            const regex = new RegExp(originalKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            
+            return context.replace(regex, match => `<mark>${match}</mark>`);
+        }
+
+        // 去除HTML标签，获取纯文本
+        function stripHtml(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || '';
+        }
+
+        // 关键词搜索（显示带上下文的搜索结果）
+        $searchInput.on('input', function () {
+            const searchText = $(this).val().trim().toLowerCase();
+            $searchResult.empty();
+
+            if (searchText.length < 2) return;
+
+            $.get('/search.xml', function (xml) {
+                let hasMatch = false;
+                $(xml).find('entry').each(function () {
+                    const $entry = $(this);
+                    const title = $entry.find('title').text();
+                    const link = $entry.find('url').text();
+                    const rawContent = $entry.find('content').text();
+                    const content = stripHtml(rawContent);
+                    
+                    // 搜索标题和内容
+                    const titleMatch = title.toLowerCase().includes(searchText);
+                    const contentMatch = content.toLowerCase().includes(searchText);
+                    
+                    if (titleMatch || contentMatch) {
+                        // 提取上下文
+                        let context = '';
+                        if (contentMatch) {
+                            context = extractContext(content, searchText, 150);
+                        } else if (titleMatch) {
+                            // 如果只是标题匹配，高亮标题中的关键词
+                            const titleContext = title.replace(
+                                new RegExp(searchText, 'gi'), 
+                                match => `<mark>${match}</mark>`
+                            );
+                            context = `标题匹配: ${titleContext}`;
+                        }
+                        
+                        $searchResult.append(`
+                            <li>
+                                <a href="${link}?keyword=${encodeURIComponent(searchText)}" target="_blank">
+                                    ${title}
+                                </a>
+                                <span class="search-context">${context}</span>
+                            </li>
+                        `);
+                        hasMatch = true;
+                    }
+                });
+
+                if (!hasMatch) {
+                    $searchResult.append(`
+                        <li style="padding: 10px; text-align: center; color: #888;">
+                            未找到包含"${searchText}"的文章
+                        </li>
+                    `);
+                }
+            }).fail(function () {
+                $searchResult.append(`
+                    <li style="padding: 10px; color: #f44336; text-align: center;">
+                        搜索索引加载失败，请确保已生成search.xml
+                    </li>
+                `);
+            });
+        });
+    });
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">opencv</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Lyxy-szs</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十一月 15, 2025&nbsp;&nbsp;13:44:32</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Cpp%E7%BC%96%E7%A8%8B/">Cpp编程</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Opencv的Gamma转换与二值化处理"><a href="#Opencv的Gamma转换与二值化处理" class="headerlink" title="Opencv的Gamma转换与二值化处理"></a>Opencv的Gamma转换与二值化处理</h1><h2 id="1-头文件和命名空间"><a href="#1-头文件和命名空间" class="headerlink" title="1. 头文件和命名空间"></a>1. 头文件和命名空间</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span>  <span class="comment">// 包含OpenCV库的所有主要功能</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>            <span class="comment">// 输入输出流，用于在控制台显示信息</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span>              <span class="comment">// 向量容器，用于存储数据</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span>               <span class="comment">// 数学函数库</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;    <span class="comment">// 使用OpenCV的命名空间，这样就不用写cv::了</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;   <span class="comment">// 使用标准库的命名空间</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>通俗理解</strong>：就像在游戏开始前要导入各种工具包，这些<code>#include</code>就是告诉编译器我们需要用到哪些工具。</p>
+<h2 id="2-Gamma变换函数详解"><a href="#2-Gamma变换函数详解" class="headerlink" title="2. Gamma变换函数详解"></a>2. Gamma变换函数详解</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Gamma变换函数 - 就像调整手机屏幕的亮度曲线</span></span><br><span class="line"><span class="function">Mat <span class="title">gammaCorrection</span><span class="params">(<span class="type">const</span> Mat&amp; src, <span class="type">double</span> gamma)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Mat是OpenCV的&quot;图片容器&quot;，可以想象成一个装图片数据的盒子</span></span><br><span class="line">    <span class="comment">// const Mat&amp; src 表示输入图片，&amp;表示引用（不复制数据），const表示不会修改原图</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建查找表 - 就像制作一个亮度转换表</span></span><br><span class="line">    <span class="function">Mat <span class="title">lookupTable</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    <span class="comment">// 这个表有1行，256列，每个元素是8位无符号整数(0-255)</span></span><br><span class="line">    </span><br><span class="line">    uchar* p = lookupTable.<span class="built_in">ptr</span>();  <span class="comment">// 获取表的指针，方便操作数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i) &#123;</span><br><span class="line">        <span class="comment">// 计算新的亮度值：pow(i/255.0, gamma) * 255.0</span></span><br><span class="line">        <span class="comment">// 就像把0-255的亮度值按照gamma曲线重新映射</span></span><br><span class="line">        p[i] = <span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">        <span class="comment">// saturate_cast确保计算结果在0-255范围内，不会溢出</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Mat dst;  <span class="comment">// 创建输出图片的容器</span></span><br><span class="line">    <span class="built_in">LUT</span>(src, lookupTable, dst);  <span class="comment">// 使用查找表转换图片</span></span><br><span class="line">    <span class="comment">// LUT = Look Up Table，就像根据转换表把每个像素的亮度值换成新的</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> dst;  <span class="comment">// 返回处理后的图片</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Gamma变换原理</strong>：</p>
+<ul>
+<li><code>gamma &lt; 1</code>：增强暗部细节（让暗的地方变亮）</li>
+<li><code>gamma &gt; 1</code>：增强亮部细节（让亮的地方更突出）</li>
+<li><code>gamma = 1</code>：不做任何改变</li>
+</ul>
+<h2 id="3-二值化函数详解"><a href="#3-二值化函数详解" class="headerlink" title="3. 二值化函数详解"></a>3. 二值化函数详解</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自适应二值化处理 - 把图片变成黑白两色</span></span><br><span class="line"><span class="function">Mat <span class="title">adaptiveBinary</span><span class="params">(<span class="type">const</span> Mat&amp; src)</span> </span>&#123;</span><br><span class="line">    Mat gray, binary;  <span class="comment">// 创建灰度图和二值图的容器</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断输入图片是彩色还是灰度</span></span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">channels</span>() == <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果是彩色图片（3个通道：蓝、绿、红）</span></span><br><span class="line">        <span class="built_in">cvtColor</span>(src, gray, COLOR_BGR2GRAY);</span><br><span class="line">        <span class="comment">// cvtColor是颜色转换函数，把BGR彩色图转成灰度图</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        gray = src.<span class="built_in">clone</span>();  <span class="comment">// 如果已经是灰度图，就复制一份</span></span><br><span class="line">        <span class="comment">// clone()是深拷贝，创建完全独立的新副本</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 自适应阈值二值化 - 智能黑白化</span></span><br><span class="line">    <span class="built_in">adaptiveThreshold</span>(gray, binary, <span class="number">255</span>, ADAPTIVE_THRESH_GAUSSIAN_C, </span><br><span class="line">                     THRESH_BINARY, <span class="number">11</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="comment">// 参数解释：</span></span><br><span class="line">    <span class="comment">// gray: 输入灰度图</span></span><br><span class="line">    <span class="comment">// binary: 输出二值图</span></span><br><span class="line">    <span class="comment">// 255: 超过阈值的像素设为白色(255)</span></span><br><span class="line">    <span class="comment">// ADAPTIVE_THRESH_GAUSSIAN_C: 使用高斯加权计算局部阈值</span></span><br><span class="line">    <span class="comment">// THRESH_BINARY: 二值化模式（大于阈值=白，小于阈值=黑）</span></span><br><span class="line">    <span class="comment">// 11: 邻域大小（计算阈值时考虑的局部区域大小）</span></span><br><span class="line">    <span class="comment">// 2: 从平均权重中减去的常数</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> binary;  <span class="comment">// 返回黑白图片</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-主函数详细解析"><a href="#4-主函数详细解析" class="headerlink" title="4. 主函数详细解析"></a>4. 主函数详细解析</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 读取图像 - 就像从文件里加载一张图片</span></span><br><span class="line">    Mat src = <span class="built_in">imread</span>(<span class="string">&quot;src.png&quot;</span>);</span><br><span class="line">    <span class="comment">// Mat是OpenCV的核心类，用来存储图片数据</span></span><br><span class="line">    <span class="comment">// 可以想象成一种智能的图片容器</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">empty</span>()) &#123;  <span class="comment">// 检查图片是否加载成功</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;无法读取图像文件 src.png&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;  <span class="comment">// 返回-1表示程序异常结束</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 显示图片信息</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;图像尺寸: &quot;</span> &lt;&lt; src.<span class="built_in">size</span>() &lt;&lt; endl;      <span class="comment">// 图片的宽度和高度</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;图像通道数: &quot;</span> &lt;&lt; src.<span class="built_in">channels</span>() &lt;&lt; endl; <span class="comment">// 颜色通道数（3=彩色，1=灰度）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建窗口并显示原始图像</span></span><br><span class="line">    <span class="built_in">namedWindow</span>(<span class="string">&quot;原始图像&quot;</span>, WINDOW_NORMAL);  <span class="comment">// 创建可调整大小的窗口</span></span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;原始图像&quot;</span>, src);  <span class="comment">// 在窗口中显示图片</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤1: Gamma变换增强对比度</span></span><br><span class="line">    <span class="type">double</span> gamma = <span class="number">0.5</span>;  <span class="comment">// Gamma值，这里设为0.5来增强暗部细节</span></span><br><span class="line">    Mat gamma_img = <span class="built_in">gammaCorrection</span>(src, gamma);</span><br><span class="line">    <span class="comment">// 调用我们之前写的Gamma变换函数</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">namedWindow</span>(<span class="string">&quot;Gamma变换后&quot;</span>, WINDOW_NORMAL);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;Gamma变换后&quot;</span>, gamma_img);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤2: 转换为灰度图</span></span><br><span class="line">    Mat gray;</span><br><span class="line">    <span class="built_in">cvtColor</span>(gamma_img, gray, COLOR_BGR2GRAY);</span><br><span class="line">    <span class="comment">// 把Gamma处理后的彩色图转成灰度图，减少计算量</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤3: 自适应二值化</span></span><br><span class="line">    Mat binary = <span class="built_in">adaptiveBinary</span>(gray);</span><br><span class="line">    <span class="comment">// 调用二值化函数，得到黑白图片</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 步骤4: 形态学操作去除噪声 - 就像给图片&quot;美容&quot;</span></span><br><span class="line">    Mat kernel = <span class="built_in">getStructuringElement</span>(MORPH_RECT, <span class="built_in">Size</span>(<span class="number">3</span>, <span class="number">3</span>));</span><br><span class="line">    <span class="comment">// 创建3x3的矩形结构元素，用于形态学操作</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">morphologyEx</span>(binary, binary, MORPH_OPEN, kernel);</span><br><span class="line">    <span class="comment">// 开运算：先腐蚀后膨胀，去除小噪点，平滑边界</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 显示最终的二值化结果</span></span><br><span class="line">    <span class="built_in">namedWindow</span>(<span class="string">&quot;二值化结果&quot;</span>, WINDOW_NORMAL);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;二值化结果&quot;</span>, binary);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 保存处理后的图像</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; compression_params;  <span class="comment">// 创建整数向量存储压缩参数</span></span><br><span class="line">    compression_params.<span class="built_in">push_back</span>(IMWRITE_PNG_COMPRESSION);  <span class="comment">// 添加压缩类型</span></span><br><span class="line">    compression_params.<span class="built_in">push_back</span>(<span class="number">9</span>);  <span class="comment">// 压缩级别(0-9，9=最高压缩)</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">imwrite</span>(<span class="string">&quot;processed_result.png&quot;</span>, binary, compression_params);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;处理后的图像已保存为 processed_result.png&quot;</span> &lt;&lt; endl;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 等待按键 - 程序停在这里，直到用户按任意键</span></span><br><span class="line">    <span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 程序正常结束</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="核心概念解释"><a href="#核心概念解释" class="headerlink" title="核心概念解释"></a>核心概念解释</h2><h3 id="1-Mat-是什么？"><a href="#1-Mat-是什么？" class="headerlink" title="1. Mat 是什么？"></a>1. <code>Mat</code> 是什么？</h3><p><code>Mat</code> 是OpenCV的<strong>图片容器类</strong>，可以理解为：</p>
+<ul>
+<li>一个智能的<strong>图片数据盒子</strong></li>
+<li>自动管理内存，不用手动分配和释放</li>
+<li>存储像素数据、尺寸、颜色通道等信息</li>
+</ul>
+<h3 id="2-关键函数的作用："><a href="#2-关键函数的作用：" class="headerlink" title="2. 关键函数的作用："></a>2. 关键函数的作用：</h3><ul>
+<li><code>imread()</code>：读取图片文件</li>
+<li><code>imshow()</code>：显示图片</li>
+<li><code>imwrite()</code>：保存图片</li>
+<li><code>cvtColor()</code>：颜色空间转换</li>
+<li><code>namedWindow()</code>：创建显示窗口</li>
+<li><code>waitKey()</code>：等待用户输入</li>
+</ul>
+<h3 id="3-处理流程总结："><a href="#3-处理流程总结：" class="headerlink" title="3. 处理流程总结："></a>3. 处理流程总结：</h3><ol>
+<li><strong>读图</strong> → 2. <strong>Gamma增强</strong> → 3. <strong>转灰度</strong> → 4. <strong>二值化</strong> → 5. <strong>去噪</strong> → 6. <strong>显示保存</strong></li>
+</ol>
+<h2 id="完整可运行代码"><a href="#完整可运行代码" class="headerlink" title="完整可运行代码"></a>完整可运行代码</h2><p>把以下代码保存为 <code>main.cpp</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Gamma变换：调整图片亮度曲线</span></span><br><span class="line"><span class="function">Mat <span class="title">gammaCorrection</span><span class="params">(<span class="type">const</span> Mat&amp; src, <span class="type">double</span> gamma)</span> </span>&#123;</span><br><span class="line">    <span class="function">Mat <span class="title">lookupTable</span><span class="params">(<span class="number">1</span>, <span class="number">256</span>, CV_8U)</span></span>;</span><br><span class="line">    uchar* p = lookupTable.<span class="built_in">ptr</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i) &#123;</span><br><span class="line">        p[i] = <span class="built_in">saturate_cast</span>&lt;uchar&gt;(<span class="built_in">pow</span>(i / <span class="number">255.0</span>, gamma) * <span class="number">255.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Mat dst;</span><br><span class="line">    <span class="built_in">LUT</span>(src, lookupTable, dst);</span><br><span class="line">    <span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二值化：把图片变成黑白两色</span></span><br><span class="line"><span class="function">Mat <span class="title">adaptiveBinary</span><span class="params">(<span class="type">const</span> Mat&amp; src)</span> </span>&#123;</span><br><span class="line">    Mat gray, binary;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">channels</span>() == <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="built_in">cvtColor</span>(src, gray, COLOR_BGR2GRAY);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        gray = src.<span class="built_in">clone</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">adaptiveThreshold</span>(gray, binary, <span class="number">255</span>, ADAPTIVE_THRESH_GAUSSIAN_C, </span><br><span class="line">                     THRESH_BINARY, <span class="number">11</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> binary;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1. 读取图片</span></span><br><span class="line">    Mat src = <span class="built_in">imread</span>(<span class="string">&quot;src.png&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (src.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;错误：找不到src.png文件！&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. Gamma变换增强</span></span><br><span class="line">    Mat gamma_img = <span class="built_in">gammaCorrection</span>(src, <span class="number">0.5</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 3. 二值化处理</span></span><br><span class="line">    Mat binary = <span class="built_in">adaptiveBinary</span>(gamma_img);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4. 显示结果</span></span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;原始图像&quot;</span>, src);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;处理结果&quot;</span>, binary);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 5. 保存结果</span></span><br><span class="line">    <span class="built_in">imwrite</span>(<span class="string">&quot;processed_result.png&quot;</span>, binary);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;处理完成！结果已保存为processed_result.png&quot;</span> &lt;&lt; endl;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样解释后，你应该能理解每一行代码的作用了！这个程序的核心思想就是：<strong>先调整亮度让数字更明显，然后转换成黑白图让数字突出显示</strong>。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Lyxy-szs</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://lyxy-szs.github.io/2025/11/15/opencv/">http://lyxy-szs.github.io/2025/11/15/opencv/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>永远相信<strong>美好的事情即将發生</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C++</a>
+                    
+                        <a href="/tags/opencv/"># opencv</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2025/11/20/string/">String</a>
+            
+            
+            <a class="next" rel="next" href="/2025/09/14/bluebridge/">蓝桥杯</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+<!-- �����ڹؼ��ʶ�λ+�����߼� -->
+<script>
+// 1. ��URL�л�ȡ�ؼ��ʲ���
+function getUrlParam(name) {
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+  const r = window.location.search.substr(1).match(reg);
+  if (r != null) return decodeURIComponent(r[2]);
+  return null;
+}
+
+// 2. �������������ؼ���λ��
+function highlightAndScrollToKeyword() {
+  const keyword = getUrlParam('keyword');
+  if (!keyword || keyword.length < 2) return; // �޹ؼ���/�ؼ��ʹ���������
+
+  // ��λ������������Chic�����������ݵ�������������ȷ���Ƿ�ƥ�䣬Ĭ����.post-content��
+  const contentEl = document.querySelector('.post-content');
+  if (!contentEl) return;
+
+  // ��¡���ݣ�����ֱ���޸�ԭDOM���µ�����
+  const contentHtml = contentEl.innerHTML;
+  // ����ƥ��ؼ��ʣ����Դ�Сд��ȫ��ƥ�䣩
+  const reg = new RegExp(`(${keyword})`, 'gi');
+  // �滻�ؼ��ʲ����Ӹ�����ʽ
+  const newHtml = contentHtml.replace(reg, '<span style="background: #ffff00; color: #333; padding: 0 2px; border-radius: 2px;">$1</span>');
+  contentEl.innerHTML = newHtml;
+
+  // 3. ��������һ��ƥ��Ĺؼ���λ��
+  const firstHighlight = contentEl.querySelector('span[style*="background: #ffff00"]');
+  if (firstHighlight) {
+    // ƽ���������ؼ���λ�ã�ƫ��-80px�����ⱻ�������ڵ���
+    firstHighlight.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+    // ����һ������Ԫ��������˸Ч������ǿ�Ӿ���ʾ
+    firstHighlight.animate([
+      { opacity: 0.5 },
+      { opacity: 1 }
+    ], {
+      duration: 1000,
+      iterations: 2
+    });
+  }
+}
+
+// ҳ�������ɺ�ִ��
+window.onload = function() {
+  highlightAndScrollToKeyword();
+};
+</script>
+            </div>
+            <footer id="footer" class="footer">
+    <div class="footer-typing-container">
+        <span id="footer-typed-text"></span>
+    </div>
+    <div class="copyright">
+        <span>© Lyxy-szs | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+<script>
+    // 等待页面文档加载完毕
+    document.addEventListener('DOMContentLoaded', function () {
+        // 确保容器元素存在
+        const typedElement = document.getElementById('footer-typed-text');
+        if (typedElement) {
+            var typed = new Typed('#footer-typed-text', {
+                strings: [
+                    "永远相信 美好的事情即将發生 临渊羡鱼shi",
+                    "知识就是力量。 弗朗西斯·培根",  
+                    "我思故我在。 勒内·笛卡尔",  
+                    "人生苦短，及时行乐。 贺拉斯",  
+                    "活着就是为了改变世界，难道还有其他原因吗？ 史蒂夫·乔布斯",  
+                    "黑暗不能驱走黑暗，只有光可以做到；仇恨不能驱走仇恨，只有爱可以做到。 马丁·路德·金",  
+                    "成功是从一个失败到另一个失败而不失去热情的能力。 温斯顿·丘吉尔",  
+                    "教育不是填满一个桶，而是点燃一把火。 威廉·巴特勒·叶芝",  
+                    "战争就是和平，自由就是奴役，无知就是力量。 乔治·奥威尔《一九八四》",  
+                    "人是为了反抗而生的。 阿尔贝·加缪",  
+                    "幸福取决于我们自己。 亚里士多德",  
+                    "唯一值得我们恐惧的是恐惧本身。 富兰克林·D·罗斯福",  
+                    "生命的意义在于给予。 列夫·托尔斯泰",  
+                    "不要为小事烦恼，所有事都是小事。 理查德·卡尔森",  
+                    "梦想不会通过魔法实现；它需要汗水、决心和努力。 科林·鲍威尔",  
+                    "最好的报复是巨大的成功。 弗兰克·辛纳屈",  
+                    "你只活一次，但如果你做得对，一次就足够了。 梅·韦斯特"
+                ], // 字符串数组，会依次键入
+                typeSpeed: 60,    // 打字速度，数值越小越快[citation:2]
+                backSpeed: 40,    // 回退删除的速度[citation:2]
+                backDelay: 1500,  // 一句打完后的暂停时间（毫秒）[citation:2]
+                loop: true,       // 是否循环[citation:2]
+                showCursor: true, // 是否显示闪烁光标[citation:4]
+                cursorChar: '_'   // 自定义光标字符[citation:4]
+            });
+        }
+    });
+</script>
+    </div>
+    
+    
+<script src="/js/scrollbar.js"></script>
+
+    
+<script src="/js/typed.min.js"></script>
+
+    
+<script src="/js/tellu.js"></script>
+
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+
+</html>

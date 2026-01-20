@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+    <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.js"></script>
+    <!-- �ַ��������ӿ����� -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- վ��Ԫ��Ϣ -->
+
+    <meta name="author" content="Lyxy-szs">
+
+
+    <meta name="subtitle" content="Shi">
+
+
+
+
+<!-- ҳ����⶯̬���� -->
+
+<title>String | Johnson</title>
+
+<!-- ��վͼ�� -->
+
+    <link rel="icon" href="/2.ico">
+
+
+<!-- �Զ���CSS�б������������ü��أ� -->
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+<!-- �Զ���JS�б������������ü��أ� -->
+
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+    <script src="/js/tellu.js"></script>
+    
+    <script src="/js/typed.min.js"></script>
+    
+
+
+<!-- MathJax��ʽ��Ⱦ֧�� -->
+
+    
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const pagebody = document.getElementsByTagName('body')[0]
+
+            function setTheme(status) {
+
+                if (status === 'dark') {
+                    window.sessionStorage.theme = 'dark'
+                    pagebody.classList.add('dark-theme');
+
+                } else if (status === 'light') {
+                    window.sessionStorage.theme = 'light'
+                    pagebody.classList.remove('dark-theme');
+                }
+            };
+
+            setTheme(window.sessionStorage.theme)
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Johnson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                <a class="menu-item" href="/archives">文章</a>
+                
+                <a class="menu-item" href="/categories">类别</a>
+                
+                <a class="menu-item" href="/tags">标签</a>
+                
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
+                
+                
+                <!-- 桌面端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 0 10px;
+                ">
+                    搜索
+                </button>
+
+                <!-- 恢复默认主题切换结构 -->
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <!-- 恢复默认结构：&nbsp;改为空格 -->
+                    <a href="/">Johnson&#39;s Blog</a><a id="mobile-toggle-theme">· Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
+                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
+                </div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                <a class="menu-item" href="/archives">文章</a>
+                
+                <a class="menu-item" href="/categories">类别</a>
+                
+                <a class="menu-item" href="/tags">标签</a>
+                
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
+                
+
+                <!-- 移动端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 10px 0;
+                    width: 100%;
+                    text-align: left;
+                ">
+                    搜索
+                </button>
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+<div id="searchModal" style="
+    display: none; 
+    position: fixed; 
+    top: 20%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: transparent; 
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px); 
+    padding: 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
+    z-index: 9999; 
+    width: 80%; 
+    max-width: 500px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 id="searchTitle" style="margin: 0; font-size: 16px;">搜索文章</h3>
+        <span class="search-close" style="cursor: pointer; font-size: 20px;">&times;</span>
+    </div>
+    <input type="text" id="searchInput" placeholder="输入关键词搜索..." style="
+        width: 100%; 
+        padding: 12px; 
+        border: 1px solid #eee; 
+        border-radius: 8px; 
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+    ">
+    <ul id="searchResult" style="list-style: none; padding: 0; margin-top: 15px; max-height: 300px; overflow-y: auto;"></ul>
+</div>
+
+<!-- 主题适配样式（优化搜索结果上下文和输入框样式） -->
+<!-- 主题适配样式（优化搜索结果上下文和输入框样式） -->
+<style>
+    /* 白主题样式 - 搜索框和文字 */
+    #searchTitle,
+    #searchInput {
+        color: #333 !important;
+    }
+    .search-close {
+        color: #999 !important;
+    }
+    #searchInput {
+        background: rgba(255, 255, 255, 0.85) !important;
+        border-color: #ddd !important;
+        color: #333 !important;
+    }
+    #searchResult li {
+        border-bottom: 1px dashed #eee !important;
+    }
+    #searchInput::placeholder {
+        color: #999 !important;
+    }
+
+    /* 搜索结果链接（文章名）样式 */
+    #searchResult a {
+        text-decoration: none;
+        font-weight: 500;
+        display: block;
+        color: #333; /* 白主题下的文章名颜色 */
+    }
+    
+    body.dark #searchResult a,
+    body.dark-theme #searchResult a {
+        color: #fff; /* 深色主题下的文章名颜色 */
+    }
+
+    /* 黑主题样式 - 搜索框和文字 */
+    body.dark #searchTitle,
+    body.dark-theme #searchTitle,
+    body.dark #searchInput,
+    body.dark-theme #searchInput {
+        color: #fff !important;
+    }
+    body.dark .search-close,
+    body.dark-theme .search-close {
+        color: #ccc !important;
+    }
+    body.dark #searchInput,
+    body.dark-theme #searchInput {
+        background: rgba(50, 50, 50, 0.85) !important;
+        border-color: #666 !important;
+        color: #fff !important;
+    }
+    body.dark #searchResult li,
+    body.dark-theme #searchResult li {
+        border-bottom: 1px dashed #555 !important;
+    }
+    body.dark #searchInput::placeholder,
+    body.dark-theme #searchInput::placeholder {
+        color: #aaa !important;
+    }
+
+    /* 修改：搜索结果上下文样式 - 使用与文章名相同的颜色 */
+    .search-context {
+        display: block;
+        font-size: 13px;
+        margin-top: 6px;
+        line-height: 1.5;
+        height: 39px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        word-break: break-all;
+        color: #333; /* 默认使用与文章名相同的浅色主题颜色 */
+    }
+    
+    /* 深色主题下上下文使用与文章名相同的颜色 */
+    body.dark .search-context,
+    body.dark-theme .search-context {
+        color: #fff; /* 使用与深色主题文章名相同的颜色 */
+    }
+    
+    /* 保留关键词高亮样式 */
+    .search-context mark {
+        background-color: rgba(255, 215, 0, 0.3);
+        color: inherit; /* 继承父元素的颜色 */
+        padding: 0 2px;
+        border-radius: 2px;
+        font-weight: bold;
+    }
+    
+    /* 深色主题下的关键词高亮 */
+    body.dark .search-context mark,
+    body.dark-theme .search-context mark {
+        background-color: rgba(255, 215, 0, 0.4);
+        color: #fff; /* 深色主题下mark标签文字颜色 */
+    }
+
+    /* ========== 搜索结果滚动条主题适配 ========== */
+    /* 1. 白主题滚动条（默认） */
+    #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #ccc #f5f5f5;
+    }
+    
+    /* 滚动条整体宽度 */
+    #searchResult::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    /* 滚动条轨道 */
+    #searchResult::-webkit-scrollbar-track {
+        background: #f5f5f5;
+        border-radius: 3px;
+    }
+    
+    /* 滚动条滑块 */
+    #searchResult::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    
+    /* 滑块hover状态 */
+    #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+
+    /* 2. 黑主题滚动条 */
+    body.dark #searchResult,
+    body.dark-theme #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #666 #333;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-track,
+    body.dark-theme #searchResult::-webkit-scrollbar-track {
+        background: #333;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-thumb,
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb {
+        background: #666;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-thumb:hover,
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+
+    /* 3. 搜索结果项目样式 */
+    #searchResult li {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    body.dark #searchResult li,
+    body.dark-theme #searchResult li {
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* 文章链接悬停效果 */
+    #searchResult a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<!-- 引入jQuery和搜索逻辑JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script>
+    // 移动菜单切换函数（保持不变）
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.classList.contains("active")) {
+            toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        } else {
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+
+    // 搜索功能逻辑（增加上下文提取功能）
+    $(document).ready(function () {
+        const $searchBtn = $('.search-btn');
+        const $searchModal = $('#searchModal');
+        const $searchInput = $('#searchInput');
+        const $searchResult = $('#searchResult');
+
+        // 显示/隐藏搜索框（保持不变）
+        $searchBtn.click(function (e) {
+            e.preventDefault();
+            $searchModal.toggle();
+            if ($searchModal.is(':visible')) {
+                $searchInput.focus();
+            } else {
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 关闭搜索框（保持不变）
+        $('.search-close').click(function () {
+            $searchModal.hide();
+            $searchInput.val('');
+            $searchResult.empty();
+        });
+
+        // 点击外部关闭（保持不变）
+        $(document).click(function (e) {
+            if (
+                !$searchModal.is(e.target) && 
+                !$searchModal.has(e.target).length && 
+                !$searchBtn.is(e.target)
+            ) {
+                $searchModal.hide();
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 从文本中提取关键词上下文（优化版）
+        function extractContext(text, keyword, maxLength = 150) {
+            if (!text || !keyword) return '';
+            
+            // 将文本和关键词都转为小写进行匹配
+            const lowerText = text.toLowerCase();
+            const lowerKeyword = keyword.toLowerCase();
+            
+            // 查找关键词在文本中的位置
+            const index = lowerText.indexOf(lowerKeyword);
+            
+            if (index === -1) {
+                // 如果没有找到关键词，返回文本开头部分
+                const shortText = text.substring(0, maxLength);
+                return shortText + (text.length > maxLength ? '...' : '');
+            }
+            
+            // 计算截取范围：关键词前后各取一半
+            const start = Math.max(0, index - maxLength / 2);
+            const end = Math.min(text.length, index + keyword.length + maxLength / 2);
+            
+            let context = text.substring(start, end);
+            
+            // 在开头和结尾添加省略号
+            if (start > 0) context = '...' + context;
+            if (end < text.length) context = context + '...';
+            
+            // 高亮关键词（保持原始大小写）
+            const originalKeyword = text.substring(index, index + keyword.length);
+            const regex = new RegExp(originalKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            
+            return context.replace(regex, match => `<mark>${match}</mark>`);
+        }
+
+        // 去除HTML标签，获取纯文本
+        function stripHtml(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || '';
+        }
+
+        // 关键词搜索（显示带上下文的搜索结果）
+        $searchInput.on('input', function () {
+            const searchText = $(this).val().trim().toLowerCase();
+            $searchResult.empty();
+
+            if (searchText.length < 2) return;
+
+            $.get('/search.xml', function (xml) {
+                let hasMatch = false;
+                $(xml).find('entry').each(function () {
+                    const $entry = $(this);
+                    const title = $entry.find('title').text();
+                    const link = $entry.find('url').text();
+                    const rawContent = $entry.find('content').text();
+                    const content = stripHtml(rawContent);
+                    
+                    // 搜索标题和内容
+                    const titleMatch = title.toLowerCase().includes(searchText);
+                    const contentMatch = content.toLowerCase().includes(searchText);
+                    
+                    if (titleMatch || contentMatch) {
+                        // 提取上下文
+                        let context = '';
+                        if (contentMatch) {
+                            context = extractContext(content, searchText, 150);
+                        } else if (titleMatch) {
+                            // 如果只是标题匹配，高亮标题中的关键词
+                            const titleContext = title.replace(
+                                new RegExp(searchText, 'gi'), 
+                                match => `<mark>${match}</mark>`
+                            );
+                            context = `标题匹配: ${titleContext}`;
+                        }
+                        
+                        $searchResult.append(`
+                            <li>
+                                <a href="${link}?keyword=${encodeURIComponent(searchText)}" target="_blank">
+                                    ${title}
+                                </a>
+                                <span class="search-context">${context}</span>
+                            </li>
+                        `);
+                        hasMatch = true;
+                    }
+                });
+
+                if (!hasMatch) {
+                    $searchResult.append(`
+                        <li style="padding: 10px; text-align: center; color: #888;">
+                            未找到包含"${searchText}"的文章
+                        </li>
+                    `);
+                }
+            }).fail(function () {
+                $searchResult.append(`
+                    <li style="padding: 10px; color: #f44336; text-align: center;">
+                        搜索索引加载失败，请确保已生成search.xml
+                    </li>
+                `);
+            });
+        });
+    });
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">String</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Lyxy-szs</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十一月 20, 2025&nbsp;&nbsp;17:51:05</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Cpp%E7%BC%96%E7%A8%8B/">Cpp编程</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="C-string-类完整学习指南"><a href="#C-string-类完整学习指南" class="headerlink" title="C++ string 类完整学习指南"></a>C++ string 类完整学习指南</h1><h2 id="1-基础概念与头文件"><a href="#1-基础概念与头文件" class="headerlink" title="1. 基础概念与头文件"></a>1. 基础概念与头文件</h2><h3 id="必需头文件"><a href="#必需头文件" class="headerlink" title="必需头文件"></a>必需头文件</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span>      <span class="comment">// string 类</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>    <span class="comment">// 输入输出</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span>   <span class="comment">// 算法操作（sort, reverse等）</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span>     <span class="comment">// 字符串流</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cctype&gt;</span>      <span class="comment">// 字符处理（toupper等）</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="基本声明与初始化"><a href="#基本声明与初始化" class="headerlink" title="基本声明与初始化"></a>基本声明与初始化</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">string s1;                    <span class="comment">// 空字符串</span></span><br><span class="line">string s2 = <span class="string">&quot;Hello&quot;</span>;          <span class="comment">// 用C风格字符串初始化</span></span><br><span class="line"><span class="function">string <span class="title">s3</span><span class="params">(s2)</span></span>;                <span class="comment">// 用另一个string初始化</span></span><br><span class="line"><span class="function">string <span class="title">s4</span><span class="params">(<span class="number">5</span>, <span class="string">&#x27;A&#x27;</span>)</span></span>;            <span class="comment">// 用多个相同字符初始化：&quot;AAAAA&quot;</span></span><br><span class="line">string s5 = s2 + <span class="string">&quot; World&quot;</span>;    <span class="comment">// 字符串连接</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-输入输出操作"><a href="#2-输入输出操作" class="headerlink" title="2. 输入输出操作"></a>2. 输入输出操作</h2><h3 id="输入方法对比"><a href="#输入方法对比" class="headerlink" title="输入方法对比"></a>输入方法对比</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">string str;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：cin（遇到空格/换行停止）</span></span><br><span class="line">cin &gt;&gt; str;                    <span class="comment">// 读取单个单词</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：getline（读取整行）</span></span><br><span class="line"><span class="built_in">getline</span>(cin, str);            <span class="comment">// 读取整行，包括空格</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ⚠️ 重要：混合使用时的处理</span></span><br><span class="line"><span class="type">int</span> num;</span><br><span class="line">string name;</span><br><span class="line"></span><br><span class="line">cin &gt;&gt; num;                    <span class="comment">// 读取数字</span></span><br><span class="line">cin.<span class="built_in">ignore</span>();                  <span class="comment">// 忽略换行符，避免影响后续getline</span></span><br><span class="line"><span class="built_in">getline</span>(cin, name);           <span class="comment">// 现在可以正确读取整行</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="输出方法"><a href="#输出方法" class="headerlink" title="输出方法"></a>输出方法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line"></span><br><span class="line">cout &lt;&lt; str;                  <span class="comment">// 标准输出</span></span><br><span class="line">cout &lt;&lt; str[<span class="number">0</span>];               <span class="comment">// 输出单个字符</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, str.<span class="built_in">c_str</span>());    <span class="comment">// 使用C风格输出（需要转换）</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-字符串基本信息获取"><a href="#3-字符串基本信息获取" class="headerlink" title="3. 字符串基本信息获取"></a>3. 字符串基本信息获取</h2><h3 id="长度与容量"><a href="#长度与容量" class="headerlink" title="长度与容量"></a>长度与容量</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"></span><br><span class="line">str.<span class="built_in">length</span>();                 <span class="comment">// 返回字符串长度：5</span></span><br><span class="line">str.<span class="built_in">size</span>();                   <span class="comment">// 同length()</span></span><br><span class="line">str.<span class="built_in">empty</span>();                  <span class="comment">// 判断是否为空字符串</span></span><br><span class="line">str.<span class="built_in">capacity</span>();               <span class="comment">// 返回当前分配的存储空间大小</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字符访问"><a href="#字符访问" class="headerlink" title="字符访问"></a>字符访问</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用下标访问</span></span><br><span class="line"><span class="type">char</span> c1 = str[<span class="number">0</span>];             <span class="comment">// &#x27;H&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用at()访问（边界检查，更安全）</span></span><br><span class="line"><span class="type">char</span> c2 = str.<span class="built_in">at</span>(<span class="number">1</span>);          <span class="comment">// &#x27;e&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 首尾字符访问</span></span><br><span class="line"><span class="type">char</span> first = str.<span class="built_in">front</span>();     <span class="comment">// &#x27;H&#x27;</span></span><br><span class="line"><span class="type">char</span> last = str.<span class="built_in">back</span>();       <span class="comment">// &#x27;o&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-字符串修改操作"><a href="#4-字符串修改操作" class="headerlink" title="4. 字符串修改操作"></a>4. 字符串修改操作</h2><h3 id="追加与连接"><a href="#追加与连接" class="headerlink" title="追加与连接"></a>追加与连接</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"></span><br><span class="line">str.<span class="built_in">append</span>(<span class="string">&quot; World&quot;</span>);         <span class="comment">// &quot;Hello World&quot;</span></span><br><span class="line">str += <span class="string">&quot;!&quot;</span>;                   <span class="comment">// &quot;Hello World!&quot;</span></span><br><span class="line">str.<span class="built_in">push_back</span>(<span class="string">&#x27;?&#x27;</span>);           <span class="comment">// &quot;Hello World!?&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="插入与删除"><a href="#插入与删除" class="headerlink" title="插入与删除"></a>插入与删除</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 插入 =&gt; str.insert(位置, 字符串)</span></span><br><span class="line">str.<span class="built_in">insert</span>(<span class="number">5</span>, <span class="string">&quot; C++&quot;</span>);        <span class="comment">// &quot;Hello C++ World&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除 =&gt; str.erase(位置, 长度)</span></span><br><span class="line">str.<span class="built_in">erase</span>(<span class="number">5</span>, <span class="number">4</span>);              <span class="comment">// 从位置5开始删除4个字符 → &quot;Hello World&quot;</span></span><br><span class="line">str.<span class="built_in">clear</span>();                  <span class="comment">// 清空字符串</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="替换操作"><a href="#替换操作" class="headerlink" title="替换操作"></a>替换操作</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// replace替换 =&gt; str.replace(位置, 长度, 新字符串)</span></span><br><span class="line">str.<span class="built_in">replace</span>(<span class="number">6</span>, <span class="number">5</span>, <span class="string">&quot;C++&quot;</span>);     <span class="comment">// &quot;Hello C++&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-字符串查找与子串"><a href="#5-字符串查找与子串" class="headerlink" title="5. 字符串查找与子串"></a>5. 字符串查找与子串</h2><h3 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// find查找 =&gt; str.find(字符串) 返回位置索引</span></span><br><span class="line"><span class="type">size_t</span> pos = str.<span class="built_in">find</span>(<span class="string">&quot;World&quot;</span>);       <span class="comment">// 返回位置6</span></span><br><span class="line"><span class="type">size_t</span> notFound = str.<span class="built_in">find</span>(<span class="string">&quot;Java&quot;</span>);   <span class="comment">// 返回 string::npos</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查查找结果</span></span><br><span class="line"><span class="keyword">if</span> (pos != string::npos) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;找到子串，位置：&quot;</span> &lt;&lt; pos;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;未找到子串&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="子串提取"><a href="#子串提取" class="headerlink" title="子串提取"></a>子串提取</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// substr提取 =&gt; str.substr(起始位置, 长度)</span></span><br><span class="line">string sub1 = str.<span class="built_in">substr</span>(<span class="number">6</span>, <span class="number">5</span>);       <span class="comment">// &quot;World&quot;</span></span><br><span class="line">string sub2 = str.<span class="built_in">substr</span>(<span class="number">6</span>);          <span class="comment">// &quot;World&quot;（从6到结尾）</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-字符串比较与遍历"><a href="#6-字符串比较与遍历" class="headerlink" title="6. 字符串比较与遍历"></a>6. 字符串比较与遍历</h2><h3 id="比较操作"><a href="#比较操作" class="headerlink" title="比较操作"></a>比较操作</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">string s1 = <span class="string">&quot;apple&quot;</span>;</span><br><span class="line">string s2 = <span class="string">&quot;banana&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (s1 == s2) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;相等&quot;</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (s1 &lt; s2) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;s1 小于 s2&quot;</span>;              <span class="comment">// 字典序比较</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="遍历方法"><a href="#遍历方法" class="headerlink" title="遍历方法"></a>遍历方法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：下标遍历</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; str.<span class="built_in">length</span>(); i++) &#123;</span><br><span class="line">    cout &lt;&lt; str[i];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：基于范围循环（推荐）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">char</span> c : str) &#123;</span><br><span class="line">    cout &lt;&lt; c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：使用迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = str.<span class="built_in">begin</span>(); it != str.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    cout &lt;&lt; *it;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-字符串与数值转换"><a href="#7-字符串与数值转换" class="headerlink" title="7. 字符串与数值转换"></a>7. 字符串与数值转换</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数字转字符串</span></span><br><span class="line"><span class="type">int</span> num = <span class="number">123</span>;</span><br><span class="line">string str1 = <span class="built_in">to_string</span>(num);         <span class="comment">// &quot;123&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 字符串转数字</span></span><br><span class="line">string str2 = <span class="string">&quot;456&quot;</span>;</span><br><span class="line"><span class="type">int</span> num2 = <span class="built_in">stoi</span>(str2);                <span class="comment">// 456</span></span><br><span class="line"><span class="type">double</span> num3 = <span class="built_in">stod</span>(<span class="string">&quot;3.14&quot;</span>);           <span class="comment">// 3.14</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="8-常用算法操作"><a href="#8-常用算法操作" class="headerlink" title="8. 常用算法操作"></a>8. 常用算法操作</h2><h3 id="排序与反转"><a href="#排序与反转" class="headerlink" title="排序与反转"></a>排序与反转</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line">string str = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// reverse反转 =&gt; reverse(str.begin(), str.end())</span></span><br><span class="line"><span class="built_in">reverse</span>(str.<span class="built_in">begin</span>(), str.<span class="built_in">end</span>());      <span class="comment">// &quot;olleh&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// sort排序 =&gt; sort(str.begin(), str.end())</span></span><br><span class="line"><span class="built_in">sort</span>(str.<span class="built_in">begin</span>(), str.<span class="built_in">end</span>());         <span class="comment">// &quot;ehllo&quot;（字典序）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 对字符串数组排序</span></span><br><span class="line">vector&lt;string&gt; words = &#123;<span class="string">&quot;dog&quot;</span>, <span class="string">&quot;cat&quot;</span>, <span class="string">&quot;ant&quot;</span>&#125;;</span><br><span class="line"><span class="built_in">sort</span>(words.<span class="built_in">begin</span>(), words.<span class="built_in">end</span>());     <span class="comment">// &#123;&quot;ant&quot;, &quot;cat&quot;, &quot;dog&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字符处理"><a href="#字符处理" class="headerlink" title="字符处理"></a>字符处理</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cctype&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> c = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 大小写转换</span></span><br><span class="line"><span class="type">char</span> upper = <span class="built_in">toupper</span>(c);              <span class="comment">// &#x27;A&#x27;</span></span><br><span class="line"><span class="type">char</span> lower = <span class="built_in">tolower</span>(<span class="string">&#x27;B&#x27;</span>);            <span class="comment">// &#x27;b&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 字符类型判断</span></span><br><span class="line"><span class="built_in">isalpha</span>(c);    <span class="comment">// 是否是字母</span></span><br><span class="line"><span class="built_in">isdigit</span>(c);    <span class="comment">// 是否是数字</span></span><br><span class="line"><span class="built_in">isspace</span>(c);    <span class="comment">// 是否是空白字符</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="9-实际应用案例"><a href="#9-实际应用案例" class="headerlink" title="9. 实际应用案例"></a>9. 实际应用案例</h2><h3 id="案例1：字符串逆序"><a href="#案例1：字符串逆序" class="headerlink" title="案例1：字符串逆序"></a>案例1：字符串逆序</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法1：使用reverse函数</span></span><br><span class="line"><span class="built_in">reverse</span>(str.<span class="built_in">begin</span>(), str.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：手动交换字符</span></span><br><span class="line"><span class="type">int</span> left = <span class="number">0</span>, right = str.<span class="built_in">length</span>() - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">    <span class="built_in">swap</span>(str[left], str[right]);      <span class="comment">// swap交换字符</span></span><br><span class="line">    left++;</span><br><span class="line">    right--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例2：统计字符出现次数和位置"><a href="#案例2：统计字符出现次数和位置" class="headerlink" title="案例2：统计字符出现次数和位置"></a>案例2：统计字符出现次数和位置</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line"><span class="type">char</span> target = <span class="string">&#x27;l&#x27;</span>;</span><br><span class="line"><span class="type">int</span> count = <span class="number">0</span>, firstPos = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; str.<span class="built_in">length</span>(); i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (str[i] == target) &#123;</span><br><span class="line">        count++;</span><br><span class="line">        <span class="keyword">if</span> (firstPos == <span class="number">-1</span>) firstPos = i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; count &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; firstPos;     <span class="comment">// 输出：3 3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="案例3：判断回文字符串"><a href="#案例3：判断回文字符串" class="headerlink" title="案例3：判断回文字符串"></a>案例3：判断回文字符串</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> isPalindrome = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; str.<span class="built_in">length</span>() / <span class="number">2</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (str[i] != str[str.<span class="built_in">length</span>() - <span class="number">1</span> - i]) &#123;</span><br><span class="line">        isPalindrome = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; (isPalindrome ? <span class="string">&quot;Yes!&quot;</span> : <span class="string">&quot;No!&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例4：输出单词首字母大写"><a href="#案例4：输出单词首字母大写" class="headerlink" title="案例4：输出单词首字母大写"></a>案例4：输出单词首字母大写</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">stringstream <span class="title">ss</span><span class="params">(str)</span></span>;</span><br><span class="line">string word;</span><br><span class="line"><span class="keyword">while</span> (ss &gt;&gt; word) &#123;</span><br><span class="line">    cout &lt;&lt; (<span class="type">char</span>)<span class="built_in">toupper</span>(word[<span class="number">0</span>]);   <span class="comment">// 输出每个单词首字母大写</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例5：寻找第一个不重复字符"><a href="#案例5：寻找第一个不重复字符" class="headerlink" title="案例5：寻找第一个不重复字符"></a>案例5：寻找第一个不重复字符</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> count[<span class="number">256</span>] = &#123;<span class="number">0</span>&#125;;<span class="comment">//ASCII范围 0~255</span></span><br><span class="line"><span class="comment">// 第一次遍历统计频率</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">char</span> c : str) count[(<span class="type">unsigned</span> <span class="type">char</span>)c]++;<span class="comment">//将c转化为unsigned char无符号类型，避免莫名奇妙的负值出现，~=count(c)++</span></span><br><span class="line"><span class="comment">// 第二次遍历找到第一个频率为1的字符</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; str.<span class="built_in">length</span>(); i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (count[(<span class="type">unsigned</span> <span class="type">char</span>)str[i]] == <span class="number">1</span>) &#123;<span class="comment">//遍历查找只出现1次的字符</span></span><br><span class="line">        cout &lt;&lt; str[i];</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="10-String-特性速查表"><a href="#10-String-特性速查表" class="headerlink" title="10. String 特性速查表"></a>10. String 特性速查表</h2><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>操作</th>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>基本信息</strong></td>
+<td>长度获取</td>
+<td><code>str.length()</code> 或 <code>str.size()</code></td>
+<td>获取字符数量</td>
+</tr>
+<tr>
+<td></td>
+<td>空判断</td>
+<td><code>str.empty()</code></td>
+<td>是否为空字符串</td>
+</tr>
+<tr>
+<td><strong>字符访问</strong></td>
+<td>下标访问</td>
+<td><code>str[i]</code></td>
+<td>访问第i个字符</td>
+</tr>
+<tr>
+<td></td>
+<td>安全访问</td>
+<td><code>str.at(i)</code></td>
+<td>带边界检查的访问</td>
+</tr>
+<tr>
+<td></td>
+<td>首尾字符</td>
+<td><code>str.front()</code>, <code>str.back()</code></td>
+<td>第一个和最后一个字符</td>
+</tr>
+<tr>
+<td><strong>字符串修改</strong></td>
+<td>追加</td>
+<td><code>str.append(s)</code>, <code>str += s</code></td>
+<td>字符串追加</td>
+</tr>
+<tr>
+<td></td>
+<td>插入</td>
+<td><code>str.insert(pos, s)</code></td>
+<td>在指定位置插入</td>
+</tr>
+<tr>
+<td></td>
+<td>删除</td>
+<td><code>str.erase(pos, len)</code></td>
+<td>删除子串</td>
+</tr>
+<tr>
+<td></td>
+<td>替换</td>
+<td><code>str.replace(pos, len, s)</code></td>
+<td>替换子串</td>
+</tr>
+<tr>
+<td></td>
+<td>清空</td>
+<td><code>str.clear()</code></td>
+<td>清空字符串</td>
+</tr>
+<tr>
+<td><strong>查找子串</strong></td>
+<td>查找</td>
+<td><code>str.find(s)</code></td>
+<td>查找子串位置</td>
+</tr>
+<tr>
+<td></td>
+<td>提取</td>
+<td><code>str.substr(pos, len)</code></td>
+<td>提取子串</td>
+</tr>
+<tr>
+<td><strong>算法操作</strong></td>
+<td>反转</td>
+<td><code>reverse(str.begin(), str.end())</code></td>
+<td>反转字符串</td>
+</tr>
+<tr>
+<td></td>
+<td>排序</td>
+<td><code>sort(str.begin(), str.end())</code></td>
+<td>字典序排序</td>
+</tr>
+<tr>
+<td></td>
+<td>交换</td>
+<td><code>swap(str1, str2)</code></td>
+<td>交换两个字符串</td>
+</tr>
+<tr>
+<td><strong>字符处理</strong></td>
+<td>大小写</td>
+<td><code>toupper(c)</code>, <code>tolower(c)</code></td>
+<td>字符大小写转换</td>
+</tr>
+<tr>
+<td><strong>类型转换</strong></td>
+<td>转字符串</td>
+<td><code>to_string(num)</code></td>
+<td>数字转字符串</td>
+</tr>
+<tr>
+<td></td>
+<td>字符串转数字</td>
+<td><code>stoi(str)</code>, <code>stod(str)</code></td>
+<td>字符串转数字</td>
+</tr>
+</tbody></table>
+<h2 id="11-重要注意事项"><a href="#11-重要注意事项" class="headerlink" title="11. 重要注意事项"></a>11. 重要注意事项</h2><ol>
+<li><p><strong>getline 后的 cin.ignore</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> age;</span><br><span class="line">string name;</span><br><span class="line">cin &gt;&gt; age;</span><br><span class="line">cin.<span class="built_in">ignore</span>();  <span class="comment">// 必须调用，清除缓冲区的换行符</span></span><br><span class="line"><span class="built_in">getline</span>(cin, name);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>字符串比较不要用 &#x3D;&#x3D; 比较 C 风格字符串</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="keyword">if</span> (str == <span class="string">&quot;hello&quot;</span>) &#123; ... &#125;           <span class="comment">// 正确：比较内容</span></span><br><span class="line"><span class="keyword">if</span> (str.<span class="built_in">c_str</span>() == <span class="string">&quot;hello&quot;</span>) &#123; ... &#125;   <span class="comment">// 错误：比较地址</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>访问前检查边界</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;hi&quot;</span>;</span><br><span class="line"><span class="comment">// 使用 at() 会抛出异常</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="type">char</span> c = str.<span class="built_in">at</span>(<span class="number">10</span>);  <span class="comment">// 抛出 std::out_of_range</span></span><br><span class="line">&#125; <span class="built_in">catch</span> (<span class="type">const</span> out_of_range&amp; e) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;索引越界&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>处理查找失败</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string str = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="keyword">if</span> (str.<span class="built_in">find</span>(<span class="string">&quot;world&quot;</span>) == string::npos) &#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;未找到&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h6 id="wow，你居然看完了，good-job，欢迎联系我补充啊！！！"><a href="#wow，你居然看完了，good-job，欢迎联系我补充啊！！！" class="headerlink" title="wow，你居然看完了，good job，欢迎联系我补充啊！！！"></a>wow，你居然看完了，good job，欢迎联系我补充啊！！！</h6>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Lyxy-szs</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://lyxy-szs.github.io/2025/11/20/string/">http://lyxy-szs.github.io/2025/11/20/string/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>永远相信<strong>美好的事情即将發生</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C++</a>
+                    
+                        <a href="/tags/string/"># string</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2025/11/20/Map/">Map</a>
+            
+            
+            <a class="next" rel="next" href="/2025/11/15/opencv/">opencv</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+<!-- �����ڹؼ��ʶ�λ+�����߼� -->
+<script>
+// 1. ��URL�л�ȡ�ؼ��ʲ���
+function getUrlParam(name) {
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+  const r = window.location.search.substr(1).match(reg);
+  if (r != null) return decodeURIComponent(r[2]);
+  return null;
+}
+
+// 2. �������������ؼ���λ��
+function highlightAndScrollToKeyword() {
+  const keyword = getUrlParam('keyword');
+  if (!keyword || keyword.length < 2) return; // �޹ؼ���/�ؼ��ʹ���������
+
+  // ��λ������������Chic�����������ݵ�������������ȷ���Ƿ�ƥ�䣬Ĭ����.post-content��
+  const contentEl = document.querySelector('.post-content');
+  if (!contentEl) return;
+
+  // ��¡���ݣ�����ֱ���޸�ԭDOM���µ�����
+  const contentHtml = contentEl.innerHTML;
+  // ����ƥ��ؼ��ʣ����Դ�Сд��ȫ��ƥ�䣩
+  const reg = new RegExp(`(${keyword})`, 'gi');
+  // �滻�ؼ��ʲ����Ӹ�����ʽ
+  const newHtml = contentHtml.replace(reg, '<span style="background: #ffff00; color: #333; padding: 0 2px; border-radius: 2px;">$1</span>');
+  contentEl.innerHTML = newHtml;
+
+  // 3. ��������һ��ƥ��Ĺؼ���λ��
+  const firstHighlight = contentEl.querySelector('span[style*="background: #ffff00"]');
+  if (firstHighlight) {
+    // ƽ���������ؼ���λ�ã�ƫ��-80px�����ⱻ�������ڵ���
+    firstHighlight.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+    // ����һ������Ԫ��������˸Ч������ǿ�Ӿ���ʾ
+    firstHighlight.animate([
+      { opacity: 0.5 },
+      { opacity: 1 }
+    ], {
+      duration: 1000,
+      iterations: 2
+    });
+  }
+}
+
+// ҳ�������ɺ�ִ��
+window.onload = function() {
+  highlightAndScrollToKeyword();
+};
+</script>
+            </div>
+            <footer id="footer" class="footer">
+    <div class="footer-typing-container">
+        <span id="footer-typed-text"></span>
+    </div>
+    <div class="copyright">
+        <span>© Lyxy-szs | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+<script>
+    // 等待页面文档加载完毕
+    document.addEventListener('DOMContentLoaded', function () {
+        // 确保容器元素存在
+        const typedElement = document.getElementById('footer-typed-text');
+        if (typedElement) {
+            var typed = new Typed('#footer-typed-text', {
+                strings: [
+                    "永远相信 美好的事情即将發生 临渊羡鱼shi",
+                    "知识就是力量。 弗朗西斯·培根",  
+                    "我思故我在。 勒内·笛卡尔",  
+                    "人生苦短，及时行乐。 贺拉斯",  
+                    "活着就是为了改变世界，难道还有其他原因吗？ 史蒂夫·乔布斯",  
+                    "黑暗不能驱走黑暗，只有光可以做到；仇恨不能驱走仇恨，只有爱可以做到。 马丁·路德·金",  
+                    "成功是从一个失败到另一个失败而不失去热情的能力。 温斯顿·丘吉尔",  
+                    "教育不是填满一个桶，而是点燃一把火。 威廉·巴特勒·叶芝",  
+                    "战争就是和平，自由就是奴役，无知就是力量。 乔治·奥威尔《一九八四》",  
+                    "人是为了反抗而生的。 阿尔贝·加缪",  
+                    "幸福取决于我们自己。 亚里士多德",  
+                    "唯一值得我们恐惧的是恐惧本身。 富兰克林·D·罗斯福",  
+                    "生命的意义在于给予。 列夫·托尔斯泰",  
+                    "不要为小事烦恼，所有事都是小事。 理查德·卡尔森",  
+                    "梦想不会通过魔法实现；它需要汗水、决心和努力。 科林·鲍威尔",  
+                    "最好的报复是巨大的成功。 弗兰克·辛纳屈",  
+                    "你只活一次，但如果你做得对，一次就足够了。 梅·韦斯特"
+                ], // 字符串数组，会依次键入
+                typeSpeed: 60,    // 打字速度，数值越小越快[citation:2]
+                backSpeed: 40,    // 回退删除的速度[citation:2]
+                backDelay: 1500,  // 一句打完后的暂停时间（毫秒）[citation:2]
+                loop: true,       // 是否循环[citation:2]
+                showCursor: true, // 是否显示闪烁光标[citation:4]
+                cursorChar: '_'   // 自定义光标字符[citation:4]
+            });
+        }
+    });
+</script>
+    </div>
+    
+    
+<script src="/js/scrollbar.js"></script>
+
+    
+<script src="/js/typed.min.js"></script>
+
+    
+<script src="/js/tellu.js"></script>
+
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+
+</html>
