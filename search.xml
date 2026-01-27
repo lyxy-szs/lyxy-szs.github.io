@@ -2885,21 +2885,6 @@ pause &gt;nul
 ]]></content>
   </entry>
   <entry>
-    <title>python-数字类型</title>
-    <url>/2025/08/27/python-note-1/</url>
-    <content><![CDATA[<h1 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h1><p><strong><code>+ - * /</code></strong> 加减乘除</p>
-<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><p>因为python使用的是IEEE754标准储存浮点数,故有误差，计算时需要引入decimal模块</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line">decimal.Decimal</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>note</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>opencv</title>
     <url>/2025/11/15/opencv/</url>
     <content><![CDATA[<h1 id="Opencv的Gamma转换与二值化处理"><a href="#Opencv的Gamma转换与二值化处理" class="headerlink" title="Opencv的Gamma转换与二值化处理"></a>Opencv的Gamma转换与二值化处理</h1><h2 id="1-头文件和命名空间"><a href="#1-头文件和命名空间" class="headerlink" title="1. 头文件和命名空间"></a>1. 头文件和命名空间</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span>  <span class="comment">// 包含OpenCV库的所有主要功能</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>            <span class="comment">// 输入输出流，用于在控制台显示信息</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span>              <span class="comment">// 向量容器，用于存储数据</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span>               <span class="comment">// 数学函数库</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;    <span class="comment">// 使用OpenCV的命名空间，这样就不用写cv::了</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;   <span class="comment">// 使用标准库的命名空间</span></span><br></pre></td></tr></table></figure>
@@ -2945,6 +2930,21 @@ pause &gt;nul
       <tags>
         <tag>C++</tag>
         <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python-数字类型</title>
+    <url>/2025/08/27/python-note-1/</url>
+    <content><![CDATA[<h1 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h1><p><strong><code>+ - * /</code></strong> 加减乘除</p>
+<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><p>因为python使用的是IEEE754标准储存浮点数,故有误差，计算时需要引入decimal模块</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line">decimal.Decimal</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>

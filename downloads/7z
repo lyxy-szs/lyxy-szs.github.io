@@ -1,0 +1,35 @@
+#!/bin/bash
+
+echo "当前目录下的文件夹:"
+# 列出当前目录下的非隐藏文件夹
+dirs=($(find . -maxdepth 1 -type d ! -name "." -printf "%f\n" | grep -v '^\.' | sort))
+
+for i in "${!dirs[@]}"; do
+    echo "$((i+1))) ${dirs[i]}"
+done
+
+read -p "选择文件夹编号: " choice
+
+if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le ${#dirs[@]} ]; then
+    folder="${dirs[$((choice-1))]}"
+    output="${folder}.zip"
+
+    echo "目标文件夹: $folder"
+    echo "压缩包名: $output"
+
+    # 获取一级子目录列表（排除隐藏目录）
+    subdirs=$(find "$folder" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | grep -v '^\.' | sort)
+
+    # 判断是否恰好只有 build src log install 四个目录
+    if [ "$subdirs" = $'build\ninstall\nlog\nsrc' ]; then
+        echo "检测到目录结构符合条件，删除 build log install..."
+        rm -rf "$folder/build" "$folder/log" "$folder/install"
+    fi
+
+    # 使用 zip 压缩整个文件夹（排除隐藏目录）
+    zip -r "$output" "$folder" -x "*/.*"
+    echo "压缩完成: $output"
+else
+    echo "无效选择"
+fi
+

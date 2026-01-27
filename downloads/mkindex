@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# 获取脚本自身的文件名
+SCRIPT_NAME=$(basename "$0")
+
+# 生成当前日期（格式：2025-12-05 22:00:36）
+CURRENT_DATE=$(date "+%Y-%m-%d %H:%M:%S")
+
+# 生成index.md文件内容
+cat > index.md <<EOF
+---
+title: Downloads
+date: $CURRENT_DATE
+---
+
+# 一些好用的脚本下载
+
+EOF
+
+# 遍历当前目录下的所有文件（不包括隐藏文件和目录）
+for file in *; do
+    # 跳过index.md和脚本自身
+    if [[ "$file" == "index.md" ]] || [[ "$file" == "$SCRIPT_NAME" ]]; then
+        continue
+    fi
+    
+    # 如果是常规文件（不是目录），则添加到index.md
+    if [[ -f "$file" ]]; then
+        # 获取不带扩展名的文件名（用于显示）
+        filename_no_ext="${file%.*}"
+        
+        # 获取文件扩展名
+        extension="${file##*.}"
+        
+        # 根据扩展名确定文件类型描述
+        case "$extension" in
+            "sh")
+                desc="Shell脚本"
+                ;;
+            "py")
+                desc="Python脚本"
+                ;;
+            "cpp"|"c")
+                desc="C++程序"
+                ;;
+            "js")
+                desc="JavaScript脚本"
+                ;;
+            *)
+                desc="文件"
+                ;;
+        esac
+        
+        # 添加到index.md文件
+        echo "<a href=\"/downloads/$file\" download=\"$file\">$filename_no_ext（$desc）点此下载</a>" >> index.md
+        echo "" >> index.md  # 添加空行分隔
+    fi
+done
+
+echo "index.md 已生成！"

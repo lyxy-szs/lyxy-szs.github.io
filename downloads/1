@@ -1,0 +1,183 @@
+#!/bin/bash
+
+# 检查必要的编译器是否安装
+check_compiler() {
+    if [[ "$1" == "c" ]]; then
+        if ! command -v gcc &> /dev/null; then
+            echo "错误: 未找到 gcc 编译器。请先安装 gcc。"
+            echo "安装命令:"
+            echo "  Ubuntu/Debian: sudo apt install gcc"
+            echo "  CentOS/RHEL: sudo yum install gcc"
+            echo "  Fedora: sudo dnf install gcc"
+            exit 1
+        fi
+    elif [[ "$1" == "cpp" ]]; then
+        if ! command -v g++ &> /dev/null; then
+            echo "错误: 未找到 g++ 编译器。请先安装 g++。"
+            echo "安装命令:"
+            echo "  Ubuntu/Debian: sudo apt install g++"
+            echo "  CentOS/RHEL: sudo yum install gcc-c++"
+            echo "  Fedora: sudo dnf install gcc-c++"
+            exit 1
+        fi
+    fi
+}
+
+# 清理函数：删除临时文件
+cleanup() {
+    if [[ -n "$temp_dir" && -d "$temp_dir" ]]; then
+        rm -rf "$temp_dir"
+        echo "已清理临时目录: $temp_dir"
+    fi
+    exit 0
+}
+
+# 设置信号捕获，确保脚本被中断时也能清理
+trap cleanup SIGINT SIGTERM EXIT
+
+# 创建临时目录（使用mktemp确保唯一性）
+temp_dir=$(mktemp -d -t build_XXXXXX)
+echo "使用临时目录: $temp_dir"
+
+# 查找当前目录下的C/C++源文件
+echo "当前目录下的C/C++源文件:"
+
+# 逐个处理文件
+declare -a files_array
+
+# 使用单独的数组来收集文件
+for file in *.c; do
+    if [ -f "$file" ]; then
+        files_array+=("$file")
+    fi
+done
+
+for file in *.cpp; do
+    if [ -f "$file" ]; then
+        files_array+=("$file")
+    fi
+done
+
+for file in *.cxx; do
+    if [ -f "$file" ]; then
+        files_array+=("$file")
+    fi
+done
+
+for file in *.cc; do
+    if [ -f "$file" ]; then
+        files_array+=("$file")
+    fi
+done
+
+# 检查是否有文件
+if [ ${#files_array[@]} -eq 0 ]; then
+    echo "未找到任何.c、.cpp、.cxx或.cc源文件"
+    cleanup
+fi
+
+# 显示文件列表
+for i in "${!files_array[@]}"; do
+    file="${files_array[i]}"
+    if [[ "$file" == *.c ]]; then
+        type="(C源文件)"
+    elif [[ "$file" == *.cpp ]] || [[ "$file" == *.cxx ]] || [[ "$file" == *.cc ]]; then
+        type="(C++源文件)"
+    fi
+    echo "$((i+1))) $file $type"
+done
+
+# 如果有多个文件，询问选择；如果只有一个文件，自动选择它
+if [ ${#files_array[@]} -eq 1 ]; then
+    selected_file="${files_array[0]}"
+    echo "自动选择唯一文件: $selected_file"
+else
+    # 读取用户选择
+    read -p "请选择要编译的源文件编号: " choice
+    
+    # 验证选择是否有效
+    if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le ${#files_array[@]} ]; then
+        selected_file="${files_array[$((choice-1))]}"
+        echo "开始处理: $selected_file"
+    else
+        echo "无效的选择"
+        cleanup
+    fi
+fi
+
+# 根据文件类型分支处理
+if [[ "$selected_file" == *.c ]]; then
+    # 处理.c文件
+    echo "开始编译C文件: $selected_file"
+    
+    # 检查gcc是否可用
+    check_compiler "c"
+    
+    # 获取不带扩展名的文件名
+    base_name="${selected_file%.c}"
+    temp_executable="$temp_dir/$base_name"
+    
+    # 编译C文件 - 修复：添加了实际的编译命令
+    if gcc -Wall -Wextra -O2 "$selected_file" -o "$temp_executable"; then
+        echo "C文件编译成功，生成可执行文件: $temp_executable"
+        echo ""
+        echo "正在运行程序..."
+        echo "----------------------------------------"
+        
+        # 运行程序
+        "$temp_executable"
+        exit_code=$?
+        
+        echo "----------------------------------------"
+        echo ""
+        echo "程序运行结束，返回代码: $exit_code"
+        
+    else
+        echo "C文件编译失败"
+        exit 1
+    fi
+
+elif [[ "$selected_file" == *.cpp ]] || [[ "$selected_file" == *.cxx ]] || [[ "$selected_file" == *.cc ]]; then
+    # 处理C++文件
+    echo "开始编译C++文件: $selected_file"
+    
+    # 检查g++是否可用
+    check_compiler "cpp"
+    
+    # 获取不带扩展名的文件名
+    if [[ "$selected_file" == *.cpp ]]; then
+        base_name="${selected_file%.cpp}"
+    elif [[ "$selected_file" == *.cxx ]]; then
+        base_name="${selected_file%.cxx}"
+    elif [[ "$selected_file" == *.cc ]]; then
+        base_name="${selected_file%.cc}"
+    fi
+    
+    temp_executable="$temp_dir/$base_name"
+    
+    # 编译C++文件
+    if g++ -Wall -Wextra -O2 "$selected_file" -o "$temp_executable"; then
+        echo "C++文件编译成功，生成可执行文件: $temp_executable"
+        echo ""
+        echo "正在运行程序..."
+        echo "----------------------------------------"
+        
+        # 运行程序
+        "$temp_executable"
+        exit_code=$?
+        
+        echo "----------------------------------------"
+        echo ""
+        echo "程序运行结束，返回代码: $exit_code"
+        
+    else
+        echo "C++文件编译失败"
+        exit 1
+    fi
+
+else
+    echo "不支持的文件类型"
+    exit 1
+fi
+
+# 清理工作将由trap捕获EXIT信号时自动执行
