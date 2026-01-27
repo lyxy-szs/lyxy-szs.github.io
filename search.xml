@@ -2222,6 +2222,107 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu和Windows上YOLO模型训练与部署流程</title>
+    <url>/2025/12/13/Ubuntu%E5%92%8CWindows%E4%B8%8AYOLO%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<p>针对在Ubuntu 22.04和Windows 11系统上，使用纯Intel CPU进行YOLO模型训练与应用的需求，我将为你梳理一个清晰的流程。核心是利用<strong>OpenVINO工具套件</strong>对YOLO模型进行优化，以在CPU上获得最佳的推理性能。</p>
+<h3 id="双系统方案概览"><a href="#双系统方案概览" class="headerlink" title="? 双系统方案概览"></a>? 双系统方案概览</h3><p>在开始具体步骤前，你可以通过下面的对比了解两个系统的主要异同，这有助于你根据熟悉的操作环境进行选择。</p>
+<p><strong>Ubuntu 22.04 方案</strong></p>
+<ul>
+<li><strong>核心优势</strong><ul>
+<li><strong>开发友好性</strong>：对Python、C++等开发环境支持原生，命令行操作高效。</li>
+<li><strong>资源开销</strong>：系统本身资源占用相对较低，可将更多算力用于训练。</li>
+<li><strong>部署一致性</strong>：服务器端主流系统，一次开发，部署环境统一。</li>
+</ul>
+</li>
+<li><strong>潜在考虑</strong><ul>
+<li><strong>硬件驱动</strong>：需自行确保CPU等驱动为最新版本以发挥全部性能。</li>
+<li><strong>操作习惯</strong>：若习惯图形界面，需要适应命令行操作。</li>
+</ul>
+</li>
+<li><strong>推荐适用场景</strong><ul>
+<li>模型训练、算法开发、生产服务器部署。</li>
+</ul>
+</li>
+</ul>
+<p><strong>Windows 11 方案</strong></p>
+<ul>
+<li><strong>核心优势</strong><ul>
+<li><strong>生态兼容性</strong>：与常用办公软件、专业工具兼容性好。</li>
+<li><strong>硬件支持</strong>：通常能通过系统更新自动获得最新的硬件驱动支持。</li>
+<li><strong>图形化界面</strong>：拥有丰富的图形化工具（如OpenVINO? C# API），便于快速搭建演示程序。</li>
+</ul>
+</li>
+<li><strong>潜在考虑</strong><ul>
+<li><strong>系统开销</strong>：图形界面本身会占用部分系统资源。</li>
+<li><strong>路径与依赖</strong>：需注意Python环境、路径分隔符（<code>\</code>）与Linux（<code>/</code>）的区别。</li>
+</ul>
+</li>
+<li><strong>推荐适用场景</strong><ul>
+<li>快速原型验证、桌面端应用集成、边缘设备部署（如英特尔开发套件）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>两者的共同核心</strong><br>无论选择哪个系统，后续的<strong>核心工作流程是通用的</strong>，都遵循：准备环境 → 准备数据与训练 → 模型优化 → 应用部署。两个系统的主要区别集中在初始环境配置和部分依赖安装命令上。</p>
+<h3 id="详细步骤指南"><a href="#详细步骤指南" class="headerlink" title="?? 详细步骤指南"></a>?? 详细步骤指南</h3><p>下面以当前主流的 <strong>YOLOv8</strong> 为例（其流程也适用于更新的v9&#x2F;v10等版本），介绍从环境配置到部署的完整步骤。</p>
+<h4 id="第一步：环境配置与项目初始化"><a href="#第一步：环境配置与项目初始化" class="headerlink" title="第一步：环境配置与项目初始化"></a>第一步：环境配置与项目初始化</h4><p>这是操作系统差异最明显的环节，主要是安装方式不同。</p>
+<p><strong>在 Ubuntu 22.04 上</strong></p>
+<ol>
+<li><strong>安装Python及基础工具</strong>：打开终端，运行以下命令。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install python3 python3-pip git</span><br></pre></td></tr></table></figure></li>
+<li><strong>创建虚拟环境</strong>：推荐使用 <code>venv</code> 或 <code>conda</code> 隔离环境。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 -m pip install --user virtualenv</span><br><span class="line">python3 -m virtualenv openvino_env</span><br><span class="line"><span class="built_in">source</span> openvino_env/bin/activate</span><br></pre></td></tr></table></figure></li>
+<li><strong>安装关键库</strong>：在激活的虚拟环境中安装。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>在 Windows 11 上</strong></p>
+<ol>
+<li><strong>安装Python</strong>：访问 <a href="https://www.python.org/">python.org</a> 下载并安装Python 3.10或3.11，安装时请勾选“Add Python to PATH”。</li>
+<li><strong>使用命令行</strong>：以管理员身份打开“命令提示符”或“PowerShell”。</li>
+<li><strong>创建并激活虚拟环境</strong>：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m venv openvino_win_env</span><br><span class="line">openvino_win_env\Scripts\activate</span><br></pre></td></tr></table></figure></li>
+<li><strong>安装关键库</strong>：命令与Linux相同。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="第二步：准备数据并训练模型"><a href="#第二步：准备数据并训练模型" class="headerlink" title="第二步：准备数据并训练模型"></a>第二步：准备数据并训练模型</h4><p>两个系统在此步骤的命令完全相同。</p>
+<ol>
+<li><strong>准备数据集</strong>：将你的图片和标签按YOLO格式组织。标签文件是 <code>.txt</code> 格式，内容为 <code>类别id x_center y_center width height</code>（归一化坐标）。目录结构参考如下：<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">your_dataset<span class="symbol">/</span></span><br><span class="line">├── images<span class="symbol">/</span></span><br><span class="line">│   ├── train<span class="symbol">/</span></span><br><span class="line">│   └── val<span class="symbol">/</span></span><br><span class="line">└── labels<span class="symbol">/</span></span><br><span class="line">    ├── train<span class="symbol">/</span></span><br><span class="line">    └── val<span class="operator">/</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>创建数据集配置文件</strong>：创建一个 <code>data.yaml</code> 文件，指明路径和类别。<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">train:</span> <span class="string">/path/to/your_dataset/images/train</span></span><br><span class="line"><span class="attr">val:</span> <span class="string">/path/to/your_dataset/images/val</span></span><br><span class="line"><span class="attr">nc:</span> <span class="number">2</span>  <span class="comment"># 你的物体类别数，例如2类</span></span><br><span class="line"><span class="attr">names:</span> [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>]  <span class="comment"># 类别名称列表</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>启动训练</strong>：使用Ultralytics YOLO简洁的CLI命令进行训练。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo detect train data=data.yaml model=yolov8n.pt epochs=50 imgsz=640</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>yolov8n.pt</code>：可更换为 <code>yolov8s.pt</code>, <code>yolov8m.pt</code> 等不同大小的预训练模型。</li>
+<li><code>epochs</code>、<code>imgsz</code>：可根据你的计算资源和任务调整。</li>
+</ul>
+</li>
+</ol>
+<h4 id="第三步：模型测试与导出"><a href="#第三步：模型测试与导出" class="headerlink" title="第三步：模型测试与导出"></a>第三步：模型测试与导出</h4><ol>
+<li><strong>模型测试</strong>：训练完成后，最佳模型会保存在 <code>runs/detect/train/weights/best.pt</code>。使用它进行预测。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo predict model=runs/detect/train/weights/best.pt <span class="built_in">source</span>=<span class="string">&#x27;path/to/test_image.jpg&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>导出为OpenVINO格式</strong>：这是为Intel CPU优化的关键步骤。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo <span class="built_in">export</span> model=runs/detect/train/weights/best.pt format=openvino</span><br></pre></td></tr></table></figure>
+导出后，你会得到一个 <code>.xml</code>（模型结构）和一个 <code>.bin</code>（模型权重）文件。</li>
+</ol>
+<h4 id="第四步：使用OpenVINO优化与部署"><a href="#第四步：使用OpenVINO优化与部署" class="headerlink" title="第四步：使用OpenVINO优化与部署"></a>第四步：使用OpenVINO优化与部署</h4><p>这是发挥Intel CPU性能潜力的核心。</p>
+<ol>
+<li><strong>编写OpenVINO推理脚本</strong>：创建一个Python脚本（如 <code>openvino_infer.py</code>），使用导出的模型进行高性能推理。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> openvino <span class="keyword">import</span> runtime <span class="keyword">as</span> ov</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 初始化并加载模型</span></span><br><span class="line">core = ov.Core()</span><br><span class="line">compiled_model = core.compile_model(<span class="string">&quot;path/to/best.xml&quot;</span>, <span class="string">&quot;CPU&quot;</span>)  <span class="comment"># 指定CPU设备</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 准备输入数据（需要根据模型要求进行预处理，如调整大小、归一化）</span></span><br><span class="line">image = cv2.imread(<span class="string">&quot;test.jpg&quot;</span>)</span><br><span class="line">input_tensor = np.expand_dims(preprocessed_image, <span class="number">0</span>)  <span class="comment"># 添加batch维度</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 推理</span></span><br><span class="line">results = compiled_model(input_tensor)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 后处理（解析YOLO输出，画框等）</span></span><br><span class="line"><span class="comment"># ... (后处理代码，取决于具体的YOLO版本和导出参数)</span></span><br></pre></td></tr></table></figure>
+<strong>关键说明</strong>：YOLO模型通过OpenVINO导出后，其前处理（如图像归一化）和后处理（解码边界框）可能需要你根据模型原始定义手动完成，或参考OpenVINO官方提供的YOLO范例代码。</li>
+<li><strong>进一步优化（可选）</strong>：<ul>
+<li><strong>量化</strong>：使用OpenVINO的<code>nncf</code>库将FP32模型转换为INT8，可以大幅提升推理速度，精度损失很小。</li>
+<li><strong>性能调优</strong>：在<code>compile_model</code>时，可以配置CPU线程数、推理精度等参数。</li>
+</ul>
+</li>
+</ol>
+<h3 id="核心建议与后续方向"><a href="#核心建议与后续方向" class="headerlink" title="? 核心建议与后续方向"></a>? 核心建议与后续方向</h3><p>为了让你的项目更顺利，这里有一些关键建议：</p>
+<ul>
+<li><strong>从轻量模型开始</strong>：在CPU上训练和推理，建议从 <code>yolov8n</code>（nano）或 <code>yolov8s</code>（small）开始，速度更快。</li>
+<li><strong>利用官方资源</strong>：OpenVINO工具包提供了丰富的<a href="https://github.com/openvinotoolkit/openvino_notebooks">示例代码</a>，其中有完整的YOLO系列从导出到部署的笔记本，是解决具体问题的最佳参考。</li>
+<li><strong>性能对比</strong>：在部署前，用OpenVINO推理脚本和原始的PyTorch模型（<code>best.pt</code>）在相同输入上对比结果，确保转换无误。</li>
+</ul>
+<p>如果你想继续深入，以下几个方向可能会对你有帮助：</p>
+<ol>
+<li><strong>性能瓶颈分析</strong>：如果你的应用对实时性要求高，是否需要分析是CPU算力瓶颈还是推理代码本身的效率问题？</li>
+<li><strong>高级优化技巧</strong>：是否有兴趣了解更深入的OpenVINO优化技术，例如模型剪枝与INT8量化的具体操作？</li>
+<li><strong>部署形态</strong>：你的最终目标是部署成什么样的应用？是桌面软件、Web服务还是嵌入式设备？这会影响技术选型。</li>
+</ol>
+<p>你可以告诉我更具体的兴趣点，我能提供更有针对性的信息。</p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Map</title>
     <url>/2025/11/20/Map/</url>
     <content><![CDATA[<h1 id="C-std-map-使用详细指南"><a href="#C-std-map-使用详细指南" class="headerlink" title="C++ std::map 使用详细指南"></a>C++ std::map 使用详细指南</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
@@ -2327,107 +2428,6 @@
       <tags>
         <tag>C++</tag>
         <tag>map</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu和Windows上YOLO模型训练与部署流程</title>
-    <url>/2025/12/13/Ubuntu%E5%92%8CWindows%E4%B8%8AYOLO%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B/</url>
-    <content><![CDATA[<p>针对在Ubuntu 22.04和Windows 11系统上，使用纯Intel CPU进行YOLO模型训练与应用的需求，我将为你梳理一个清晰的流程。核心是利用<strong>OpenVINO工具套件</strong>对YOLO模型进行优化，以在CPU上获得最佳的推理性能。</p>
-<h3 id="双系统方案概览"><a href="#双系统方案概览" class="headerlink" title="? 双系统方案概览"></a>? 双系统方案概览</h3><p>在开始具体步骤前，你可以通过下面的对比了解两个系统的主要异同，这有助于你根据熟悉的操作环境进行选择。</p>
-<p><strong>Ubuntu 22.04 方案</strong></p>
-<ul>
-<li><strong>核心优势</strong><ul>
-<li><strong>开发友好性</strong>：对Python、C++等开发环境支持原生，命令行操作高效。</li>
-<li><strong>资源开销</strong>：系统本身资源占用相对较低，可将更多算力用于训练。</li>
-<li><strong>部署一致性</strong>：服务器端主流系统，一次开发，部署环境统一。</li>
-</ul>
-</li>
-<li><strong>潜在考虑</strong><ul>
-<li><strong>硬件驱动</strong>：需自行确保CPU等驱动为最新版本以发挥全部性能。</li>
-<li><strong>操作习惯</strong>：若习惯图形界面，需要适应命令行操作。</li>
-</ul>
-</li>
-<li><strong>推荐适用场景</strong><ul>
-<li>模型训练、算法开发、生产服务器部署。</li>
-</ul>
-</li>
-</ul>
-<p><strong>Windows 11 方案</strong></p>
-<ul>
-<li><strong>核心优势</strong><ul>
-<li><strong>生态兼容性</strong>：与常用办公软件、专业工具兼容性好。</li>
-<li><strong>硬件支持</strong>：通常能通过系统更新自动获得最新的硬件驱动支持。</li>
-<li><strong>图形化界面</strong>：拥有丰富的图形化工具（如OpenVINO? C# API），便于快速搭建演示程序。</li>
-</ul>
-</li>
-<li><strong>潜在考虑</strong><ul>
-<li><strong>系统开销</strong>：图形界面本身会占用部分系统资源。</li>
-<li><strong>路径与依赖</strong>：需注意Python环境、路径分隔符（<code>\</code>）与Linux（<code>/</code>）的区别。</li>
-</ul>
-</li>
-<li><strong>推荐适用场景</strong><ul>
-<li>快速原型验证、桌面端应用集成、边缘设备部署（如英特尔开发套件）。</li>
-</ul>
-</li>
-</ul>
-<p><strong>两者的共同核心</strong><br>无论选择哪个系统，后续的<strong>核心工作流程是通用的</strong>，都遵循：准备环境 → 准备数据与训练 → 模型优化 → 应用部署。两个系统的主要区别集中在初始环境配置和部分依赖安装命令上。</p>
-<h3 id="详细步骤指南"><a href="#详细步骤指南" class="headerlink" title="?? 详细步骤指南"></a>?? 详细步骤指南</h3><p>下面以当前主流的 <strong>YOLOv8</strong> 为例（其流程也适用于更新的v9&#x2F;v10等版本），介绍从环境配置到部署的完整步骤。</p>
-<h4 id="第一步：环境配置与项目初始化"><a href="#第一步：环境配置与项目初始化" class="headerlink" title="第一步：环境配置与项目初始化"></a>第一步：环境配置与项目初始化</h4><p>这是操作系统差异最明显的环节，主要是安装方式不同。</p>
-<p><strong>在 Ubuntu 22.04 上</strong></p>
-<ol>
-<li><strong>安装Python及基础工具</strong>：打开终端，运行以下命令。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install python3 python3-pip git</span><br></pre></td></tr></table></figure></li>
-<li><strong>创建虚拟环境</strong>：推荐使用 <code>venv</code> 或 <code>conda</code> 隔离环境。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 -m pip install --user virtualenv</span><br><span class="line">python3 -m virtualenv openvino_env</span><br><span class="line"><span class="built_in">source</span> openvino_env/bin/activate</span><br></pre></td></tr></table></figure></li>
-<li><strong>安装关键库</strong>：在激活的虚拟环境中安装。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p><strong>在 Windows 11 上</strong></p>
-<ol>
-<li><strong>安装Python</strong>：访问 <a href="https://www.python.org/">python.org</a> 下载并安装Python 3.10或3.11，安装时请勾选“Add Python to PATH”。</li>
-<li><strong>使用命令行</strong>：以管理员身份打开“命令提示符”或“PowerShell”。</li>
-<li><strong>创建并激活虚拟环境</strong>：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m venv openvino_win_env</span><br><span class="line">openvino_win_env\Scripts\activate</span><br></pre></td></tr></table></figure></li>
-<li><strong>安装关键库</strong>：命令与Linux相同。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="第二步：准备数据并训练模型"><a href="#第二步：准备数据并训练模型" class="headerlink" title="第二步：准备数据并训练模型"></a>第二步：准备数据并训练模型</h4><p>两个系统在此步骤的命令完全相同。</p>
-<ol>
-<li><strong>准备数据集</strong>：将你的图片和标签按YOLO格式组织。标签文件是 <code>.txt</code> 格式，内容为 <code>类别id x_center y_center width height</code>（归一化坐标）。目录结构参考如下：<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">your_dataset<span class="symbol">/</span></span><br><span class="line">├── images<span class="symbol">/</span></span><br><span class="line">│   ├── train<span class="symbol">/</span></span><br><span class="line">│   └── val<span class="symbol">/</span></span><br><span class="line">└── labels<span class="symbol">/</span></span><br><span class="line">    ├── train<span class="symbol">/</span></span><br><span class="line">    └── val<span class="operator">/</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>创建数据集配置文件</strong>：创建一个 <code>data.yaml</code> 文件，指明路径和类别。<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">train:</span> <span class="string">/path/to/your_dataset/images/train</span></span><br><span class="line"><span class="attr">val:</span> <span class="string">/path/to/your_dataset/images/val</span></span><br><span class="line"><span class="attr">nc:</span> <span class="number">2</span>  <span class="comment"># 你的物体类别数，例如2类</span></span><br><span class="line"><span class="attr">names:</span> [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>]  <span class="comment"># 类别名称列表</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>启动训练</strong>：使用Ultralytics YOLO简洁的CLI命令进行训练。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo detect train data=data.yaml model=yolov8n.pt epochs=50 imgsz=640</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>yolov8n.pt</code>：可更换为 <code>yolov8s.pt</code>, <code>yolov8m.pt</code> 等不同大小的预训练模型。</li>
-<li><code>epochs</code>、<code>imgsz</code>：可根据你的计算资源和任务调整。</li>
-</ul>
-</li>
-</ol>
-<h4 id="第三步：模型测试与导出"><a href="#第三步：模型测试与导出" class="headerlink" title="第三步：模型测试与导出"></a>第三步：模型测试与导出</h4><ol>
-<li><strong>模型测试</strong>：训练完成后，最佳模型会保存在 <code>runs/detect/train/weights/best.pt</code>。使用它进行预测。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo predict model=runs/detect/train/weights/best.pt <span class="built_in">source</span>=<span class="string">&#x27;path/to/test_image.jpg&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>导出为OpenVINO格式</strong>：这是为Intel CPU优化的关键步骤。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo <span class="built_in">export</span> model=runs/detect/train/weights/best.pt format=openvino</span><br></pre></td></tr></table></figure>
-导出后，你会得到一个 <code>.xml</code>（模型结构）和一个 <code>.bin</code>（模型权重）文件。</li>
-</ol>
-<h4 id="第四步：使用OpenVINO优化与部署"><a href="#第四步：使用OpenVINO优化与部署" class="headerlink" title="第四步：使用OpenVINO优化与部署"></a>第四步：使用OpenVINO优化与部署</h4><p>这是发挥Intel CPU性能潜力的核心。</p>
-<ol>
-<li><strong>编写OpenVINO推理脚本</strong>：创建一个Python脚本（如 <code>openvino_infer.py</code>），使用导出的模型进行高性能推理。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> openvino <span class="keyword">import</span> runtime <span class="keyword">as</span> ov</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 初始化并加载模型</span></span><br><span class="line">core = ov.Core()</span><br><span class="line">compiled_model = core.compile_model(<span class="string">&quot;path/to/best.xml&quot;</span>, <span class="string">&quot;CPU&quot;</span>)  <span class="comment"># 指定CPU设备</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 准备输入数据（需要根据模型要求进行预处理，如调整大小、归一化）</span></span><br><span class="line">image = cv2.imread(<span class="string">&quot;test.jpg&quot;</span>)</span><br><span class="line">input_tensor = np.expand_dims(preprocessed_image, <span class="number">0</span>)  <span class="comment"># 添加batch维度</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 推理</span></span><br><span class="line">results = compiled_model(input_tensor)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 后处理（解析YOLO输出，画框等）</span></span><br><span class="line"><span class="comment"># ... (后处理代码，取决于具体的YOLO版本和导出参数)</span></span><br></pre></td></tr></table></figure>
-<strong>关键说明</strong>：YOLO模型通过OpenVINO导出后，其前处理（如图像归一化）和后处理（解码边界框）可能需要你根据模型原始定义手动完成，或参考OpenVINO官方提供的YOLO范例代码。</li>
-<li><strong>进一步优化（可选）</strong>：<ul>
-<li><strong>量化</strong>：使用OpenVINO的<code>nncf</code>库将FP32模型转换为INT8，可以大幅提升推理速度，精度损失很小。</li>
-<li><strong>性能调优</strong>：在<code>compile_model</code>时，可以配置CPU线程数、推理精度等参数。</li>
-</ul>
-</li>
-</ol>
-<h3 id="核心建议与后续方向"><a href="#核心建议与后续方向" class="headerlink" title="? 核心建议与后续方向"></a>? 核心建议与后续方向</h3><p>为了让你的项目更顺利，这里有一些关键建议：</p>
-<ul>
-<li><strong>从轻量模型开始</strong>：在CPU上训练和推理，建议从 <code>yolov8n</code>（nano）或 <code>yolov8s</code>（small）开始，速度更快。</li>
-<li><strong>利用官方资源</strong>：OpenVINO工具包提供了丰富的<a href="https://github.com/openvinotoolkit/openvino_notebooks">示例代码</a>，其中有完整的YOLO系列从导出到部署的笔记本，是解决具体问题的最佳参考。</li>
-<li><strong>性能对比</strong>：在部署前，用OpenVINO推理脚本和原始的PyTorch模型（<code>best.pt</code>）在相同输入上对比结果，确保转换无误。</li>
-</ul>
-<p>如果你想继续深入，以下几个方向可能会对你有帮助：</p>
-<ol>
-<li><strong>性能瓶颈分析</strong>：如果你的应用对实时性要求高，是否需要分析是CPU算力瓶颈还是推理代码本身的效率问题？</li>
-<li><strong>高级优化技巧</strong>：是否有兴趣了解更深入的OpenVINO优化技术，例如模型剪枝与INT8量化的具体操作？</li>
-<li><strong>部署形态</strong>：你的最终目标是部署成什么样的应用？是桌面软件、Web服务还是嵌入式设备？这会影响技术选型。</li>
-</ol>
-<p>你可以告诉我更具体的兴趣点，我能提供更有针对性的信息。</p>
-]]></content>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
