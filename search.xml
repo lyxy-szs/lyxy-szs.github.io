@@ -416,6 +416,376 @@
       </tags>
   </entry>
   <entry>
+    <title>Map</title>
+    <url>/2025/11/20/Map/</url>
+    <content><![CDATA[<h1 id="C-std-map-使用详细指南"><a href="#C-std-map-使用详细指南" class="headerlink" title="C++ std::map 使用详细指南"></a>C++ std::map 使用详细指南</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-stdmap">什么是 std::map</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">基本用法</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C">常用操作</a></li>
+<li><a href="#%E9%81%8D%E5%8E%86-map">遍历 map</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E7%89%B9%E7%82%B9">性能特点</a></li>
+<li><a href="#%E5%AE%9E%E9%99%85%E7%A4%BA%E4%BE%8B">实际示例</a></li>
+<li><a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">常见问题</a></li>
+</ol>
+<h2 id="什么是-std-map"><a href="#什么是-std-map" class="headerlink" title="什么是 std::map"></a>什么是 std::map</h2><p><code>std::map</code> 是 C++ 标准模板库(STL)中的一个关联容器，它存储键值对(key-value pairs)，并根据键自动排序。</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>键是唯一的（不允许重复）</li>
+<li>按键自动排序（默认升序）</li>
+<li>基于红黑树实现</li>
+<li>查找、插入、删除的时间复杂度：O(log n)</li>
+</ul>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="声明和初始化"><a href="#声明和初始化" class="headerlink" title="声明和初始化"></a>声明和初始化</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 基本声明</span></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; studentScores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化列表（C++11及以上）</span></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; studentScores = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">90</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">85</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 make_pair</span></span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; idToName;</span><br><span class="line">idToName.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="number">1</span>, <span class="string">&quot;Alice&quot;</span>));</span><br><span class="line">idToName.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="number">2</span>, <span class="string">&quot;Bob&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><h3 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：使用 [] 运算符</span></span><br><span class="line">scores[<span class="string">&quot;Alice&quot;</span>] = <span class="number">95</span>;</span><br><span class="line">scores[<span class="string">&quot;Bob&quot;</span>] = <span class="number">87</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：使用 insert 函数</span></span><br><span class="line">scores.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>));</span><br><span class="line">scores.<span class="built_in">insert</span>(&#123;<span class="string">&quot;David&quot;</span>, <span class="number">88</span>&#125;);  <span class="comment">// C++11</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：使用 emplace（C++11，更高效）</span></span><br><span class="line">scores.<span class="built_in">emplace</span>(<span class="string">&quot;Eve&quot;</span>, <span class="number">91</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：使用 [] 运算符（如果键不存在会创建）</span></span><br><span class="line">std::cout &lt;&lt; scores[<span class="string">&quot;Alice&quot;</span>] &lt;&lt; std::endl;  <span class="comment">// 输出: 95</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：使用 at() 函数（如果键不存在会抛出异常）</span></span><br><span class="line">std::cout &lt;&lt; scores.<span class="built_in">at</span>(<span class="string">&quot;Bob&quot;</span>) &lt;&lt; std::endl; <span class="comment">// 输出: 87</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：使用 find() 函数（安全的方式）</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Not found&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接赋值修改</span></span><br><span class="line">scores[<span class="string">&quot;Alice&quot;</span>] = <span class="number">98</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过迭代器修改值（不能修改键）</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    it-&gt;second = <span class="number">100</span>;  <span class="comment">// 修改值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：通过键删除</span></span><br><span class="line">scores.<span class="built_in">erase</span>(<span class="string">&quot;Bob&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：通过迭代器删除</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    scores.<span class="built_in">erase</span>(it);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：删除范围内的元素</span></span><br><span class="line">scores.<span class="built_in">erase</span>(scores.<span class="built_in">begin</span>(), std::<span class="built_in">next</span>(scores.<span class="built_in">begin</span>(), <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法4：清空所有元素</span></span><br><span class="line">scores.<span class="built_in">clear</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="查找和判断"><a href="#查找和判断" class="headerlink" title="查找和判断"></a>查找和判断</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找元素</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Found: &quot;</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot; -&gt; &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查元素是否存在（C++20）</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">contains</span>(<span class="string">&quot;Alice&quot;</span>)) &#123;  <span class="comment">// C++20</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Alice exists&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计数（对于map，只能是0或1）</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">count</span>(<span class="string">&quot;Bob&quot;</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Bob exists&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查是否为空</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Map is empty&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="遍历-map"><a href="#遍历-map" class="headerlink" title="遍历 map"></a>遍历 map</h2><h3 id="使用迭代器"><a href="#使用迭代器" class="headerlink" title="使用迭代器"></a>使用迭代器</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正向迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = scores.<span class="built_in">begin</span>(); it != scores.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反向迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = scores.<span class="built_in">rbegin</span>(); it != scores.<span class="built_in">rend</span>(); ++it) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用范围循环（C-11）"><a href="#使用范围循环（C-11）" class="headerlink" title="使用范围循环（C++11）"></a>使用范围循环（C++11）</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 值拷贝（不推荐用于大对象）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; pair : scores) &#123;</span><br><span class="line">    std::cout &lt;&lt; pair.first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; pair.second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用（推荐）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [key, value] : scores) &#123;  <span class="comment">// C++17 结构化绑定</span></span><br><span class="line">    std::cout &lt;&lt; key &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="容量信息"><a href="#容量信息" class="headerlink" title="容量信息"></a>容量信息</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 元素数量</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;Size: &quot;</span> &lt;&lt; scores.<span class="built_in">size</span>() &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最大可能的大小</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;Max size: &quot;</span> &lt;&lt; scores.<span class="built_in">max_size</span>() &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义比较函数"><a href="#自定义比较函数" class="headerlink" title="自定义比较函数"></a>自定义比较函数</h2><h3 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 按字符串长度排序</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">StringLengthComparator</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> std::string&amp; a, <span class="type">const</span> std::string&amp; b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a.<span class="built_in">length</span>() &lt; b.<span class="built_in">length</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>, StringLengthComparator&gt; scoresByLength;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 lambda 表达式（C++11）</span></span><br><span class="line"><span class="keyword">auto</span> comparator = [](<span class="type">const</span> std::string&amp; a, <span class="type">const</span> std::string&amp; b) &#123;</span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">length</span>() &lt; b.<span class="built_in">length</span>();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">std::map&lt;std::string, <span class="type">int</span>, <span class="title">decltype</span><span class="params">(comparator)</span>&gt; <span class="title">scores</span><span class="params">(comparator)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="降序排列"><a href="#降序排列" class="headerlink" title="降序排列"></a>降序排列</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 方法1：使用 std::greater</span></span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string, std::greater&lt;<span class="type">int</span>&gt;&gt; descendingMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：自定义比较函数</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">DescendingComparator</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;  <span class="comment">// 降序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string, DescendingComparator&gt; customDescendingMap;</span><br></pre></td></tr></table></figure>
+
+<h2 id="性能特点"><a href="#性能特点" class="headerlink" title="性能特点"></a>性能特点</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>时间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插入</td>
+<td>O(log n)</td>
+<td>基于红黑树</td>
+</tr>
+<tr>
+<td>查找</td>
+<td>O(log n)</td>
+<td>基于红黑树</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>O(log n)</td>
+<td>基于红黑树</td>
+</tr>
+<tr>
+<td>遍历</td>
+<td>O(n)</td>
+<td>顺序访问所有元素</td>
+</tr>
+<tr>
+<td>空间</td>
+<td>O(n)</td>
+<td>存储所有键值对</td>
+</tr>
+</tbody></table>
+<h2 id="实际示例"><a href="#实际示例" class="headerlink" title="实际示例"></a>实际示例</h2><h3 id="示例1：单词计数器"><a href="#示例1：单词计数器" class="headerlink" title="示例1：单词计数器"></a>示例1：单词计数器</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::map&lt;std::string, <span class="type">int</span>&gt; wordCount;</span><br><span class="line">    std::string word;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取单词并计数</span></span><br><span class="line">    <span class="keyword">while</span> (std::cin &gt;&gt; word) &#123;</span><br><span class="line">        ++wordCount[word];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [word, count] : wordCount) &#123;</span><br><span class="line">        std::cout &lt;&lt; word &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; count &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="示例2：学生成绩管理系统"><a href="#示例2：学生成绩管理系统" class="headerlink" title="示例2：学生成绩管理系统"></a>示例2：学生成绩管理系统</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">StudentManager</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::map&lt;<span class="type">int</span>, std::string&gt; students;  <span class="comment">// 学号 -&gt; 姓名</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addStudent</span><span class="params">(<span class="type">int</span> id, <span class="type">const</span> std::string&amp; name)</span> </span>&#123;</span><br><span class="line">        students[id] = name;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">removeStudent</span><span class="params">(<span class="type">int</span> id)</span> </span>&#123;</span><br><span class="line">        students.<span class="built_in">erase</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">std::string <span class="title">findStudent</span><span class="params">(<span class="type">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> it = students.<span class="built_in">find</span>(id);</span><br><span class="line">        <span class="keyword">if</span> (it != students.<span class="built_in">end</span>()) &#123;</span><br><span class="line">            <span class="keyword">return</span> it-&gt;second;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Not found&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">printAllStudents</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [id, name] : students) &#123;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;ID: &quot;</span> &lt;&lt; id &lt;&lt; <span class="string">&quot;, Name: &quot;</span> &lt;&lt; name &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StudentManager manager;</span><br><span class="line">    </span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1001</span>, <span class="string">&quot;Alice&quot;</span>);</span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1002</span>, <span class="string">&quot;Bob&quot;</span>);</span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1003</span>, <span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;All students:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    manager.<span class="built_in">printAllStudents</span>();</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;\nStudent with ID 1002: &quot;</span> &lt;&lt; manager.<span class="built_in">findStudent</span>(<span class="number">1002</span>) &lt;&lt; std::endl;</span><br><span class="line">    </span><br><span class="line">    manager.<span class="built_in">removeStudent</span>(<span class="number">1001</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;\nAfter removing ID 1001:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    manager.<span class="built_in">printAllStudents</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="1-键不存在时的行为"><a href="#1-键不存在时的行为" class="headerlink" title="1. 键不存在时的行为"></a>1. 键不存在时的行为</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 [] 访问不存在的键会创建该键（值为默认构造）</span></span><br><span class="line"><span class="type">int</span> value = scores[<span class="string">&quot;Unknown&quot;</span>];  <span class="comment">// 创建键 &quot;Unknown&quot;，值为 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 at() 会抛出 std::out_of_range 异常</span></span><br><span class="line"><span class="comment">// int value = scores.at(&quot;Unknown&quot;);  // 抛出异常</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-迭代器失效"><a href="#2-迭代器失效" class="headerlink" title="2. 迭代器失效"></a>2. 迭代器失效</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; myMap = &#123;&#123;<span class="number">1</span>, <span class="string">&quot;one&quot;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&quot;two&quot;</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">auto</span> it = myMap.<span class="built_in">find</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除操作会使指向被删除元素的迭代器失效</span></span><br><span class="line">myMap.<span class="built_in">erase</span>(it);</span><br><span class="line"><span class="comment">// it 现在已失效，不能再使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但其他迭代器仍然有效</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-性能考虑"><a href="#3-性能考虑" class="headerlink" title="3. 性能考虑"></a>3. 性能考虑</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 如果不需要排序，考虑使用 std::unordered_map（哈希表）</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line">std::unordered_map&lt;std::string, <span class="type">int</span>&gt; hashMap;  <span class="comment">// 平均 O(1) 操作</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-自定义类型作为键"><a href="#4-自定义类型作为键" class="headerlink" title="4. 自定义类型作为键"></a>4. 自定义类型作为键</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    std::string name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 需要定义比较运算符</span></span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> Person&amp; other) <span class="type">const</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (name == other.name) &#123;</span><br><span class="line">            <span class="keyword">return</span> age &lt; other.age;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> name &lt; other.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::map&lt;Person, <span class="type">int</span>&gt; personScores;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>std::map</code> 是 C++ 中非常有用的关联容器，适用于需要按键排序和快速查找的场景。掌握它的基本用法和特性，能够帮助你在编程中更高效地处理键值对数据。</p>
+<p><strong>关键要点：</strong></p>
+<ul>
+<li>使用 <code>[]</code> 运算符进行插入和访问</li>
+<li>使用 <code>find()</code> 进行安全查找</li>
+<li>使用范围循环进行遍历</li>
+<li>了解时间复杂度特征</li>
+<li>根据需求选择合适的比较函数</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Cpp编程</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>map</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu和Windows上YOLO模型训练与部署流程</title>
+    <url>/2025/12/13/Ubuntu%E5%92%8CWindows%E4%B8%8AYOLO%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<p>针对在Ubuntu 22.04和Windows 11系统上，使用纯Intel CPU进行YOLO模型训练与应用的需求，我将为你梳理一个清晰的流程。核心是利用<strong>OpenVINO工具套件</strong>对YOLO模型进行优化，以在CPU上获得最佳的推理性能。</p>
+<h3 id="双系统方案概览"><a href="#双系统方案概览" class="headerlink" title="? 双系统方案概览"></a>? 双系统方案概览</h3><p>在开始具体步骤前，你可以通过下面的对比了解两个系统的主要异同，这有助于你根据熟悉的操作环境进行选择。</p>
+<p><strong>Ubuntu 22.04 方案</strong></p>
+<ul>
+<li><strong>核心优势</strong><ul>
+<li><strong>开发友好性</strong>：对Python、C++等开发环境支持原生，命令行操作高效。</li>
+<li><strong>资源开销</strong>：系统本身资源占用相对较低，可将更多算力用于训练。</li>
+<li><strong>部署一致性</strong>：服务器端主流系统，一次开发，部署环境统一。</li>
+</ul>
+</li>
+<li><strong>潜在考虑</strong><ul>
+<li><strong>硬件驱动</strong>：需自行确保CPU等驱动为最新版本以发挥全部性能。</li>
+<li><strong>操作习惯</strong>：若习惯图形界面，需要适应命令行操作。</li>
+</ul>
+</li>
+<li><strong>推荐适用场景</strong><ul>
+<li>模型训练、算法开发、生产服务器部署。</li>
+</ul>
+</li>
+</ul>
+<p><strong>Windows 11 方案</strong></p>
+<ul>
+<li><strong>核心优势</strong><ul>
+<li><strong>生态兼容性</strong>：与常用办公软件、专业工具兼容性好。</li>
+<li><strong>硬件支持</strong>：通常能通过系统更新自动获得最新的硬件驱动支持。</li>
+<li><strong>图形化界面</strong>：拥有丰富的图形化工具（如OpenVINO? C# API），便于快速搭建演示程序。</li>
+</ul>
+</li>
+<li><strong>潜在考虑</strong><ul>
+<li><strong>系统开销</strong>：图形界面本身会占用部分系统资源。</li>
+<li><strong>路径与依赖</strong>：需注意Python环境、路径分隔符（<code>\</code>）与Linux（<code>/</code>）的区别。</li>
+</ul>
+</li>
+<li><strong>推荐适用场景</strong><ul>
+<li>快速原型验证、桌面端应用集成、边缘设备部署（如英特尔开发套件）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>两者的共同核心</strong><br>无论选择哪个系统，后续的<strong>核心工作流程是通用的</strong>，都遵循：准备环境 → 准备数据与训练 → 模型优化 → 应用部署。两个系统的主要区别集中在初始环境配置和部分依赖安装命令上。</p>
+<h3 id="详细步骤指南"><a href="#详细步骤指南" class="headerlink" title="?? 详细步骤指南"></a>?? 详细步骤指南</h3><p>下面以当前主流的 <strong>YOLOv8</strong> 为例（其流程也适用于更新的v9&#x2F;v10等版本），介绍从环境配置到部署的完整步骤。</p>
+<h4 id="第一步：环境配置与项目初始化"><a href="#第一步：环境配置与项目初始化" class="headerlink" title="第一步：环境配置与项目初始化"></a>第一步：环境配置与项目初始化</h4><p>这是操作系统差异最明显的环节，主要是安装方式不同。</p>
+<p><strong>在 Ubuntu 22.04 上</strong></p>
+<ol>
+<li><strong>安装Python及基础工具</strong>：打开终端，运行以下命令。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install python3 python3-pip git</span><br></pre></td></tr></table></figure></li>
+<li><strong>创建虚拟环境</strong>：推荐使用 <code>venv</code> 或 <code>conda</code> 隔离环境。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 -m pip install --user virtualenv</span><br><span class="line">python3 -m virtualenv openvino_env</span><br><span class="line"><span class="built_in">source</span> openvino_env/bin/activate</span><br></pre></td></tr></table></figure></li>
+<li><strong>安装关键库</strong>：在激活的虚拟环境中安装。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>在 Windows 11 上</strong></p>
+<ol>
+<li><strong>安装Python</strong>：访问 <a href="https://www.python.org/">python.org</a> 下载并安装Python 3.10或3.11，安装时请勾选“Add Python to PATH”。</li>
+<li><strong>使用命令行</strong>：以管理员身份打开“命令提示符”或“PowerShell”。</li>
+<li><strong>创建并激活虚拟环境</strong>：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m venv openvino_win_env</span><br><span class="line">openvino_win_env\Scripts\activate</span><br></pre></td></tr></table></figure></li>
+<li><strong>安装关键库</strong>：命令与Linux相同。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="第二步：准备数据并训练模型"><a href="#第二步：准备数据并训练模型" class="headerlink" title="第二步：准备数据并训练模型"></a>第二步：准备数据并训练模型</h4><p>两个系统在此步骤的命令完全相同。</p>
+<ol>
+<li><strong>准备数据集</strong>：将你的图片和标签按YOLO格式组织。标签文件是 <code>.txt</code> 格式，内容为 <code>类别id x_center y_center width height</code>（归一化坐标）。目录结构参考如下：<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">your_dataset<span class="symbol">/</span></span><br><span class="line">├── images<span class="symbol">/</span></span><br><span class="line">│   ├── train<span class="symbol">/</span></span><br><span class="line">│   └── val<span class="symbol">/</span></span><br><span class="line">└── labels<span class="symbol">/</span></span><br><span class="line">    ├── train<span class="symbol">/</span></span><br><span class="line">    └── val<span class="operator">/</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>创建数据集配置文件</strong>：创建一个 <code>data.yaml</code> 文件，指明路径和类别。<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">train:</span> <span class="string">/path/to/your_dataset/images/train</span></span><br><span class="line"><span class="attr">val:</span> <span class="string">/path/to/your_dataset/images/val</span></span><br><span class="line"><span class="attr">nc:</span> <span class="number">2</span>  <span class="comment"># 你的物体类别数，例如2类</span></span><br><span class="line"><span class="attr">names:</span> [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>]  <span class="comment"># 类别名称列表</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>启动训练</strong>：使用Ultralytics YOLO简洁的CLI命令进行训练。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo detect train data=data.yaml model=yolov8n.pt epochs=50 imgsz=640</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>yolov8n.pt</code>：可更换为 <code>yolov8s.pt</code>, <code>yolov8m.pt</code> 等不同大小的预训练模型。</li>
+<li><code>epochs</code>、<code>imgsz</code>：可根据你的计算资源和任务调整。</li>
+</ul>
+</li>
+</ol>
+<h4 id="第三步：模型测试与导出"><a href="#第三步：模型测试与导出" class="headerlink" title="第三步：模型测试与导出"></a>第三步：模型测试与导出</h4><ol>
+<li><strong>模型测试</strong>：训练完成后，最佳模型会保存在 <code>runs/detect/train/weights/best.pt</code>。使用它进行预测。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo predict model=runs/detect/train/weights/best.pt <span class="built_in">source</span>=<span class="string">&#x27;path/to/test_image.jpg&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>导出为OpenVINO格式</strong>：这是为Intel CPU优化的关键步骤。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo <span class="built_in">export</span> model=runs/detect/train/weights/best.pt format=openvino</span><br></pre></td></tr></table></figure>
+导出后，你会得到一个 <code>.xml</code>（模型结构）和一个 <code>.bin</code>（模型权重）文件。</li>
+</ol>
+<h4 id="第四步：使用OpenVINO优化与部署"><a href="#第四步：使用OpenVINO优化与部署" class="headerlink" title="第四步：使用OpenVINO优化与部署"></a>第四步：使用OpenVINO优化与部署</h4><p>这是发挥Intel CPU性能潜力的核心。</p>
+<ol>
+<li><strong>编写OpenVINO推理脚本</strong>：创建一个Python脚本（如 <code>openvino_infer.py</code>），使用导出的模型进行高性能推理。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> openvino <span class="keyword">import</span> runtime <span class="keyword">as</span> ov</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 初始化并加载模型</span></span><br><span class="line">core = ov.Core()</span><br><span class="line">compiled_model = core.compile_model(<span class="string">&quot;path/to/best.xml&quot;</span>, <span class="string">&quot;CPU&quot;</span>)  <span class="comment"># 指定CPU设备</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 准备输入数据（需要根据模型要求进行预处理，如调整大小、归一化）</span></span><br><span class="line">image = cv2.imread(<span class="string">&quot;test.jpg&quot;</span>)</span><br><span class="line">input_tensor = np.expand_dims(preprocessed_image, <span class="number">0</span>)  <span class="comment"># 添加batch维度</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 推理</span></span><br><span class="line">results = compiled_model(input_tensor)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 后处理（解析YOLO输出，画框等）</span></span><br><span class="line"><span class="comment"># ... (后处理代码，取决于具体的YOLO版本和导出参数)</span></span><br></pre></td></tr></table></figure>
+<strong>关键说明</strong>：YOLO模型通过OpenVINO导出后，其前处理（如图像归一化）和后处理（解码边界框）可能需要你根据模型原始定义手动完成，或参考OpenVINO官方提供的YOLO范例代码。</li>
+<li><strong>进一步优化（可选）</strong>：<ul>
+<li><strong>量化</strong>：使用OpenVINO的<code>nncf</code>库将FP32模型转换为INT8，可以大幅提升推理速度，精度损失很小。</li>
+<li><strong>性能调优</strong>：在<code>compile_model</code>时，可以配置CPU线程数、推理精度等参数。</li>
+</ul>
+</li>
+</ol>
+<h3 id="核心建议与后续方向"><a href="#核心建议与后续方向" class="headerlink" title="? 核心建议与后续方向"></a>? 核心建议与后续方向</h3><p>为了让你的项目更顺利，这里有一些关键建议：</p>
+<ul>
+<li><strong>从轻量模型开始</strong>：在CPU上训练和推理，建议从 <code>yolov8n</code>（nano）或 <code>yolov8s</code>（small）开始，速度更快。</li>
+<li><strong>利用官方资源</strong>：OpenVINO工具包提供了丰富的<a href="https://github.com/openvinotoolkit/openvino_notebooks">示例代码</a>，其中有完整的YOLO系列从导出到部署的笔记本，是解决具体问题的最佳参考。</li>
+<li><strong>性能对比</strong>：在部署前，用OpenVINO推理脚本和原始的PyTorch模型（<code>best.pt</code>）在相同输入上对比结果，确保转换无误。</li>
+</ul>
+<p>如果你想继续深入，以下几个方向可能会对你有帮助：</p>
+<ol>
+<li><strong>性能瓶颈分析</strong>：如果你的应用对实时性要求高，是否需要分析是CPU算力瓶颈还是推理代码本身的效率问题？</li>
+<li><strong>高级优化技巧</strong>：是否有兴趣了解更深入的OpenVINO优化技术，例如模型剪枝与INT8量化的具体操作？</li>
+<li><strong>部署形态</strong>：你的最终目标是部署成什么样的应用？是桌面软件、Web服务还是嵌入式设备？这会影响技术选型。</li>
+</ol>
+<p>你可以告诉我更具体的兴趣点，我能提供更有针对性的信息。</p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>bat脚本一日游</title>
+    <url>/2025/08/20/a-travel-of-bat/</url>
+    <content><![CDATA[<h1 id="这段时间在搞hexo博客"><a href="#这段时间在搞hexo博客" class="headerlink" title="这段时间在搞hexo博客"></a>这段时间在搞hexo博客</h1><p>  因为要本地编写、测试、上传博客，每次都要打代码，我嫌麻烦打算写个bat脚本来一键完成。</p>
+<h2 id="Part-0-创建脚本（基础须知-可跳转到-Part-1）"><a href="#Part-0-创建脚本（基础须知-可跳转到-Part-1）" class="headerlink" title="Part.0 创建脚本（基础须知,可跳转到 ###Part.1）"></a>Part.0 创建脚本（基础须知,可跳转到 ###Part.1）</h2><p>   先创建一个文本文档，将文件后缀名改为.bat，右键打开编辑。<br>   <code>@echo off</code>**@**是不显示当前行命令，<strong>echo off</strong>是不显示下述命令。<br>   <code>::或REM</code> 空格后加注释，<em><strong>注意换行</strong></em>。<br>   <code>pause</code>暂停，输入任意值继续。</p>
+<p>   <code>set</code>set 命令定义变量.eg:<code>set var=value</code>，这里 var 是变量名，value 是变量的值。<br>   <code> setlocal enabledelayedexpansion</code>当变量的值在循环中可能会发生变化时，需要开启延迟变量扩展,用<code>!var!</code>的形式访问变量。<br>   <code>%</code>访问变量的值需要用 % 括起来，eg:<code>echo %var%</code>会在命令提示符窗口输出变量 var 的值。</p>
+<p>   <code>echo</code>用于在命令提示符窗口输出文本信息。<br>   <code>mkdir</code>用于创建目录。eg:<code>mkdir new folder</code> 会在当前目录下创建一个名为 new folder 的新文件夹。<br>   <code>cd</code>切换目录。<code>cd new folder</code>会进入刚刚创建的 new folder 目录；<code>cd..</code>可以返回上一级目录。<br>   <code>dir</code>列出目录中的文件和子目录。dir 命令会显示当前目录下的内容,<code>dir /s</code>可以递归列出当前目录及其所有子目录下的内容。<br>   <code>explorer</code>可以打开路径（”文件路径”），直接后加<code> /select,文件路径</code>可选中文件</p>
+<h4 id="start命令"><a href="#start命令" class="headerlink" title="start命令"></a><code>start</code>命令</h4><p>   用法：<code>start [“title”] [parameters] “program name” [command line parameters]</code><br>   其中：<br>   **“title”**是可选的，是要启动的窗口的标题。<br>   <strong>parameters</strong>也是可选的，指定窗口的大小、状态等。eg:<code>/min</code>表示以最小化窗口启动,<code>/max</code>表示以最大化窗口启动。<br>   **“program name”**要启动的程序的名称或可执行文件的路径。如果路径包含空格，同样需要用双引号括起来。eg:<code>start “C:\Program Files\Microsoft Office\Excel.exe”</code>会启动 Excel 程序。(双引号不可省略)<br>   <strong>command - line parameters</strong>传递给程序的命令行参数。比如你有一个网址，想用edge打开 eg:<code>start &quot;Edge&quot; &quot;https://www.baidu.com&quot;</code></p>
+<p>  剩下的可以问AI，</p>
+<h2 id="Part-1-写个博客"><a href="#Part-1-写个博客" class="headerlink" title="Part.1 写个博客"></a>Part.1 写个博客</h2><p>   <code>@hexo new &quot;new&quot;&amp;&amp;explorer.exe /select,C:\Users\Admin\Desktop\hexo\source\_posts\new.md</code><br>解释：先用hexo创建一个名为new的文件，在打开并选中该文件，<strong><del>不实现自动改名是因为我试了半天都实现不了，连键入F2都不行</del></strong></p>
+<h2 id="Part-2-本地测试博客"><a href="#Part-2-本地测试博客" class="headerlink" title="Part.2 本地测试博客"></a>Part.2 本地测试博客</h2><p>   <code>hexo clean&amp;&amp;start &quot;Edge&quot; &quot;http://localhost:4000&quot;&amp;&amp;hexo s</code><br>解释：先清理缓存，用edge打开本地端口，再开启本地博客服务，因为代码是从前向后运行，所以顺序不可改，先运行<code>hexo s</code>会导致无法自动打开浏览器</p>
+<h2 id="Part-3-上传博客"><a href="#Part-3-上传博客" class="headerlink" title="Part.3 上传博客"></a>Part.3 上传博客</h2><p>   <code>hexo clean&amp;&amp;hexo generate&amp;&amp;hexo deploy&amp;&amp;pause</code><br>解释：<code>pause</code>的作用是在正常上传博客之后，留有一个任意键的窗口，从而知晓博客正常上传与否</p>
+<h3 id="保存为bat，你就获得的自动化脚本"><a href="#保存为bat，你就获得的自动化脚本" class="headerlink" title="保存为bat，你就获得的自动化脚本"></a>保存为bat，你就获得的自动化脚本</h3><p>另外，part·1中废稿粘在下面，希望有人可以解疑———为什么它无法正常运行</p>
+<details>
+<summary>点击展开完整代码（batch）</summary>
+
+<pre><code class="language-batch">@echo off
+setlocal enabledelayedexpansion
+
+echo 正在创建新的Hexo博客文章...
+call hexo new &quot;new_blog&quot;
+
+if errorlevel 1 (
+    echo 错误: 创建博客文章失败
+    echo 请确保:
+    echo 1. Hexo已正确安装
+    echo 2. 当前目录是Hexo博客根目录
+    pause
+    exit /b 1
+)
+
+set &quot;postPath=C:\Users\Admin\Desktop\hexo\source\_posts\&quot;
+set &quot;oldFileName=new_blog.md&quot;
+
+rem 检查文章目录是否存在
+if not exist &quot;!postPath!&quot; (
+    echo 错误: 文章目录不存在: !postPath!
+    echo 请检查路径是否正确
+    pause
+    exit /b 1
+)
+
+echo.
+echo 请输入新的文件名(不含扩展名)，直接回车将保持原文件名:
+set /p &quot;newName=&quot;
+
+if &quot;!newName!&quot;==&quot;&quot; (
+    echo 保持原文件名: new_blog.md
+    set &quot;finalFileName=!oldFileName!&quot;
+) else (
+    echo 正在将文件重命名为: !newName!.md
+    
+    rem 检查原文件是否存在
+    if not exist &quot;!postPath!!oldFileName!&quot; (
+        echo 错误: 原文件 !postPath!!oldFileName! 不存在
+        echo 请检查Hexo是否成功创建了文章
+        pause
+        exit /b 1
+    )
+    
+    rem 执行重命名操作
+    ren &quot;!postPath!!oldFileName!&quot; &quot;!newName!.md&quot;
+    
+    if errorlevel 1 (
+        echo 错误: 重命名文件失败
+        echo 可能的原因:
+        echo 1. 新文件名包含非法字符
+        echo 2. 已存在同名文件
+        echo 3. 没有足够的权限
+        pause
+        exit /b 1
+    )
+    
+    set &quot;finalFileName=!newName!.md&quot;
+)
+
+echo 博客文章创建完成: !finalFileName!
+
+rem 打开文件
+if exist &quot;!postPath!!finalFileName!&quot; (
+    echo 正在打开文件...
+    start &quot;&quot; &quot;!postPath!!finalFileName!&quot;
+) else (
+    echo 警告: 文件 !postPath!!finalFileName! 不存在，无法打开
+)
+
+echo.
+echo 按任意键退出...
+pause &gt;nul
+
+
+
+
+
+</code></pre>
+]]></content>
+      <categories>
+        <category>Bat脚本</category>
+      </categories>
+      <tags>
+        <tag>bat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>蓝桥杯</title>
+    <url>/2025/09/14/bluebridge/</url>
+    <content><![CDATA[<h2 id="设计师调度分配"><a href="#设计师调度分配" class="headerlink" title="设计师调度分配"></a>设计师调度分配</h2><p>在一个创意工作室中，三位设计师李工、王工和张工分别负责三项独立的模型制作任务。李工完成任务需要a1秒，王工需要a2秒，张工需要a3秒。工作室的建模平台一次只能容纳两名设计师工作，第三位设计师需等待，直到平台空闲（即当前一位设计师完成任务离开）才能开始工作。所有模型全部完成时，项目才算正式交付。<br>现在，经理希望合理调度设计师的工作顺序，以最短时间完成所有任务。请你计算三位设计师完成三件模型的最小总时间。<br>输入格式<code>3 5 7</code><br>输出结果<code>8</code></p>
+<p>代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  vector&lt;<span class="type">int</span>&gt; numbers;</span><br><span class="line">  <span class="type">int</span> a1, a2, a3, c;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin &gt;&gt; a;</span><br><span class="line">    numbers.<span class="built_in">push_back</span>(a);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="built_in">sort</span>(numbers.<span class="built_in">begin</span>(), numbers.<span class="built_in">end</span>());</span><br><span class="line">  a1 = numbers[<span class="number">0</span>];</span><br><span class="line">  a2 = numbers[<span class="number">1</span>];</span><br><span class="line">  a3 = numbers[<span class="number">2</span>]; </span><br><span class="line">  </span><br><span class="line">  c=a1 + a2;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(c &gt;= a3)&#123;</span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">    cout &lt;&lt; a3 &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="妈妈的菜单"><a href="#妈妈的菜单" class="headerlink" title="妈妈的菜单"></a>妈妈的菜单</h2><p> 小蓝是个挑食但又容易饿的孩子。午餐时间，妈妈为他准备了 10 道菜，并写下了一份菜单。菜单上的每道菜都有一个“饱腹值”，表示吃下这道菜能增加多少饱腹感。</p>
+<p>妈妈会严格按照菜单的顺序，从第一道菜开始逐一端上餐桌。小蓝可以选择吃或不吃当前这道菜。然而，一旦他决定不吃某一道菜，妈妈就会认为他已经吃饱了，并停止端上后续的所有菜肴。</p>
+<p>小蓝虽然容易饿，但也不喜欢吃得太撑的感觉。因此，他希望午餐后自己的饱腹值能停留在 100 附近。</p>
+<p>现在，请你根据小蓝的情况计算，他最终会获得的饱腹值是多少。</p>
+<p>注意：如果存在两种选择，它们与 100 的差距相同（例如，饱腹值为 98 和 102），他总是会选择那个更高的值——毕竟，对于一个正在长身体的孩子来说，吃撑一点总比饿着肚子好。</p>
+<p>输入格式<code>20 10 10 10 10 10 10 10 15 15</code><br>输出格式<code>105</code></p>
+<p>代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span> <span class="comment">// 用于abs函数</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">short</span> food[<span class="number">10</span>]; <span class="comment">// 存储10道菜的饱腹值</span></span><br><span class="line">    <span class="type">int</span> best = <span class="number">0</span>;   <span class="comment">// 最佳饱腹值（初始为0，表示什么都不吃）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取10道菜的饱腹值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        cin &gt;&gt; food[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> current = <span class="number">0</span>; <span class="comment">// 当前累计饱腹值</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历所有可能的前缀和（吃前0道、前1道、...、前10道菜）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        current += food[i]; <span class="comment">// 吃当前这道菜</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查当前饱腹值是否比之前的最佳选择更好</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) &lt; <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            best = current; <span class="comment">// 更接近100，更新最佳值</span></span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) == <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (current &gt; best) &#123; <span class="comment">// 差距相同，选择更高的值</span></span><br><span class="line">                best = current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 注意：这里不能break，因为要继续考虑所有可能的前缀和</span></span><br><span class="line">        <span class="comment">// 即使当前已经超过100，后面可能还有更接近100的情况</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; best &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="挑选题目"><a href="#挑选题目" class="headerlink" title="挑选题目"></a>挑选题目</h2><p>两位资深的审题专家，小蓝和小桥，各自收到了N道题目。小蓝收到的题目难度依次为 A1,A2,A3…An，小桥收到的题目难度依次为B1,B2,B3…Bn，为了准备即将举行的竞赛，他们需要从各自收到的题目中选出一道，用于竞赛。通过商量，两人决定通过一种特殊的方式来选择题目：两人轮流删除一道自己手中的题目，直到各自只剩下一道题目。小蓝先删除，然后小桥删除，依此交替进行，直到最后两人手中都只剩下一道题目。小蓝希望最终两人剩下的两道题目的难度差尽可能大，而小桥则希望难度差尽可能小。假设两人都采取最优策略，请问最终两人剩下的两道题目的难度差的绝对值是多少？</p>
+<details>
+<summary>for双层循环示例（cpp）</summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a[<span class="number">999</span>],b[<span class="number">999</span>];</span><br><span class="line">  <span class="type">int</span> min=<span class="number">9999999</span>;</span><br><span class="line">  <span class="type">int</span> max=<span class="number">-1</span>;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  cin&gt;&gt;n;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>我写的代码（cpp）</summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; lan;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; qiao;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; c;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; d;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    c.<span class="built_in">resize</span>(n);<span class="comment">//定义数组c中有n项,需要先有n</span></span><br><span class="line">    d.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        lan.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        qiao.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>;j &lt; n;j++)&#123;</span><br><span class="line">            c[j]=<span class="built_in">abs</span>(lan[i]-qiao[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> small = *<span class="built_in">min_element</span>(c.<span class="built_in">begin</span>(), c.<span class="built_in">end</span>());</span><br><span class="line">        d[i]=small;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> big = *<span class="built_in">max_element</span>(d.<span class="built_in">begin</span>(), d.<span class="built_in">end</span>());</span><br><span class="line">    cout &lt;&lt; big &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>copilot（cpp）</summary>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">if</span> (!(cin &gt;&gt; n)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">A</span><span class="params">(n)</span>, <span class="title">B</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; A[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; B[i];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> nearestDistInB = [&amp;](<span class="type">int</span> x) &#123;</span><br><span class="line">        <span class="comment">// 找到 B 中距离 x 最近的元素的绝对差</span></span><br><span class="line">        <span class="keyword">auto</span> it = <span class="built_in">lower_bound</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>(), x);</span><br><span class="line">        <span class="type">int</span> dist = INT_MAX;</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">end</span>()) dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">            --it;</span><br><span class="line">            dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, <span class="built_in">nearestDistInB</span>(A[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2026/01/20/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>C++基础入门</title>
     <url>/2025/09/11/C++for0/</url>
     <content><![CDATA[<h1 id="C-基础入门"><a href="#C-基础入门" class="headerlink" title="C++基础入门"></a>C++基础入门</h1><h2 id="1-C-初识"><a href="#1-C-初识" class="headerlink" title="1 C++初识"></a>1 C++初识</h2><h3 id="1-1-第一个C-程序"><a href="#1-1-第一个C-程序" class="headerlink" title="1.1  第一个C++程序"></a>1.1  第一个C++程序</h3><p>编写一个C++程序总共分为4个步骤</p>
@@ -2222,376 +2592,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Map</title>
-    <url>/2025/11/20/Map/</url>
-    <content><![CDATA[<h1 id="C-std-map-使用详细指南"><a href="#C-std-map-使用详细指南" class="headerlink" title="C++ std::map 使用详细指南"></a>C++ std::map 使用详细指南</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-stdmap">什么是 std::map</a></li>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">基本用法</a></li>
-<li><a href="#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C">常用操作</a></li>
-<li><a href="#%E9%81%8D%E5%8E%86-map">遍历 map</a></li>
-<li><a href="#%E6%80%A7%E8%83%BD%E7%89%B9%E7%82%B9">性能特点</a></li>
-<li><a href="#%E5%AE%9E%E9%99%85%E7%A4%BA%E4%BE%8B">实际示例</a></li>
-<li><a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">常见问题</a></li>
-</ol>
-<h2 id="什么是-std-map"><a href="#什么是-std-map" class="headerlink" title="什么是 std::map"></a>什么是 std::map</h2><p><code>std::map</code> 是 C++ 标准模板库(STL)中的一个关联容器，它存储键值对(key-value pairs)，并根据键自动排序。</p>
-<p><strong>特点：</strong></p>
-<ul>
-<li>键是唯一的（不允许重复）</li>
-<li>按键自动排序（默认升序）</li>
-<li>基于红黑树实现</li>
-<li>查找、插入、删除的时间复杂度：O(log n)</li>
-</ul>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="声明和初始化"><a href="#声明和初始化" class="headerlink" title="声明和初始化"></a>声明和初始化</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 基本声明</span></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; studentScores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化列表（C++11及以上）</span></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; studentScores = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">90</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">85</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 make_pair</span></span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; idToName;</span><br><span class="line">idToName.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="number">1</span>, <span class="string">&quot;Alice&quot;</span>));</span><br><span class="line">idToName.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="number">2</span>, <span class="string">&quot;Bob&quot;</span>));</span><br></pre></td></tr></table></figure>
-
-<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><h3 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：使用 [] 运算符</span></span><br><span class="line">scores[<span class="string">&quot;Alice&quot;</span>] = <span class="number">95</span>;</span><br><span class="line">scores[<span class="string">&quot;Bob&quot;</span>] = <span class="number">87</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：使用 insert 函数</span></span><br><span class="line">scores.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>));</span><br><span class="line">scores.<span class="built_in">insert</span>(&#123;<span class="string">&quot;David&quot;</span>, <span class="number">88</span>&#125;);  <span class="comment">// C++11</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：使用 emplace（C++11，更高效）</span></span><br><span class="line">scores.<span class="built_in">emplace</span>(<span class="string">&quot;Eve&quot;</span>, <span class="number">91</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：使用 [] 运算符（如果键不存在会创建）</span></span><br><span class="line">std::cout &lt;&lt; scores[<span class="string">&quot;Alice&quot;</span>] &lt;&lt; std::endl;  <span class="comment">// 输出: 95</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：使用 at() 函数（如果键不存在会抛出异常）</span></span><br><span class="line">std::cout &lt;&lt; scores.<span class="built_in">at</span>(<span class="string">&quot;Bob&quot;</span>) &lt;&lt; std::endl; <span class="comment">// 输出: 87</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：使用 find() 函数（安全的方式）</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Not found&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接赋值修改</span></span><br><span class="line">scores[<span class="string">&quot;Alice&quot;</span>] = <span class="number">98</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过迭代器修改值（不能修改键）</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    it-&gt;second = <span class="number">100</span>;  <span class="comment">// 修改值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：通过键删除</span></span><br><span class="line">scores.<span class="built_in">erase</span>(<span class="string">&quot;Bob&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：通过迭代器删除</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    scores.<span class="built_in">erase</span>(it);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：删除范围内的元素</span></span><br><span class="line">scores.<span class="built_in">erase</span>(scores.<span class="built_in">begin</span>(), std::<span class="built_in">next</span>(scores.<span class="built_in">begin</span>(), <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法4：清空所有元素</span></span><br><span class="line">scores.<span class="built_in">clear</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="查找和判断"><a href="#查找和判断" class="headerlink" title="查找和判断"></a>查找和判断</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找元素</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Found: &quot;</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot; -&gt; &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查元素是否存在（C++20）</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">contains</span>(<span class="string">&quot;Alice&quot;</span>)) &#123;  <span class="comment">// C++20</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Alice exists&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计数（对于map，只能是0或1）</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">count</span>(<span class="string">&quot;Bob&quot;</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Bob exists&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查是否为空</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Map is empty&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="遍历-map"><a href="#遍历-map" class="headerlink" title="遍历 map"></a>遍历 map</h2><h3 id="使用迭代器"><a href="#使用迭代器" class="headerlink" title="使用迭代器"></a>使用迭代器</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正向迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = scores.<span class="built_in">begin</span>(); it != scores.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反向迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = scores.<span class="built_in">rbegin</span>(); it != scores.<span class="built_in">rend</span>(); ++it) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用范围循环（C-11）"><a href="#使用范围循环（C-11）" class="headerlink" title="使用范围循环（C++11）"></a>使用范围循环（C++11）</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 值拷贝（不推荐用于大对象）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; pair : scores) &#123;</span><br><span class="line">    std::cout &lt;&lt; pair.first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; pair.second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用（推荐）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [key, value] : scores) &#123;  <span class="comment">// C++17 结构化绑定</span></span><br><span class="line">    std::cout &lt;&lt; key &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="容量信息"><a href="#容量信息" class="headerlink" title="容量信息"></a>容量信息</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 元素数量</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;Size: &quot;</span> &lt;&lt; scores.<span class="built_in">size</span>() &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最大可能的大小</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;Max size: &quot;</span> &lt;&lt; scores.<span class="built_in">max_size</span>() &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
-
-<h2 id="自定义比较函数"><a href="#自定义比较函数" class="headerlink" title="自定义比较函数"></a>自定义比较函数</h2><h3 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 按字符串长度排序</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">StringLengthComparator</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> std::string&amp; a, <span class="type">const</span> std::string&amp; b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a.<span class="built_in">length</span>() &lt; b.<span class="built_in">length</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>, StringLengthComparator&gt; scoresByLength;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 lambda 表达式（C++11）</span></span><br><span class="line"><span class="keyword">auto</span> comparator = [](<span class="type">const</span> std::string&amp; a, <span class="type">const</span> std::string&amp; b) &#123;</span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">length</span>() &lt; b.<span class="built_in">length</span>();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">std::map&lt;std::string, <span class="type">int</span>, <span class="title">decltype</span><span class="params">(comparator)</span>&gt; <span class="title">scores</span><span class="params">(comparator)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="降序排列"><a href="#降序排列" class="headerlink" title="降序排列"></a>降序排列</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 方法1：使用 std::greater</span></span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string, std::greater&lt;<span class="type">int</span>&gt;&gt; descendingMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：自定义比较函数</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">DescendingComparator</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;  <span class="comment">// 降序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string, DescendingComparator&gt; customDescendingMap;</span><br></pre></td></tr></table></figure>
-
-<h2 id="性能特点"><a href="#性能特点" class="headerlink" title="性能特点"></a>性能特点</h2><table>
-<thead>
-<tr>
-<th>操作</th>
-<th>时间复杂度</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>插入</td>
-<td>O(log n)</td>
-<td>基于红黑树</td>
-</tr>
-<tr>
-<td>查找</td>
-<td>O(log n)</td>
-<td>基于红黑树</td>
-</tr>
-<tr>
-<td>删除</td>
-<td>O(log n)</td>
-<td>基于红黑树</td>
-</tr>
-<tr>
-<td>遍历</td>
-<td>O(n)</td>
-<td>顺序访问所有元素</td>
-</tr>
-<tr>
-<td>空间</td>
-<td>O(n)</td>
-<td>存储所有键值对</td>
-</tr>
-</tbody></table>
-<h2 id="实际示例"><a href="#实际示例" class="headerlink" title="实际示例"></a>实际示例</h2><h3 id="示例1：单词计数器"><a href="#示例1：单词计数器" class="headerlink" title="示例1：单词计数器"></a>示例1：单词计数器</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::map&lt;std::string, <span class="type">int</span>&gt; wordCount;</span><br><span class="line">    std::string word;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取单词并计数</span></span><br><span class="line">    <span class="keyword">while</span> (std::cin &gt;&gt; word) &#123;</span><br><span class="line">        ++wordCount[word];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [word, count] : wordCount) &#123;</span><br><span class="line">        std::cout &lt;&lt; word &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; count &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="示例2：学生成绩管理系统"><a href="#示例2：学生成绩管理系统" class="headerlink" title="示例2：学生成绩管理系统"></a>示例2：学生成绩管理系统</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">StudentManager</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::map&lt;<span class="type">int</span>, std::string&gt; students;  <span class="comment">// 学号 -&gt; 姓名</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addStudent</span><span class="params">(<span class="type">int</span> id, <span class="type">const</span> std::string&amp; name)</span> </span>&#123;</span><br><span class="line">        students[id] = name;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">removeStudent</span><span class="params">(<span class="type">int</span> id)</span> </span>&#123;</span><br><span class="line">        students.<span class="built_in">erase</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">std::string <span class="title">findStudent</span><span class="params">(<span class="type">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> it = students.<span class="built_in">find</span>(id);</span><br><span class="line">        <span class="keyword">if</span> (it != students.<span class="built_in">end</span>()) &#123;</span><br><span class="line">            <span class="keyword">return</span> it-&gt;second;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Not found&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">printAllStudents</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [id, name] : students) &#123;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;ID: &quot;</span> &lt;&lt; id &lt;&lt; <span class="string">&quot;, Name: &quot;</span> &lt;&lt; name &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StudentManager manager;</span><br><span class="line">    </span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1001</span>, <span class="string">&quot;Alice&quot;</span>);</span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1002</span>, <span class="string">&quot;Bob&quot;</span>);</span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1003</span>, <span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;All students:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    manager.<span class="built_in">printAllStudents</span>();</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;\nStudent with ID 1002: &quot;</span> &lt;&lt; manager.<span class="built_in">findStudent</span>(<span class="number">1002</span>) &lt;&lt; std::endl;</span><br><span class="line">    </span><br><span class="line">    manager.<span class="built_in">removeStudent</span>(<span class="number">1001</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;\nAfter removing ID 1001:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    manager.<span class="built_in">printAllStudents</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="1-键不存在时的行为"><a href="#1-键不存在时的行为" class="headerlink" title="1. 键不存在时的行为"></a>1. 键不存在时的行为</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 [] 访问不存在的键会创建该键（值为默认构造）</span></span><br><span class="line"><span class="type">int</span> value = scores[<span class="string">&quot;Unknown&quot;</span>];  <span class="comment">// 创建键 &quot;Unknown&quot;，值为 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 at() 会抛出 std::out_of_range 异常</span></span><br><span class="line"><span class="comment">// int value = scores.at(&quot;Unknown&quot;);  // 抛出异常</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-迭代器失效"><a href="#2-迭代器失效" class="headerlink" title="2. 迭代器失效"></a>2. 迭代器失效</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; myMap = &#123;&#123;<span class="number">1</span>, <span class="string">&quot;one&quot;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&quot;two&quot;</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">auto</span> it = myMap.<span class="built_in">find</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除操作会使指向被删除元素的迭代器失效</span></span><br><span class="line">myMap.<span class="built_in">erase</span>(it);</span><br><span class="line"><span class="comment">// it 现在已失效，不能再使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但其他迭代器仍然有效</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-性能考虑"><a href="#3-性能考虑" class="headerlink" title="3. 性能考虑"></a>3. 性能考虑</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 如果不需要排序，考虑使用 std::unordered_map（哈希表）</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line">std::unordered_map&lt;std::string, <span class="type">int</span>&gt; hashMap;  <span class="comment">// 平均 O(1) 操作</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-自定义类型作为键"><a href="#4-自定义类型作为键" class="headerlink" title="4. 自定义类型作为键"></a>4. 自定义类型作为键</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    std::string name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 需要定义比较运算符</span></span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> Person&amp; other) <span class="type">const</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (name == other.name) &#123;</span><br><span class="line">            <span class="keyword">return</span> age &lt; other.age;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> name &lt; other.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::map&lt;Person, <span class="type">int</span>&gt; personScores;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>std::map</code> 是 C++ 中非常有用的关联容器，适用于需要按键排序和快速查找的场景。掌握它的基本用法和特性，能够帮助你在编程中更高效地处理键值对数据。</p>
-<p><strong>关键要点：</strong></p>
-<ul>
-<li>使用 <code>[]</code> 运算符进行插入和访问</li>
-<li>使用 <code>find()</code> 进行安全查找</li>
-<li>使用范围循环进行遍历</li>
-<li>了解时间复杂度特征</li>
-<li>根据需求选择合适的比较函数</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Cpp编程</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>map</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu和Windows上YOLO模型训练与部署流程</title>
-    <url>/2025/12/13/Ubuntu%E5%92%8CWindows%E4%B8%8AYOLO%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B/</url>
-    <content><![CDATA[<p>针对在Ubuntu 22.04和Windows 11系统上，使用纯Intel CPU进行YOLO模型训练与应用的需求，我将为你梳理一个清晰的流程。核心是利用<strong>OpenVINO工具套件</strong>对YOLO模型进行优化，以在CPU上获得最佳的推理性能。</p>
-<h3 id="双系统方案概览"><a href="#双系统方案概览" class="headerlink" title="? 双系统方案概览"></a>? 双系统方案概览</h3><p>在开始具体步骤前，你可以通过下面的对比了解两个系统的主要异同，这有助于你根据熟悉的操作环境进行选择。</p>
-<p><strong>Ubuntu 22.04 方案</strong></p>
-<ul>
-<li><strong>核心优势</strong><ul>
-<li><strong>开发友好性</strong>：对Python、C++等开发环境支持原生，命令行操作高效。</li>
-<li><strong>资源开销</strong>：系统本身资源占用相对较低，可将更多算力用于训练。</li>
-<li><strong>部署一致性</strong>：服务器端主流系统，一次开发，部署环境统一。</li>
-</ul>
-</li>
-<li><strong>潜在考虑</strong><ul>
-<li><strong>硬件驱动</strong>：需自行确保CPU等驱动为最新版本以发挥全部性能。</li>
-<li><strong>操作习惯</strong>：若习惯图形界面，需要适应命令行操作。</li>
-</ul>
-</li>
-<li><strong>推荐适用场景</strong><ul>
-<li>模型训练、算法开发、生产服务器部署。</li>
-</ul>
-</li>
-</ul>
-<p><strong>Windows 11 方案</strong></p>
-<ul>
-<li><strong>核心优势</strong><ul>
-<li><strong>生态兼容性</strong>：与常用办公软件、专业工具兼容性好。</li>
-<li><strong>硬件支持</strong>：通常能通过系统更新自动获得最新的硬件驱动支持。</li>
-<li><strong>图形化界面</strong>：拥有丰富的图形化工具（如OpenVINO? C# API），便于快速搭建演示程序。</li>
-</ul>
-</li>
-<li><strong>潜在考虑</strong><ul>
-<li><strong>系统开销</strong>：图形界面本身会占用部分系统资源。</li>
-<li><strong>路径与依赖</strong>：需注意Python环境、路径分隔符（<code>\</code>）与Linux（<code>/</code>）的区别。</li>
-</ul>
-</li>
-<li><strong>推荐适用场景</strong><ul>
-<li>快速原型验证、桌面端应用集成、边缘设备部署（如英特尔开发套件）。</li>
-</ul>
-</li>
-</ul>
-<p><strong>两者的共同核心</strong><br>无论选择哪个系统，后续的<strong>核心工作流程是通用的</strong>，都遵循：准备环境 → 准备数据与训练 → 模型优化 → 应用部署。两个系统的主要区别集中在初始环境配置和部分依赖安装命令上。</p>
-<h3 id="详细步骤指南"><a href="#详细步骤指南" class="headerlink" title="?? 详细步骤指南"></a>?? 详细步骤指南</h3><p>下面以当前主流的 <strong>YOLOv8</strong> 为例（其流程也适用于更新的v9&#x2F;v10等版本），介绍从环境配置到部署的完整步骤。</p>
-<h4 id="第一步：环境配置与项目初始化"><a href="#第一步：环境配置与项目初始化" class="headerlink" title="第一步：环境配置与项目初始化"></a>第一步：环境配置与项目初始化</h4><p>这是操作系统差异最明显的环节，主要是安装方式不同。</p>
-<p><strong>在 Ubuntu 22.04 上</strong></p>
-<ol>
-<li><strong>安装Python及基础工具</strong>：打开终端，运行以下命令。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install python3 python3-pip git</span><br></pre></td></tr></table></figure></li>
-<li><strong>创建虚拟环境</strong>：推荐使用 <code>venv</code> 或 <code>conda</code> 隔离环境。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 -m pip install --user virtualenv</span><br><span class="line">python3 -m virtualenv openvino_env</span><br><span class="line"><span class="built_in">source</span> openvino_env/bin/activate</span><br></pre></td></tr></table></figure></li>
-<li><strong>安装关键库</strong>：在激活的虚拟环境中安装。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p><strong>在 Windows 11 上</strong></p>
-<ol>
-<li><strong>安装Python</strong>：访问 <a href="https://www.python.org/">python.org</a> 下载并安装Python 3.10或3.11，安装时请勾选“Add Python to PATH”。</li>
-<li><strong>使用命令行</strong>：以管理员身份打开“命令提示符”或“PowerShell”。</li>
-<li><strong>创建并激活虚拟环境</strong>：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m venv openvino_win_env</span><br><span class="line">openvino_win_env\Scripts\activate</span><br></pre></td></tr></table></figure></li>
-<li><strong>安装关键库</strong>：命令与Linux相同。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install ultralytics openvino-dev[caffe,onnx,tensorflow2]</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="第二步：准备数据并训练模型"><a href="#第二步：准备数据并训练模型" class="headerlink" title="第二步：准备数据并训练模型"></a>第二步：准备数据并训练模型</h4><p>两个系统在此步骤的命令完全相同。</p>
-<ol>
-<li><strong>准备数据集</strong>：将你的图片和标签按YOLO格式组织。标签文件是 <code>.txt</code> 格式，内容为 <code>类别id x_center y_center width height</code>（归一化坐标）。目录结构参考如下：<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">your_dataset<span class="symbol">/</span></span><br><span class="line">├── images<span class="symbol">/</span></span><br><span class="line">│   ├── train<span class="symbol">/</span></span><br><span class="line">│   └── val<span class="symbol">/</span></span><br><span class="line">└── labels<span class="symbol">/</span></span><br><span class="line">    ├── train<span class="symbol">/</span></span><br><span class="line">    └── val<span class="operator">/</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>创建数据集配置文件</strong>：创建一个 <code>data.yaml</code> 文件，指明路径和类别。<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">train:</span> <span class="string">/path/to/your_dataset/images/train</span></span><br><span class="line"><span class="attr">val:</span> <span class="string">/path/to/your_dataset/images/val</span></span><br><span class="line"><span class="attr">nc:</span> <span class="number">2</span>  <span class="comment"># 你的物体类别数，例如2类</span></span><br><span class="line"><span class="attr">names:</span> [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>]  <span class="comment"># 类别名称列表</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>启动训练</strong>：使用Ultralytics YOLO简洁的CLI命令进行训练。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo detect train data=data.yaml model=yolov8n.pt epochs=50 imgsz=640</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>yolov8n.pt</code>：可更换为 <code>yolov8s.pt</code>, <code>yolov8m.pt</code> 等不同大小的预训练模型。</li>
-<li><code>epochs</code>、<code>imgsz</code>：可根据你的计算资源和任务调整。</li>
-</ul>
-</li>
-</ol>
-<h4 id="第三步：模型测试与导出"><a href="#第三步：模型测试与导出" class="headerlink" title="第三步：模型测试与导出"></a>第三步：模型测试与导出</h4><ol>
-<li><strong>模型测试</strong>：训练完成后，最佳模型会保存在 <code>runs/detect/train/weights/best.pt</code>。使用它进行预测。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo predict model=runs/detect/train/weights/best.pt <span class="built_in">source</span>=<span class="string">&#x27;path/to/test_image.jpg&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>导出为OpenVINO格式</strong>：这是为Intel CPU优化的关键步骤。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yolo <span class="built_in">export</span> model=runs/detect/train/weights/best.pt format=openvino</span><br></pre></td></tr></table></figure>
-导出后，你会得到一个 <code>.xml</code>（模型结构）和一个 <code>.bin</code>（模型权重）文件。</li>
-</ol>
-<h4 id="第四步：使用OpenVINO优化与部署"><a href="#第四步：使用OpenVINO优化与部署" class="headerlink" title="第四步：使用OpenVINO优化与部署"></a>第四步：使用OpenVINO优化与部署</h4><p>这是发挥Intel CPU性能潜力的核心。</p>
-<ol>
-<li><strong>编写OpenVINO推理脚本</strong>：创建一个Python脚本（如 <code>openvino_infer.py</code>），使用导出的模型进行高性能推理。<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> openvino <span class="keyword">import</span> runtime <span class="keyword">as</span> ov</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 初始化并加载模型</span></span><br><span class="line">core = ov.Core()</span><br><span class="line">compiled_model = core.compile_model(<span class="string">&quot;path/to/best.xml&quot;</span>, <span class="string">&quot;CPU&quot;</span>)  <span class="comment"># 指定CPU设备</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 准备输入数据（需要根据模型要求进行预处理，如调整大小、归一化）</span></span><br><span class="line">image = cv2.imread(<span class="string">&quot;test.jpg&quot;</span>)</span><br><span class="line">input_tensor = np.expand_dims(preprocessed_image, <span class="number">0</span>)  <span class="comment"># 添加batch维度</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 推理</span></span><br><span class="line">results = compiled_model(input_tensor)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 后处理（解析YOLO输出，画框等）</span></span><br><span class="line"><span class="comment"># ... (后处理代码，取决于具体的YOLO版本和导出参数)</span></span><br></pre></td></tr></table></figure>
-<strong>关键说明</strong>：YOLO模型通过OpenVINO导出后，其前处理（如图像归一化）和后处理（解码边界框）可能需要你根据模型原始定义手动完成，或参考OpenVINO官方提供的YOLO范例代码。</li>
-<li><strong>进一步优化（可选）</strong>：<ul>
-<li><strong>量化</strong>：使用OpenVINO的<code>nncf</code>库将FP32模型转换为INT8，可以大幅提升推理速度，精度损失很小。</li>
-<li><strong>性能调优</strong>：在<code>compile_model</code>时，可以配置CPU线程数、推理精度等参数。</li>
-</ul>
-</li>
-</ol>
-<h3 id="核心建议与后续方向"><a href="#核心建议与后续方向" class="headerlink" title="? 核心建议与后续方向"></a>? 核心建议与后续方向</h3><p>为了让你的项目更顺利，这里有一些关键建议：</p>
-<ul>
-<li><strong>从轻量模型开始</strong>：在CPU上训练和推理，建议从 <code>yolov8n</code>（nano）或 <code>yolov8s</code>（small）开始，速度更快。</li>
-<li><strong>利用官方资源</strong>：OpenVINO工具包提供了丰富的<a href="https://github.com/openvinotoolkit/openvino_notebooks">示例代码</a>，其中有完整的YOLO系列从导出到部署的笔记本，是解决具体问题的最佳参考。</li>
-<li><strong>性能对比</strong>：在部署前，用OpenVINO推理脚本和原始的PyTorch模型（<code>best.pt</code>）在相同输入上对比结果，确保转换无误。</li>
-</ul>
-<p>如果你想继续深入，以下几个方向可能会对你有帮助：</p>
-<ol>
-<li><strong>性能瓶颈分析</strong>：如果你的应用对实时性要求高，是否需要分析是CPU算力瓶颈还是推理代码本身的效率问题？</li>
-<li><strong>高级优化技巧</strong>：是否有兴趣了解更深入的OpenVINO优化技术，例如模型剪枝与INT8量化的具体操作？</li>
-<li><strong>部署形态</strong>：你的最终目标是部署成什么样的应用？是桌面软件、Web服务还是嵌入式设备？这会影响技术选型。</li>
-</ol>
-<p>你可以告诉我更具体的兴趣点，我能提供更有针对性的信息。</p>
-]]></content>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>bat脚本一日游</title>
-    <url>/2025/08/20/a-travel-of-bat/</url>
-    <content><![CDATA[<h1 id="这段时间在搞hexo博客"><a href="#这段时间在搞hexo博客" class="headerlink" title="这段时间在搞hexo博客"></a>这段时间在搞hexo博客</h1><p>  因为要本地编写、测试、上传博客，每次都要打代码，我嫌麻烦打算写个bat脚本来一键完成。</p>
-<h2 id="Part-0-创建脚本（基础须知-可跳转到-Part-1）"><a href="#Part-0-创建脚本（基础须知-可跳转到-Part-1）" class="headerlink" title="Part.0 创建脚本（基础须知,可跳转到 ###Part.1）"></a>Part.0 创建脚本（基础须知,可跳转到 ###Part.1）</h2><p>   先创建一个文本文档，将文件后缀名改为.bat，右键打开编辑。<br>   <code>@echo off</code>**@**是不显示当前行命令，<strong>echo off</strong>是不显示下述命令。<br>   <code>::或REM</code> 空格后加注释，<em><strong>注意换行</strong></em>。<br>   <code>pause</code>暂停，输入任意值继续。</p>
-<p>   <code>set</code>set 命令定义变量.eg:<code>set var=value</code>，这里 var 是变量名，value 是变量的值。<br>   <code> setlocal enabledelayedexpansion</code>当变量的值在循环中可能会发生变化时，需要开启延迟变量扩展,用<code>!var!</code>的形式访问变量。<br>   <code>%</code>访问变量的值需要用 % 括起来，eg:<code>echo %var%</code>会在命令提示符窗口输出变量 var 的值。</p>
-<p>   <code>echo</code>用于在命令提示符窗口输出文本信息。<br>   <code>mkdir</code>用于创建目录。eg:<code>mkdir new folder</code> 会在当前目录下创建一个名为 new folder 的新文件夹。<br>   <code>cd</code>切换目录。<code>cd new folder</code>会进入刚刚创建的 new folder 目录；<code>cd..</code>可以返回上一级目录。<br>   <code>dir</code>列出目录中的文件和子目录。dir 命令会显示当前目录下的内容,<code>dir /s</code>可以递归列出当前目录及其所有子目录下的内容。<br>   <code>explorer</code>可以打开路径（”文件路径”），直接后加<code> /select,文件路径</code>可选中文件</p>
-<h4 id="start命令"><a href="#start命令" class="headerlink" title="start命令"></a><code>start</code>命令</h4><p>   用法：<code>start [“title”] [parameters] “program name” [command line parameters]</code><br>   其中：<br>   **“title”**是可选的，是要启动的窗口的标题。<br>   <strong>parameters</strong>也是可选的，指定窗口的大小、状态等。eg:<code>/min</code>表示以最小化窗口启动,<code>/max</code>表示以最大化窗口启动。<br>   **“program name”**要启动的程序的名称或可执行文件的路径。如果路径包含空格，同样需要用双引号括起来。eg:<code>start “C:\Program Files\Microsoft Office\Excel.exe”</code>会启动 Excel 程序。(双引号不可省略)<br>   <strong>command - line parameters</strong>传递给程序的命令行参数。比如你有一个网址，想用edge打开 eg:<code>start &quot;Edge&quot; &quot;https://www.baidu.com&quot;</code></p>
-<p>  剩下的可以问AI，</p>
-<h2 id="Part-1-写个博客"><a href="#Part-1-写个博客" class="headerlink" title="Part.1 写个博客"></a>Part.1 写个博客</h2><p>   <code>@hexo new &quot;new&quot;&amp;&amp;explorer.exe /select,C:\Users\Admin\Desktop\hexo\source\_posts\new.md</code><br>解释：先用hexo创建一个名为new的文件，在打开并选中该文件，<strong><del>不实现自动改名是因为我试了半天都实现不了，连键入F2都不行</del></strong></p>
-<h2 id="Part-2-本地测试博客"><a href="#Part-2-本地测试博客" class="headerlink" title="Part.2 本地测试博客"></a>Part.2 本地测试博客</h2><p>   <code>hexo clean&amp;&amp;start &quot;Edge&quot; &quot;http://localhost:4000&quot;&amp;&amp;hexo s</code><br>解释：先清理缓存，用edge打开本地端口，再开启本地博客服务，因为代码是从前向后运行，所以顺序不可改，先运行<code>hexo s</code>会导致无法自动打开浏览器</p>
-<h2 id="Part-3-上传博客"><a href="#Part-3-上传博客" class="headerlink" title="Part.3 上传博客"></a>Part.3 上传博客</h2><p>   <code>hexo clean&amp;&amp;hexo generate&amp;&amp;hexo deploy&amp;&amp;pause</code><br>解释：<code>pause</code>的作用是在正常上传博客之后，留有一个任意键的窗口，从而知晓博客正常上传与否</p>
-<h3 id="保存为bat，你就获得的自动化脚本"><a href="#保存为bat，你就获得的自动化脚本" class="headerlink" title="保存为bat，你就获得的自动化脚本"></a>保存为bat，你就获得的自动化脚本</h3><p>另外，part·1中废稿粘在下面，希望有人可以解疑———为什么它无法正常运行</p>
-<details>
-<summary>点击展开完整代码（batch）</summary>
-
-<pre><code class="language-batch">@echo off
-setlocal enabledelayedexpansion
-
-echo 正在创建新的Hexo博客文章...
-call hexo new &quot;new_blog&quot;
-
-if errorlevel 1 (
-    echo 错误: 创建博客文章失败
-    echo 请确保:
-    echo 1. Hexo已正确安装
-    echo 2. 当前目录是Hexo博客根目录
-    pause
-    exit /b 1
-)
-
-set &quot;postPath=C:\Users\Admin\Desktop\hexo\source\_posts\&quot;
-set &quot;oldFileName=new_blog.md&quot;
-
-rem 检查文章目录是否存在
-if not exist &quot;!postPath!&quot; (
-    echo 错误: 文章目录不存在: !postPath!
-    echo 请检查路径是否正确
-    pause
-    exit /b 1
-)
-
-echo.
-echo 请输入新的文件名(不含扩展名)，直接回车将保持原文件名:
-set /p &quot;newName=&quot;
-
-if &quot;!newName!&quot;==&quot;&quot; (
-    echo 保持原文件名: new_blog.md
-    set &quot;finalFileName=!oldFileName!&quot;
-) else (
-    echo 正在将文件重命名为: !newName!.md
-    
-    rem 检查原文件是否存在
-    if not exist &quot;!postPath!!oldFileName!&quot; (
-        echo 错误: 原文件 !postPath!!oldFileName! 不存在
-        echo 请检查Hexo是否成功创建了文章
-        pause
-        exit /b 1
-    )
-    
-    rem 执行重命名操作
-    ren &quot;!postPath!!oldFileName!&quot; &quot;!newName!.md&quot;
-    
-    if errorlevel 1 (
-        echo 错误: 重命名文件失败
-        echo 可能的原因:
-        echo 1. 新文件名包含非法字符
-        echo 2. 已存在同名文件
-        echo 3. 没有足够的权限
-        pause
-        exit /b 1
-    )
-    
-    set &quot;finalFileName=!newName!.md&quot;
-)
-
-echo 博客文章创建完成: !finalFileName!
-
-rem 打开文件
-if exist &quot;!postPath!!finalFileName!&quot; (
-    echo 正在打开文件...
-    start &quot;&quot; &quot;!postPath!!finalFileName!&quot;
-) else (
-    echo 警告: 文件 !postPath!!finalFileName! 不存在，无法打开
-)
-
-echo.
-echo 按任意键退出...
-pause &gt;nul
-
-
-
-
-
-</code></pre>
-]]></content>
-      <categories>
-        <category>Bat脚本</category>
-      </categories>
-      <tags>
-        <tag>bat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>蓝桥杯</title>
-    <url>/2025/09/14/bluebridge/</url>
-    <content><![CDATA[<h2 id="设计师调度分配"><a href="#设计师调度分配" class="headerlink" title="设计师调度分配"></a>设计师调度分配</h2><p>在一个创意工作室中，三位设计师李工、王工和张工分别负责三项独立的模型制作任务。李工完成任务需要a1秒，王工需要a2秒，张工需要a3秒。工作室的建模平台一次只能容纳两名设计师工作，第三位设计师需等待，直到平台空闲（即当前一位设计师完成任务离开）才能开始工作。所有模型全部完成时，项目才算正式交付。<br>现在，经理希望合理调度设计师的工作顺序，以最短时间完成所有任务。请你计算三位设计师完成三件模型的最小总时间。<br>输入格式<code>3 5 7</code><br>输出结果<code>8</code></p>
-<p>代码</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  vector&lt;<span class="type">int</span>&gt; numbers;</span><br><span class="line">  <span class="type">int</span> a1, a2, a3, c;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin &gt;&gt; a;</span><br><span class="line">    numbers.<span class="built_in">push_back</span>(a);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="built_in">sort</span>(numbers.<span class="built_in">begin</span>(), numbers.<span class="built_in">end</span>());</span><br><span class="line">  a1 = numbers[<span class="number">0</span>];</span><br><span class="line">  a2 = numbers[<span class="number">1</span>];</span><br><span class="line">  a3 = numbers[<span class="number">2</span>]; </span><br><span class="line">  </span><br><span class="line">  c=a1 + a2;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(c &gt;= a3)&#123;</span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">    cout &lt;&lt; a3 &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="妈妈的菜单"><a href="#妈妈的菜单" class="headerlink" title="妈妈的菜单"></a>妈妈的菜单</h2><p> 小蓝是个挑食但又容易饿的孩子。午餐时间，妈妈为他准备了 10 道菜，并写下了一份菜单。菜单上的每道菜都有一个“饱腹值”，表示吃下这道菜能增加多少饱腹感。</p>
-<p>妈妈会严格按照菜单的顺序，从第一道菜开始逐一端上餐桌。小蓝可以选择吃或不吃当前这道菜。然而，一旦他决定不吃某一道菜，妈妈就会认为他已经吃饱了，并停止端上后续的所有菜肴。</p>
-<p>小蓝虽然容易饿，但也不喜欢吃得太撑的感觉。因此，他希望午餐后自己的饱腹值能停留在 100 附近。</p>
-<p>现在，请你根据小蓝的情况计算，他最终会获得的饱腹值是多少。</p>
-<p>注意：如果存在两种选择，它们与 100 的差距相同（例如，饱腹值为 98 和 102），他总是会选择那个更高的值——毕竟，对于一个正在长身体的孩子来说，吃撑一点总比饿着肚子好。</p>
-<p>输入格式<code>20 10 10 10 10 10 10 10 15 15</code><br>输出格式<code>105</code></p>
-<p>代码</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span> <span class="comment">// 用于abs函数</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">short</span> food[<span class="number">10</span>]; <span class="comment">// 存储10道菜的饱腹值</span></span><br><span class="line">    <span class="type">int</span> best = <span class="number">0</span>;   <span class="comment">// 最佳饱腹值（初始为0，表示什么都不吃）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取10道菜的饱腹值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        cin &gt;&gt; food[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> current = <span class="number">0</span>; <span class="comment">// 当前累计饱腹值</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历所有可能的前缀和（吃前0道、前1道、...、前10道菜）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        current += food[i]; <span class="comment">// 吃当前这道菜</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查当前饱腹值是否比之前的最佳选择更好</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) &lt; <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            best = current; <span class="comment">// 更接近100，更新最佳值</span></span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">abs</span>(current - <span class="number">100</span>) == <span class="built_in">abs</span>(best - <span class="number">100</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (current &gt; best) &#123; <span class="comment">// 差距相同，选择更高的值</span></span><br><span class="line">                best = current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 注意：这里不能break，因为要继续考虑所有可能的前缀和</span></span><br><span class="line">        <span class="comment">// 即使当前已经超过100，后面可能还有更接近100的情况</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; best &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="挑选题目"><a href="#挑选题目" class="headerlink" title="挑选题目"></a>挑选题目</h2><p>两位资深的审题专家，小蓝和小桥，各自收到了N道题目。小蓝收到的题目难度依次为 A1,A2,A3…An，小桥收到的题目难度依次为B1,B2,B3…Bn，为了准备即将举行的竞赛，他们需要从各自收到的题目中选出一道，用于竞赛。通过商量，两人决定通过一种特殊的方式来选择题目：两人轮流删除一道自己手中的题目，直到各自只剩下一道题目。小蓝先删除，然后小桥删除，依此交替进行，直到最后两人手中都只剩下一道题目。小蓝希望最终两人剩下的两道题目的难度差尽可能大，而小桥则希望难度差尽可能小。假设两人都采取最优策略，请问最终两人剩下的两道题目的难度差的绝对值是多少？</p>
-<details>
-<summary>for双层循环示例（cpp）</summary>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">int</span> a[<span class="number">999</span>],b[<span class="number">999</span>];</span><br><span class="line">  <span class="type">int</span> min=<span class="number">9999999</span>;</span><br><span class="line">  <span class="type">int</span> max=<span class="number">-1</span>;</span><br><span class="line">  <span class="type">int</span> n;</span><br><span class="line">  cin&gt;&gt;n;</span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<details>
-<summary>我写的代码（cpp）</summary>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; lan;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; qiao;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; c;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; d;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    c.<span class="built_in">resize</span>(n);<span class="comment">//定义数组c中有n项,需要先有n</span></span><br><span class="line">    d.<span class="built_in">resize</span>(n);</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        lan.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(cin &gt;&gt; num)&#123;</span><br><span class="line">        qiao.<span class="built_in">push_back</span>(num);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查下一个字符是否是回车</span></span><br><span class="line">        <span class="keyword">if</span> (cin.<span class="built_in">peek</span>() == <span class="string">&#x27;\n&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>;j &lt; n;j++)&#123;</span><br><span class="line">            c[j]=<span class="built_in">abs</span>(lan[i]-qiao[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> small = *<span class="built_in">min_element</span>(c.<span class="built_in">begin</span>(), c.<span class="built_in">end</span>());</span><br><span class="line">        d[i]=small;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> big = *<span class="built_in">max_element</span>(d.<span class="built_in">begin</span>(), d.<span class="built_in">end</span>());</span><br><span class="line">    cout &lt;&lt; big &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<details>
-<summary>copilot（cpp）</summary>
-
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">if</span> (!(cin &gt;&gt; n)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">A</span><span class="params">(n)</span>, <span class="title">B</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; A[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) cin &gt;&gt; B[i];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> nearestDistInB = [&amp;](<span class="type">int</span> x) &#123;</span><br><span class="line">        <span class="comment">// 找到 B 中距离 x 最近的元素的绝对差</span></span><br><span class="line">        <span class="keyword">auto</span> it = <span class="built_in">lower_bound</span>(B.<span class="built_in">begin</span>(), B.<span class="built_in">end</span>(), x);</span><br><span class="line">        <span class="type">int</span> dist = INT_MAX;</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">end</span>()) dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        <span class="keyword">if</span> (it != B.<span class="built_in">begin</span>()) &#123;</span><br><span class="line">            --it;</span><br><span class="line">            dist = <span class="built_in">min</span>(dist, <span class="built_in">abs</span>(*it - x));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, <span class="built_in">nearestDistInB</span>(A[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<hr>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2026/01/20/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>list</title>
     <url>/2025/12/30/list/</url>
     <content><![CDATA[<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section">## 🪜 简练学习路线</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> <span class="strong">**class**</span> </span><br><span class="line"><span class="bullet">   -</span> 学习 C++ OOP：类、继承、封装，打好基础。  </span><br><span class="line"></span><br><span class="line"><span class="bullet">2.</span> <span class="strong">**鱼香ROS**</span>  </span><br><span class="line"><span class="bullet">   -</span> 入门 ROS2：节点、话题、服务，掌握基本通信。  </span><br><span class="line"></span><br><span class="line"><span class="bullet">3.</span> <span class="strong">**Qt + ROS2 接口（无线调参）**</span>  </span><br><span class="line"><span class="bullet">   -</span> 用 Qt 做 GUI，结合 ROS2 参数动态调节。  </span><br><span class="line"></span><br><span class="line"><span class="bullet">4.</span> <span class="strong">**ros2<span class="emphasis">_control**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - 学习控制框架：硬件接口、控制器插件，理解抽象层次。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">5. **UnityROS 联合仿真**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - Unity 与 ROS2 联合仿真，练习跨平台数据交互。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">6. **Point-LIO**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - 激光+IMU 融合里程计，理解点云处理与优化。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">7. **FAST-LIO**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - 在 Point-LIO 基础上掌握实时优化与稀疏矩阵处理。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">8. **VLA**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - 学习视觉+激光+IMU 多传感器融合，难度最高。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">9. **IssacSim**  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong">   - NVIDIA 高级仿真平台，结合 GPU 加速与 ROS2 接口。  </span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">---</span></span></span><br><span class="line"><span class="emphasis"><span class="strong"></span></span></span><br><span class="line"><span class="emphasis"><span class="strong">## 📊 总结顺序</span></span></span><br></pre></td></tr></table></figure>
@@ -2666,8 +2666,7 @@ pause &gt;nul
 <li>有序列表项2</li>
 </ol>
 <p><code>[链接文字](https://example.com)</code>  # 插入链接 eg: <a href="www.baidu.com">baidu</a></p>
-<p><code>![图片描述](/images/你的图片名.jpg)</code>  # 插入图片（图片放 source&#x2F;images&#x2F; 目录下）eg: <img src="/%5Cimages%5C1.jpeg" alt="test"></p>
-<p><code>代码块</code>python</p>
+<p><code>![图片描述](/images/你的图片名.jpg)</code>  # 插入图片（图片放 source&#x2F;images&#x2F; 目录下）eg: <img src="/%5Cimages%5C1.jpeg" alt="test"><br><code>&lt;img src=&quot;/images/1.jpeg&quot; alt=&quot;test&quot; width=&quot;500&quot; /&gt;</code>网页嵌入代码也可以，效果更好<br><img src="/images/1.jpeg" alt="test" width="500" /><br><code>代码块</code>python</p>
 <h1 id="插入代码（指定语言可自动高亮）"><a href="#插入代码（指定语言可自动高亮）" class="headerlink" title="插入代码（指定语言可自动高亮）"></a>插入代码（指定语言可自动高亮）</h1><p>print(“Hello Hexo!”)</p>
 ]]></content>
       <categories>
@@ -2885,6 +2884,21 @@ pause &gt;nul
 ]]></content>
   </entry>
   <entry>
+    <title>python-数字类型</title>
+    <url>/2025/08/27/python-note-1/</url>
+    <content><![CDATA[<h1 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h1><p><strong><code>+ - * /</code></strong> 加减乘除</p>
+<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><p>因为python使用的是IEEE754标准储存浮点数,故有误差，计算时需要引入decimal模块</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line">decimal.Decimal</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>note</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>opencv</title>
     <url>/2025/11/15/opencv/</url>
     <content><![CDATA[<h1 id="Opencv的Gamma转换与二值化处理"><a href="#Opencv的Gamma转换与二值化处理" class="headerlink" title="Opencv的Gamma转换与二值化处理"></a>Opencv的Gamma转换与二值化处理</h1><h2 id="1-头文件和命名空间"><a href="#1-头文件和命名空间" class="headerlink" title="1. 头文件和命名空间"></a>1. 头文件和命名空间</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span>  <span class="comment">// 包含OpenCV库的所有主要功能</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>            <span class="comment">// 输入输出流，用于在控制台显示信息</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span>              <span class="comment">// 向量容器，用于存储数据</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span>               <span class="comment">// 数学函数库</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;    <span class="comment">// 使用OpenCV的命名空间，这样就不用写cv::了</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;   <span class="comment">// 使用标准库的命名空间</span></span><br></pre></td></tr></table></figure>
@@ -2930,21 +2944,6 @@ pause &gt;nul
       <tags>
         <tag>C++</tag>
         <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python-数字类型</title>
-    <url>/2025/08/27/python-note-1/</url>
-    <content><![CDATA[<h1 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h1><p><strong><code>+ - * /</code></strong> 加减乘除</p>
-<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><p>因为python使用的是IEEE754标准储存浮点数,故有误差，计算时需要引入decimal模块</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> decimal</span><br><span class="line">decimal.Decimal</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>note</tag>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -2998,6 +2997,95 @@ pause &gt;nul
       <tags>
         <tag>python</tag>
         <tag>python打包exe</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ros2_note</title>
+    <url>/2026/02/02/ros2-note/</url>
+    <content><![CDATA[<h1 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a><strong>VScode</strong></h1><p>***首先，***先把VScode自动保存打开！！！<br>这样会减少很多的报错<br><img src="/images/ros_node/r-0.png" alt="r-0" width="800" /></p>
+<h1 id="指令："><a href="#指令：" class="headerlink" title="指令："></a>指令：</h1><details>
+<summary> 基础 </summary>
+
+<h2 id="召唤吉祥物"><a href="#召唤吉祥物" class="headerlink" title="召唤吉祥物"></a>召唤吉祥物</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 run turtlesim turtlesim_node</span><br></pre></td></tr></table></figure>
+<img src="/images/ros_node/r-1.1.png" alt="r-1.1" width="500" />
+
+<h2 id="查看服务列表，会显示服务类型及消息接口"><a href="#查看服务列表，会显示服务类型及消息接口" class="headerlink" title="查看服务列表，会显示服务类型及消息接口"></a>查看服务列表，会显示服务类型及消息接口</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 service list -t</span><br><span class="line"><span class="comment">#eg：/spawn[turtlesim/srv/Spawn],spawn是“产卵”，生成新的海龟</span></span><br></pre></td></tr></table></figure>
+<h2 id="查看消息接口"><a href="#查看消息接口" class="headerlink" title="查看消息接口"></a>查看消息接口</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 interface show turtlesim/srv/Spawn <span class="comment">#在上一条命令后，[]内的内容是接口</span></span><br><span class="line"><span class="comment">#float32 x       32位浮点型保存横坐标</span></span><br><span class="line"><span class="comment">#float32 y       32位浮点型保存纵坐标</span></span><br><span class="line"><span class="comment">#float32 theta   32位浮点型保存头的朝向</span></span><br><span class="line"><span class="comment">#string name # Optional.  A unique name will be created and returned if this is empty</span></span><br><span class="line"><span class="comment">#---</span></span><br><span class="line"><span class="comment">#string name</span></span><br></pre></td></tr></table></figure>
+<h2 id="终端调用消息接口-召唤第二只乌龟"><a href="#终端调用消息接口-召唤第二只乌龟" class="headerlink" title="终端调用消息接口(召唤第二只乌龟)"></a>终端调用消息接口(召唤第二只乌龟)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 service call /spawn turtlesim/srv/Spawn <span class="string">&quot;&#123;x: 1,y: 2&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#格式： ros2 service call 服务名字 服务接口 &quot;&#123;数据填充（yaml格式）&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<details>
+<summary>示例反馈</summary>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">requester: making request: turtlesim.srv.Spawn_Request(x=1.0, y=2.0, theta=0.0, name=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">response:</span><br><span class="line">turtlesim.srv.Spawn_Response(name=<span class="string">&#x27;turtle2&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</details>
+
+<img src="/images/ros_node/r-1.2.png" alt="r-1.2" width="500" />
+
+<h2 id="可视化接口调用：rqt"><a href="#可视化接口调用：rqt" class="headerlink" title="可视化接口调用：rqt"></a>可视化接口调用：rqt</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rqt</span><br></pre></td></tr></table></figure>
+<img src="/images/ros_node/r-2.png" alt="r-2" width="500" />
+</details>
+
+<h1 id="导-航-："><a href="#导-航-：" class="headerlink" title="导 航 ："></a>导 航 ：</h1><h2 id="创建环境："><a href="#创建环境：" class="headerlink" title="创建环境："></a>创建环境：</h2><h3 id="创建并进入文件夹"><a href="#创建并进入文件夹" class="headerlink" title="创建并进入文件夹"></a>创建并进入文件夹</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> CHAPT6/chapt6_ws/src &amp;&amp; <span class="built_in">cd</span> CHAPT6/chapt6_ws/src</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建ros2环境"><a href="#创建ros2环境" class="headerlink" title="创建ros2环境"></a>创建ros2环境</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 pkg create fishbot_description --build-type ament_cmake --license Apache-2.0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ros2</span> pkg       create  fishbot_description   --build-type  ament_cmake                    --license     Apache-<span class="number">2</span>.<span class="number">0</span></span><br><span class="line"><span class="attribute">ros2</span> 功能包操作  创建    fishbot_description   -- 构建类型     ROS <span class="number">2</span> 中基于 CMake 的标准构建方式 -- 开源许可证   Apache <span class="number">2</span>.<span class="number">0</span> 协议</span><br></pre></td></tr></table></figure>
+
+<details>
+<summary> 示例反馈： </summary>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">going to create a new package</span><br><span class="line">package name: fishbot_description</span><br><span class="line">destination directory: /home/noi/fishros/CHAPT6/chapt6_ws/src</span><br><span class="line">package format: 3</span><br><span class="line">version: 0.0.0</span><br><span class="line">description: TODO: Package description</span><br><span class="line">maintainer: [<span class="string">&#x27;noi &lt;example@example.com&gt;&#x27;</span>]</span><br><span class="line">licenses: [<span class="string">&#x27;Apache-2.0&#x27;</span>]</span><br><span class="line">build <span class="built_in">type</span>: ament_cmake</span><br><span class="line">dependencies: []</span><br><span class="line">creating folder ./fishbot_description</span><br><span class="line">creating ./fishbot_description/package.xml</span><br><span class="line">creating <span class="built_in">source</span> and include folder</span><br><span class="line">creating folder ./fishbot_description/src</span><br><span class="line">creating folder ./fishbot_description/include/fishbot_description</span><br><span class="line">creating ./fishbot_description/CMakeLists.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">└── CHAPT6</span><br><span class="line">    └── chapt6_ws</span><br><span class="line">        └── src</span><br><span class="line">            └── fishbot_description</span><br><span class="line">                ├── CMakeLists.txt</span><br><span class="line">                ├── include</span><br><span class="line">                │   └── fishbot_description</span><br><span class="line">                ├── LICENSE</span><br><span class="line">                ├── package.xml</span><br><span class="line">                ├── urdf</span><br><span class="line">                └── src</span><br><span class="line"></span><br><span class="line">7 directories, 3 files</span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="机器人模型文件储存-——-urdf文件夹"><a href="#机器人模型文件储存-——-urdf文件夹" class="headerlink" title="机器人模型文件储存 —— urdf文件夹"></a>机器人模型文件储存 —— urdf文件夹</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> fishbot_description &amp;&amp; <span class="built_in">mkdir</span> urdf <span class="comment">#urdf 用于存放机器人模型文件</span></span><br><span class="line"><span class="built_in">cd</span> urdf &amp;&amp; <span class="built_in">touch</span> first_robot.urdf <span class="comment">#创建 urdf 文件</span></span><br></pre></td></tr></table></figure>
+<p>另外需要手动在vscode中安装 urdf 插件<br><img src="/images/ros_node/r-3.1.png" alt="urdf插件示意图" width="700" /></p>
+<h3 id="编辑first-robot-urdf"><a href="#编辑first-robot-urdf" class="headerlink" title="编辑first_robot.urdf"></a>编辑first_robot.urdf</h3><details>
+<summary> first_robot.urdf的内容 </summary>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;robot name=&quot;first&quot;&gt;</span><br><span class="line">    &lt;!-- 机器人的身体部分 --&gt;</span><br><span class="line">    &lt;link name=&quot;base_link&quot;&gt;</span><br><span class="line">        &lt;!-- 部件外观描述 --&gt;</span><br><span class="line">        &lt;visual&gt;</span><br><span class="line">            &lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span><br><span class="line">            &lt;origin xyz=&quot;0.0 0.0 0.0&quot; rpy=&quot;0.0 0.0 0.0&quot;/&gt;</span><br><span class="line">            &lt;!-- 几何形状 --&gt;</span><br><span class="line">            &lt;geometry&gt;</span><br><span class="line">            &lt;!-- 圆柱体 radius半径 0.10m length高度 0.12m --&gt;</span><br><span class="line">                &lt;cylinder radius=&quot;0.10&quot; length=&quot;0.12&quot;/&gt;</span><br><span class="line">            &lt;/geometry&gt;</span><br><span class="line">            &lt;!-- 材质颜色 --&gt;</span><br><span class="line">            &lt;material name=&quot;white&quot;&gt;</span><br><span class="line">       #requester: making request: turtlesim.srv.Spawn_Request(x=1.0, y=2.0, theta=0.0, name=&#x27;&#x27;)</span><br><span class="line">#</span><br><span class="line">#response:</span><br><span class="line">#turtlesim.srv.Spawn_Response(name=&#x27;turtle2&#x27;)         &lt;!-- 红绿蓝 透明度（0～1） --&gt;</span><br><span class="line">                &lt;color rgba=&quot;1.0 1.0 1.0 0.5&quot;/&gt;</span><br><span class="line">            &lt;/material&gt;</span><br><span class="line">        &lt;/visual&gt;</span><br><span class="line">    &lt;/link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 机器人的IMU部件，惯性测量传感器 --&gt;</span><br><span class="line">    &lt;link name=&quot;imu_link&quot;&gt;</span><br><span class="line">        &lt;!-- 部件外观描述 --&gt;</span><br><span class="line">        &lt;visual&gt;</span><br><span class="line">            &lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span><br><span class="line">            &lt;origin xyz=&quot;0.0 0.0 0.0&quot; rpy=&quot;0.0 0.0 0.0&quot;/&gt;</span><br><span class="line">            &lt;!-- 几何形状 --&gt;</span><br><span class="line">            &lt;geometry&gt;</span><br><span class="line">                &lt;box size=&quot;0.02 0.02 0.02&quot;/&gt;</span><br><span class="line">            &lt;/geometry&gt;</span><br><span class="line">            &lt;!-- 材质颜色 --&gt;</span><br><span class="line">            &lt;material name=&quot;black&quot;&gt;</span><br><span class="line">                &lt;!-- 红绿蓝 透明度（0～1） --&gt;</span><br><span class="line">                &lt;color rgba=&quot;0.0 0.0 0.0 0.5&quot;/&gt;</span><br><span class="line">            &lt;/material&gt;</span><br><span class="line">        &lt;/visual&gt;</span><br><span class="line">    &lt;/link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 机器人的关节，用于组合机器人的部件 --&gt;</span><br><span class="line">    &lt;joint name=&quot;imu_joint&quot; type=&quot;fixed&quot;&gt;</span><br><span class="line">        &lt;origin xyz=&quot;0.0 0.0 0.03&quot; rpy=&quot;0.0 0.0 0.0&quot;/&gt;</span><br><span class="line">        &lt;parent link=&quot;base_link&quot;/&gt;</span><br><span class="line">        &lt;child link=&quot;imu_link&quot;/&gt;</span><br><span class="line">    &lt;/joint&gt;</span><br><span class="line">&lt;/robot&gt;</span><br></pre></td></tr></table></figure>
+</details>
+
+<p><strong>打开集成终端</strong><br><img src="/images/ros_node/r-3.2.png" alt="打开集成终端" width="400" /><br>输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#urdf_to_graphviz生成可视化文件</span></span><br><span class="line">urdf_to_graphviz first_robot.urdf </span><br></pre></td></tr></table></figure>
+<details>
+<summary> 如果报错 </summary>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">WARNING: OUTPUT not given. This <span class="built_in">type</span> of usage is deprecated!Usage: urdf_to_graphviz input.xml [OUTPUT]  Will create either <span class="variable">$ROBOT_NAME</span>.gv &amp; <span class="variable">$ROBOT_NAME</span>.pdf <span class="keyword">in</span> CWD  or OUTPUT.gv &amp; OUTPUT.pdf.</span><br><span class="line">Error:   No <span class="built_in">link</span> elements found <span class="keyword">in</span> urdf file</span><br><span class="line">         at line 206 <span class="keyword">in</span> ./urdf_parser/src/model.cpp</span><br><span class="line">ERROR: Model Parsing the xml failed</span><br></pre></td></tr></table></figure>
+则是urdf文件没有保存，ctrl+s 保存一下，如果你已经设置了vscode，这个错误基本不会发生
+</details>
+
+<h3 id="在RViz中查看模型"><a href="#在RViz中查看模型" class="headerlink" title="在RViz中查看模型"></a>在RViz中查看模型</h3><p>在集成终端中输入<code>rviz2</code></p>
+<details>
+<summary> 如果报错（简易方法） </summary>
+如果rviz2发生渲染问题：如屏闪
+Step1：更新显卡驱动（ai）
+Step2：
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export QT_ENABLE_HIGHDPI_SCALING=0&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export vblank_mode=0&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export QT_XCB_GL_INTEGRATION=xcb_glx&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">rviz2</span><br></pre></td></tr></table></figure>
+Step3：登录界面右下角齿轮选择`Ubuntu on Xorg`
+再不行就ai 电脑型号 系统 情况 
+</details>
+
+<img src="/images/ros_node/r-6.png" alt="基础配置rviz2_1" width="700" />
+----------------------------我是分割线-----------------------------
+<img src="/images/ros_node/r-7.png" alt="基础配置rviz2_2" width="700" />
+但是当前还是无法直接显示imu_link base_link之间的关系，原因是rviz2默认使用map，需要tf变换
+
+<p><strong>So，</strong> 使用ROS2内置的publisher实现自动的关系转换<br><img src="/images/ros_node/r-8.png" alt="转换到rviz2的示意图" width="600" /><br>运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ros-<span class="variable">$ROS_DISTRO</span>-joint-state-publisher</span><br><span class="line"><span class="built_in">sudo</span> apt install ros-<span class="variable">$ROS_DISTRO</span>-robot-state-publisher</span><br></pre></td></tr></table></figure>
+
+<h3 id="编辑launch文件（方便运行-关闭多个节点）"><a href="#编辑launch文件（方便运行-关闭多个节点）" class="headerlink" title="编辑launch文件（方便运行&#x2F;关闭多个节点）"></a>编辑launch文件（方便运行&#x2F;关闭多个节点）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/fishros/CHAPT6</span><br><span class="line"><span class="built_in">mkdir</span> -p chapt6_ws/src/fishbot_description/launch</span><br><span class="line"><span class="built_in">touch</span> chapt6_ws/src/fishbot_description/launch/display_robot.launch.py</span><br></pre></td></tr></table></figure>
+
+<details>
+<summary> display_robot.launch.py的内容 </summary>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> launch</span><br><span class="line"><span class="keyword">import</span> launch_ros</span><br><span class="line"><span class="keyword">from</span> ament_index_python.packages <span class="keyword">import</span> get_package_share_directory</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_launch_description</span>():</span><br><span class="line">    <span class="comment">#获取默认的urdf路径,这个需要先colcon build 一下，并且在CMakeList中加上urdf与launch文件夹</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> launch.LaunchDescription([</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    ])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">#......</span><br><span class="line">#endif()</span><br><span class="line"></span><br><span class="line">#自己定位一下吧</span><br><span class="line">install(DIRECTORY launch urdf </span><br><span class="line">  DESTINATION share/$&#123;PROJECT_NAME&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#ament_package()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</details>]]></content>
+      <tags>
+        <tag>ROS2</tag>
       </tags>
   </entry>
   <entry>
@@ -3157,188 +3245,6 @@ pause &gt;nul
         <tag>C++</tag>
         <tag>set</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>text</title>
-    <url>/2025/08/26/test/</url>
-    <content><![CDATA[<h1 id="Hexo-Markdown-测试文档"><a href="#Hexo-Markdown-测试文档" class="headerlink" title="Hexo Markdown 测试文档"></a>Hexo Markdown 测试文档</h1><p>本文件用于测试Hexo博客系统中的各种Markdown格式渲染效果。</p>
-<h2 id="1-标题测试"><a href="#1-标题测试" class="headerlink" title="1. 标题测试"></a>1. 标题测试</h2><h1 id="H1-标题"><a href="#H1-标题" class="headerlink" title="H1 标题"></a>H1 标题</h1><h2 id="H2-标题"><a href="#H2-标题" class="headerlink" title="H2 标题"></a>H2 标题</h2><h3 id="H3-标题"><a href="#H3-标题" class="headerlink" title="H3 标题"></a>H3 标题</h3><h4 id="H4-标题"><a href="#H4-标题" class="headerlink" title="H4 标题"></a>H4 标题</h4><h5 id="H5-标题"><a href="#H5-标题" class="headerlink" title="H5 标题"></a>H5 标题</h5><h6 id="H6-标题"><a href="#H6-标题" class="headerlink" title="H6 标题"></a>H6 标题</h6><h2 id="2-文本格式化"><a href="#2-文本格式化" class="headerlink" title="2. 文本格式化"></a>2. 文本格式化</h2><p><strong>粗体文本</strong><br><em>斜体文本</em><br><em><strong>粗斜体文本</strong></em><br><del>删除线文本</del><br>&#x3D;&#x3D;高亮文本&#x3D;&#x3D;<br>上标：X^2^<br>下标：H<del>2</del>O  </p>
-<h2 id="3-列表测试"><a href="#3-列表测试" class="headerlink" title="3. 列表测试"></a>3. 列表测试</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><ul>
-<li>项目一<ul>
-<li>子项目 A</li>
-<li>子项目 B</li>
-</ul>
-</li>
-<li>项目二</li>
-<li>项目三</li>
-</ul>
-<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><ol>
-<li>第一项</li>
-<li>第二项<ol>
-<li>子项 2.1</li>
-<li>子项 2.2</li>
-</ol>
-</li>
-<li>第三项</li>
-</ol>
-<h3 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h3><ul>
-<li><input checked="" disabled="" type="checkbox"> 已完成任务</li>
-<li><input disabled="" type="checkbox"> 未完成任务</li>
-<li><input disabled="" type="checkbox"> 另一个未完成任务</li>
-</ul>
-<h2 id="4-链接与图片"><a href="#4-链接与图片" class="headerlink" title="4. 链接与图片"></a>4. 链接与图片</h2><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><a href="https://hexo.io/">Hexo官方网站</a><br><a href="/about/">相对链接测试</a><br><a href="https://hexo.io/" title="Hexo官网">带标题的链接</a></p>
-<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><img src="https://hexo.io/icon/favicon-196x196.png" alt="Hexo Logo" title="Hexo Logo"><br><img src="/images/test.jpg" alt="本地图片测试"><br>![带尺寸的图片](<a href="https://hexo.io/icon/favicon-196x196.png">https://hexo.io/icon/favicon-196x196.png</a> &#x3D;100x100)</p>
-<h2 id="5-代码块"><a href="#5-代码块" class="headerlink" title="5. 代码块"></a>5. 代码块</h2><h3 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h3><p>这是 <code>行内代码</code> 的例子。</p>
-<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// JavaScript示例</span></span><br><span class="line"><span class="keyword">const</span> hello = <span class="string">&quot;Hello, Hexo!&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hello);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;This is a test function.&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python示例</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fibonacci</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> fibonacci(n-<span class="number">1</span>) + fibonacci(n-<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Fibonacci(10) = <span class="subst">&#123;fibonacci(<span class="number">10</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Bash示例</span></span><br><span class="line">git init</span><br><span class="line">npm install hexo --save</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-表格测试"><a href="#6-表格测试" class="headerlink" title="6. 表格测试"></a>6. 表格测试</h2><table>
-<thead>
-<tr>
-<th>姓名</th>
-<th>年龄</th>
-<th>城市</th>
-<th>职业</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>张三</td>
-<td>28</td>
-<td>北京</td>
-<td>工程师</td>
-</tr>
-<tr>
-<td>李四</td>
-<td>32</td>
-<td>上海</td>
-<td>设计师</td>
-</tr>
-<tr>
-<td>王五</td>
-<td>25</td>
-<td>广州</td>
-<td>学生</td>
-</tr>
-<tr>
-<td>赵六</td>
-<td>40</td>
-<td>深圳</td>
-<td>经理</td>
-</tr>
-</tbody></table>
-<h3 id="对齐表格"><a href="#对齐表格" class="headerlink" title="对齐表格"></a>对齐表格</h3><table>
-<thead>
-<tr>
-<th align="left">左对齐</th>
-<th align="center">居中对齐</th>
-<th align="right">右对齐</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">单元格</td>
-<td align="center">单元格</td>
-<td align="right">单元格</td>
-</tr>
-<tr>
-<td align="left">较长的左对齐内容</td>
-<td align="center">居中内容</td>
-<td align="right">右对齐数字 123</td>
-</tr>
-<tr>
-<td align="left">测试</td>
-<td align="center">测试</td>
-<td align="right">测试</td>
-</tr>
-</tbody></table>
-<h2 id="7-引用块"><a href="#7-引用块" class="headerlink" title="7. 引用块"></a>7. 引用块</h2><blockquote>
-<p>这是一级引用</p>
-<blockquote>
-<p>这是二级引用</p>
-<blockquote>
-<p>这是三级引用</p>
-</blockquote>
-<p>返回二级引用</p>
-</blockquote>
-<p>返回一级引用</p>
-</blockquote>
-<blockquote>
-<p><strong>注意：</strong> 这是一个带格式的引用块</p>
-<p>引用中可以包含其他Markdown元素，比如：</p>
-<ol>
-<li>列表</li>
-<li><strong>粗体文本</strong></li>
-<li><code>代码</code></li>
-</ol>
-</blockquote>
-<h2 id="8-数学公式"><a href="#8-数学公式" class="headerlink" title="8. 数学公式"></a>8. 数学公式</h2><h3 id="行内公式"><a href="#行内公式" class="headerlink" title="行内公式"></a>行内公式</h3><p>勾股定理：$a^2 + b^2 &#x3D; c^2$</p>
-<p>爱因斯坦质能方程：$E &#x3D; mc^2$</p>
-<p>二次方程求根公式：$x &#x3D; \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
-<h3 id="块级公式"><a href="#块级公式" class="headerlink" title="块级公式"></a>块级公式</h3><p><strong>等差数列求和公式：</strong></p>
-<p>$$<br>S_n &#x3D; \frac{n(a_1 + a_n)}{2}<br>$$</p>
-<p><strong>高斯积分公式：</strong></p>
-<p>$$<br>\int_{-\infty}^{\infty} e^{-x^2} dx &#x3D; \sqrt{\pi}<br>$$</p>
-<p><strong>矩阵乘法：</strong></p>
-<h1 id="begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix"><a href="#begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix" class="headerlink" title="$$\begin{bmatrix}a_{11} &amp; a_{12} \a_{21} &amp; a_{22}\end{bmatrix}\times\begin{bmatrix}b_{11} &amp; b_{12} \b_{21} &amp; b_{22}\end{bmatrix}"></a>$$<br>\begin{bmatrix}<br>a_{11} &amp; a_{12} \<br>a_{21} &amp; a_{22}<br>\end{bmatrix}<br>\times<br>\begin{bmatrix}<br>b_{11} &amp; b_{12} \<br>b_{21} &amp; b_{22}<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>a_{11}b_{11} + a_{12}b_{21} &amp; a_{11}b_{12} + a_{12}b_{22} \<br>a_{21}b_{11} + a_{22}b_{21} &amp; a_{21}b_{12} + a_{22}b_{22}<br>\end{bmatrix}<br>$$</p>
-<h2 id="9-脚注"><a href="#9-脚注" class="headerlink" title="9. 脚注"></a>9. 脚注</h2><p>这是一个带有脚注的句子<a href="%E8%BF%99%E6%98%AF%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%84%9A%E6%B3%A8%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E6%9B%B4%E5%A4%9A%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E3%80%82">^1</a>。<br>这是另一个引用<a href="%E7%AC%AC%E4%BA%8C%E4%B8%AA%E8%84%9A%E6%B3%A8%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E9%93%BE%E6%8E%A5%E5%92%8C%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%EF%BC%8C%E6%AF%94%E5%A6%82**%E7%B2%97%E4%BD%93**%E6%88%96%60%E4%BB%A3%E7%A0%81%60%E3%80%82">^2</a>。</p>
-<h2 id="10-分割线"><a href="#10-分割线" class="headerlink" title="10. 分割线"></a>10. 分割线</h2><hr>
-<hr>
-<hr>
-<h2 id="11-定义列表"><a href="#11-定义列表" class="headerlink" title="11. 定义列表"></a>11. 定义列表</h2><dl><dt>术语一</dt><dd>这是术语一的定义</dd></dl><dl><dt>术语二<br>: 这是术语二的定义</dt><dd>这是术语二的第二个定义</dd></dl><h2 id="12-特殊字符与HTML"><a href="#12-特殊字符与HTML" class="headerlink" title="12. 特殊字符与HTML"></a>12. 特殊字符与HTML</h2><p><kbd>Ctrl</kbd> + <kbd>C</kbd> 复制<br><kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</p>
-<p>上箭头：↑<br>版权符号：©<br>注册商标：®<br>欧元符号：€</p>
-<details>
-<summary>点击展开/收起详细信息</summary>
-这是一个使用HTML details元素创建的折叠内容区域。
-里面可以包含任何Markdown内容：
-
-<ul>
-<li>列表项1</li>
-<li>列表项2</li>
-<li>列表项3</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello from inside the details!&quot;</span>)</span><br></pre></td></tr></table></figure>
-</details>
-
-<h2 id="13-图表（如果支持Mermaid）"><a href="#13-图表（如果支持Mermaid）" class="headerlink" title="13. 图表（如果支持Mermaid）"></a>13. 图表（如果支持Mermaid）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[开始] --&gt; B(处理)</span><br><span class="line">    B --&gt; C&#123;判断&#125;</span><br><span class="line">    C --&gt;|是| D[执行A]</span><br><span class="line">    C --&gt;|否| E[执行B]</span><br><span class="line">    D --&gt; F[结束]</span><br><span class="line">    E --&gt; F</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant 用户</span><br><span class="line">    participant 系统</span><br><span class="line">    用户-&gt;&gt;系统: 登录请求</span><br><span class="line">    系统-&gt;&gt;系统: 验证凭据</span><br><span class="line">    alt 验证成功</span><br><span class="line">        系统-&gt;&gt;用户: 返回主页</span><br><span class="line">    else 验证失败</span><br><span class="line">        系统-&gt;&gt;用户: 显示错误</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
-
-<h2 id="14-表情符号和特殊符号"><a href="#14-表情符号和特殊符号" class="headerlink" title="14. 表情符号和特殊符号"></a>14. 表情符号和特殊符号</h2><p>:smile: :heart: :+1: :rocket:</p>
-<p>箭头：→ ← ↑ ↓<br>数学符号：≠ ≤ ≥ ≈ ∞</p>
-<h2 id="15-混合内容测试"><a href="#15-混合内容测试" class="headerlink" title="15. 混合内容测试"></a>15. 混合内容测试</h2><p>这是一个<strong>混合</strong>了各种格式的段落，包括<code>行内代码</code>、<a href="https://hexo.io/">链接</a>、<em>斜体</em>和<strong>粗体</strong>。我们可以引用某个公式：$E &#x3D; mc^2$，然后继续写正文。</p>
-<blockquote>
-<p>这是一个包含表格的引用块：</p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>数量</th>
-<th>价格</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>苹果</td>
-<td>5</td>
-<td>$10</td>
-</tr>
-<tr>
-<td>香蕉</td>
-<td>3</td>
-<td>$6</td>
-</tr>
-</tbody></table>
-</blockquote>
-<ol>
-<li><strong>有序列表项一</strong>，包含<code>代码</code>和<a href="https://example.com/">链接</a></li>
-<li><em>有序列表项二</em>，包含数学公式 $x^2 + y^2 &#x3D; r^2$</li>
-<li>有序列表项三，包含表情符号 :tada:</li>
-</ol>
-<h2 id="16-结束语"><a href="#16-结束语" class="headerlink" title="16. 结束语"></a>16. 结束语</h2><p>这个文档测试了Hexo中可能用到的各种Markdown格式。不同的Hexo主题和渲染器可能对这些格式的支持程度不同，请根据实际渲染效果进行调整。</p>
-<hr>
-<p><em>最后更新：2025年</em><br><em>测试完成</em></p>
-]]></content>
   </entry>
   <entry>
     <title>String</title>
@@ -3524,6 +3430,188 @@ pause &gt;nul
         <tag>C++</tag>
         <tag>string</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>text</title>
+    <url>/2025/08/26/test/</url>
+    <content><![CDATA[<h1 id="Hexo-Markdown-测试文档"><a href="#Hexo-Markdown-测试文档" class="headerlink" title="Hexo Markdown 测试文档"></a>Hexo Markdown 测试文档</h1><p>本文件用于测试Hexo博客系统中的各种Markdown格式渲染效果。</p>
+<h2 id="1-标题测试"><a href="#1-标题测试" class="headerlink" title="1. 标题测试"></a>1. 标题测试</h2><h1 id="H1-标题"><a href="#H1-标题" class="headerlink" title="H1 标题"></a>H1 标题</h1><h2 id="H2-标题"><a href="#H2-标题" class="headerlink" title="H2 标题"></a>H2 标题</h2><h3 id="H3-标题"><a href="#H3-标题" class="headerlink" title="H3 标题"></a>H3 标题</h3><h4 id="H4-标题"><a href="#H4-标题" class="headerlink" title="H4 标题"></a>H4 标题</h4><h5 id="H5-标题"><a href="#H5-标题" class="headerlink" title="H5 标题"></a>H5 标题</h5><h6 id="H6-标题"><a href="#H6-标题" class="headerlink" title="H6 标题"></a>H6 标题</h6><h2 id="2-文本格式化"><a href="#2-文本格式化" class="headerlink" title="2. 文本格式化"></a>2. 文本格式化</h2><p><strong>粗体文本</strong><br><em>斜体文本</em><br><em><strong>粗斜体文本</strong></em><br><del>删除线文本</del><br>&#x3D;&#x3D;高亮文本&#x3D;&#x3D;<br>上标：X^2^<br>下标：H<del>2</del>O  </p>
+<h2 id="3-列表测试"><a href="#3-列表测试" class="headerlink" title="3. 列表测试"></a>3. 列表测试</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><ul>
+<li>项目一<ul>
+<li>子项目 A</li>
+<li>子项目 B</li>
+</ul>
+</li>
+<li>项目二</li>
+<li>项目三</li>
+</ul>
+<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><ol>
+<li>第一项</li>
+<li>第二项<ol>
+<li>子项 2.1</li>
+<li>子项 2.2</li>
+</ol>
+</li>
+<li>第三项</li>
+</ol>
+<h3 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> 已完成任务</li>
+<li><input disabled="" type="checkbox"> 未完成任务</li>
+<li><input disabled="" type="checkbox"> 另一个未完成任务</li>
+</ul>
+<h2 id="4-链接与图片"><a href="#4-链接与图片" class="headerlink" title="4. 链接与图片"></a>4. 链接与图片</h2><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><a href="https://hexo.io/">Hexo官方网站</a><br><a href="/about/">相对链接测试</a><br><a href="https://hexo.io/" title="Hexo官网">带标题的链接</a></p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><img src="https://hexo.io/icon/favicon-196x196.png" alt="Hexo Logo" title="Hexo Logo"><br><img src="/images/test.jpg" alt="本地图片测试"><br>![带尺寸的图片](<a href="https://hexo.io/icon/favicon-196x196.png">https://hexo.io/icon/favicon-196x196.png</a> &#x3D;100x100)</p>
+<h2 id="5-代码块"><a href="#5-代码块" class="headerlink" title="5. 代码块"></a>5. 代码块</h2><h3 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h3><p>这是 <code>行内代码</code> 的例子。</p>
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// JavaScript示例</span></span><br><span class="line"><span class="keyword">const</span> hello = <span class="string">&quot;Hello, Hexo!&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hello);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;This is a test function.&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python示例</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fibonacci</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> fibonacci(n-<span class="number">1</span>) + fibonacci(n-<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Fibonacci(10) = <span class="subst">&#123;fibonacci(<span class="number">10</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Bash示例</span></span><br><span class="line">git init</span><br><span class="line">npm install hexo --save</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-表格测试"><a href="#6-表格测试" class="headerlink" title="6. 表格测试"></a>6. 表格测试</h2><table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>年龄</th>
+<th>城市</th>
+<th>职业</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>张三</td>
+<td>28</td>
+<td>北京</td>
+<td>工程师</td>
+</tr>
+<tr>
+<td>李四</td>
+<td>32</td>
+<td>上海</td>
+<td>设计师</td>
+</tr>
+<tr>
+<td>王五</td>
+<td>25</td>
+<td>广州</td>
+<td>学生</td>
+</tr>
+<tr>
+<td>赵六</td>
+<td>40</td>
+<td>深圳</td>
+<td>经理</td>
+</tr>
+</tbody></table>
+<h3 id="对齐表格"><a href="#对齐表格" class="headerlink" title="对齐表格"></a>对齐表格</h3><table>
+<thead>
+<tr>
+<th align="left">左对齐</th>
+<th align="center">居中对齐</th>
+<th align="right">右对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单元格</td>
+<td align="center">单元格</td>
+<td align="right">单元格</td>
+</tr>
+<tr>
+<td align="left">较长的左对齐内容</td>
+<td align="center">居中内容</td>
+<td align="right">右对齐数字 123</td>
+</tr>
+<tr>
+<td align="left">测试</td>
+<td align="center">测试</td>
+<td align="right">测试</td>
+</tr>
+</tbody></table>
+<h2 id="7-引用块"><a href="#7-引用块" class="headerlink" title="7. 引用块"></a>7. 引用块</h2><blockquote>
+<p>这是一级引用</p>
+<blockquote>
+<p>这是二级引用</p>
+<blockquote>
+<p>这是三级引用</p>
+</blockquote>
+<p>返回二级引用</p>
+</blockquote>
+<p>返回一级引用</p>
+</blockquote>
+<blockquote>
+<p><strong>注意：</strong> 这是一个带格式的引用块</p>
+<p>引用中可以包含其他Markdown元素，比如：</p>
+<ol>
+<li>列表</li>
+<li><strong>粗体文本</strong></li>
+<li><code>代码</code></li>
+</ol>
+</blockquote>
+<h2 id="8-数学公式"><a href="#8-数学公式" class="headerlink" title="8. 数学公式"></a>8. 数学公式</h2><h3 id="行内公式"><a href="#行内公式" class="headerlink" title="行内公式"></a>行内公式</h3><p>勾股定理：$a^2 + b^2 &#x3D; c^2$</p>
+<p>爱因斯坦质能方程：$E &#x3D; mc^2$</p>
+<p>二次方程求根公式：$x &#x3D; \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
+<h3 id="块级公式"><a href="#块级公式" class="headerlink" title="块级公式"></a>块级公式</h3><p><strong>等差数列求和公式：</strong></p>
+<p>$$<br>S_n &#x3D; \frac{n(a_1 + a_n)}{2}<br>$$</p>
+<p><strong>高斯积分公式：</strong></p>
+<p>$$<br>\int_{-\infty}^{\infty} e^{-x^2} dx &#x3D; \sqrt{\pi}<br>$$</p>
+<p><strong>矩阵乘法：</strong></p>
+<h1 id="begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix"><a href="#begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix" class="headerlink" title="$$\begin{bmatrix}a_{11} &amp; a_{12} \a_{21} &amp; a_{22}\end{bmatrix}\times\begin{bmatrix}b_{11} &amp; b_{12} \b_{21} &amp; b_{22}\end{bmatrix}"></a>$$<br>\begin{bmatrix}<br>a_{11} &amp; a_{12} \<br>a_{21} &amp; a_{22}<br>\end{bmatrix}<br>\times<br>\begin{bmatrix}<br>b_{11} &amp; b_{12} \<br>b_{21} &amp; b_{22}<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>a_{11}b_{11} + a_{12}b_{21} &amp; a_{11}b_{12} + a_{12}b_{22} \<br>a_{21}b_{11} + a_{22}b_{21} &amp; a_{21}b_{12} + a_{22}b_{22}<br>\end{bmatrix}<br>$$</p>
+<h2 id="9-脚注"><a href="#9-脚注" class="headerlink" title="9. 脚注"></a>9. 脚注</h2><p>这是一个带有脚注的句子<a href="%E8%BF%99%E6%98%AF%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%84%9A%E6%B3%A8%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E6%9B%B4%E5%A4%9A%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E3%80%82">^1</a>。<br>这是另一个引用<a href="%E7%AC%AC%E4%BA%8C%E4%B8%AA%E8%84%9A%E6%B3%A8%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E9%93%BE%E6%8E%A5%E5%92%8C%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%EF%BC%8C%E6%AF%94%E5%A6%82**%E7%B2%97%E4%BD%93**%E6%88%96%60%E4%BB%A3%E7%A0%81%60%E3%80%82">^2</a>。</p>
+<h2 id="10-分割线"><a href="#10-分割线" class="headerlink" title="10. 分割线"></a>10. 分割线</h2><hr>
+<hr>
+<hr>
+<h2 id="11-定义列表"><a href="#11-定义列表" class="headerlink" title="11. 定义列表"></a>11. 定义列表</h2><dl><dt>术语一</dt><dd>这是术语一的定义</dd></dl><dl><dt>术语二<br>: 这是术语二的定义</dt><dd>这是术语二的第二个定义</dd></dl><h2 id="12-特殊字符与HTML"><a href="#12-特殊字符与HTML" class="headerlink" title="12. 特殊字符与HTML"></a>12. 特殊字符与HTML</h2><p><kbd>Ctrl</kbd> + <kbd>C</kbd> 复制<br><kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</p>
+<p>上箭头：↑<br>版权符号：©<br>注册商标：®<br>欧元符号：€</p>
+<details>
+<summary>点击展开/收起详细信息</summary>
+这是一个使用HTML details元素创建的折叠内容区域。
+里面可以包含任何Markdown内容：
+
+<ul>
+<li>列表项1</li>
+<li>列表项2</li>
+<li>列表项3</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello from inside the details!&quot;</span>)</span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="13-图表（如果支持Mermaid）"><a href="#13-图表（如果支持Mermaid）" class="headerlink" title="13. 图表（如果支持Mermaid）"></a>13. 图表（如果支持Mermaid）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[开始] --&gt; B(处理)</span><br><span class="line">    B --&gt; C&#123;判断&#125;</span><br><span class="line">    C --&gt;|是| D[执行A]</span><br><span class="line">    C --&gt;|否| E[执行B]</span><br><span class="line">    D --&gt; F[结束]</span><br><span class="line">    E --&gt; F</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant 用户</span><br><span class="line">    participant 系统</span><br><span class="line">    用户-&gt;&gt;系统: 登录请求</span><br><span class="line">    系统-&gt;&gt;系统: 验证凭据</span><br><span class="line">    alt 验证成功</span><br><span class="line">        系统-&gt;&gt;用户: 返回主页</span><br><span class="line">    else 验证失败</span><br><span class="line">        系统-&gt;&gt;用户: 显示错误</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+
+<h2 id="14-表情符号和特殊符号"><a href="#14-表情符号和特殊符号" class="headerlink" title="14. 表情符号和特殊符号"></a>14. 表情符号和特殊符号</h2><p>:smile: :heart: :+1: :rocket:</p>
+<p>箭头：→ ← ↑ ↓<br>数学符号：≠ ≤ ≥ ≈ ∞</p>
+<h2 id="15-混合内容测试"><a href="#15-混合内容测试" class="headerlink" title="15. 混合内容测试"></a>15. 混合内容测试</h2><p>这是一个<strong>混合</strong>了各种格式的段落，包括<code>行内代码</code>、<a href="https://hexo.io/">链接</a>、<em>斜体</em>和<strong>粗体</strong>。我们可以引用某个公式：$E &#x3D; mc^2$，然后继续写正文。</p>
+<blockquote>
+<p>这是一个包含表格的引用块：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>数量</th>
+<th>价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>苹果</td>
+<td>5</td>
+<td>$10</td>
+</tr>
+<tr>
+<td>香蕉</td>
+<td>3</td>
+<td>$6</td>
+</tr>
+</tbody></table>
+</blockquote>
+<ol>
+<li><strong>有序列表项一</strong>，包含<code>代码</code>和<a href="https://example.com/">链接</a></li>
+<li><em>有序列表项二</em>，包含数学公式 $x^2 + y^2 &#x3D; r^2$</li>
+<li>有序列表项三，包含表情符号 :tada:</li>
+</ol>
+<h2 id="16-结束语"><a href="#16-结束语" class="headerlink" title="16. 结束语"></a>16. 结束语</h2><p>这个文档测试了Hexo中可能用到的各种Markdown格式。不同的Hexo主题和渲染器可能对这些格式的支持程度不同，请根据实际渲染效果进行调整。</p>
+<hr>
+<p><em>最后更新：2025年</em><br><em>测试完成</em></p>
+]]></content>
   </entry>
   <entry>
     <title>the first blog for my felling</title>

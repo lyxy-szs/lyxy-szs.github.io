@@ -20,7 +20,7 @@
 
 <!-- ҳ����⶯̬���� -->
 
-<title>md格式汇总 | Johnson</title>
+<title>ros2_note | Johnson</title>
 
 <!-- ��վͼ�� -->
 
@@ -591,7 +591,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">md格式汇总</h1>
+            <h1 class="post-title">ros2_note</h1>
             
                 <div class="post-meta">
                     
@@ -600,40 +600,97 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">八月 19, 2025&nbsp;&nbsp;18:23:00</a>
+                        Date: <a href="#">二月 2, 2026&nbsp;&nbsp;9:48:08</a>
                         </span>
                     
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/Markdown/">Markdown</a>
-                            
-                        </span>
                     
                 </div>
             
         </header>
 
         <div class="post-content">
-            <p>必填项：title 和 date（date 不填会自动生成当前时间）。<br>选填项：tags（标签）、categories（分类）等，根据主题支持情况添加。</p>
-<h1 id="正文内容（Markdown-语法）"><a href="#正文内容（Markdown-语法）" class="headerlink" title="正文内容（Markdown 语法）"></a>正文内容（Markdown 语法）</h1><p>在 — 下方写正文，支持所有标准 Markdown 语法，常用示例：<br>markdown</p>
-<h1 id="一级标题（文章大标题）一个"><a href="#一级标题（文章大标题）一个" class="headerlink" title="一级标题（文章大标题）一个#"></a>一级标题（文章大标题）一个#</h1><h2 id="二级标题（小节标题）两个"><a href="#二级标题（小节标题）两个" class="headerlink" title="二级标题（小节标题）两个#"></a>二级标题（小节标题）两个#</h2><h3 id="三级标题（子标题）三个"><a href="#三级标题（子标题）三个" class="headerlink" title="三级标题（子标题）三个#"></a>三级标题（子标题）三个#</h3><p>这是正文段落，支持 <strong>加粗</strong><code>（两个*，前后）</code>、<em>斜体</em><code>（一个*，前后）</code>、<del>删除线</del><code>（两个个~，前后）</code> 等格式。</p>
-<ul>
-<li>无序列表项1</li>
-<li>无序列表项2<code>（-）</code><ul>
-<li>子列表项</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li>有序列表项1</li>
-<li>有序列表项2</li>
-</ol>
-<p><code>[链接文字](https://example.com)</code>  # 插入链接 eg: <a href="www.baidu.com">baidu</a></p>
-<p><code>![图片描述](/images/你的图片名.jpg)</code>  # 插入图片（图片放 source&#x2F;images&#x2F; 目录下）eg: <img src="/%5Cimages%5C1.jpeg" alt="test"><br><code>&lt;img src=&quot;/images/1.jpeg&quot; alt=&quot;test&quot; width=&quot;500&quot; /&gt;</code>网页嵌入代码也可以，效果更好<br><img src="/images/1.jpeg" alt="test" width="500" /><br><code>代码块</code>python</p>
-<h1 id="插入代码（指定语言可自动高亮）"><a href="#插入代码（指定语言可自动高亮）" class="headerlink" title="插入代码（指定语言可自动高亮）"></a>插入代码（指定语言可自动高亮）</h1><p>print(“Hello Hexo!”)</p>
+            <h1 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a><strong>VScode</strong></h1><p>***首先，***先把VScode自动保存打开！！！<br>这样会减少很多的报错<br><img src="/images/ros_node/r-0.png" alt="r-0" width="800" /></p>
+<h1 id="指令："><a href="#指令：" class="headerlink" title="指令："></a>指令：</h1><details>
+<summary> 基础 </summary>
 
+<h2 id="召唤吉祥物"><a href="#召唤吉祥物" class="headerlink" title="召唤吉祥物"></a>召唤吉祥物</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 run turtlesim turtlesim_node</span><br></pre></td></tr></table></figure>
+<img src="/images/ros_node/r-1.1.png" alt="r-1.1" width="500" />
+
+<h2 id="查看服务列表，会显示服务类型及消息接口"><a href="#查看服务列表，会显示服务类型及消息接口" class="headerlink" title="查看服务列表，会显示服务类型及消息接口"></a>查看服务列表，会显示服务类型及消息接口</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ros2 service list -t</span><br><span class="line"><span class="comment">#eg：/spawn[turtlesim/srv/Spawn],spawn是“产卵”，生成新的海龟</span></span><br></pre></td></tr></table></figure>
+<h2 id="查看消息接口"><a href="#查看消息接口" class="headerlink" title="查看消息接口"></a>查看消息接口</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ros2 interface show turtlesim/srv/Spawn <span class="comment">#在上一条命令后，[]内的内容是接口</span></span><br><span class="line"><span class="comment">#float32 x       32位浮点型保存横坐标</span></span><br><span class="line"><span class="comment">#float32 y       32位浮点型保存纵坐标</span></span><br><span class="line"><span class="comment">#float32 theta   32位浮点型保存头的朝向</span></span><br><span class="line"><span class="comment">#string name # Optional.  A unique name will be created and returned if this is empty</span></span><br><span class="line"><span class="comment">#---</span></span><br><span class="line"><span class="comment">#string name</span></span><br></pre></td></tr></table></figure>
+<h2 id="终端调用消息接口-召唤第二只乌龟"><a href="#终端调用消息接口-召唤第二只乌龟" class="headerlink" title="终端调用消息接口(召唤第二只乌龟)"></a>终端调用消息接口(召唤第二只乌龟)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ros2 service call /spawn turtlesim/srv/Spawn <span class="string">&quot;&#123;x: 1,y: 2&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#格式： ros2 service call 服务名字 服务接口 &quot;&#123;数据填充（yaml格式）&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<details>
+<summary>示例反馈</summary>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">requester: making request: turtlesim.srv.Spawn_Request(x=1.0, y=2.0, theta=0.0, name=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">response:</span><br><span class="line">turtlesim.srv.Spawn_Response(name=<span class="string">&#x27;turtle2&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</details>
+
+<img src="/images/ros_node/r-1.2.png" alt="r-1.2" width="500" />
+
+<h2 id="可视化接口调用：rqt"><a href="#可视化接口调用：rqt" class="headerlink" title="可视化接口调用：rqt"></a>可视化接口调用：rqt</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rqt</span><br></pre></td></tr></table></figure>
+<img src="/images/ros_node/r-2.png" alt="r-2" width="500" />
+</details>
+
+<h1 id="导-航-："><a href="#导-航-：" class="headerlink" title="导 航 ："></a>导 航 ：</h1><h2 id="创建环境："><a href="#创建环境：" class="headerlink" title="创建环境："></a>创建环境：</h2><h3 id="创建并进入文件夹"><a href="#创建并进入文件夹" class="headerlink" title="创建并进入文件夹"></a>创建并进入文件夹</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> CHAPT6/chapt6_ws/src &amp;&amp; <span class="built_in">cd</span> CHAPT6/chapt6_ws/src</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建ros2环境"><a href="#创建ros2环境" class="headerlink" title="创建ros2环境"></a>创建ros2环境</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 pkg create fishbot_description --build-type ament_cmake --license Apache-2.0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ros2</span> pkg       create  fishbot_description   --build-type  ament_cmake                    --license     Apache-<span class="number">2</span>.<span class="number">0</span></span><br><span class="line"><span class="attribute">ros2</span> 功能包操作  创建    fishbot_description   -- 构建类型     ROS <span class="number">2</span> 中基于 CMake 的标准构建方式 -- 开源许可证   Apache <span class="number">2</span>.<span class="number">0</span> 协议</span><br></pre></td></tr></table></figure>
+
+<details>
+<summary> 示例反馈： </summary>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">going to create a new package</span><br><span class="line">package name: fishbot_description</span><br><span class="line">destination directory: /home/noi/fishros/CHAPT6/chapt6_ws/src</span><br><span class="line">package format: 3</span><br><span class="line">version: 0.0.0</span><br><span class="line">description: TODO: Package description</span><br><span class="line">maintainer: [<span class="string">&#x27;noi &lt;example@example.com&gt;&#x27;</span>]</span><br><span class="line">licenses: [<span class="string">&#x27;Apache-2.0&#x27;</span>]</span><br><span class="line">build <span class="built_in">type</span>: ament_cmake</span><br><span class="line">dependencies: []</span><br><span class="line">creating folder ./fishbot_description</span><br><span class="line">creating ./fishbot_description/package.xml</span><br><span class="line">creating <span class="built_in">source</span> and include folder</span><br><span class="line">creating folder ./fishbot_description/src</span><br><span class="line">creating folder ./fishbot_description/include/fishbot_description</span><br><span class="line">creating ./fishbot_description/CMakeLists.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">└── CHAPT6</span><br><span class="line">    └── chapt6_ws</span><br><span class="line">        └── src</span><br><span class="line">            └── fishbot_description</span><br><span class="line">                ├── CMakeLists.txt</span><br><span class="line">                ├── include</span><br><span class="line">                │   └── fishbot_description</span><br><span class="line">                ├── LICENSE</span><br><span class="line">                ├── package.xml</span><br><span class="line">                ├── urdf</span><br><span class="line">                └── src</span><br><span class="line"></span><br><span class="line">7 directories, 3 files</span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="机器人模型文件储存-——-urdf文件夹"><a href="#机器人模型文件储存-——-urdf文件夹" class="headerlink" title="机器人模型文件储存 —— urdf文件夹"></a>机器人模型文件储存 —— urdf文件夹</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> fishbot_description &amp;&amp; <span class="built_in">mkdir</span> urdf <span class="comment">#urdf 用于存放机器人模型文件</span></span><br><span class="line"><span class="built_in">cd</span> urdf &amp;&amp; <span class="built_in">touch</span> first_robot.urdf <span class="comment">#创建 urdf 文件</span></span><br></pre></td></tr></table></figure>
+<p>另外需要手动在vscode中安装 urdf 插件<br><img src="/images/ros_node/r-3.1.png" alt="urdf插件示意图" width="700" /></p>
+<h3 id="编辑first-robot-urdf"><a href="#编辑first-robot-urdf" class="headerlink" title="编辑first_robot.urdf"></a>编辑first_robot.urdf</h3><details>
+<summary> first_robot.urdf的内容 </summary>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;robot name=&quot;first&quot;&gt;</span><br><span class="line">    &lt;!-- 机器人的身体部分 --&gt;</span><br><span class="line">    &lt;link name=&quot;base_link&quot;&gt;</span><br><span class="line">        &lt;!-- 部件外观描述 --&gt;</span><br><span class="line">        &lt;visual&gt;</span><br><span class="line">            &lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span><br><span class="line">            &lt;origin xyz=&quot;0.0 0.0 0.0&quot; rpy=&quot;0.0 0.0 0.0&quot;/&gt;</span><br><span class="line">            &lt;!-- 几何形状 --&gt;</span><br><span class="line">            &lt;geometry&gt;</span><br><span class="line">            &lt;!-- 圆柱体 radius半径 0.10m length高度 0.12m --&gt;</span><br><span class="line">                &lt;cylinder radius=&quot;0.10&quot; length=&quot;0.12&quot;/&gt;</span><br><span class="line">            &lt;/geometry&gt;</span><br><span class="line">            &lt;!-- 材质颜色 --&gt;</span><br><span class="line">            &lt;material name=&quot;white&quot;&gt;</span><br><span class="line">       #requester: making request: turtlesim.srv.Spawn_Request(x=1.0, y=2.0, theta=0.0, name=&#x27;&#x27;)</span><br><span class="line">#</span><br><span class="line">#response:</span><br><span class="line">#turtlesim.srv.Spawn_Response(name=&#x27;turtle2&#x27;)         &lt;!-- 红绿蓝 透明度（0～1） --&gt;</span><br><span class="line">                &lt;color rgba=&quot;1.0 1.0 1.0 0.5&quot;/&gt;</span><br><span class="line">            &lt;/material&gt;</span><br><span class="line">        &lt;/visual&gt;</span><br><span class="line">    &lt;/link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 机器人的IMU部件，惯性测量传感器 --&gt;</span><br><span class="line">    &lt;link name=&quot;imu_link&quot;&gt;</span><br><span class="line">        &lt;!-- 部件外观描述 --&gt;</span><br><span class="line">        &lt;visual&gt;</span><br><span class="line">            &lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span><br><span class="line">            &lt;origin xyz=&quot;0.0 0.0 0.0&quot; rpy=&quot;0.0 0.0 0.0&quot;/&gt;</span><br><span class="line">            &lt;!-- 几何形状 --&gt;</span><br><span class="line">            &lt;geometry&gt;</span><br><span class="line">                &lt;box size=&quot;0.02 0.02 0.02&quot;/&gt;</span><br><span class="line">            &lt;/geometry&gt;</span><br><span class="line">            &lt;!-- 材质颜色 --&gt;</span><br><span class="line">            &lt;material name=&quot;black&quot;&gt;</span><br><span class="line">                &lt;!-- 红绿蓝 透明度（0～1） --&gt;</span><br><span class="line">                &lt;color rgba=&quot;0.0 0.0 0.0 0.5&quot;/&gt;</span><br><span class="line">            &lt;/material&gt;</span><br><span class="line">        &lt;/visual&gt;</span><br><span class="line">    &lt;/link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 机器人的关节，用于组合机器人的部件 --&gt;</span><br><span class="line">    &lt;joint name=&quot;imu_joint&quot; type=&quot;fixed&quot;&gt;</span><br><span class="line">        &lt;origin xyz=&quot;0.0 0.0 0.03&quot; rpy=&quot;0.0 0.0 0.0&quot;/&gt;</span><br><span class="line">        &lt;parent link=&quot;base_link&quot;/&gt;</span><br><span class="line">        &lt;child link=&quot;imu_link&quot;/&gt;</span><br><span class="line">    &lt;/joint&gt;</span><br><span class="line">&lt;/robot&gt;</span><br></pre></td></tr></table></figure>
+</details>
+
+<p><strong>打开集成终端</strong><br><img src="/images/ros_node/r-3.2.png" alt="打开集成终端" width="400" /><br>输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#urdf_to_graphviz生成可视化文件</span></span><br><span class="line">urdf_to_graphviz first_robot.urdf </span><br></pre></td></tr></table></figure>
+<details>
+<summary> 如果报错 </summary>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">WARNING: OUTPUT not given. This <span class="built_in">type</span> of usage is deprecated!Usage: urdf_to_graphviz input.xml [OUTPUT]  Will create either <span class="variable">$ROBOT_NAME</span>.gv &amp; <span class="variable">$ROBOT_NAME</span>.pdf <span class="keyword">in</span> CWD  or OUTPUT.gv &amp; OUTPUT.pdf.</span><br><span class="line">Error:   No <span class="built_in">link</span> elements found <span class="keyword">in</span> urdf file</span><br><span class="line">         at line 206 <span class="keyword">in</span> ./urdf_parser/src/model.cpp</span><br><span class="line">ERROR: Model Parsing the xml failed</span><br></pre></td></tr></table></figure>
+则是urdf文件没有保存，ctrl+s 保存一下，如果你已经设置了vscode，这个错误基本不会发生
+</details>
+
+<h3 id="在RViz中查看模型"><a href="#在RViz中查看模型" class="headerlink" title="在RViz中查看模型"></a>在RViz中查看模型</h3><p>在集成终端中输入<code>rviz2</code></p>
+<details>
+<summary> 如果报错（简易方法） </summary>
+如果rviz2发生渲染问题：如屏闪
+Step1：更新显卡驱动（ai）
+Step2：
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export QT_ENABLE_HIGHDPI_SCALING=0&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export vblank_mode=0&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export QT_XCB_GL_INTEGRATION=xcb_glx&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">rviz2</span><br></pre></td></tr></table></figure>
+Step3：登录界面右下角齿轮选择`Ubuntu on Xorg`
+再不行就ai 电脑型号 系统 情况 
+</details>
+
+<img src="/images/ros_node/r-6.png" alt="基础配置rviz2_1" width="700" />
+----------------------------我是分割线-----------------------------
+<img src="/images/ros_node/r-7.png" alt="基础配置rviz2_2" width="700" />
+但是当前还是无法直接显示imu_link base_link之间的关系，原因是rviz2默认使用map，需要tf变换
+
+<p><strong>So，</strong> 使用ROS2内置的publisher实现自动的关系转换<br><img src="/images/ros_node/r-8.png" alt="转换到rviz2的示意图" width="600" /><br>运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ros-<span class="variable">$ROS_DISTRO</span>-joint-state-publisher</span><br><span class="line"><span class="built_in">sudo</span> apt install ros-<span class="variable">$ROS_DISTRO</span>-robot-state-publisher</span><br></pre></td></tr></table></figure>
+
+<h3 id="编辑launch文件（方便运行-关闭多个节点）"><a href="#编辑launch文件（方便运行-关闭多个节点）" class="headerlink" title="编辑launch文件（方便运行&#x2F;关闭多个节点）"></a>编辑launch文件（方便运行&#x2F;关闭多个节点）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/fishros/CHAPT6</span><br><span class="line"><span class="built_in">mkdir</span> -p chapt6_ws/src/fishbot_description/launch</span><br><span class="line"><span class="built_in">touch</span> chapt6_ws/src/fishbot_description/launch/display_robot.launch.py</span><br></pre></td></tr></table></figure>
+
+<details>
+<summary> display_robot.launch.py的内容 </summary>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> launch</span><br><span class="line"><span class="keyword">import</span> launch_ros</span><br><span class="line"><span class="keyword">from</span> ament_index_python.packages <span class="keyword">import</span> get_package_share_directory</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_launch_description</span>():</span><br><span class="line">    <span class="comment">#获取默认的urdf路径,这个需要先colcon build 一下，并且在CMakeList中加上urdf与launch文件夹</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> launch.LaunchDescription([</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    ])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#......</span><br><span class="line">#endif()</span><br><span class="line"></span><br><span class="line">#自己定位一下吧</span><br><span class="line">install(DIRECTORY launch urdf </span><br><span class="line">  DESTINATION share/$&#123;PROJECT_NAME&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#ament_package()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</details>
         </div>
 
         
@@ -647,7 +704,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://lyxy-szs.github.io/2025/08/19/md-format-summary/">http://lyxy-szs.github.io/2025/08/19/md-format-summary/</a></span>
+                        <span><a href="http://lyxy-szs.github.io/2026/02/02/ros2-note/">http://lyxy-szs.github.io/2026/02/02/ros2-note/</a></span>
                     </p>
                 
                 
@@ -665,6 +722,10 @@
                 <span>Tag(s):</span>
                 <span class="tag">
                     
+                    
+                        <a href="/tags/ROS2/"># ROS2</a>
+                    
+                        
                 </span>
             </div>
             <div>
@@ -675,10 +736,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2025/08/20/a-travel-of-bat/">bat脚本一日游</a>
             
-            
-            <a class="next" rel="next" href="/2025/07/17/the-first-blog-for-my-felling/">the first blog for my felling</a>
+            <a class="next" rel="next" href="/2026/01/20/C++&note2/">C++/note2</a>
             
         </section>
 

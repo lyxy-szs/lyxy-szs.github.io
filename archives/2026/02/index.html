@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 
-<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+<head>
     <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.js"></script>
     <!-- �ַ��������ӿ����� -->
 <meta charset="UTF-8">
@@ -20,7 +20,7 @@
 
 <!-- ҳ����⶯̬���� -->
 
-<title>md格式汇总 | Johnson</title>
+<title>归档: 2026/2 | Johnson</title>
 
 <!-- ��վͼ�� -->
 
@@ -519,224 +519,22 @@
     });
 </script>
             <div class="main">
-                <div class="container">
+                <div class="post-wrap archive">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">md格式汇总</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">Lyxy-szs</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">八月 19, 2025&nbsp;&nbsp;18:23:00</a>
-                        </span>
-                    
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/Markdown/">Markdown</a>
-                            
-                        </span>
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <p>必填项：title 和 date（date 不填会自动生成当前时间）。<br>选填项：tags（标签）、categories（分类）等，根据主题支持情况添加。</p>
-<h1 id="正文内容（Markdown-语法）"><a href="#正文内容（Markdown-语法）" class="headerlink" title="正文内容（Markdown 语法）"></a>正文内容（Markdown 语法）</h1><p>在 — 下方写正文，支持所有标准 Markdown 语法，常用示例：<br>markdown</p>
-<h1 id="一级标题（文章大标题）一个"><a href="#一级标题（文章大标题）一个" class="headerlink" title="一级标题（文章大标题）一个#"></a>一级标题（文章大标题）一个#</h1><h2 id="二级标题（小节标题）两个"><a href="#二级标题（小节标题）两个" class="headerlink" title="二级标题（小节标题）两个#"></a>二级标题（小节标题）两个#</h2><h3 id="三级标题（子标题）三个"><a href="#三级标题（子标题）三个" class="headerlink" title="三级标题（子标题）三个#"></a>三级标题（子标题）三个#</h3><p>这是正文段落，支持 <strong>加粗</strong><code>（两个*，前后）</code>、<em>斜体</em><code>（一个*，前后）</code>、<del>删除线</del><code>（两个个~，前后）</code> 等格式。</p>
-<ul>
-<li>无序列表项1</li>
-<li>无序列表项2<code>（-）</code><ul>
-<li>子列表项</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li>有序列表项1</li>
-<li>有序列表项2</li>
-</ol>
-<p><code>[链接文字](https://example.com)</code>  # 插入链接 eg: <a href="www.baidu.com">baidu</a></p>
-<p><code>![图片描述](/images/你的图片名.jpg)</code>  # 插入图片（图片放 source&#x2F;images&#x2F; 目录下）eg: <img src="/%5Cimages%5C1.jpeg" alt="test"><br><code>&lt;img src=&quot;/images/1.jpeg&quot; alt=&quot;test&quot; width=&quot;500&quot; /&gt;</code>网页嵌入代码也可以，效果更好<br><img src="/images/1.jpeg" alt="test" width="500" /><br><code>代码块</code>python</p>
-<h1 id="插入代码（指定语言可自动高亮）"><a href="#插入代码（指定语言可自动高亮）" class="headerlink" title="插入代码（指定语言可自动高亮）"></a>插入代码（指定语言可自动高亮）</h1><p>print(“Hello Hexo!”)</p>
-
-        </div>
+        
 
         
-            <section class="post-copyright">
-                
-                    <p class="copyright-item">
-                        <span>Author:</span>
-                        <span>Lyxy-szs</span>
-                    </p>
-                
-                
-                    <p class="copyright-item">
-                        <span>Permalink:</span>
-                        <span><a href="http://lyxy-szs.github.io/2025/08/19/md-format-summary/">http://lyxy-szs.github.io/2025/08/19/md-format-summary/</a></span>
-                    </p>
-                
-                
-                
-                     <p class="copyright-item">
-                         <span>Slogan:</span>
-                         <span>永远相信<strong>美好的事情即将發生</strong>?</span>
-                     </p>
-                
-
-            </section>
+            <h3>2026</h3>
         
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2025/08/20/a-travel-of-bat/">bat脚本一日游</a>
-            
-            
-            <a class="next" rel="next" href="/2025/07/17/the-first-blog-for-my-felling/">the first blog for my felling</a>
-            
-        </section>
 
-
-    </article>
+        <article class="archive-item">
+            <a class="archive-item-link" href="/2026/02/02/ros2-note/">ros2_note</a>
+            <span class="archive-item-date">二月 2, 2026</span>
+        </article>
+    
+    
 </div>
-
-<!-- �����ڹؼ��ʶ�λ+�����߼� -->
-<script>
-// 1. ��URL�л�ȡ�ؼ��ʲ���
-function getUrlParam(name) {
-  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
-  const r = window.location.search.substr(1).match(reg);
-  if (r != null) return decodeURIComponent(r[2]);
-  return null;
-}
-
-// 2. �������������ؼ���λ��
-function highlightAndScrollToKeyword() {
-  const keyword = getUrlParam('keyword');
-  if (!keyword || keyword.length < 2) return; // �޹ؼ���/�ؼ��ʹ���������
-
-  // ��λ������������Chic�����������ݵ�������������ȷ���Ƿ�ƥ�䣬Ĭ����.post-content��
-  const contentEl = document.querySelector('.post-content');
-  if (!contentEl) return;
-
-  // ��¡���ݣ�����ֱ���޸�ԭDOM���µ�����
-  const contentHtml = contentEl.innerHTML;
-  // ����ƥ��ؼ��ʣ����Դ�Сд��ȫ��ƥ�䣩
-  const reg = new RegExp(`(${keyword})`, 'gi');
-  // �滻�ؼ��ʲ����Ӹ�����ʽ
-  const newHtml = contentHtml.replace(reg, '<span style="background: #ffff00; color: #333; padding: 0 2px; border-radius: 2px;">$1</span>');
-  contentEl.innerHTML = newHtml;
-
-  // 3. ��������һ��ƥ��Ĺؼ���λ��
-  const firstHighlight = contentEl.querySelector('span[style*="background: #ffff00"]');
-  if (firstHighlight) {
-    // ƽ���������ؼ���λ�ã�ƫ��-80px�����ⱻ�������ڵ���
-    firstHighlight.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
-    });
-    // ����һ������Ԫ��������˸Ч������ǿ�Ӿ���ʾ
-    firstHighlight.animate([
-      { opacity: 0.5 },
-      { opacity: 1 }
-    ], {
-      duration: 1000,
-      iterations: 2
-    });
-  }
-}
-
-// ҳ�������ɺ�ִ��
-window.onload = function() {
-  highlightAndScrollToKeyword();
-};
-</script>
             </div>
             <footer id="footer" class="footer">
     <div class="footer-typing-container">
@@ -794,6 +592,6 @@ window.onload = function() {
     
 <script src="/js/tellu.js"></script>
 
-<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</body>
 
 </html>
