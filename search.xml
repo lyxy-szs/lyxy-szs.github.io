@@ -416,6 +416,114 @@
       </tags>
   </entry>
   <entry>
+    <title>Map</title>
+    <url>/2025/11/20/Map/</url>
+    <content><![CDATA[<h1 id="C-std-map-使用详细指南"><a href="#C-std-map-使用详细指南" class="headerlink" title="C++ std::map 使用详细指南"></a>C++ std::map 使用详细指南</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-stdmap">什么是 std::map</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">基本用法</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C">常用操作</a></li>
+<li><a href="#%E9%81%8D%E5%8E%86-map">遍历 map</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E7%89%B9%E7%82%B9">性能特点</a></li>
+<li><a href="#%E5%AE%9E%E9%99%85%E7%A4%BA%E4%BE%8B">实际示例</a></li>
+<li><a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">常见问题</a></li>
+</ol>
+<h2 id="什么是-std-map"><a href="#什么是-std-map" class="headerlink" title="什么是 std::map"></a>什么是 std::map</h2><p><code>std::map</code> 是 C++ 标准模板库(STL)中的一个关联容器，它存储键值对(key-value pairs)，并根据键自动排序。</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>键是唯一的（不允许重复）</li>
+<li>按键自动排序（默认升序）</li>
+<li>基于红黑树实现</li>
+<li>查找、插入、删除的时间复杂度：O(log n)</li>
+</ul>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="声明和初始化"><a href="#声明和初始化" class="headerlink" title="声明和初始化"></a>声明和初始化</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 基本声明</span></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; studentScores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化列表（C++11及以上）</span></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; studentScores = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">90</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">85</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 make_pair</span></span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; idToName;</span><br><span class="line">idToName.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="number">1</span>, <span class="string">&quot;Alice&quot;</span>));</span><br><span class="line">idToName.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="number">2</span>, <span class="string">&quot;Bob&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><h3 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：使用 [] 运算符</span></span><br><span class="line">scores[<span class="string">&quot;Alice&quot;</span>] = <span class="number">95</span>;</span><br><span class="line">scores[<span class="string">&quot;Bob&quot;</span>] = <span class="number">87</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：使用 insert 函数</span></span><br><span class="line">scores.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>));</span><br><span class="line">scores.<span class="built_in">insert</span>(&#123;<span class="string">&quot;David&quot;</span>, <span class="number">88</span>&#125;);  <span class="comment">// C++11</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：使用 emplace（C++11，更高效）</span></span><br><span class="line">scores.<span class="built_in">emplace</span>(<span class="string">&quot;Eve&quot;</span>, <span class="number">91</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：使用 [] 运算符（如果键不存在会创建）</span></span><br><span class="line">std::cout &lt;&lt; scores[<span class="string">&quot;Alice&quot;</span>] &lt;&lt; std::endl;  <span class="comment">// 输出: 95</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：使用 at() 函数（如果键不存在会抛出异常）</span></span><br><span class="line">std::cout &lt;&lt; scores.<span class="built_in">at</span>(<span class="string">&quot;Bob&quot;</span>) &lt;&lt; std::endl; <span class="comment">// 输出: 87</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：使用 find() 函数（安全的方式）</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Not found&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接赋值修改</span></span><br><span class="line">scores[<span class="string">&quot;Alice&quot;</span>] = <span class="number">98</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过迭代器修改值（不能修改键）</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    it-&gt;second = <span class="number">100</span>;  <span class="comment">// 修改值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：通过键删除</span></span><br><span class="line">scores.<span class="built_in">erase</span>(<span class="string">&quot;Bob&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：通过迭代器删除</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    scores.<span class="built_in">erase</span>(it);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：删除范围内的元素</span></span><br><span class="line">scores.<span class="built_in">erase</span>(scores.<span class="built_in">begin</span>(), std::<span class="built_in">next</span>(scores.<span class="built_in">begin</span>(), <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法4：清空所有元素</span></span><br><span class="line">scores.<span class="built_in">clear</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="查找和判断"><a href="#查找和判断" class="headerlink" title="查找和判断"></a>查找和判断</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找元素</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Found: &quot;</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot; -&gt; &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查元素是否存在（C++20）</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">contains</span>(<span class="string">&quot;Alice&quot;</span>)) &#123;  <span class="comment">// C++20</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Alice exists&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计数（对于map，只能是0或1）</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">count</span>(<span class="string">&quot;Bob&quot;</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Bob exists&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查是否为空</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Map is empty&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="遍历-map"><a href="#遍历-map" class="headerlink" title="遍历 map"></a>遍历 map</h2><h3 id="使用迭代器"><a href="#使用迭代器" class="headerlink" title="使用迭代器"></a>使用迭代器</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正向迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = scores.<span class="built_in">begin</span>(); it != scores.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反向迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = scores.<span class="built_in">rbegin</span>(); it != scores.<span class="built_in">rend</span>(); ++it) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用范围循环（C-11）"><a href="#使用范围循环（C-11）" class="headerlink" title="使用范围循环（C++11）"></a>使用范围循环（C++11）</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 值拷贝（不推荐用于大对象）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; pair : scores) &#123;</span><br><span class="line">    std::cout &lt;&lt; pair.first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; pair.second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用（推荐）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [key, value] : scores) &#123;  <span class="comment">// C++17 结构化绑定</span></span><br><span class="line">    std::cout &lt;&lt; key &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="容量信息"><a href="#容量信息" class="headerlink" title="容量信息"></a>容量信息</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 元素数量</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;Size: &quot;</span> &lt;&lt; scores.<span class="built_in">size</span>() &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最大可能的大小</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;Max size: &quot;</span> &lt;&lt; scores.<span class="built_in">max_size</span>() &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义比较函数"><a href="#自定义比较函数" class="headerlink" title="自定义比较函数"></a>自定义比较函数</h2><h3 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 按字符串长度排序</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">StringLengthComparator</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> std::string&amp; a, <span class="type">const</span> std::string&amp; b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a.<span class="built_in">length</span>() &lt; b.<span class="built_in">length</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>, StringLengthComparator&gt; scoresByLength;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 lambda 表达式（C++11）</span></span><br><span class="line"><span class="keyword">auto</span> comparator = [](<span class="type">const</span> std::string&amp; a, <span class="type">const</span> std::string&amp; b) &#123;</span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">length</span>() &lt; b.<span class="built_in">length</span>();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">std::map&lt;std::string, <span class="type">int</span>, <span class="title">decltype</span><span class="params">(comparator)</span>&gt; <span class="title">scores</span><span class="params">(comparator)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="降序排列"><a href="#降序排列" class="headerlink" title="降序排列"></a>降序排列</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 方法1：使用 std::greater</span></span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string, std::greater&lt;<span class="type">int</span>&gt;&gt; descendingMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：自定义比较函数</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">DescendingComparator</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;  <span class="comment">// 降序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string, DescendingComparator&gt; customDescendingMap;</span><br></pre></td></tr></table></figure>
+
+<h2 id="性能特点"><a href="#性能特点" class="headerlink" title="性能特点"></a>性能特点</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>时间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插入</td>
+<td>O(log n)</td>
+<td>基于红黑树</td>
+</tr>
+<tr>
+<td>查找</td>
+<td>O(log n)</td>
+<td>基于红黑树</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>O(log n)</td>
+<td>基于红黑树</td>
+</tr>
+<tr>
+<td>遍历</td>
+<td>O(n)</td>
+<td>顺序访问所有元素</td>
+</tr>
+<tr>
+<td>空间</td>
+<td>O(n)</td>
+<td>存储所有键值对</td>
+</tr>
+</tbody></table>
+<h2 id="实际示例"><a href="#实际示例" class="headerlink" title="实际示例"></a>实际示例</h2><h3 id="示例1：单词计数器"><a href="#示例1：单词计数器" class="headerlink" title="示例1：单词计数器"></a>示例1：单词计数器</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::map&lt;std::string, <span class="type">int</span>&gt; wordCount;</span><br><span class="line">    std::string word;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取单词并计数</span></span><br><span class="line">    <span class="keyword">while</span> (std::cin &gt;&gt; word) &#123;</span><br><span class="line">        ++wordCount[word];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [word, count] : wordCount) &#123;</span><br><span class="line">        std::cout &lt;&lt; word &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; count &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="示例2：学生成绩管理系统"><a href="#示例2：学生成绩管理系统" class="headerlink" title="示例2：学生成绩管理系统"></a>示例2：学生成绩管理系统</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">StudentManager</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::map&lt;<span class="type">int</span>, std::string&gt; students;  <span class="comment">// 学号 -&gt; 姓名</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addStudent</span><span class="params">(<span class="type">int</span> id, <span class="type">const</span> std::string&amp; name)</span> </span>&#123;</span><br><span class="line">        students[id] = name;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">removeStudent</span><span class="params">(<span class="type">int</span> id)</span> </span>&#123;</span><br><span class="line">        students.<span class="built_in">erase</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">std::string <span class="title">findStudent</span><span class="params">(<span class="type">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> it = students.<span class="built_in">find</span>(id);</span><br><span class="line">        <span class="keyword">if</span> (it != students.<span class="built_in">end</span>()) &#123;</span><br><span class="line">            <span class="keyword">return</span> it-&gt;second;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Not found&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">printAllStudents</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [id, name] : students) &#123;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;ID: &quot;</span> &lt;&lt; id &lt;&lt; <span class="string">&quot;, Name: &quot;</span> &lt;&lt; name &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StudentManager manager;</span><br><span class="line">    </span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1001</span>, <span class="string">&quot;Alice&quot;</span>);</span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1002</span>, <span class="string">&quot;Bob&quot;</span>);</span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1003</span>, <span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;All students:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    manager.<span class="built_in">printAllStudents</span>();</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;\nStudent with ID 1002: &quot;</span> &lt;&lt; manager.<span class="built_in">findStudent</span>(<span class="number">1002</span>) &lt;&lt; std::endl;</span><br><span class="line">    </span><br><span class="line">    manager.<span class="built_in">removeStudent</span>(<span class="number">1001</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;\nAfter removing ID 1001:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    manager.<span class="built_in">printAllStudents</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="1-键不存在时的行为"><a href="#1-键不存在时的行为" class="headerlink" title="1. 键不存在时的行为"></a>1. 键不存在时的行为</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 [] 访问不存在的键会创建该键（值为默认构造）</span></span><br><span class="line"><span class="type">int</span> value = scores[<span class="string">&quot;Unknown&quot;</span>];  <span class="comment">// 创建键 &quot;Unknown&quot;，值为 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 at() 会抛出 std::out_of_range 异常</span></span><br><span class="line"><span class="comment">// int value = scores.at(&quot;Unknown&quot;);  // 抛出异常</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-迭代器失效"><a href="#2-迭代器失效" class="headerlink" title="2. 迭代器失效"></a>2. 迭代器失效</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; myMap = &#123;&#123;<span class="number">1</span>, <span class="string">&quot;one&quot;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&quot;two&quot;</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">auto</span> it = myMap.<span class="built_in">find</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除操作会使指向被删除元素的迭代器失效</span></span><br><span class="line">myMap.<span class="built_in">erase</span>(it);</span><br><span class="line"><span class="comment">// it 现在已失效，不能再使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但其他迭代器仍然有效</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-性能考虑"><a href="#3-性能考虑" class="headerlink" title="3. 性能考虑"></a>3. 性能考虑</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 如果不需要排序，考虑使用 std::unordered_map（哈希表）</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line">std::unordered_map&lt;std::string, <span class="type">int</span>&gt; hashMap;  <span class="comment">// 平均 O(1) 操作</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-自定义类型作为键"><a href="#4-自定义类型作为键" class="headerlink" title="4. 自定义类型作为键"></a>4. 自定义类型作为键</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    std::string name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 需要定义比较运算符</span></span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> Person&amp; other) <span class="type">const</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (name == other.name) &#123;</span><br><span class="line">            <span class="keyword">return</span> age &lt; other.age;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> name &lt; other.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::map&lt;Person, <span class="type">int</span>&gt; personScores;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>std::map</code> 是 C++ 中非常有用的关联容器，适用于需要按键排序和快速查找的场景。掌握它的基本用法和特性，能够帮助你在编程中更高效地处理键值对数据。</p>
+<p><strong>关键要点：</strong></p>
+<ul>
+<li>使用 <code>[]</code> 运算符进行插入和访问</li>
+<li>使用 <code>find()</code> 进行安全查找</li>
+<li>使用范围循环进行遍历</li>
+<li>了解时间复杂度特征</li>
+<li>根据需求选择合适的比较函数</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Cpp编程</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>map</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++基础入门</title>
     <url>/2025/09/11/C++for0/</url>
     <content><![CDATA[<h1 id="C-基础入门"><a href="#C-基础入门" class="headerlink" title="C++基础入门"></a>C++基础入门</h1><h2 id="1-C-初识"><a href="#1-C-初识" class="headerlink" title="1 C++初识"></a>1 C++初识</h2><h3 id="1-1-第一个C-程序"><a href="#1-1-第一个C-程序" class="headerlink" title="1.1  第一个C++程序"></a>1.1  第一个C++程序</h3><p>编写一个C++程序总共分为4个步骤</p>
@@ -2222,114 +2330,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Map</title>
-    <url>/2025/11/20/Map/</url>
-    <content><![CDATA[<h1 id="C-std-map-使用详细指南"><a href="#C-std-map-使用详细指南" class="headerlink" title="C++ std::map 使用详细指南"></a>C++ std::map 使用详细指南</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-stdmap">什么是 std::map</a></li>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">基本用法</a></li>
-<li><a href="#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C">常用操作</a></li>
-<li><a href="#%E9%81%8D%E5%8E%86-map">遍历 map</a></li>
-<li><a href="#%E6%80%A7%E8%83%BD%E7%89%B9%E7%82%B9">性能特点</a></li>
-<li><a href="#%E5%AE%9E%E9%99%85%E7%A4%BA%E4%BE%8B">实际示例</a></li>
-<li><a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">常见问题</a></li>
-</ol>
-<h2 id="什么是-std-map"><a href="#什么是-std-map" class="headerlink" title="什么是 std::map"></a>什么是 std::map</h2><p><code>std::map</code> 是 C++ 标准模板库(STL)中的一个关联容器，它存储键值对(key-value pairs)，并根据键自动排序。</p>
-<p><strong>特点：</strong></p>
-<ul>
-<li>键是唯一的（不允许重复）</li>
-<li>按键自动排序（默认升序）</li>
-<li>基于红黑树实现</li>
-<li>查找、插入、删除的时间复杂度：O(log n)</li>
-</ul>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="声明和初始化"><a href="#声明和初始化" class="headerlink" title="声明和初始化"></a>声明和初始化</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 基本声明</span></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; studentScores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化列表（C++11及以上）</span></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; studentScores = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">90</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">85</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 make_pair</span></span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; idToName;</span><br><span class="line">idToName.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="number">1</span>, <span class="string">&quot;Alice&quot;</span>));</span><br><span class="line">idToName.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="number">2</span>, <span class="string">&quot;Bob&quot;</span>));</span><br></pre></td></tr></table></figure>
-
-<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><h3 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：使用 [] 运算符</span></span><br><span class="line">scores[<span class="string">&quot;Alice&quot;</span>] = <span class="number">95</span>;</span><br><span class="line">scores[<span class="string">&quot;Bob&quot;</span>] = <span class="number">87</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：使用 insert 函数</span></span><br><span class="line">scores.<span class="built_in">insert</span>(std::<span class="built_in">make_pair</span>(<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>));</span><br><span class="line">scores.<span class="built_in">insert</span>(&#123;<span class="string">&quot;David&quot;</span>, <span class="number">88</span>&#125;);  <span class="comment">// C++11</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：使用 emplace（C++11，更高效）</span></span><br><span class="line">scores.<span class="built_in">emplace</span>(<span class="string">&quot;Eve&quot;</span>, <span class="number">91</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：使用 [] 运算符（如果键不存在会创建）</span></span><br><span class="line">std::cout &lt;&lt; scores[<span class="string">&quot;Alice&quot;</span>] &lt;&lt; std::endl;  <span class="comment">// 输出: 95</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：使用 at() 函数（如果键不存在会抛出异常）</span></span><br><span class="line">std::cout &lt;&lt; scores.<span class="built_in">at</span>(<span class="string">&quot;Bob&quot;</span>) &lt;&lt; std::endl; <span class="comment">// 输出: 87</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：使用 find() 函数（安全的方式）</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Not found&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接赋值修改</span></span><br><span class="line">scores[<span class="string">&quot;Alice&quot;</span>] = <span class="number">98</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过迭代器修改值（不能修改键）</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    it-&gt;second = <span class="number">100</span>;  <span class="comment">// 修改值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：通过键删除</span></span><br><span class="line">scores.<span class="built_in">erase</span>(<span class="string">&quot;Bob&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：通过迭代器删除</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    scores.<span class="built_in">erase</span>(it);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法3：删除范围内的元素</span></span><br><span class="line">scores.<span class="built_in">erase</span>(scores.<span class="built_in">begin</span>(), std::<span class="built_in">next</span>(scores.<span class="built_in">begin</span>(), <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法4：清空所有元素</span></span><br><span class="line">scores.<span class="built_in">clear</span>();</span><br></pre></td></tr></table></figure>
-
-<h3 id="查找和判断"><a href="#查找和判断" class="headerlink" title="查找和判断"></a>查找和判断</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找元素</span></span><br><span class="line"><span class="keyword">auto</span> it = scores.<span class="built_in">find</span>(<span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (it != scores.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Found: &quot;</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot; -&gt; &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查元素是否存在（C++20）</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">contains</span>(<span class="string">&quot;Alice&quot;</span>)) &#123;  <span class="comment">// C++20</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Alice exists&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计数（对于map，只能是0或1）</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">count</span>(<span class="string">&quot;Bob&quot;</span>) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Bob exists&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查是否为空</span></span><br><span class="line"><span class="keyword">if</span> (scores.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Map is empty&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="遍历-map"><a href="#遍历-map" class="headerlink" title="遍历 map"></a>遍历 map</h2><h3 id="使用迭代器"><a href="#使用迭代器" class="headerlink" title="使用迭代器"></a>使用迭代器</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正向迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = scores.<span class="built_in">begin</span>(); it != scores.<span class="built_in">end</span>(); ++it) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反向迭代器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = scores.<span class="built_in">rbegin</span>(); it != scores.<span class="built_in">rend</span>(); ++it) &#123;</span><br><span class="line">    std::cout &lt;&lt; it-&gt;first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; it-&gt;second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用范围循环（C-11）"><a href="#使用范围循环（C-11）" class="headerlink" title="使用范围循环（C++11）"></a>使用范围循环（C++11）</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;, &#123;<span class="string">&quot;Charlie&quot;</span>, <span class="number">92</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 值拷贝（不推荐用于大对象）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; pair : scores) &#123;</span><br><span class="line">    std::cout &lt;&lt; pair.first &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; pair.second &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用（推荐）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [key, value] : scores) &#123;  <span class="comment">// C++17 结构化绑定</span></span><br><span class="line">    std::cout &lt;&lt; key &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="容量信息"><a href="#容量信息" class="headerlink" title="容量信息"></a>容量信息</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">95</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">87</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 元素数量</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;Size: &quot;</span> &lt;&lt; scores.<span class="built_in">size</span>() &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最大可能的大小</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;Max size: &quot;</span> &lt;&lt; scores.<span class="built_in">max_size</span>() &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
-
-<h2 id="自定义比较函数"><a href="#自定义比较函数" class="headerlink" title="自定义比较函数"></a>自定义比较函数</h2><h3 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 按字符串长度排序</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">StringLengthComparator</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">const</span> std::string&amp; a, <span class="type">const</span> std::string&amp; b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a.<span class="built_in">length</span>() &lt; b.<span class="built_in">length</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::map&lt;std::string, <span class="type">int</span>, StringLengthComparator&gt; scoresByLength;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 lambda 表达式（C++11）</span></span><br><span class="line"><span class="keyword">auto</span> comparator = [](<span class="type">const</span> std::string&amp; a, <span class="type">const</span> std::string&amp; b) &#123;</span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">length</span>() &lt; b.<span class="built_in">length</span>();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">std::map&lt;std::string, <span class="type">int</span>, <span class="title">decltype</span><span class="params">(comparator)</span>&gt; <span class="title">scores</span><span class="params">(comparator)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="降序排列"><a href="#降序排列" class="headerlink" title="降序排列"></a>降序排列</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 方法1：使用 std::greater</span></span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string, std::greater&lt;<span class="type">int</span>&gt;&gt; descendingMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：自定义比较函数</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">DescendingComparator</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;  <span class="comment">// 降序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">std::map&lt;<span class="type">int</span>, std::string, DescendingComparator&gt; customDescendingMap;</span><br></pre></td></tr></table></figure>
-
-<h2 id="性能特点"><a href="#性能特点" class="headerlink" title="性能特点"></a>性能特点</h2><table>
-<thead>
-<tr>
-<th>操作</th>
-<th>时间复杂度</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>插入</td>
-<td>O(log n)</td>
-<td>基于红黑树</td>
-</tr>
-<tr>
-<td>查找</td>
-<td>O(log n)</td>
-<td>基于红黑树</td>
-</tr>
-<tr>
-<td>删除</td>
-<td>O(log n)</td>
-<td>基于红黑树</td>
-</tr>
-<tr>
-<td>遍历</td>
-<td>O(n)</td>
-<td>顺序访问所有元素</td>
-</tr>
-<tr>
-<td>空间</td>
-<td>O(n)</td>
-<td>存储所有键值对</td>
-</tr>
-</tbody></table>
-<h2 id="实际示例"><a href="#实际示例" class="headerlink" title="实际示例"></a>实际示例</h2><h3 id="示例1：单词计数器"><a href="#示例1：单词计数器" class="headerlink" title="示例1：单词计数器"></a>示例1：单词计数器</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::map&lt;std::string, <span class="type">int</span>&gt; wordCount;</span><br><span class="line">    std::string word;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取单词并计数</span></span><br><span class="line">    <span class="keyword">while</span> (std::cin &gt;&gt; word) &#123;</span><br><span class="line">        ++wordCount[word];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [word, count] : wordCount) &#123;</span><br><span class="line">        std::cout &lt;&lt; word &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; count &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="示例2：学生成绩管理系统"><a href="#示例2：学生成绩管理系统" class="headerlink" title="示例2：学生成绩管理系统"></a>示例2：学生成绩管理系统</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">StudentManager</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::map&lt;<span class="type">int</span>, std::string&gt; students;  <span class="comment">// 学号 -&gt; 姓名</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">addStudent</span><span class="params">(<span class="type">int</span> id, <span class="type">const</span> std::string&amp; name)</span> </span>&#123;</span><br><span class="line">        students[id] = name;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">removeStudent</span><span class="params">(<span class="type">int</span> id)</span> </span>&#123;</span><br><span class="line">        students.<span class="built_in">erase</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">std::string <span class="title">findStudent</span><span class="params">(<span class="type">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> it = students.<span class="built_in">find</span>(id);</span><br><span class="line">        <span class="keyword">if</span> (it != students.<span class="built_in">end</span>()) &#123;</span><br><span class="line">            <span class="keyword">return</span> it-&gt;second;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Not found&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">printAllStudents</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [id, name] : students) &#123;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;ID: &quot;</span> &lt;&lt; id &lt;&lt; <span class="string">&quot;, Name: &quot;</span> &lt;&lt; name &lt;&lt; std::endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StudentManager manager;</span><br><span class="line">    </span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1001</span>, <span class="string">&quot;Alice&quot;</span>);</span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1002</span>, <span class="string">&quot;Bob&quot;</span>);</span><br><span class="line">    manager.<span class="built_in">addStudent</span>(<span class="number">1003</span>, <span class="string">&quot;Charlie&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;All students:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    manager.<span class="built_in">printAllStudents</span>();</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;\nStudent with ID 1002: &quot;</span> &lt;&lt; manager.<span class="built_in">findStudent</span>(<span class="number">1002</span>) &lt;&lt; std::endl;</span><br><span class="line">    </span><br><span class="line">    manager.<span class="built_in">removeStudent</span>(<span class="number">1001</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;\nAfter removing ID 1001:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    manager.<span class="built_in">printAllStudents</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="1-键不存在时的行为"><a href="#1-键不存在时的行为" class="headerlink" title="1. 键不存在时的行为"></a>1. 键不存在时的行为</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;std::string, <span class="type">int</span>&gt; scores;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 [] 访问不存在的键会创建该键（值为默认构造）</span></span><br><span class="line"><span class="type">int</span> value = scores[<span class="string">&quot;Unknown&quot;</span>];  <span class="comment">// 创建键 &quot;Unknown&quot;，值为 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 at() 会抛出 std::out_of_range 异常</span></span><br><span class="line"><span class="comment">// int value = scores.at(&quot;Unknown&quot;);  // 抛出异常</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-迭代器失效"><a href="#2-迭代器失效" class="headerlink" title="2. 迭代器失效"></a>2. 迭代器失效</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::map&lt;<span class="type">int</span>, std::string&gt; myMap = &#123;&#123;<span class="number">1</span>, <span class="string">&quot;one&quot;</span>&#125;, &#123;<span class="number">2</span>, <span class="string">&quot;two&quot;</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">auto</span> it = myMap.<span class="built_in">find</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除操作会使指向被删除元素的迭代器失效</span></span><br><span class="line">myMap.<span class="built_in">erase</span>(it);</span><br><span class="line"><span class="comment">// it 现在已失效，不能再使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但其他迭代器仍然有效</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-性能考虑"><a href="#3-性能考虑" class="headerlink" title="3. 性能考虑"></a>3. 性能考虑</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 如果不需要排序，考虑使用 std::unordered_map（哈希表）</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line">std::unordered_map&lt;std::string, <span class="type">int</span>&gt; hashMap;  <span class="comment">// 平均 O(1) 操作</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-自定义类型作为键"><a href="#4-自定义类型作为键" class="headerlink" title="4. 自定义类型作为键"></a>4. 自定义类型作为键</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    std::string name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 需要定义比较运算符</span></span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> Person&amp; other) <span class="type">const</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (name == other.name) &#123;</span><br><span class="line">            <span class="keyword">return</span> age &lt; other.age;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> name &lt; other.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">std::map&lt;Person, <span class="type">int</span>&gt; personScores;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>std::map</code> 是 C++ 中非常有用的关联容器，适用于需要按键排序和快速查找的场景。掌握它的基本用法和特性，能够帮助你在编程中更高效地处理键值对数据。</p>
-<p><strong>关键要点：</strong></p>
-<ul>
-<li>使用 <code>[]</code> 运算符进行插入和访问</li>
-<li>使用 <code>find()</code> 进行安全查找</li>
-<li>使用范围循环进行遍历</li>
-<li>了解时间复杂度特征</li>
-<li>根据需求选择合适的比较函数</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Cpp编程</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>map</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu和Windows上YOLO模型训练与部署流程</title>
     <url>/2025/12/13/Ubuntu%E5%92%8CWindows%E4%B8%8AYOLO%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B/</url>
     <content><![CDATA[<p>针对在Ubuntu 22.04和Windows 11系统上，使用纯Intel CPU进行YOLO模型训练与应用的需求，我将为你梳理一个清晰的流程。核心是利用<strong>OpenVINO工具套件</strong>对YOLO模型进行优化，以在CPU上获得最佳的推理性能。</p>
@@ -2649,31 +2649,6 @@ pause &gt;nul
 <h1 id="鱼香ros"><a href="#鱼香ros" class="headerlink" title="鱼香ros"></a><a href="https://www.bilibili.com/video/BV1Jz421B7Ey/">鱼香ros</a></h1><h1 id="用qt写一个ros2接口"><a href="#用qt写一个ros2接口" class="headerlink" title="用qt写一个ros2接口"></a>用qt写一个ros2接口</h1><h1 id="ros2-control"><a href="#ros2-control" class="headerlink" title="ros2_control"></a><a href="https://www.bilibili.com/video/BV186pjzzEKY/">ros2_control</a></h1><h1 id="unityros联合仿真"><a href="#unityros联合仿真" class="headerlink" title="unityros联合仿真"></a><a href="https://www.bilibili.com/video/BV1CGZbY6ESv/">unityros联合仿真</a></h1><h1 id="pointlio重定向"><a href="#pointlio重定向" class="headerlink" title="pointlio重定向"></a><a href="https://github.com/hku-mars/Point-LIO">pointlio重定向</a></h1><h1 id="fastlio重定向"><a href="#fastlio重定向" class="headerlink" title="fastlio重定向"></a><a href="https://github.com/hku-mars/FAST_LIO">fastlio重定向</a></h1><h1 id="issacsim"><a href="#issacsim" class="headerlink" title="issacsim"></a><a href="https://www.bilibili.com/video/BV1G8kBBvEzR/">issacsim</a></h1><h1 id="vla"><a href="#vla" class="headerlink" title="vla"></a>vla</h1>]]></content>
   </entry>
   <entry>
-    <title>md格式汇总</title>
-    <url>/2025/08/19/md-format-summary/</url>
-    <content><![CDATA[<p>必填项：title 和 date（date 不填会自动生成当前时间）。<br>选填项：tags（标签）、categories（分类）等，根据主题支持情况添加。</p>
-<h1 id="正文内容（Markdown-语法）"><a href="#正文内容（Markdown-语法）" class="headerlink" title="正文内容（Markdown 语法）"></a>正文内容（Markdown 语法）</h1><p>在 — 下方写正文，支持所有标准 Markdown 语法，常用示例：<br>markdown</p>
-<h1 id="一级标题（文章大标题）一个"><a href="#一级标题（文章大标题）一个" class="headerlink" title="一级标题（文章大标题）一个#"></a>一级标题（文章大标题）一个#</h1><h2 id="二级标题（小节标题）两个"><a href="#二级标题（小节标题）两个" class="headerlink" title="二级标题（小节标题）两个#"></a>二级标题（小节标题）两个#</h2><h3 id="三级标题（子标题）三个"><a href="#三级标题（子标题）三个" class="headerlink" title="三级标题（子标题）三个#"></a>三级标题（子标题）三个#</h3><p>这是正文段落，支持 <strong>加粗</strong><code>（两个*，前后）</code>、<em>斜体</em><code>（一个*，前后）</code>、<del>删除线</del><code>（两个个~，前后）</code> 等格式。</p>
-<ul>
-<li>无序列表项1</li>
-<li>无序列表项2<code>（-）</code><ul>
-<li>子列表项</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li>有序列表项1</li>
-<li>有序列表项2</li>
-</ol>
-<p><code>[链接文字](https://example.com)</code>  # 插入链接 eg: <a href="www.baidu.com">baidu</a></p>
-<p><code>![图片描述](/images/你的图片名.jpg)</code>  # 插入图片（图片放 source&#x2F;images&#x2F; 目录下）eg: <img src="/%5Cimages%5C1.jpeg" alt="test"><br><code>&lt;img src=&quot;/images/1.jpeg&quot; alt=&quot;test&quot; width=&quot;500&quot; /&gt;</code>网页嵌入代码也可以，效果更好<br><img src="/images/1.jpeg" alt="test" width="500" /><br><code>代码块</code>python</p>
-<h1 id="插入代码（指定语言可自动高亮）"><a href="#插入代码（指定语言可自动高亮）" class="headerlink" title="插入代码（指定语言可自动高亮）"></a>插入代码（指定语言可自动高亮）</h1><p>print(“Hello Hexo!”)</p>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-  </entry>
-  <entry>
     <title>new</title>
     <url>/2025/12/16/new/</url>
     <content><![CDATA[<h1 id="第一学期高等数学-一-作业-七-详细解答"><a href="#第一学期高等数学-一-作业-七-详细解答" class="headerlink" title="第一学期高等数学(一)作业(七)详细解答"></a>第一学期高等数学(一)作业(七)详细解答</h1><h2 id="一、填空题"><a href="#一、填空题" class="headerlink" title="一、填空题"></a>一、填空题</h2><h3 id="1-极限计算"><a href="#1-极限计算" class="headerlink" title="1. 极限计算"></a>1. 极限计算</h3><p><strong>题目</strong>：设函数 (f(x)) 连续，则 (\lim\limits_{x \to a} \frac{\int_{a}^{x} f(t)dt}{x - a})</p>
@@ -2884,6 +2859,31 @@ pause &gt;nul
 ]]></content>
   </entry>
   <entry>
+    <title>md格式汇总</title>
+    <url>/2025/08/19/md-format-summary/</url>
+    <content><![CDATA[<p>必填项：title 和 date（date 不填会自动生成当前时间）。<br>选填项：tags（标签）、categories（分类）等，根据主题支持情况添加。</p>
+<h1 id="正文内容（Markdown-语法）"><a href="#正文内容（Markdown-语法）" class="headerlink" title="正文内容（Markdown 语法）"></a>正文内容（Markdown 语法）</h1><p>在 — 下方写正文，支持所有标准 Markdown 语法，常用示例：<br>markdown</p>
+<h1 id="一级标题（文章大标题）一个"><a href="#一级标题（文章大标题）一个" class="headerlink" title="一级标题（文章大标题）一个#"></a>一级标题（文章大标题）一个#</h1><h2 id="二级标题（小节标题）两个"><a href="#二级标题（小节标题）两个" class="headerlink" title="二级标题（小节标题）两个#"></a>二级标题（小节标题）两个#</h2><h3 id="三级标题（子标题）三个"><a href="#三级标题（子标题）三个" class="headerlink" title="三级标题（子标题）三个#"></a>三级标题（子标题）三个#</h3><p>这是正文段落，支持 <strong>加粗</strong><code>（两个*，前后）</code>、<em>斜体</em><code>（一个*，前后）</code>、<del>删除线</del><code>（两个个~，前后）</code> 等格式。</p>
+<ul>
+<li>无序列表项1</li>
+<li>无序列表项2<code>（-）</code><ul>
+<li>子列表项</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>有序列表项1</li>
+<li>有序列表项2</li>
+</ol>
+<p><code>[链接文字](https://example.com)</code>  # 插入链接 eg: <a href="www.baidu.com">baidu</a></p>
+<p><code>![图片描述](/images/你的图片名.jpg)</code>  # 插入图片（图片放 source&#x2F;images&#x2F; 目录下）eg: <img src="/%5Cimages%5C1.jpeg" alt="test"><br><code>&lt;img src=&quot;/images/1.jpeg&quot; alt=&quot;test&quot; width=&quot;500&quot; /&gt;</code>网页嵌入代码也可以，效果更好<br><img src="/images/1.jpeg" alt="test" width="500" /><br><code>代码块</code>python</p>
+<h1 id="插入代码（指定语言可自动高亮）"><a href="#插入代码（指定语言可自动高亮）" class="headerlink" title="插入代码（指定语言可自动高亮）"></a>插入代码（指定语言可自动高亮）</h1><p>print(“Hello Hexo!”)</p>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+  </entry>
+  <entry>
     <title>opencv</title>
     <url>/2025/11/15/opencv/</url>
     <content><![CDATA[<h1 id="Opencv的Gamma转换与二值化处理"><a href="#Opencv的Gamma转换与二值化处理" class="headerlink" title="Opencv的Gamma转换与二值化处理"></a>Opencv的Gamma转换与二值化处理</h1><h2 id="1-头文件和命名空间"><a href="#1-头文件和命名空间" class="headerlink" title="1. 头文件和命名空间"></a>1. 头文件和命名空间</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span>  <span class="comment">// 包含OpenCV库的所有主要功能</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>            <span class="comment">// 输入输出流，用于在控制台显示信息</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span>              <span class="comment">// 向量容器，用于存储数据</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span>               <span class="comment">// 数学函数库</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;    <span class="comment">// 使用OpenCV的命名空间，这样就不用写cv::了</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;   <span class="comment">// 使用标准库的命名空间</span></span><br></pre></td></tr></table></figure>
@@ -2997,95 +2997,6 @@ pause &gt;nul
       <tags>
         <tag>python</tag>
         <tag>python打包exe</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ros2_note</title>
-    <url>/2026/02/02/ros2-note/</url>
-    <content><![CDATA[<h1 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a><strong>VScode</strong></h1><p><em><strong>首先，</strong></em> 先把VScode自动保存打开！！！<br>这样会减少很多的报错<br><img src="/images/ros_node/r-0.png" alt="r-0" width="800" /></p>
-<h1 id="指令："><a href="#指令：" class="headerlink" title="指令："></a>指令：</h1><details>
-<summary> 基础 </summary>
-
-<h2 id="召唤吉祥物"><a href="#召唤吉祥物" class="headerlink" title="召唤吉祥物"></a>召唤吉祥物</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 run turtlesim turtlesim_node</span><br></pre></td></tr></table></figure>
-<img src="/images/ros_node/r-1.1.png" alt="r-1.1" width="500" />
-
-<h2 id="查看服务列表，会显示服务类型及消息接口"><a href="#查看服务列表，会显示服务类型及消息接口" class="headerlink" title="查看服务列表，会显示服务类型及消息接口"></a>查看服务列表，会显示服务类型及消息接口</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 service list -t</span><br><span class="line"><span class="comment">#eg：/spawn[turtlesim/srv/Spawn],spawn是“产卵”，生成新的海龟</span></span><br></pre></td></tr></table></figure>
-<h2 id="查看消息接口"><a href="#查看消息接口" class="headerlink" title="查看消息接口"></a>查看消息接口</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 interface show turtlesim/srv/Spawn <span class="comment">#在上一条命令后，[]内的内容是接口</span></span><br><span class="line"><span class="comment">#float32 x       32位浮点型保存横坐标</span></span><br><span class="line"><span class="comment">#float32 y       32位浮点型保存纵坐标</span></span><br><span class="line"><span class="comment">#float32 theta   32位浮点型保存头的朝向</span></span><br><span class="line"><span class="comment">#string name # Optional.  A unique name will be created and returned if this is empty</span></span><br><span class="line"><span class="comment">#---</span></span><br><span class="line"><span class="comment">#string name</span></span><br></pre></td></tr></table></figure>
-<h2 id="终端调用消息接口-召唤第二只乌龟"><a href="#终端调用消息接口-召唤第二只乌龟" class="headerlink" title="终端调用消息接口(召唤第二只乌龟)"></a>终端调用消息接口(召唤第二只乌龟)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 service call /spawn turtlesim/srv/Spawn <span class="string">&quot;&#123;x: 1,y: 2&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#格式： ros2 service call 服务名字 服务接口 &quot;&#123;数据填充（yaml格式）&#125;&quot;</span></span><br></pre></td></tr></table></figure>
-
-<details>
-<summary>示例反馈</summary>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">requester: making request: turtlesim.srv.Spawn_Request(x=1.0, y=2.0, theta=0.0, name=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">response:</span><br><span class="line">turtlesim.srv.Spawn_Response(name=<span class="string">&#x27;turtle2&#x27;</span>)</span><br></pre></td></tr></table></figure>
-</details>
-
-<img src="/images/ros_node/r-1.2.png" alt="r-1.2" width="500" />
-
-<h2 id="可视化接口调用：rqt"><a href="#可视化接口调用：rqt" class="headerlink" title="可视化接口调用：rqt"></a>可视化接口调用：rqt</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rqt</span><br></pre></td></tr></table></figure>
-<img src="/images/ros_node/r-2.png" alt="r-2" width="500" />
-</details>
-
-<h1 id="导-航-："><a href="#导-航-：" class="headerlink" title="导 航 ："></a>导 航 ：</h1><h2 id="创建环境："><a href="#创建环境：" class="headerlink" title="创建环境："></a>创建环境：</h2><h3 id="创建并进入文件夹"><a href="#创建并进入文件夹" class="headerlink" title="创建并进入文件夹"></a>创建并进入文件夹</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> CHAPT6/chapt6_ws/src &amp;&amp; <span class="built_in">cd</span> CHAPT6/chapt6_ws/src</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建ros2环境"><a href="#创建ros2环境" class="headerlink" title="创建ros2环境"></a>创建ros2环境</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 pkg create fishbot_description --build-type ament_cmake --license Apache-2.0</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ros2</span> pkg       create  fishbot_description   --build-type  ament_cmake                    --license     Apache-<span class="number">2</span>.<span class="number">0</span></span><br><span class="line"><span class="attribute">ros2</span> 功能包操作  创建    fishbot_description   -- 构建类型     ROS <span class="number">2</span> 中基于 CMake 的标准构建方式 -- 开源许可证   Apache <span class="number">2</span>.<span class="number">0</span> 协议</span><br></pre></td></tr></table></figure>
-
-<details>
-<summary> 示例反馈： </summary>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">going to create a new package</span><br><span class="line">package name: fishbot_description</span><br><span class="line">destination directory: /home/noi/fishros/CHAPT6/chapt6_ws/src</span><br><span class="line">package format: 3</span><br><span class="line">version: 0.0.0</span><br><span class="line">description: TODO: Package description</span><br><span class="line">maintainer: [<span class="string">&#x27;noi &lt;example@example.com&gt;&#x27;</span>]</span><br><span class="line">licenses: [<span class="string">&#x27;Apache-2.0&#x27;</span>]</span><br><span class="line">build <span class="built_in">type</span>: ament_cmake</span><br><span class="line">dependencies: []</span><br><span class="line">creating folder ./fishbot_description</span><br><span class="line">creating ./fishbot_description/package.xml</span><br><span class="line">creating <span class="built_in">source</span> and include folder</span><br><span class="line">creating folder ./fishbot_description/src</span><br><span class="line">creating folder ./fishbot_description/include/fishbot_description</span><br><span class="line">creating ./fishbot_description/CMakeLists.txt</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">└── CHAPT6</span><br><span class="line">    └── chapt6_ws</span><br><span class="line">        └── src</span><br><span class="line">            └── fishbot_description</span><br><span class="line">                ├── CMakeLists.txt</span><br><span class="line">                ├── include</span><br><span class="line">                │   └── fishbot_description</span><br><span class="line">                ├── LICENSE</span><br><span class="line">                ├── package.xml</span><br><span class="line">                ├── urdf</span><br><span class="line">                └── src</span><br><span class="line"></span><br><span class="line">7 directories, 3 files</span><br></pre></td></tr></table></figure>
-</details>
-
-<h2 id="机器人模型文件储存-——-urdf文件夹"><a href="#机器人模型文件储存-——-urdf文件夹" class="headerlink" title="机器人模型文件储存 —— urdf文件夹"></a>机器人模型文件储存 —— urdf文件夹</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> fishbot_description &amp;&amp; <span class="built_in">mkdir</span> urdf <span class="comment">#urdf 用于存放机器人模型文件</span></span><br><span class="line"><span class="built_in">cd</span> urdf &amp;&amp; <span class="built_in">touch</span> first_robot.urdf <span class="comment">#创建 urdf 文件</span></span><br></pre></td></tr></table></figure>
-<p>另外需要手动在vscode中安装 urdf 插件<br><img src="/images/ros_node/r-3.1.png" alt="urdf插件示意图" width="700" /></p>
-<h3 id="编辑first-robot-urdf"><a href="#编辑first-robot-urdf" class="headerlink" title="编辑first_robot.urdf"></a>编辑first_robot.urdf</h3><details>
-<summary> first_robot.urdf的内容 </summary>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;robot name=&quot;first&quot;&gt;</span><br><span class="line">    &lt;!-- 机器人的身体部分 --&gt;</span><br><span class="line">    &lt;link name=&quot;base_link&quot;&gt;</span><br><span class="line">        &lt;!-- 部件外观描述 --&gt;</span><br><span class="line">        &lt;visual&gt;</span><br><span class="line">            &lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span><br><span class="line">            &lt;origin xyz=&quot;0.0 0.0 0.0&quot; rpy=&quot;0.0 0.0 0.0&quot;/&gt;</span><br><span class="line">            &lt;!-- 几何形状 --&gt;</span><br><span class="line">            &lt;geometry&gt;</span><br><span class="line">            &lt;!-- 圆柱体 radius半径 0.10m length高度 0.12m --&gt;</span><br><span class="line">                &lt;cylinder radius=&quot;0.10&quot; length=&quot;0.12&quot;/&gt;</span><br><span class="line">            &lt;/geometry&gt;</span><br><span class="line">            &lt;!-- 材质颜色 --&gt;</span><br><span class="line">            &lt;material name=&quot;white&quot;&gt;</span><br><span class="line">       #requester: making request: turtlesim.srv.Spawn_Request(x=1.0, y=2.0, theta=0.0, name=&#x27;&#x27;)</span><br><span class="line">#</span><br><span class="line">#response:</span><br><span class="line">#turtlesim.srv.Spawn_Response(name=&#x27;turtle2&#x27;)         &lt;!-- 红绿蓝 透明度（0～1） --&gt;</span><br><span class="line">                &lt;color rgba=&quot;1.0 1.0 1.0 0.5&quot;/&gt;</span><br><span class="line">            &lt;/material&gt;</span><br><span class="line">        &lt;/visual&gt;</span><br><span class="line">    &lt;/link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 机器人的IMU部件，惯性测量传感器 --&gt;</span><br><span class="line">    &lt;link name=&quot;imu_link&quot;&gt;</span><br><span class="line">        &lt;!-- 部件外观描述 --&gt;</span><br><span class="line">        &lt;visual&gt;</span><br><span class="line">            &lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span><br><span class="line">            &lt;origin xyz=&quot;0.0 0.0 0.0&quot; rpy=&quot;0.0 0.0 0.0&quot;/&gt;</span><br><span class="line">            &lt;!-- 几何形状 --&gt;</span><br><span class="line">            &lt;geometry&gt;</span><br><span class="line">                &lt;box size=&quot;0.02 0.02 0.02&quot;/&gt;</span><br><span class="line">            &lt;/geometry&gt;</span><br><span class="line">            &lt;!-- 材质颜色 --&gt;</span><br><span class="line">            &lt;material name=&quot;black&quot;&gt;</span><br><span class="line">                &lt;!-- 红绿蓝 透明度（0～1） --&gt;</span><br><span class="line">                &lt;color rgba=&quot;0.0 0.0 0.0 0.5&quot;/&gt;</span><br><span class="line">            &lt;/material&gt;</span><br><span class="line">        &lt;/visual&gt;</span><br><span class="line">    &lt;/link&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 机器人的关节，用于组合机器人的部件 --&gt;</span><br><span class="line">    &lt;joint name=&quot;imu_joint&quot; type=&quot;fixed&quot;&gt;</span><br><span class="line">        &lt;origin xyz=&quot;0.0 0.0 0.03&quot; rpy=&quot;0.0 0.0 0.0&quot;/&gt;</span><br><span class="line">        &lt;parent link=&quot;base_link&quot;/&gt;</span><br><span class="line">        &lt;child link=&quot;imu_link&quot;/&gt;</span><br><span class="line">    &lt;/joint&gt;</span><br><span class="line">&lt;/robot&gt;</span><br></pre></td></tr></table></figure>
-</details>
-
-<p><strong>打开集成终端</strong><br><img src="/images/ros_node/r-3.2.png" alt="打开集成终端" width="400" /><br>输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#urdf_to_graphviz生成可视化文件</span></span><br><span class="line">urdf_to_graphviz first_robot.urdf </span><br></pre></td></tr></table></figure>
-<details>
-<summary> 如果报错 </summary>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">WARNING: OUTPUT not given. This <span class="built_in">type</span> of usage is deprecated!Usage: urdf_to_graphviz input.xml [OUTPUT]  Will create either <span class="variable">$ROBOT_NAME</span>.gv &amp; <span class="variable">$ROBOT_NAME</span>.pdf <span class="keyword">in</span> CWD  or OUTPUT.gv &amp; OUTPUT.pdf.</span><br><span class="line">Error:   No <span class="built_in">link</span> elements found <span class="keyword">in</span> urdf file</span><br><span class="line">         at line 206 <span class="keyword">in</span> ./urdf_parser/src/model.cpp</span><br><span class="line">ERROR: Model Parsing the xml failed</span><br></pre></td></tr></table></figure>
-则是urdf文件没有保存，ctrl+s 保存一下，如果你已经设置了vscode，这个错误基本不会发生
-</details>
-
-<h3 id="在RViz中查看模型"><a href="#在RViz中查看模型" class="headerlink" title="在RViz中查看模型"></a>在RViz中查看模型</h3><p>在集成终端中输入<code>rviz2</code></p>
-<details>
-<summary> 如果报错（简易方法） </summary>
-如果rviz2发生渲染问题：如屏闪
-Step1：更新显卡驱动（ai）
-Step2：
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export QT_ENABLE_HIGHDPI_SCALING=0&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export vblank_mode=0&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export QT_XCB_GL_INTEGRATION=xcb_glx&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line">rviz2</span><br></pre></td></tr></table></figure>
-Step3：登录界面右下角齿轮选择`Ubuntu on Xorg`
-再不行就ai 电脑型号 系统 情况 
-</details>
-
-<img src="/images/ros_node/r-6.png" alt="基础配置rviz2_1" width="700" />
-----------------------------我是分割线-----------------------------
-<img src="/images/ros_node/r-7.png" alt="基础配置rviz2_2" width="700" />
-但是当前还是无法直接显示imu_link base_link之间的关系，原因是rviz2默认使用map，需要tf变换
-
-<p><strong>So，</strong> 使用ROS2内置的publisher实现自动的关系转换<br><img src="/images/ros_node/r-8.png" alt="转换到rviz2的示意图" width="600" /><br>运行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ros-<span class="variable">$ROS_DISTRO</span>-joint-state-publisher</span><br><span class="line"><span class="built_in">sudo</span> apt install ros-<span class="variable">$ROS_DISTRO</span>-robot-state-publisher</span><br></pre></td></tr></table></figure>
-
-<h3 id="编辑launch文件（方便运行-关闭多个节点）"><a href="#编辑launch文件（方便运行-关闭多个节点）" class="headerlink" title="编辑launch文件（方便运行&#x2F;关闭多个节点）"></a>编辑launch文件（方便运行&#x2F;关闭多个节点）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/fishros/CHAPT6</span><br><span class="line"><span class="built_in">mkdir</span> -p chapt6_ws/src/fishbot_description/launch</span><br><span class="line"><span class="built_in">touch</span> chapt6_ws/src/fishbot_description/launch/display_robot.launch.py</span><br></pre></td></tr></table></figure>
-
-<details>
-<summary> display_robot.launch.py的内容 </summary>
-
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> launch</span><br><span class="line"><span class="keyword">import</span> launch_ros</span><br><span class="line"><span class="keyword">from</span> ament_index_python.packages <span class="keyword">import</span> get_package_share_directory</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_launch_description</span>():</span><br><span class="line">    <span class="comment">#获取默认的urdf路径,这个需要先colcon build 一下，并且在CMakeList中加上urdf与launch文件夹</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> launch.LaunchDescription([</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    ])</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">#......</span><br><span class="line">#endif()</span><br><span class="line"></span><br><span class="line">#自己定位一下吧</span><br><span class="line">install(DIRECTORY launch urdf </span><br><span class="line">  DESTINATION share/$&#123;PROJECT_NAME&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#ament_package()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-</details>]]></content>
-      <tags>
-        <tag>ROS2</tag>
       </tags>
   </entry>
   <entry>
@@ -3244,6 +3155,266 @@ Step3：登录界面右下角齿轮选择`Ubuntu on Xorg`
       <tags>
         <tag>C++</tag>
         <tag>set</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ros2_note</title>
+    <url>/2026/02/02/ros2-note/</url>
+    <content><![CDATA[<h1 id="VScode"><a href="#VScode" class="headerlink" title="VScode"></a><strong>VScode</strong></h1><p><em><strong>首先，</strong></em> 先把VScode自动保存打开！！！<br>这样会减少很多的报错<br><img src="/images/ros_node/r-0.png" alt="r-0" width="800" /></p>
+<h1 id="指令："><a href="#指令：" class="headerlink" title="指令："></a>指令：</h1><details>
+<summary> 基础 </summary>
+
+<h2 id="召唤吉祥物"><a href="#召唤吉祥物" class="headerlink" title="召唤吉祥物"></a>召唤吉祥物</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 run turtlesim turtlesim_node</span><br></pre></td></tr></table></figure>
+<img src="/images/ros_node/r-1.1.png" alt="r-1.1" width="500" />
+
+<h2 id="查看服务列表，会显示服务类型及消息接口"><a href="#查看服务列表，会显示服务类型及消息接口" class="headerlink" title="查看服务列表，会显示服务类型及消息接口"></a>查看服务列表，会显示服务类型及消息接口</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 service list -t</span><br><span class="line"><span class="comment">#eg：/spawn[turtlesim/srv/Spawn],spawn是“产卵”，生成新的海龟</span></span><br></pre></td></tr></table></figure>
+<h2 id="查看消息接口"><a href="#查看消息接口" class="headerlink" title="查看消息接口"></a>查看消息接口</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 interface show turtlesim/srv/Spawn <span class="comment">#在上一条命令后，[]内的内容是接口</span></span><br><span class="line"><span class="comment">#float32 x       32位浮点型保存横坐标</span></span><br><span class="line"><span class="comment">#float32 y       32位浮点型保存纵坐标</span></span><br><span class="line"><span class="comment">#float32 theta   32位浮点型保存头的朝向</span></span><br><span class="line"><span class="comment">#string name # Optional.  A unique name will be created and returned if this is empty</span></span><br><span class="line"><span class="comment">#---</span></span><br><span class="line"><span class="comment">#string name</span></span><br></pre></td></tr></table></figure>
+<h2 id="终端调用消息接口-召唤第二只乌龟"><a href="#终端调用消息接口-召唤第二只乌龟" class="headerlink" title="终端调用消息接口(召唤第二只乌龟)"></a>终端调用消息接口(召唤第二只乌龟)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 service call /spawn turtlesim/srv/Spawn <span class="string">&quot;&#123;x: 1,y: 2&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#格式： ros2 service call 服务名字 服务接口 &quot;&#123;数据填充（yaml格式）&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<details>
+<summary>示例反馈</summary>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">requester: making request: turtlesim.srv.Spawn_Request(x=1.0, y=2.0, theta=0.0, name=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">response:</span><br><span class="line">turtlesim.srv.Spawn_Response(name=<span class="string">&#x27;turtle2&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</details>
+
+<img src="/images/ros_node/r-1.2.png" alt="r-1.2" width="500" />
+
+<h2 id="可视化接口调用：rqt"><a href="#可视化接口调用：rqt" class="headerlink" title="可视化接口调用：rqt"></a>可视化接口调用：rqt</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rqt</span><br></pre></td></tr></table></figure>
+<img src="/images/ros_node/r-2.png" alt="r-2" width="500" />
+</details>
+
+<h1 id="导-航-："><a href="#导-航-：" class="headerlink" title="导 航 ："></a>导 航 ：</h1><h2 id="创建环境："><a href="#创建环境：" class="headerlink" title="创建环境："></a>创建环境：</h2><h3 id="创建并进入文件夹"><a href="#创建并进入文件夹" class="headerlink" title="创建并进入文件夹"></a>创建并进入文件夹</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> CHAPT6/chapt6_ws/src &amp;&amp; <span class="built_in">cd</span> CHAPT6/chapt6_ws/src</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建ros2环境"><a href="#创建ros2环境" class="headerlink" title="创建ros2环境"></a>创建ros2环境</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 pkg create fishbot_description --build-type ament_cmake --license Apache-2.0</span><br></pre></td></tr></table></figure>
+
+<p>对照表：</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">ros2 pkg       create  fishbot_description   --build-type  ament_cmake                    --license     Apache-2.0</span><br><span class="line">ros2 功能包操作  创建    fishbot_description   -- 构建类型     ROS 2 中基于 CMake 的标准构建方式 -- 开源许可证   Apache 2.0 协议</span><br></pre></td></tr></table></figure>
+
+<details>
+<summary> 示例反馈： </summary>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">going to create a new package</span><br><span class="line">package name: fishbot_description</span><br><span class="line">destination directory: /home/noi/fishros/CHAPT6/chapt6_ws/src</span><br><span class="line">package format: 3</span><br><span class="line">version: 0.0.0</span><br><span class="line">description: TODO: Package description</span><br><span class="line">maintainer: [<span class="string">&#x27;noi &lt;example@example.com&gt;&#x27;</span>]</span><br><span class="line">licenses: [<span class="string">&#x27;Apache-2.0&#x27;</span>]</span><br><span class="line">build <span class="built_in">type</span>: ament_cmake</span><br><span class="line">dependencies: []</span><br><span class="line">creating folder ./fishbot_description</span><br><span class="line">creating ./fishbot_description/package.xml</span><br><span class="line">creating <span class="built_in">source</span> and include folder</span><br><span class="line">creating folder ./fishbot_description/src</span><br><span class="line">creating folder ./fishbot_description/include/fishbot_description</span><br><span class="line">creating ./fishbot_description/CMakeLists.txt</span><br></pre></td></tr></table></figure>
+<p>workplace：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">└── CHAPT6</span><br><span class="line">    └── chapt6_ws</span><br><span class="line">        └── src</span><br><span class="line">            └── fishbot_description</span><br><span class="line">                ├── CMakeLists.txt</span><br><span class="line">                ├── include</span><br><span class="line">                │   └── fishbot_description</span><br><span class="line">                ├── LICENSE</span><br><span class="line">                ├── package.xml</span><br><span class="line">                ├── urdf</span><br><span class="line">                └── src</span><br><span class="line"></span><br><span class="line">7 directories, 3 files</span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="机器人模型文件储存-——-urdf文件夹"><a href="#机器人模型文件储存-——-urdf文件夹" class="headerlink" title="机器人模型文件储存 —— urdf文件夹"></a>机器人模型文件储存 —— urdf文件夹</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> fishbot_description &amp;&amp; <span class="built_in">mkdir</span> urdf <span class="comment">#urdf 用于存放机器人模型文件</span></span><br><span class="line"><span class="built_in">cd</span> urdf &amp;&amp; <span class="built_in">touch</span> first_robot.urdf <span class="comment">#创建 urdf 文件</span></span><br></pre></td></tr></table></figure>
+<p>另外需要手动在vscode中安装 urdf 插件<br><img src="/images/ros_node/r-3.1.png" alt="urdf插件示意图" width="700" /></p>
+<h3 id="编辑first-robot-urdf"><a href="#编辑first-robot-urdf" class="headerlink" title="编辑first_robot.urdf"></a>编辑first_robot.urdf</h3><details>
+<summary> first_robot.urdf的内容 </summary>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">robot</span> <span class="attr">name</span>=<span class="string">&quot;first&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 机器人的身体部分 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;base_link&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 部件外观描述 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 几何形状 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 圆柱体 radius半径 0.10m length高度 0.12m --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">cylinder</span> <span class="attr">radius</span>=<span class="string">&quot;0.10&quot;</span> <span class="attr">length</span>=<span class="string">&quot;0.12&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 材质颜色 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line">       #requester: making request: turtlesim.srv.Spawn_Request(x=1.0, y=2.0, theta=0.0, name=&#x27;&#x27;)</span><br><span class="line">#</span><br><span class="line">#response:</span><br><span class="line">#turtlesim.srv.Spawn_Response(name=&#x27;turtle2&#x27;)         <span class="comment">&lt;!-- 红绿蓝 透明度（0～1） --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;1.0 1.0 1.0 0.5&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 机器人的IMU部件，惯性测量传感器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;imu_link&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 部件外观描述 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 几何形状 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.02 0.02 0.02&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 材质颜色 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 红绿蓝 透明度（0～1） --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;0.0 0.0 0.0 0.5&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 机器人的关节，用于组合机器人的部件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">&quot;imu_joint&quot;</span> <span class="attr">type</span>=<span class="string">&quot;fixed&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.03&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">parent</span> <span class="attr">link</span>=<span class="string">&quot;base_link&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">child</span> <span class="attr">link</span>=<span class="string">&quot;imu_link&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">robot</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</details>
+
+<p><strong>打开集成终端</strong><br><img src="/images/ros_node/r-3.2.png" alt="打开集成终端" width="400" /><br>输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#urdf_to_graphviz生成可视化文件(pdf,gv)</span></span><br><span class="line">urdf_to_graphviz first_robot.urdf </span><br></pre></td></tr></table></figure>
+<details>
+<summary> 如果报错 </summary>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">WARNING: OUTPUT not given. This <span class="built_in">type</span> of usage is deprecated!Usage: urdf_to_graphviz input.xml [OUTPUT]  Will create either <span class="variable">$ROBOT_NAME</span>.gv &amp; <span class="variable">$ROBOT_NAME</span>.pdf <span class="keyword">in</span> CWD  or OUTPUT.gv &amp; OUTPUT.pdf.</span><br><span class="line">Error:   No <span class="built_in">link</span> elements found <span class="keyword">in</span> urdf file</span><br><span class="line">         at line 206 <span class="keyword">in</span> ./urdf_parser/src/model.cpp</span><br><span class="line">ERROR: Model Parsing the xml failed</span><br></pre></td></tr></table></figure>
+则是urdf文件没有保存，ctrl+s 保存一下，如果你已经设置了vscode，这个错误基本不会发生
+</details>
+
+<h3 id="在RViz中查看模型"><a href="#在RViz中查看模型" class="headerlink" title="在RViz中查看模型"></a>在RViz中查看模型</h3><p>在集成终端中输入<code>rviz2</code></p>
+<details>
+<summary> 如果报错（简易方法） </summary>
+如果rviz2发生渲染问题：如屏闪
+Step1：更新显卡驱动（ai）
+Step2：
+复制到命令行
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span></span><br><span class="line"><span class="built_in">tee</span> -a ~/.bashrc &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --- Function: renv (make a env for rviz2) ---</span></span><br><span class="line"><span class="function"><span class="title">renv</span></span>()&#123;</span><br><span class="line">    <span class="comment"># 设置环境变量以启用软件渲染和潜在的 Qt 兼容性</span></span><br><span class="line">    <span class="built_in">export</span> LIBGL_ALWAYS_SOFTWARE=1</span><br><span class="line">    <span class="built_in">export</span> QT_ENABLE_HIGHDPI_SCALING=0</span><br><span class="line">    <span class="built_in">export</span> vblank_mode=0</span><br><span class="line">    <span class="built_in">export</span> QT_XCB_GL_INTEGRATION=xcb_glx</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># --- End of renv function ---</span></span><br><span class="line"></span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sources .bashrc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>再不行就ai 电脑型号 系统 情况 </p>
+</details>
+
+<img src="/images/ros_node/r-6.png" alt="基础配置rviz2_1" width="700" />
+----------------------------我是分割线-----------------------------
+<img src="/images/ros_node/r-7.png" alt="基础配置rviz2_2" width="700" />
+但是当前还是无法直接显示imu_link base_link之间的关系，原因是rviz2默认使用map，需要tf变换
+
+<p><strong>So，</strong> 使用ROS2内置的publisher实现自动的关系转换<br><img src="/images/ros_node/r-8.png" alt="转换到rviz2的示意图" width="600" /><br>运行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ros-<span class="variable">$ROS_DISTRO</span>-joint-state-publisher</span><br><span class="line"><span class="built_in">sudo</span> apt install ros-<span class="variable">$ROS_DISTRO</span>-robot-state-publisher</span><br></pre></td></tr></table></figure>
+
+<h2 id="编辑launch文件（方便运行-关闭多个节点）"><a href="#编辑launch文件（方便运行-关闭多个节点）" class="headerlink" title="编辑launch文件（方便运行&#x2F;关闭多个节点）"></a>编辑launch文件（方便运行&#x2F;关闭多个节点）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/fishros/CHAPT6</span><br><span class="line"><span class="built_in">mkdir</span> -p chapt6_ws/src/fishbot_description/launch</span><br><span class="line"><span class="built_in">touch</span> chapt6_ws/src/fishbot_description/launch/display_robot.launch.py</span><br></pre></td></tr></table></figure>
+
+<details>
+<summary> display_robot.launch.py的内容 </summary>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> launch</span><br><span class="line"><span class="keyword">import</span> launch_rosdisplay_robot.launch.py</span><br><span class="line"><span class="keyword">from</span> ament_index_python.packages <span class="keyword">import</span> get_package_share_directory</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_launch_description</span>():</span><br><span class="line">    <span class="comment">#获取默认的urdf路径,这个需要先colcon build 一下，并且在CMakeList中加上urdf与launch文件夹</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> launch.LaunchDescription([</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">    ])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">#CMakeList.txt</span><br><span class="line">#......</span><br><span class="line">#endif()</span><br><span class="line"></span><br><span class="line">#自己定位一下吧</span><br><span class="line">install(DIRECTORY launch urdf </span><br><span class="line">  DESTINATION share/$&#123;PROJECT_NAME&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#ament_package()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</details>
+
+<p>这里有点麻烦，建议直接看<a href="https://www.bilibili.com/video/BV1Vq2LYoECn?t=394.7">鱼香ros视频</a>，</p>
+<details>
+<summary>文字解析附上</summary>
+
+<h2 id="ROS-2-Launch-文件详解"><a href="#ROS-2-Launch-文件详解" class="headerlink" title="ROS 2 Launch 文件详解"></a>ROS 2 Launch 文件详解</h2><p>ps：<a href="https://www.bilibili.com/video/BV1Vq2LYoECn?t=1334.7">config文件怎么出来的</a></p>
+<p>这是一个用于启动 <code>fishbot_description</code> 机器人描述相关节点的 ROS 2 Launch 文件。它会加载 URDF 模型、发布机器人状态，并启动 RViz2 进行可视化。</p>
+<details>
+<summary>display_robot.launch.py完整代码与对应CMakeList.txt</summary>
+
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">#CMakeList.txt</span><br><span class="line">#......</span><br><span class="line">#endif()</span><br><span class="line"></span><br><span class="line">#自己定位一下吧</span><br><span class="line">install(DIRECTORY launch urdf config</span><br><span class="line">  DESTINATION share/$&#123;PROJECT_NAME&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#ament_package()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#display_robot.launch.py</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">import</span> launch</span><br><span class="line"><span class="keyword">import</span> launch_ros</span><br><span class="line"><span class="keyword">from</span> ament_index_python.packages <span class="keyword">import</span> get_package_share_directory</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_launch_description</span>():</span><br><span class="line">    <span class="comment"># 获取默认的urdf路径</span></span><br><span class="line">    urdf_package_path = get_package_share_directory(<span class="string">&#x27;fishbot_description&#x27;</span>)</span><br><span class="line">    default_urdf_path = os.path.join(urdf_package_path, <span class="string">&#x27;urdf&#x27;</span>, <span class="string">&#x27;first_robot.urdf&#x27;</span>)</span><br><span class="line">    default_rviz_config_path = os.path.join(urdf_package_path, <span class="string">&#x27;config&#x27;</span>, <span class="string">&#x27;display_robot_model.rviz&#x27;</span>)</span><br><span class="line">    <span class="comment"># 1. 修复：launch.action → launch.actions（加s）</span></span><br><span class="line">    action_declear_arg_mode_path = launch.actions.DeclareLaunchArgument(</span><br><span class="line">        name=<span class="string">&#x27;model&#x27;</span>,</span><br><span class="line">        default_value=<span class="built_in">str</span>(default_urdf_path),</span><br><span class="line">        description=<span class="string">&#x27;加载的模型文件路径&#x27;</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 修复：换行语法错误（加\或调整括号）</span></span><br><span class="line">    substitutions_command_result = launch.substitutions.Command(</span><br><span class="line">        [<span class="string">&#x27;cat &#x27;</span>, launch.substitutions.LaunchConfiguration(<span class="string">&#x27;model&#x27;</span>)]</span><br><span class="line">    )</span><br><span class="line">    <span class="comment"># 构建机器人描述参数值</span></span><br><span class="line">    robot_state_publisher_value = launch_ros.parameter_descriptions.ParameterValue(</span><br><span class="line">        substitutions_command_result,</span><br><span class="line">        value_type=<span class="built_in">str</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 修复：参数名 robot_state_publisher → robot_description</span></span><br><span class="line">    action_robot_state_publisher = launch_ros.actions.Node(</span><br><span class="line">        package=<span class="string">&#x27;robot_state_publisher&#x27;</span>,</span><br><span class="line">        executable=<span class="string">&#x27;robot_state_publisher&#x27;</span>,</span><br><span class="line">        parameters=[&#123;<span class="string">&#x27;robot_description&#x27;</span>: robot_state_publisher_value&#125;]</span><br><span class="line">        <span class="comment"># parameters is professional for point == ros2 run rviz2 rviz2 --ros-args -p xx:=xxxvalue</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    action_joint_state_publisher = launch_ros.actions.Node(</span><br><span class="line">        package=<span class="string">&#x27;joint_state_publisher&#x27;</span>,</span><br><span class="line">        executable=<span class="string">&#x27;joint_state_publisher&#x27;</span>,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    action_rviz_node = launch_ros.actions.Node(</span><br><span class="line">        package=<span class="string">&#x27;rviz2&#x27;</span>,</span><br><span class="line">        executable=<span class="string">&#x27;rviz2&#x27;</span>,</span><br><span class="line">        arguments=[<span class="string">&#x27;-d&#x27;</span>, default_rviz_config_path]</span><br><span class="line">      <span class="comment"># add function after rviz == ros2 run rviz2 rviz2 -d /home/noi/fishros/CHAPT6/chapt6_ws/src/fishbot_description/config/display_robot_model.rviz</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> launch.LaunchDescription([</span><br><span class="line">        action_declear_arg_mode_path,</span><br><span class="line">        action_robot_state_publisher,</span><br><span class="line">        action_joint_state_publisher,</span><br><span class="line">        action_rviz_node,</span><br><span class="line">    ])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</details>
+
+<h3 id="文件结构与导入"><a href="#文件结构与导入" class="headerlink" title="文件结构与导入"></a>文件结构与导入</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">import</span> launch</span><br><span class="line"><span class="keyword">import</span> launch_ros</span><br><span class="line"><span class="keyword">from</span> ament_index_python.packages <span class="keyword">import</span> get_package_share_directory</span><br><span class="line"><span class="keyword">import</span> os</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Shebang:</strong> <code>#!/usr/bin/env python3</code> 指定了运行此脚本的解释器。</li>
+<li><strong>导入模块:</strong><ul>
+<li><code>launch</code>: ROS 2 Launch 系统的核心模块，提供基础功能。</li>
+<li><code>launch_ros</code>: ROS 2 特定的 Launch 功能，例如启动 ROS 节点。</li>
+<li><code>get_package_share_directory</code>: 用于获取指定包的共享目录路径（通常是 <code>share/package_name</code>）。</li>
+<li><code>os</code>: Python 标准库，用于路径操作。</li>
+</ul>
+</li>
+</ul>
+<h3 id="主函数-generate-launch-description"><a href="#主函数-generate-launch-description" class="headerlink" title="主函数 generate_launch_description"></a>主函数 <code>generate_launch_description</code></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">generate_launch_description</span>():</span><br></pre></td></tr></table></figure>
+
+<p>这是 Launch 文件的入口函数。ROS 2 启动系统会调用此函数来获取需要执行的动作列表。</p>
+<h4 id="获取资源路径"><a href="#获取资源路径" class="headerlink" title="获取资源路径"></a>获取资源路径</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">urdf_package_path = get_package_share_directory(<span class="string">&#x27;fishbot_description&#x27;</span>)</span><br><span class="line">default_urdf_path = os.path.join(urdf_package_path, <span class="string">&#x27;urdf&#x27;</span>, <span class="string">&#x27;first_robot.urdf&#x27;</span>)</span><br><span class="line">default_rviz_config_path = os.path.join(urdf_package_path, <span class="string">&#x27;config&#x27;</span>, <span class="string">&#x27;display_robot_model.rviz&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>get_package_share_directory(&#39;fishbot_description&#39;)</code>: 获取 <code>fishbot_description</code> 包的安装路径。</li>
+<li><code>os.path.join(...)</code>: 安全地将目录和文件名拼接成完整路径。</li>
+<li>获取了默认的 URDF 文件路径和 RViz2 配置文件路径。</li>
+</ul>
+<h4 id="定义启动参数"><a href="#定义启动参数" class="headerlink" title="定义启动参数"></a>定义启动参数</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">action_declear_arg_mode_path = launch.actions.DeclareLaunchArgument(</span><br><span class="line">    name=<span class="string">&#x27;model&#x27;</span>,</span><br><span class="line">    default_value=<span class="built_in">str</span>(default_urdf_path),</span><br><span class="line">    description=<span class="string">&#x27;加载的模型文件路径&#x27;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>launch.actions.DeclareLaunchArgument</code>: 创建一个声明启动参数的动作。</li>
+<li><code>name=&#39;model&#39;</code>: 参数名为 <code>model</code>。</li>
+<li><code>default_value=...</code>: 如果启动时未提供 <code>model</code> 参数，则使用 <code>default_urdf_path</code> 作为默认值。</li>
+<li><code>description=...</code>: 为此参数提供描述信息。</li>
+<li>这个参数允许用户在启动时动态指定不同的 URDF 文件，例如：<code>ros2 launch &lt;package&gt; &lt;launch_file&gt; model:=/path/to/my_custom.urdf</code></li>
+</ul>
+<h4 id="处理-URDF-文件内容"><a href="#处理-URDF-文件内容" class="headerlink" title="处理 URDF 文件内容"></a>处理 URDF 文件内容</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">substitutions_command_result = launch.substitutions.Command(</span><br><span class="line">    [<span class="string">&#x27;cat &#x27;</span>, launch.substitutions.LaunchConfiguration(<span class="string">&#x27;model&#x27;</span>)]</span><br><span class="line">)</span><br><span class="line">robot_state_publisher_value = launch_ros.parameter_descriptions.ParameterValue(</span><br><span class="line">    substitutions_command_result,</span><br><span class="line">    value_type=<span class="built_in">str</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>launch.substitutions.LaunchConfiguration(&#39;model&#39;)</code>: 获取 <code>model</code> 参数的实际值（可能是默认值，也可能是用户传入的值）。</li>
+<li><code>launch.substitutions.Command([...])</code>: 执行一个系统命令（这里是 <code>cat</code> 命令）并将结果作为字符串返回。<code>[&#39;cat &#39;, ...]</code> 拼接起来就是 <code>cat /path/to/urdf/file.urdf</code>，它会输出整个 URDF 文件的内容。</li>
+<li><code>launch_ros.parameter_descriptions.ParameterValue(...)</code>: 将命令执行的结果包装成一个可以在 ROS 2 节点参数中使用的对象。</li>
+</ul>
+<h4 id="启动-robot-state-publisher-节点"><a href="#启动-robot-state-publisher-节点" class="headerlink" title="启动 robot_state_publisher 节点"></a>启动 <code>robot_state_publisher</code> 节点</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">action_robot_state_publisher = launch_ros.actions.Node(</span><br><span class="line">    package=<span class="string">&#x27;robot_state_publisher&#x27;</span>,</span><br><span class="line">    executable=<span class="string">&#x27;robot_state_publisher&#x27;</span>,</span><br><span class="line">    parameters=[&#123;<span class="string">&#x27;robot_description&#x27;</span>: robot_state_publisher_value&#125;]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>launch_ros.actions.Node</code>: 创建一个启动 ROS 节点的动作。</li>
+<li><code>package=&#39;robot_state_publisher&#39;</code>: 指定节点所在的包。</li>
+<li><code>executable=&#39;robot_state_publisher&#39;</code>: 指定要运行的可执行文件名称（通常与包同名）。</li>
+<li><code>parameters=[...]</code>: 设置节点启动时的参数。<ul>
+<li><code>&#123;&#39;robot_description&#39;: ...&#125;</code>: 设置名为 <code>robot_description</code> 的参数，其值为之前通过 <code>ParameterValue</code> 包装的 URDF 内容。<code>robot_state_publisher</code> 节点会读取这个参数来获取机器人模型定义。</li>
+</ul>
+</li>
+</ul>
+<h4 id="启动-joint-state-publisher-节点"><a href="#启动-joint-state-publisher-节点" class="headerlink" title="启动 joint_state_publisher 节点"></a>启动 <code>joint_state_publisher</code> 节点</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">action_joint_state_publisher = launch_ros.actions.Node(</span><br><span class="line">    package=<span class="string">&#x27;joint_state_publisher&#x27;</span>,</span><br><span class="line">    executable=<span class="string">&#x27;joint_state_publisher&#x27;</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这个节点通常用于发布机器人的关节状态（如位置、速度、力矩）。对于有活动关节的机器人，它是必需的。如果没有活动关节，有时可以用 <code>joint_state_publisher_gui</code> 或者不启动它（如果其他节点会发布关节状态）。</li>
+</ul>
+<h4 id="启动-rviz2-节点"><a href="#启动-rviz2-节点" class="headerlink" title="启动 rviz2 节点"></a>启动 <code>rviz2</code> 节点</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">action_rviz_node = launch_ros.actions.Node(</span><br><span class="line">    package=<span class="string">&#x27;rviz2&#x27;</span>,</span><br><span class="line">    executable=<span class="string">&#x27;rviz2&#x27;</span>,</span><br><span class="line">    arguments=[<span class="string">&#x27;-d&#x27;</span>, default_rviz_config_path]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>arguments=[&#39;-d&#39;, ...]</code>: 向 <code>rviz2</code> 可执行文件传递启动参数。<code>-d</code> 是 RViz2 的一个命令行选项，用于指定加载的配置文件。这里传入了预先获取的 <code>default_rviz_config_path</code>，这样 RViz2 会自动加载预设的显示配置。</li>
+</ul>
+<h4 id="返回启动描述"><a href="#返回启动描述" class="headerlink" title="返回启动描述"></a>返回启动描述</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> launch.LaunchDescription([</span><br><span class="line">    action_declear_arg_mode_path,</span><br><span class="line">    action_robot_state_publisher,</span><br><span class="line">    action_joint_state_publisher,</span><br><span class="line">    action_rviz_node,</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>launch.LaunchDescription([...])</code>: 将所有需要执行的动作（<code>action_...</code>）放入一个列表中，并创建一个 <code>LaunchDescription</code> 对象返回。</li>
+<li>ROS 2 Launch 系统会依次执行这个列表中的所有动作，从而启动所有定义的节点和参数。</li>
+</ul>
+<p>运行命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ros2 launch fishbot_description display_robot.launch.py</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h2 id="使用Xacro简化URDF"><a href="#使用Xacro简化URDF" class="headerlink" title="使用Xacro简化URDF"></a>使用Xacro简化URDF</h2><p>先创建一个xacro文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path/to/your/chapt6_ws <span class="comment">#到工作空间的路径，自己改一下</span></span><br><span class="line"><span class="built_in">touch</span> src/urdf/first_robot.xacro <span class="comment">#与first_robot.urdf同文件夹下创建first_robot.xacro</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>格式对照</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">robot</span> <span class="attr">xmlns:xacro</span>=<span class="string">&quot;http://www.ros.org/wiki/xacro&quot;</span> <span class="attr">name</span>=<span class="string">&quot;first_robot&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:macro</span> <span class="attr">name</span>=<span class="string">&quot;base_link&quot;</span> <span class="attr">params</span>=<span class="string">&quot;length radius&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 机器人的身体部分 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;base_link&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 部件外观描述 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 几何形状 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- 圆柱体 radius半径 0.10m length高度 0.12m --&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">cylinder</span> <span class="attr">radius</span>=<span class="string">&quot;$&#123;radius&#125;&quot;</span> <span class="attr">length</span>=<span class="string">&quot;$&#123;length&#125;&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 材质颜色 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- 红绿蓝 透明度（0～1） --&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;1.0 1.0 1.0 0.5&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xacro:macro</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">robot</span> <span class="attr">name</span>=<span class="string">&quot;first_robot&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 机器人的身体部分 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;base_link&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 部件外观描述 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 几何形状 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 圆柱体 radius半径 0.10m length高度 0.12m --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">cylinder</span> <span class="attr">radius</span>=<span class="string">&quot;0.10&quot;</span> <span class="attr">length</span>=<span class="string">&quot;0.12&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 材质颜色 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 红绿蓝 透明度（0～1） --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;1.0 1.0 1.0 0.5&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Xacro语法"><a href="#Xacro语法" class="headerlink" title="Xacro语法"></a>Xacro语法</h3><table>
+<thead>
+<tr>
+<th align="left">步骤</th>
+<th align="left">说明</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1. 添加 Wiki 指向</td>
+<td align="left">在 <code>robot</code> 标签中声明 <code>xmlns:xacro</code> 属性，指向 ROS Wiki。</td>
+<td align="left"><code>&lt;robot xmlns:xacro=&quot;http://www.ros.org/wiki/xacro&quot; name=&quot;first_robot&quot;&gt;</code></td>
+</tr>
+<tr>
+<td align="left">2. 定义宏（模块）</td>
+<td align="left">使用 <code>&lt;xacro:macro&gt;</code> 标签定义一个可重用的模块，并声明所需的参数（变量）。</td>
+<td align="left"><code>&lt;xacro:macro name=&quot;模块名&quot; params=&quot;变量名1 变量名2&quot;&gt;</code></td>
+</tr>
+<tr>
+<td align="left">3. 使用变量</td>
+<td align="left">在宏定义内部，通过 <code>$&#123;变量名&#125;</code> 的语法来引用和使用参数。</td>
+<td align="left"><code>&lt;cylinder radius=&quot;$&#123;变量名1&#125;&quot; length=&quot;$&#123;变量名2&#125;&quot;/&gt;</code></td>
+</tr>
+<tr>
+<td align="left">4. 闭合宏定义</td>
+<td align="left">使用 <code>&lt;/xacro:macro&gt;</code> 标签来正确闭合宏定义，确保其内部所有 XML 标签均已闭合。</td>
+<td align="left"><code>&lt;/xacro:macro&gt;</code></td>
+</tr>
+<tr>
+<td align="left">5. 调用宏</td>
+<td align="left">在 <code>robot</code> 文件结束前，使用 <code>&lt;xacro:宏名 参数1=&quot;值&quot; 参数2=&quot;值&quot; /&gt;</code> 的语法来实例化宏。</td>
+<td align="left"><code>&lt;xacro:模块名 变量名1=&quot;赋值&quot; 变量名2=&quot;赋值&quot;/&gt;</code></td>
+</tr>
+</tbody></table>
+<details>
+<summary>完整文件，可以自行对比</summary>
+<details>
+<summary>first_robot.xacro</summary>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">robot</span> <span class="attr">xmlns:xacro</span>=<span class="string">&quot;http://www.ros.org/wiki/xacro&quot;</span> <span class="attr">name</span>=<span class="string">&quot;first_robot&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:macro</span> <span class="attr">name</span>=<span class="string">&quot;base_link&quot;</span> <span class="attr">params</span>=<span class="string">&quot;length radius&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 机器人的身体部分 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;base_link&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 部件外观描述 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 几何形状 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- 圆柱体 radius半径 0.10m length高度 0.12m --&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">cylinder</span> <span class="attr">radius</span>=<span class="string">&quot;$&#123;radius&#125;&quot;</span> <span class="attr">length</span>=<span class="string">&quot;$&#123;length&#125;&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 材质颜色 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- 红绿蓝 透明度（0～1） --&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;1.0 1.0 1.0 0.5&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xacro:macro</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:macro</span> <span class="attr">name</span>=<span class="string">&quot;imu_link&quot;</span> <span class="attr">params</span>=<span class="string">&quot;imu_name xyz&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 机器人的IMU部件，惯性测量传感器 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;$&#123;imu_name&#125;_link&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 部件外观描述 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 几何形状 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.02 0.02 0.02&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 材质颜色 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!-- 红绿蓝 透明度（0～1） --&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;0.0 0.0 0.0 0.5&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 机器人的关节，用于组合机器人的部件 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">&quot;$&#123;imu_name&#125;_joint&quot;</span> <span class="attr">type</span>=<span class="string">&quot;fixed&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;$&#123;xyz&#125;&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">parent</span> <span class="attr">link</span>=<span class="string">&quot;base_link&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">child</span> <span class="attr">link</span>=<span class="string">&quot;$&#123;imu_name&#125;_link&quot;</span>/&gt;</span> <span class="comment">&lt;!-- 修正：child link 名称应与 link name 匹配 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xacro:macro</span>&gt;</span> <span class="comment">&lt;!-- 这里正确闭合了 imu_link 宏 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 调用宏 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:base_link</span> <span class="attr">length</span>=<span class="string">&quot;0.12&quot;</span> <span class="attr">radius</span>=<span class="string">&quot;0.1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:imu_link</span> <span class="attr">imu_name</span>=<span class="string">&quot;imu_up&quot;</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.03&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xacro:imu_link</span> <span class="attr">imu_name</span>=<span class="string">&quot;imu_down&quot;</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 -0.03&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">robot</span>&gt;</span> <span class="comment">&lt;!-- 整个 robot 文件也正确闭合 --&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</details>
+
+<details>
+<summary>first_robot.urdf</summary>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">robot</span> <span class="attr">name</span>=<span class="string">&quot;first_robot&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 机器人的身体部分 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;base_link&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 部件外观描述 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 几何形状 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 圆柱体 radius半径 0.10m length高度 0.12m --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">cylinder</span> <span class="attr">radius</span>=<span class="string">&quot;0.10&quot;</span> <span class="attr">length</span>=<span class="string">&quot;0.12&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 材质颜色 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;white&quot;</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 红绿蓝 透明度（0～1） --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;1.0 1.0 1.0 0.5&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 机器人的IMU部件，惯性测量传感器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;imu_link&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 部件外观描述 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">visual</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 沿着自己几何中心的偏移和旋转量 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 几何形状 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">geometry</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">box</span> <span class="attr">size</span>=<span class="string">&quot;0.02 0.02 0.02&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">geometry</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 材质颜色 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">material</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 红绿蓝 透明度（0～1） --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">color</span> <span class="attr">rgba</span>=<span class="string">&quot;0.0 0.0 0.0 0.5&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">material</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">visual</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 机器人的关节，用于组合机器人的部件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">&quot;imu_joint&quot;</span> <span class="attr">type</span>=<span class="string">&quot;fixed&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">origin</span> <span class="attr">xyz</span>=<span class="string">&quot;0.0 0.0 0.03&quot;</span> <span class="attr">rpy</span>=<span class="string">&quot;0.0 0.0 0.0&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">parent</span> <span class="attr">link</span>=<span class="string">&quot;base_link&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">child</span> <span class="attr">link</span>=<span class="string">&quot;imu_link&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">robot</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</details>
+
+</details>
+
+<h3 id="Xacro转为URDF"><a href="#Xacro转为URDF" class="headerlink" title="Xacro转为URDF"></a>Xacro转为URDF</h3><p><strong>下载转换器：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ros-<span class="variable">$ROS_DISTRO</span>-xacro</span><br></pre></td></tr></table></figure>
+<p><strong>运行转换器：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">xacro /path/to/your/xacrofile</span><br></pre></td></tr></table></figure>
+<details>
+<summary> 报错eg:（点击打开查看）</summary>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">XML parsing error: mismatched tag: line 52, column 2</span><br><span class="line">when processing file: /home/noi/fishros/CHAPT6/chapt6_ws/src/fishbot_description/urdf/first_robot.xacro</span><br><span class="line"></span><br><span class="line">Check that:</span><br><span class="line"> - Your XML is well-formed</span><br><span class="line"> - You have the xacro xmlns declaration: xmlns:xacro=<span class="string">&quot;http://www.ros.org/wiki/xacro&quot;</span></span><br></pre></td></tr></table></figure>
+<p>这说明你有语法错误，改一下</p>
+</details>
+
+<p>这个时候可以将原本的<code>display_robot.launch.py</code>中导入urdf文件的命令改为</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 自己匹配一下</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 修复：换行语法错误（加\或调整括号）</span></span><br><span class="line">    substitutions_command_result = launch.substitutions.Command(</span><br><span class="line">        [<span class="string">&#x27;xacro &#x27;</span>, launch.substitutions.LaunchConfiguration(<span class="string">&#x27;model&#x27;</span>)]</span><br><span class="line">    )</span><br><span class="line">    <span class="comment"># 构建机器人描述参数值</span></span><br><span class="line">    robot_state_publisher_value = launch_ros.parameter_descriptions.ParameterValue(</span><br><span class="line">        substitutions_command_result,</span><br><span class="line">        value_type=<span class="built_in">str</span></span><br><span class="line">    )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path/to/your/chapt6_ws <span class="comment">#到工作空间的路径，自己改一下</span></span><br><span class="line">colcon build</span><br><span class="line"><span class="built_in">source</span> install/setup.bash</span><br><span class="line">ros2 launch fishbot_description display_robot.launch.py model:=/path/to/your/chapt6_ws/install/fishbot_description/share/fishbot_description/urdf/first_robot.xacro  <span class="comment">#到工作空间的路径，自己改一下</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Xacro标签的好处：</strong></p>
+<ul>
+<li>1、使用与声明分开，看起来简洁</li>
+<li>2、可以批量生成类似的元素</li>
+<li><del>3、降低维护成本</del></li>
+</ul>
+<h2 id="Xacro使用示例"><a href="#Xacro使用示例" class="headerlink" title="Xacro使用示例"></a>Xacro使用示例</h2><p><a href="/downloads/ros_node/fishbot.zip">fishbot</a></p>
+]]></content>
+      <tags>
+        <tag>ROS2</tag>
       </tags>
   </entry>
   <entry>
@@ -3432,16 +3603,6 @@ Step3：登录界面右下角齿轮选择`Ubuntu on Xorg`
       </tags>
   </entry>
   <entry>
-    <title>the first blog for my felling</title>
-    <url>/2025/07/17/the-first-blog-for-my-felling/</url>
-    <content><![CDATA[<p>#这是一篇有感<br><em>在写这篇有感的时候，用的还是Kate编辑器</em></p>
-<p>   这个博客在搭建的时候大概用了3h,其中有大部分时间都用在了网络环境<del>和没有建仓库</del>，导致无法上传本地文件上，倒是让人哭笑不得了。在这里要感谢可乐，deepseek和DID迪对我的帮助。目前还在练习markdown格式，打算每天开始准备学习python,应该以后每天会在这里汇报进度，that all. </p>
-]]></content>
-      <tags>
-        <tag>个人感受</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>text</title>
     <url>/2025/08/26/test/</url>
     <content><![CDATA[<h1 id="Hexo-Markdown-测试文档"><a href="#Hexo-Markdown-测试文档" class="headerlink" title="Hexo Markdown 测试文档"></a>Hexo Markdown 测试文档</h1><p>本文件用于测试Hexo博客系统中的各种Markdown格式渲染效果。</p>
@@ -3622,5 +3783,141 @@ Step3：登录界面右下角齿轮选择`Ubuntu on Xorg`
 <hr>
 <p><em>最后更新：2025年</em><br><em>测试完成</em></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>the first blog for my felling</title>
+    <url>/2025/07/17/the-first-blog-for-my-felling/</url>
+    <content><![CDATA[<p>#这是一篇有感<br><em>在写这篇有感的时候，用的还是Kate编辑器</em></p>
+<p>   这个博客在搭建的时候大概用了3h,其中有大部分时间都用在了网络环境<del>和没有建仓库</del>，导致无法上传本地文件上，倒是让人哭笑不得了。在这里要感谢可乐，deepseek和DID迪对我的帮助。目前还在练习markdown格式，打算每天开始准备学习python,应该以后每天会在这里汇报进度，that all. </p>
+]]></content>
+      <tags>
+        <tag>个人感受</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>科目一</title>
+    <url>/2026/02/18/%E7%A7%91%E7%9B%AE%E4%B8%80/</url>
+    <content><![CDATA[<h1 id="Part-1-准驾车型与年龄要求"><a href="#Part-1-准驾车型与年龄要求" class="headerlink" title="Part.1 准驾车型与年龄要求"></a>Part.1 准驾车型与年龄要求</h1><h2 id="18岁-："><a href="#18岁-：" class="headerlink" title="18岁+ ："></a><strong>18岁+ ：</strong></h2><h3 id="小型汽车C1"><a href="#小型汽车C1" class="headerlink" title="小型汽车C1"></a>小型汽车C1</h3><h3 id="小型汽自动档汽车C2"><a href="#小型汽自动档汽车C2" class="headerlink" title="小型汽自动档汽车C2"></a>小型汽自动档汽车C2</h3> <details>
+
+<p>  残疾人专用小型自动档载客汽车C5<br>  轻便摩托车F</p>
+</details>
+
+<h2 id="20～70岁-："><a href="#20～70岁-：" class="headerlink" title="20～70岁 ："></a><strong>20～70岁 ：</strong></h2><h3 id="轻型牵引挂车C6"><a href="#轻型牵引挂车C6" class="headerlink" title="轻型牵引挂车C6"></a>轻型牵引挂车C6</h3><h2 id="20～63岁-："><a href="#20～63岁-：" class="headerlink" title="20～63岁 ："></a><strong>20～63岁 ：</strong></h2><h3 id="中型客车B1"><a href="#中型客车B1" class="headerlink" title="中型客车B1"></a>中型客车B1</h3><h3 id="大型货车B2"><a href="#大型货车B2" class="headerlink" title="大型货车B2"></a>大型货车B2</h3> <details>
+
+<p>  城市公交车A3<br>  有轨电车P<br>  无轨电车N</p>
+<h2 id="18～70岁-："><a href="#18～70岁-：" class="headerlink" title="18～70岁 ："></a><strong>18～70岁 ：</strong></h2><p>  普通二轮摩托车E<br>  普通三轮摩托车D</p>
+<h2 id="18～63岁-："><a href="#18～63岁-：" class="headerlink" title="18～63岁 ："></a><strong>18～63岁 ：</strong></h2><p>  低速载货汽车C3<br>  三轮汽车C4<br>  轮式专用机械车M</p>
+<h2 id="19-22～63岁-："><a href="#19-22～63岁-：" class="headerlink" title="19&#x2F;22～63岁 ："></a><strong>19&#x2F;22～63岁 ：</strong></h2><p>  大型客车<br>  重型牵引车</p>
+</details>
+
+<h1 id="Part-2-交通标识"><a href="#Part-2-交通标识" class="headerlink" title="Part.2 交通标识"></a>Part.2 交通标识</h1><p><strong>八停三减：</strong> 八边形停车，三角形减速<br><strong>一急二反三连续：</strong> 一拐是急转弯，二拐是反向弯路，三拐是连续弯路<br><strong>小蛮腰：</strong> 窄桥<br><strong>上下找双向，左右找分离：</strong> 上下箭头是双向交通，左右箭头是注意分离是道路<br><strong>牛马找牲畜，小鹿找野生：</strong> 有牛是注意牲畜，有鹿是注意野生动物<br><strong>一行人，二儿童：</strong> 一个人走是注意行人，两个人走是注意儿童<br><em>实心一凸起：</em> 减速丘&#x2F;路面高凸<br><em>实心二凸起：</em> 路面不平–&gt;翘头跳车<br><em>空心一凸起：</em> 驼峰桥<br><strong>圆只方单：</strong> 圆形内上箭头是只直行，方形内上箭头是单行路</p>
+<p>有皮带孔的是带，没有则为错车道。蓝色港湾，绿色高速。<br><img src="/images/ke1/ke1-2.1.png" alt="ke1-2.1" width="500" /></p>
+<p><strong>白起红终弯即将：</strong> 白直箭头是起始点，红色斜杠是终点，弯箭头是即将结束<br><img src="/images/ke1/ke1-2.2.png" alt="ke1-2.2" width="500" /></p>
+<p><strong>无人烟，有人为栅栏：</strong> 有小火车冒烟是无人看守，有栅栏是有人看守，一红斜杠为50m<br><img src="/images/ke1/ke1-2.3.png" alt="ke1-2.3" width="500" /></p>
+<p><em>快速公交系统专用车道：</em> 也称为 “BRT”<br><img src="/images/ke1/ke1-2.4.png" alt="ke1-2.4" width="250" /></p>
+<p><strong>红高蓝低黄建议灰解除：</strong> 红圈白底内速度是最高速度，蓝天白地是最低速度，黑圈黄底是建议速度，黑圈白底斜杠纹是解除限制速度<br><img src="/images/ke1/ke1-2.5.png" alt="ke1-2.5" width="500" /></p>
+<p><em>交叉路口预告：</em><br><img src="/images/ke1/ke1-2.6.png" alt="ke1-2.6" width="300" /></p>
+<p><strong>车灯标识：</strong> 圆形开车灯，方形指示灯，雾灯像烤串，小猫找位置<br>            底近    平远     左前    右后<br><img src="/images/ke1/ke1-2.7.png" alt="ke1-2.7" width="500" /></p>
+<p><strong>车况指示灯：</strong> 火焰山——冷却液不足   制动器故障（ ! ）      正负极是电路故障<br>油壶滴（低）油——机油压力过低         制动器处于制动状态（ P ）   车灯总开关<br><img src="/images/ke1/ke1-2.8.png" alt="ke1-2.8" width="500" /><br><img src="/images/ke1/ke1-2.12.png" alt="ke1-2.12" width="500" /><br><img src="/images/ke1/ke1-2.14.png" alt="ke1-2.14" width="600" /></p>
+<p><strong>小转大度：</strong> 数量值比较小是转速表，较大是速度和历程表<br><img src="/images/ke1/ke1-2.9.png" alt="ke1-2.9" width="500" /><br><img src="/images/ke1/ke1-2.10.png" alt="ke1-2.10" width="700" /></p>
+<p><strong>路标：</strong> 箭头指哪往哪走，人人是人行横道，两侧锯齿是可变导向车道线，两侧直线是导向车道线<br><img src="/images/ke1/ke1-2.10.png" alt="ke1-2.10" width="700" /><br><img src="/images/ke1/ke1-2.11.png" alt="ke1-2.11" width="400" /><br><img src="/images/ke1/ke1-2.13.png" alt="ke1-2.13" width="700" /></p>
+<h1 id="Part-3-交通扣分"><a href="#Part-3-交通扣分" class="headerlink" title="Part.3 交通扣分"></a>Part.3 交通扣分</h1><h2 id="1分：-“禁掉灯会安检”"><a href="#1分：-“禁掉灯会安检”" class="headerlink" title="1分： “禁掉灯会安检”"></a>1分： “禁掉灯会安检”</h2><img src="/images/ke1/ke1-2.15.png" alt="ke1-2.15" width="700" />
+
+<h2 id="3分：-“让道超装电低警”"><a href="#3分：-“让道超装电低警”" class="headerlink" title="3分： “让道超装电低警”"></a>3分： “让道超装电低警”</h2><img src="/images/ke1/ke1-2.16.png" alt="ke1-2.16" width="700" />
+
+<h2 id="6分：-“轻信占扣”"><a href="#6分：-“轻信占扣”" class="headerlink" title="6分： “轻信占扣”"></a>6分： “轻信占扣”</h2><img src="/images/ke1/ke1-2.17.png" alt="ke1-2.17" width="700" />
+
+<h2 id="9分：-“违停-不符-没号牌”"><a href="#9分：-“违停-不符-没号牌”" class="headerlink" title="9分： “违停 不符 没号牌”"></a>9分： “违停 不符 没号牌”</h2><img src="/images/ke1/ke1-2.18.png" alt="ke1-2.18" width="700" />
+
+<h2 id="12分：-“酒伪亡反-谋利益”"><a href="#12分：-“酒伪亡反-谋利益”" class="headerlink" title="12分： “酒伪亡反 谋利益”"></a>12分： “酒伪亡反 谋利益”</h2><img src="/images/ke1/ke1-2.19.png" alt="ke1-2.19" width="700" />
+
+<h2 id="其他扣分点："><a href="#其他扣分点：" class="headerlink" title="其他扣分点："></a>其他扣分点：</h2><img src="/images/ke1/ke1-2.20.png" alt="ke1-2.20" width="700" />
+
+<h2 id="三超"><a href="#三超" class="headerlink" title="三超:"></a><strong>三超:</strong></h2><h3 id="超速：："><a href="#超速：：" class="headerlink" title="超速：："></a><em><strong>超速：</strong></em>：</h3><img src="/images/ke1/ke1-2.21.png" alt="ke1-2.21" width="700" />
+
+<h3 id="超员：："><a href="#超员：：" class="headerlink" title="超员：："></a><em><strong>超员：</strong></em>：</h3><img src="/images/ke1/ke1-2.22.png" alt="ke1-2.22" width="700" />
+
+<h3 id="超质量："><a href="#超质量：" class="headerlink" title="超质量："></a><em><strong>超质量：</strong></em></h3><img src="/images/ke1/ke1-2.23.png" alt="ke1-2.23" width="700" />
+
+
+<h1 id="Part-4-英文缩写"><a href="#Part-4-英文缩写" class="headerlink" title="Part.4 英文缩写"></a>Part.4 英文缩写</h1><p>这里整理了<strong>开车最常遇到的英文缩写</strong>，按<strong>车辆功能、挡位、仪表、驱动&#x2F;能源、路况</strong>分类，做成一目了然的表格，好记又实用：</p>
+<h3 id="驾车常用英文缩写速查表"><a href="#驾车常用英文缩写速查表" class="headerlink" title="驾车常用英文缩写速查表"></a>驾车常用英文缩写速查表</h3><table>
+<thead>
+<tr>
+<th>英文缩写</th>
+<th>中文全称</th>
+<th>简单说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ABS</td>
+<td>防抱死制动系统</td>
+<td>刹车不抱死，防打滑、防失控</td>
+</tr>
+<tr>
+<td>ESP&#x2F;ESC</td>
+<td>车身电子稳定系统</td>
+<td>防侧滑、防甩尾，提升稳定性</td>
+</tr>
+<tr>
+<td>EBD</td>
+<td>电子制动力分配</td>
+<td>合理分配刹车力，缩短刹车距离</td>
+</tr>
+<tr>
+<td>TCS&#x2F;ASR</td>
+<td>牵引力控制系统</td>
+<td>起步&#x2F;加速防车轮空转</td>
+</tr>
+<tr>
+<td><strong>ACC</strong></td>
+<td>自适应巡航</td>
+<td>自动跟车、控速的高级巡航</td>
+</tr>
+<tr>
+<td>AEB</td>
+<td>自动紧急制动</td>
+<td>遇障碍自动刹车</td>
+</tr>
+<tr>
+<td><strong>LDW</strong></td>
+<td>车道偏离预警</td>
+<td>压线提醒，防走神</td>
+</tr>
+</tbody></table>
+<h1 id="Part-5-学习少扣"><a href="#Part-5-学习少扣" class="headerlink" title="Part.5 学习少扣"></a>Part.5 学习少扣</h1><img src="/images/ke1/ke1-2.24.png" alt="ke1-2.24" width="700" />
+<img src="/images/ke1/ke1-2.25.png" alt="ke1-2.25" width="700" />
+
+<h1 id="Part-6-指挥手势"><a href="#Part-6-指挥手势" class="headerlink" title="Part.6 指挥手势"></a>Part.6 指挥手势</h1><p>上下摸摸头顶-&gt;减速  左右摸摸伞杆-&gt;待转<br>单手高举头顶-&gt;停止  左右摇摆-&gt;变道<br><img src="/images/ke1/ke1-2.26.png" alt="ke1-2.26" width="500" /></p>
+<div align="center">
+
+<table>
+<thead>
+<tr>
+<th>剪刀开口朝左，</th>
+<th>剪刀开口朝右，</th>
+<th>剪刀开口方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>右手左摆-&gt;左拐</td>
+<td>左手右摆-&gt;右拐</td>
+<td>对侧手摆动</td>
+</tr>
+</tbody></table>
+</div>
+
+<img src="/images/ke1/ke1-2.27.png" alt="ke1-2.27" width="500" />
+
+<h1 id="Part-7-驾驶证基础"><a href="#Part-7-驾驶证基础" class="headerlink" title="Part.7 驾驶证基础"></a>Part.7 驾驶证基础</h1><img src="/images/ke1/ke1-2.28.png" alt="ke1-2.28" width="700" />
+
+<h1 id="Part-8-“魔教”"><a href="#Part-8-“魔教”" class="headerlink" title="Part.8 “魔教”"></a>Part.8 “魔教”</h1><img src="/images/ke1/ke1-2.29.png" alt="ke1-2.29" width="700" />
+]]></content>
+      <categories>
+        <category>驾考</category>
+      </categories>
+      <tags>
+        <tag>驾考</tag>
+      </tags>
   </entry>
 </search>

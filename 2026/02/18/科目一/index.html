@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 
-<head>
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
     <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.js"></script>
     <!-- �ַ��������ӿ����� -->
 <meta charset="UTF-8">
@@ -20,7 +20,7 @@
 
 <!-- ҳ����⶯̬���� -->
 
-<title>&#39;Tag&#39; | Johnson</title>
+<title>科目一 | Johnson</title>
 
 <!-- ��վͼ�� -->
 
@@ -519,45 +519,324 @@
     });
 </script>
             <div class="main">
-                
-
-    <div class="container">
-        <div class="post-wrap tags">
-            <h2 class="post-title">-&nbsp;Tag Cloud&nbsp;-</h2>
-
-            <div class="tag-cloud-tags">
-                
-                    <a href="/tags/C/">C<small>(1)</small></a>
-                
-                    <a href="/tags/note/">note<small>(4)</small></a>
-                
-                    <a href="/tags/C/">C++<small>(9)</small></a>
-                
-                    <a href="/tags/map/">map<small>(1)</small></a>
-                
-                    <a href="/tags/python/">python<small>(3)</small></a>
-                
-                    <a href="/tags/bat/">bat<small>(1)</small></a>
-                
-                    <a href="/tags/opencv/">opencv<small>(1)</small></a>
-                
-                    <a href="/tags/python%E6%89%93%E5%8C%85exe/">python打包exe<small>(1)</small></a>
-                
-                    <a href="/tags/set/">set<small>(1)</small></a>
-                
-                    <a href="/tags/ROS2/">ROS2<small>(1)</small></a>
-                
-                    <a href="/tags/string/">string<small>(1)</small></a>
-                
-                    <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%84%9F%E5%8F%97/">个人感受<small>(1)</small></a>
-                
-                    <a href="/tags/%E9%A9%BE%E8%80%83/">驾考<small>(1)</small></a>
-                
-            </div>
-        </div>
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
     </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">科目一</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Lyxy-szs</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">二月 18, 2026&nbsp;&nbsp;10:58:35</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E9%A9%BE%E8%80%83/">驾考</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Part-1-准驾车型与年龄要求"><a href="#Part-1-准驾车型与年龄要求" class="headerlink" title="Part.1 准驾车型与年龄要求"></a>Part.1 准驾车型与年龄要求</h1><h2 id="18岁-："><a href="#18岁-：" class="headerlink" title="18岁+ ："></a><strong>18岁+ ：</strong></h2><h3 id="小型汽车C1"><a href="#小型汽车C1" class="headerlink" title="小型汽车C1"></a>小型汽车C1</h3><h3 id="小型汽自动档汽车C2"><a href="#小型汽自动档汽车C2" class="headerlink" title="小型汽自动档汽车C2"></a>小型汽自动档汽车C2</h3> <details>
+
+<p>  残疾人专用小型自动档载客汽车C5<br>  轻便摩托车F</p>
+</details>
+
+<h2 id="20～70岁-："><a href="#20～70岁-：" class="headerlink" title="20～70岁 ："></a><strong>20～70岁 ：</strong></h2><h3 id="轻型牵引挂车C6"><a href="#轻型牵引挂车C6" class="headerlink" title="轻型牵引挂车C6"></a>轻型牵引挂车C6</h3><h2 id="20～63岁-："><a href="#20～63岁-：" class="headerlink" title="20～63岁 ："></a><strong>20～63岁 ：</strong></h2><h3 id="中型客车B1"><a href="#中型客车B1" class="headerlink" title="中型客车B1"></a>中型客车B1</h3><h3 id="大型货车B2"><a href="#大型货车B2" class="headerlink" title="大型货车B2"></a>大型货车B2</h3> <details>
+
+<p>  城市公交车A3<br>  有轨电车P<br>  无轨电车N</p>
+<h2 id="18～70岁-："><a href="#18～70岁-：" class="headerlink" title="18～70岁 ："></a><strong>18～70岁 ：</strong></h2><p>  普通二轮摩托车E<br>  普通三轮摩托车D</p>
+<h2 id="18～63岁-："><a href="#18～63岁-：" class="headerlink" title="18～63岁 ："></a><strong>18～63岁 ：</strong></h2><p>  低速载货汽车C3<br>  三轮汽车C4<br>  轮式专用机械车M</p>
+<h2 id="19-22～63岁-："><a href="#19-22～63岁-：" class="headerlink" title="19&#x2F;22～63岁 ："></a><strong>19&#x2F;22～63岁 ：</strong></h2><p>  大型客车<br>  重型牵引车</p>
+</details>
+
+<h1 id="Part-2-交通标识"><a href="#Part-2-交通标识" class="headerlink" title="Part.2 交通标识"></a>Part.2 交通标识</h1><p><strong>八停三减：</strong> 八边形停车，三角形减速<br><strong>一急二反三连续：</strong> 一拐是急转弯，二拐是反向弯路，三拐是连续弯路<br><strong>小蛮腰：</strong> 窄桥<br><strong>上下找双向，左右找分离：</strong> 上下箭头是双向交通，左右箭头是注意分离是道路<br><strong>牛马找牲畜，小鹿找野生：</strong> 有牛是注意牲畜，有鹿是注意野生动物<br><strong>一行人，二儿童：</strong> 一个人走是注意行人，两个人走是注意儿童<br><em>实心一凸起：</em> 减速丘&#x2F;路面高凸<br><em>实心二凸起：</em> 路面不平–&gt;翘头跳车<br><em>空心一凸起：</em> 驼峰桥<br><strong>圆只方单：</strong> 圆形内上箭头是只直行，方形内上箭头是单行路</p>
+<p>有皮带孔的是带，没有则为错车道。蓝色港湾，绿色高速。<br><img src="/images/ke1/ke1-2.1.png" alt="ke1-2.1" width="500" /></p>
+<p><strong>白起红终弯即将：</strong> 白直箭头是起始点，红色斜杠是终点，弯箭头是即将结束<br><img src="/images/ke1/ke1-2.2.png" alt="ke1-2.2" width="500" /></p>
+<p><strong>无人烟，有人为栅栏：</strong> 有小火车冒烟是无人看守，有栅栏是有人看守，一红斜杠为50m<br><img src="/images/ke1/ke1-2.3.png" alt="ke1-2.3" width="500" /></p>
+<p><em>快速公交系统专用车道：</em> 也称为 “BRT”<br><img src="/images/ke1/ke1-2.4.png" alt="ke1-2.4" width="250" /></p>
+<p><strong>红高蓝低黄建议灰解除：</strong> 红圈白底内速度是最高速度，蓝天白地是最低速度，黑圈黄底是建议速度，黑圈白底斜杠纹是解除限制速度<br><img src="/images/ke1/ke1-2.5.png" alt="ke1-2.5" width="500" /></p>
+<p><em>交叉路口预告：</em><br><img src="/images/ke1/ke1-2.6.png" alt="ke1-2.6" width="300" /></p>
+<p><strong>车灯标识：</strong> 圆形开车灯，方形指示灯，雾灯像烤串，小猫找位置<br>            底近    平远     左前    右后<br><img src="/images/ke1/ke1-2.7.png" alt="ke1-2.7" width="500" /></p>
+<p><strong>车况指示灯：</strong> 火焰山——冷却液不足   制动器故障（ ! ）      正负极是电路故障<br>油壶滴（低）油——机油压力过低         制动器处于制动状态（ P ）   车灯总开关<br><img src="/images/ke1/ke1-2.8.png" alt="ke1-2.8" width="500" /><br><img src="/images/ke1/ke1-2.12.png" alt="ke1-2.12" width="500" /><br><img src="/images/ke1/ke1-2.14.png" alt="ke1-2.14" width="600" /></p>
+<p><strong>小转大度：</strong> 数量值比较小是转速表，较大是速度和历程表<br><img src="/images/ke1/ke1-2.9.png" alt="ke1-2.9" width="500" /><br><img src="/images/ke1/ke1-2.10.png" alt="ke1-2.10" width="700" /></p>
+<p><strong>路标：</strong> 箭头指哪往哪走，人人是人行横道，两侧锯齿是可变导向车道线，两侧直线是导向车道线<br><img src="/images/ke1/ke1-2.10.png" alt="ke1-2.10" width="700" /><br><img src="/images/ke1/ke1-2.11.png" alt="ke1-2.11" width="400" /><br><img src="/images/ke1/ke1-2.13.png" alt="ke1-2.13" width="700" /></p>
+<h1 id="Part-3-交通扣分"><a href="#Part-3-交通扣分" class="headerlink" title="Part.3 交通扣分"></a>Part.3 交通扣分</h1><h2 id="1分：-“禁掉灯会安检”"><a href="#1分：-“禁掉灯会安检”" class="headerlink" title="1分： “禁掉灯会安检”"></a>1分： “禁掉灯会安检”</h2><img src="/images/ke1/ke1-2.15.png" alt="ke1-2.15" width="700" />
+
+<h2 id="3分：-“让道超装电低警”"><a href="#3分：-“让道超装电低警”" class="headerlink" title="3分： “让道超装电低警”"></a>3分： “让道超装电低警”</h2><img src="/images/ke1/ke1-2.16.png" alt="ke1-2.16" width="700" />
+
+<h2 id="6分：-“轻信占扣”"><a href="#6分：-“轻信占扣”" class="headerlink" title="6分： “轻信占扣”"></a>6分： “轻信占扣”</h2><img src="/images/ke1/ke1-2.17.png" alt="ke1-2.17" width="700" />
+
+<h2 id="9分：-“违停-不符-没号牌”"><a href="#9分：-“违停-不符-没号牌”" class="headerlink" title="9分： “违停 不符 没号牌”"></a>9分： “违停 不符 没号牌”</h2><img src="/images/ke1/ke1-2.18.png" alt="ke1-2.18" width="700" />
+
+<h2 id="12分：-“酒伪亡反-谋利益”"><a href="#12分：-“酒伪亡反-谋利益”" class="headerlink" title="12分： “酒伪亡反 谋利益”"></a>12分： “酒伪亡反 谋利益”</h2><img src="/images/ke1/ke1-2.19.png" alt="ke1-2.19" width="700" />
+
+<h2 id="其他扣分点："><a href="#其他扣分点：" class="headerlink" title="其他扣分点："></a>其他扣分点：</h2><img src="/images/ke1/ke1-2.20.png" alt="ke1-2.20" width="700" />
+
+<h2 id="三超"><a href="#三超" class="headerlink" title="三超:"></a><strong>三超:</strong></h2><h3 id="超速：："><a href="#超速：：" class="headerlink" title="超速：："></a><em><strong>超速：</strong></em>：</h3><img src="/images/ke1/ke1-2.21.png" alt="ke1-2.21" width="700" />
+
+<h3 id="超员：："><a href="#超员：：" class="headerlink" title="超员：："></a><em><strong>超员：</strong></em>：</h3><img src="/images/ke1/ke1-2.22.png" alt="ke1-2.22" width="700" />
+
+<h3 id="超质量："><a href="#超质量：" class="headerlink" title="超质量："></a><em><strong>超质量：</strong></em></h3><img src="/images/ke1/ke1-2.23.png" alt="ke1-2.23" width="700" />
 
 
+<h1 id="Part-4-英文缩写"><a href="#Part-4-英文缩写" class="headerlink" title="Part.4 英文缩写"></a>Part.4 英文缩写</h1><p>这里整理了<strong>开车最常遇到的英文缩写</strong>，按<strong>车辆功能、挡位、仪表、驱动&#x2F;能源、路况</strong>分类，做成一目了然的表格，好记又实用：</p>
+<h3 id="驾车常用英文缩写速查表"><a href="#驾车常用英文缩写速查表" class="headerlink" title="驾车常用英文缩写速查表"></a>驾车常用英文缩写速查表</h3><table>
+<thead>
+<tr>
+<th>英文缩写</th>
+<th>中文全称</th>
+<th>简单说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ABS</td>
+<td>防抱死制动系统</td>
+<td>刹车不抱死，防打滑、防失控</td>
+</tr>
+<tr>
+<td>ESP&#x2F;ESC</td>
+<td>车身电子稳定系统</td>
+<td>防侧滑、防甩尾，提升稳定性</td>
+</tr>
+<tr>
+<td>EBD</td>
+<td>电子制动力分配</td>
+<td>合理分配刹车力，缩短刹车距离</td>
+</tr>
+<tr>
+<td>TCS&#x2F;ASR</td>
+<td>牵引力控制系统</td>
+<td>起步&#x2F;加速防车轮空转</td>
+</tr>
+<tr>
+<td><strong>ACC</strong></td>
+<td>自适应巡航</td>
+<td>自动跟车、控速的高级巡航</td>
+</tr>
+<tr>
+<td>AEB</td>
+<td>自动紧急制动</td>
+<td>遇障碍自动刹车</td>
+</tr>
+<tr>
+<td><strong>LDW</strong></td>
+<td>车道偏离预警</td>
+<td>压线提醒，防走神</td>
+</tr>
+</tbody></table>
+<h1 id="Part-5-学习少扣"><a href="#Part-5-学习少扣" class="headerlink" title="Part.5 学习少扣"></a>Part.5 学习少扣</h1><img src="/images/ke1/ke1-2.24.png" alt="ke1-2.24" width="700" />
+<img src="/images/ke1/ke1-2.25.png" alt="ke1-2.25" width="700" />
+
+<h1 id="Part-6-指挥手势"><a href="#Part-6-指挥手势" class="headerlink" title="Part.6 指挥手势"></a>Part.6 指挥手势</h1><p>上下摸摸头顶-&gt;减速  左右摸摸伞杆-&gt;待转<br>单手高举头顶-&gt;停止  左右摇摆-&gt;变道<br><img src="/images/ke1/ke1-2.26.png" alt="ke1-2.26" width="500" /></p>
+<div align="center">
+
+<table>
+<thead>
+<tr>
+<th>剪刀开口朝左，</th>
+<th>剪刀开口朝右，</th>
+<th>剪刀开口方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>右手左摆-&gt;左拐</td>
+<td>左手右摆-&gt;右拐</td>
+<td>对侧手摆动</td>
+</tr>
+</tbody></table>
+</div>
+
+<img src="/images/ke1/ke1-2.27.png" alt="ke1-2.27" width="500" />
+
+<h1 id="Part-7-驾驶证基础"><a href="#Part-7-驾驶证基础" class="headerlink" title="Part.7 驾驶证基础"></a>Part.7 驾驶证基础</h1><img src="/images/ke1/ke1-2.28.png" alt="ke1-2.28" width="700" />
+
+<h1 id="Part-8-“魔教”"><a href="#Part-8-“魔教”" class="headerlink" title="Part.8 “魔教”"></a>Part.8 “魔教”</h1><img src="/images/ke1/ke1-2.29.png" alt="ke1-2.29" width="700" />
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Lyxy-szs</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://lyxy-szs.github.io/2026/02/18/%E7%A7%91%E7%9B%AE%E4%B8%80/">http://lyxy-szs.github.io/2026/02/18/%E7%A7%91%E7%9B%AE%E4%B8%80/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>永远相信<strong>美好的事情即将發生</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E9%A9%BE%E8%80%83/"># 驾考</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2026/02/02/ros2-note/">ros2_note</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+<!-- �����ڹؼ��ʶ�λ+�����߼� -->
+<script>
+// 1. ��URL�л�ȡ�ؼ��ʲ���
+function getUrlParam(name) {
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+  const r = window.location.search.substr(1).match(reg);
+  if (r != null) return decodeURIComponent(r[2]);
+  return null;
+}
+
+// 2. �������������ؼ���λ��
+function highlightAndScrollToKeyword() {
+  const keyword = getUrlParam('keyword');
+  if (!keyword || keyword.length < 2) return; // �޹ؼ���/�ؼ��ʹ���������
+
+  // ��λ������������Chic�����������ݵ�������������ȷ���Ƿ�ƥ�䣬Ĭ����.post-content��
+  const contentEl = document.querySelector('.post-content');
+  if (!contentEl) return;
+
+  // ��¡���ݣ�����ֱ���޸�ԭDOM���µ�����
+  const contentHtml = contentEl.innerHTML;
+  // ����ƥ��ؼ��ʣ����Դ�Сд��ȫ��ƥ�䣩
+  const reg = new RegExp(`(${keyword})`, 'gi');
+  // �滻�ؼ��ʲ����Ӹ�����ʽ
+  const newHtml = contentHtml.replace(reg, '<span style="background: #ffff00; color: #333; padding: 0 2px; border-radius: 2px;">$1</span>');
+  contentEl.innerHTML = newHtml;
+
+  // 3. ��������һ��ƥ��Ĺؼ���λ��
+  const firstHighlight = contentEl.querySelector('span[style*="background: #ffff00"]');
+  if (firstHighlight) {
+    // ƽ���������ؼ���λ�ã�ƫ��-80px�����ⱻ�������ڵ���
+    firstHighlight.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+    // ����һ������Ԫ��������˸Ч������ǿ�Ӿ���ʾ
+    firstHighlight.animate([
+      { opacity: 0.5 },
+      { opacity: 1 }
+    ], {
+      duration: 1000,
+      iterations: 2
+    });
+  }
+}
+
+// ҳ�������ɺ�ִ��
+window.onload = function() {
+  highlightAndScrollToKeyword();
+};
+</script>
             </div>
             <footer id="footer" class="footer">
     <div class="footer-typing-container">
@@ -615,6 +894,6 @@
     
 <script src="/js/tellu.js"></script>
 
-</body>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
 
 </html>
