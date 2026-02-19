@@ -9,12 +9,12 @@ body {
   background-color: transparent !important;
   background-blend-mode: unset !important;
 }
-body.dark-theme {
+body.dark {
   background-image: url("/image/bg-dark.webp") !important;
   background-color: transparent !important;
   background-blend-mode: unset !important;
 }
-body.dark-theme::before {
+body.dark::before {
   content: "";
   position: fixed;
   top: 0;
@@ -31,6 +31,11 @@ body.dark-theme::before {
   background-blend-mode: unset !important;
   box-shadow: inset 0 0 0 100vw rgba(255,255,255,0.1) !important;
 }
+body.light {
+  background-image: url("/image/bg-light.webp") !important;
+  background-color: transparent !important;
+  background-blend-mode: unset !important;
+}
 .wrapper {
   background-color: rgba(255,255,255,0.7) !important;
   box-shadow: 0 0 8px rgba(0,0,0,0.05) !important;
@@ -38,7 +43,7 @@ body.dark-theme::before {
   z-index: 1;
   border-radius: 0 !important;
 }
-body.dark-theme .wrapper {
+body.dark .wrapper {
   background-color: rgba(0,0,0,0.65) !important;
   box-shadow: 0 0 8px rgba(255,255,255,0.05) !important;
 }
@@ -57,7 +62,7 @@ body.dark-theme .wrapper {
     border-radius: 12px !important;
   }
 }
-body.dark-theme .post-content {
+body.dark .post-content {
   background: rgba(30,30,30,0.65) !important;
   box-shadow: 0 2px 12px rgba(0,0,0,0.1) !important;
 }
@@ -69,7 +74,7 @@ body.dark-theme .post-content {
   padding: 16px 24px !important;
   margin-bottom: 8px !important;
 }
-body.dark-theme .post-header {
+body.dark .post-header {
   background: rgba(40,40,40,0.6) !important;
 }
 .navbar {
@@ -84,7 +89,7 @@ body.dark-theme .post-header {
   top: 0;
   z-index: 999;
 }
-body.dark-theme .navbar {
+body.dark .navbar {
   background-color: rgba(20,20,20,0.55) !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
 }
@@ -99,7 +104,7 @@ body.dark-theme .navbar {
   top: 0;
   z-index: 999;
 }
-body.dark-theme .navbar-mobile {
+body.dark .navbar-mobile {
   background-color: rgba(20,20,20,0.6) !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
 }
@@ -108,23 +113,23 @@ body.dark-theme .navbar-mobile {
   padding: 0 12px !important;
   border-radius: 8px !important;
 }
-body.dark-theme .menu-item {
+body.dark .menu-item {
   color: #e0e0e0 !important;
 }
 @media (max-width: 768px) {
-  body,
-  body.dark-theme {
+  body.light,
+  body.dark {
     background-attachment: scroll !important;
     background-size: cover !important;
   }
-  body.dark-theme::before {
+  body.dark::before {
     background-attachment: scroll !important;
     box-shadow: inset 0 0 0 100vw rgba(255,255,255,0.12) !important;
   }
   .wrapper {
     background-color: rgba(255,255,255,0.75) !important;
   }
-  body.dark-theme .wrapper {
+  body.dark .wrapper {
     background-color: rgba(0,0,0,0.7) !important;
   }
   .navbar,

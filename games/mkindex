@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# 获取脚本自身的文件名（用于跳过自身，避免误处理）
+SCRIPT_NAME=$(basename "$0")
+
+# 生成当前日期（格式：2026-02-19 11:32:16）
+CURRENT_DATE=$(date "+%Y-%m-%d %H:%M:%S")
+
+# 生成index.md文件核心内容（固定标题+日期）
+cat > index.md <<EOF
+---
+title: Games
+date: $CURRENT_DATE
+---
+
+# 一些小游戏
+
+EOF
+
+# 遍历当前目录下的所有项（文件/文件夹）
+for item in *; do
+    # 跳过脚本自身和已生成的index.md（避免重复/误处理）
+    if [[ "$item" == "index.md" ]] || [[ "$item" == "$SCRIPT_NAME" ]]; then
+        continue
+    fi
+    
+    # 只处理「一级子文件夹」（跳过普通文件）
+    if [[ -d "$item" ]]; then
+        # 文件夹名作为显示名称（保留原名称）
+        folder_name="$item"
+        # 文件夹访问路径（相对路径，适配静态站点）
+        folder_path="./$folder_name/"
+        
+        # 核心修改：将文件夹名设为二级标题，链接放在标题内
+        echo "## <a href=\"$folder_path\">$folder_name</a>" >> index.md
+        echo "" >> index.md  # 添加空行分隔，提升可读性
+    fi
+done
+
+echo "✅ index.md 已生成！文件夹名已设为二级标题格式"

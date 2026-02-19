@@ -64,11 +64,13 @@
 
                 if (status === 'dark') {
                     window.sessionStorage.theme = 'dark'
-                    pagebody.classList.add('dark-theme');
+                    pagebody.classList.add('dark');
+                    pagebody.classList.remove('light');
 
                 } else if (status === 'light') {
                     window.sessionStorage.theme = 'light'
-                    pagebody.classList.remove('dark-theme');
+                    pagebody.classList.add('light');
+                    pagebody.classList.remove('dark');
                 }
             };
 
@@ -90,6 +92,8 @@
                 <a class="menu-item" href="/tags">标签</a>
                 
                 <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/games">游戏</a>
                 
                 <a class="menu-item" href="/downloads">下载</a>
                 
@@ -136,6 +140,8 @@
                 
                 <a class="menu-item" href="/links">友链</a>
                 
+                <a class="menu-item" href="/games">游戏</a>
+                
                 <a class="menu-item" href="/downloads">下载</a>
                 
 
@@ -146,9 +152,6 @@
                     cursor: pointer; 
                     font-size: inherit; 
                     color: inherit;
-                    padding: 10px 0;
-                    width: 100%;
-                    text-align: left;
                 ">
                     搜索
                 </button>
@@ -222,34 +225,27 @@
         color: #333; /* 白主题下的文章名颜色 */
     }
     
-    body.dark #searchResult a,
-    body.dark-theme #searchResult a {
+    body.dark #searchResult a {
         color: #fff; /* 深色主题下的文章名颜色 */
     }
 
     /* 黑主题样式 - 搜索框和文字 */
     body.dark #searchTitle,
-    body.dark-theme #searchTitle,
-    body.dark #searchInput,
-    body.dark-theme #searchInput {
+    body.dark #searchInput {
         color: #fff !important;
     }
-    body.dark .search-close,
-    body.dark-theme .search-close {
+    body.dark .search-close {
         color: #ccc !important;
     }
-    body.dark #searchInput,
-    body.dark-theme #searchInput {
+    body.dark #searchInput {
         background: rgba(50, 50, 50, 0.85) !important;
         border-color: #666 !important;
         color: #fff !important;
     }
-    body.dark #searchResult li,
-    body.dark-theme #searchResult li {
+    body.dark #searchResult li {
         border-bottom: 1px dashed #555 !important;
     }
-    body.dark #searchInput::placeholder,
-    body.dark-theme #searchInput::placeholder {
+    body.dark #searchInput::placeholder {
         color: #aaa !important;
     }
 
@@ -270,8 +266,7 @@
     }
     
     /* 深色主题下上下文使用与文章名相同的颜色 */
-    body.dark .search-context,
-    body.dark-theme .search-context {
+    body.dark .search-context {
         color: #fff; /* 使用与深色主题文章名相同的颜色 */
     }
     
@@ -285,8 +280,7 @@
     }
     
     /* 深色主题下的关键词高亮 */
-    body.dark .search-context mark,
-    body.dark-theme .search-context mark {
+    body.dark .search-context mark {
         background-color: rgba(255, 215, 0, 0.4);
         color: #fff; /* 深色主题下mark标签文字颜色 */
     }
@@ -322,24 +316,20 @@
     }
 
     /* 2. 黑主题滚动条 */
-    body.dark #searchResult,
-    body.dark-theme #searchResult {
+    body.dark #searchResult {
         scrollbar-width: thin;
         scrollbar-color: #666 #333;
     }
     
-    body.dark #searchResult::-webkit-scrollbar-track,
-    body.dark-theme #searchResult::-webkit-scrollbar-track {
+    body.dark #searchResult::-webkit-scrollbar-track {
         background: #333;
     }
     
-    body.dark #searchResult::-webkit-scrollbar-thumb,
-    body.dark-theme #searchResult::-webkit-scrollbar-thumb {
+    body.dark #searchResult::-webkit-scrollbar-thumb {
         background: #666;
     }
     
-    body.dark #searchResult::-webkit-scrollbar-thumb:hover,
-    body.dark-theme #searchResult::-webkit-scrollbar-thumb:hover {
+    body.dark #searchResult::-webkit-scrollbar-thumb:hover {
         background: #888;
     }
 
@@ -349,8 +339,7 @@
         border-bottom: 1px solid rgba(0,0,0,0.05);
     }
     
-    body.dark #searchResult li,
-    body.dark-theme #searchResult li {
+    body.dark #searchResult li {
         border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     
@@ -928,9 +917,6 @@ window.onload = function() {
 </script>
     </div>
     
-    
-<script src="/js/scrollbar.js"></script>
-
     
 <script src="/js/typed.min.js"></script>
 

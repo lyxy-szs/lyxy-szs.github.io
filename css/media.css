@@ -77,28 +77,32 @@
     text-align: center;
     background: $light-background-color;
     border-top: 1px solid #000;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     user-select: none;
     display: none;
     box-shadow: 0px 2px 4px rgba(0,0,0,0.1), 0px 4px 8px rgba(0,0,0,0.1);
   }
-  .navbar-mobile .container .menu a {
-    display: inline-block;
-    margin: 0 1em;
-    line-height: 2.5em;
+  .navbar-mobile .container .menu a,
+  .navbar-mobile .container .menu button {
+    display: block;
+    margin: 0.3em 1em;
+    line-height: 2em;
+    width: calc(100% - 2em);
+    text-align: center;
+    padding: 0.3em 0;
   }
   .navbar-mobile .container .menu.active {
     display: block;
-    white-space: nowrap;
     box-sizing: border-box;
-    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 70vh;
   }
-  .dark-theme .navbar-mobile .container .menu {
+  .dark .navbar-mobile .container .menu {
     background: $dark-background-color;
     border-top: 2px solid $dark-font-secondary-color;
   }
-  .dark-theme .navbar-mobile .container {
+  .dark .navbar-mobile .container {
     background: $dark-background-color !important;
   }
   .archive {
@@ -130,6 +134,21 @@
   }
   .categories .categories-card .card-item .categories {
     overflow: hidden;
+  }
+  .tag-cloud-tags {
+    padding-top: 1em;
+  }
+  .tag-cloud-tags a {
+    margin: 3px 6px;
+    font-size: 0.9em;
+    line-height: 1.4em;
+  }
+  .tags .post-wrap {
+    padding-top: 4em;
+  }
+  .tags .post-wrap h2.post-title {
+    font-size: 1.5em;
+    margin-bottom: 1em;
   }
 }
 /* iPads (portrait and landscape) ----------- */

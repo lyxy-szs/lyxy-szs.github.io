@@ -40,14 +40,16 @@ document.ready(
         function setTheme(status = 'light') {
             if (status === 'dark') {
                 window.sessionStorage.theme = 'dark'
-                pagebody.classList.add('dark-theme');
+                pagebody.classList.add('dark');
+                pagebody.classList.remove('light');
                 document.getElementById("switch_default").checked = true
-                document.getElementById("mobile-toggle-theme").innerText = "路 Dark"
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
             } else {
                 window.sessionStorage.theme = 'light'
-                pagebody.classList.remove('dark-theme');
+                pagebody.classList.add('light');
+                pagebody.classList.remove('dark');
                 document.getElementById("switch_default").checked = false
-                document.getElementById("mobile-toggle-theme").innerText = "路 Light"
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
             }
         };
 
@@ -61,7 +63,7 @@ document.ready(
         document.getElementById('mobile-toggle-theme').addEventListener('click', () => {
             window.sessionStorage.theme = window.sessionStorage.theme === 'dark' ? 'light' : 'dark'
             setTheme(window.sessionStorage.theme)
-            document.getElementById("mobile-toggle-theme").innerText = window.sessionStorage.theme === 'light' ? "路 Light" : "路 Dark"
+            document.getElementById("mobile-toggle-theme").innerText = window.sessionStorage.theme === 'light' ? "· Light" : "· Dark"
         })
     }
 );
