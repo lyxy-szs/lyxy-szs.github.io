@@ -1,0 +1,3 @@
+# robots.txt - 禁止所有搜索引擎抓取全站
+User-agent: *
+Disallow: /
