@@ -638,138 +638,200 @@
         </header>
 
         <div class="post-content">
-            <h1 id="Hexo-Markdown-测试文档"><a href="#Hexo-Markdown-测试文档" class="headerlink" title="Hexo Markdown 测试文档"></a>Hexo Markdown 测试文档</h1><p>本文件用于测试Hexo博客系统中的各种Markdown格式渲染效果。</p>
-<h2 id="1-标题测试"><a href="#1-标题测试" class="headerlink" title="1. 标题测试"></a>1. 标题测试</h2><h1 id="H1-标题"><a href="#H1-标题" class="headerlink" title="H1 标题"></a>H1 标题</h1><h2 id="H2-标题"><a href="#H2-标题" class="headerlink" title="H2 标题"></a>H2 标题</h2><h3 id="H3-标题"><a href="#H3-标题" class="headerlink" title="H3 标题"></a>H3 标题</h3><h4 id="H4-标题"><a href="#H4-标题" class="headerlink" title="H4 标题"></a>H4 标题</h4><h5 id="H5-标题"><a href="#H5-标题" class="headerlink" title="H5 标题"></a>H5 标题</h5><h6 id="H6-标题"><a href="#H6-标题" class="headerlink" title="H6 标题"></a>H6 标题</h6><h2 id="2-文本格式化"><a href="#2-文本格式化" class="headerlink" title="2. 文本格式化"></a>2. 文本格式化</h2><p><strong>粗体文本</strong><br><em>斜体文本</em><br><em><strong>粗斜体文本</strong></em><br><del>删除线文本</del><br>&#x3D;&#x3D;高亮文本&#x3D;&#x3D;<br>上标：X^2^<br>下标：H<del>2</del>O  </p>
-<h2 id="3-列表测试"><a href="#3-列表测试" class="headerlink" title="3. 列表测试"></a>3. 列表测试</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><ul>
-<li>项目一<ul>
+            <h1 id="hexo-markdown-测试文档">Hexo Markdown 测试文档</h1>
+<p>本文件用于测试Hexo博客系统中的各种Markdown格式渲染效果。</p>
+<h2 id="标题测试">1. 标题测试</h2>
+<h1 id="h1-标题">H1 标题</h1>
+<h2 id="h2-标题">H2 标题</h2>
+<h3 id="h3-标题">H3 标题</h3>
+<h4 id="h4-标题">H4 标题</h4>
+<h5 id="h5-标题">H5 标题</h5>
+<h6 id="h6-标题">H6 标题</h6>
+<h2 id="文本格式化">2. 文本格式化</h2>
+<p><strong>粗体文本</strong><br />
+<em>斜体文本</em><br />
+<strong><em>粗斜体文本</em></strong><br />
+<del>删除线文本</del><br />
+==高亮文本==<br />
+上标：X<sup>2</sup><br />
+下标：H<sub>2</sub>O</p>
+<h2 id="列表测试">3. 列表测试</h2>
+<h3 id="无序列表">无序列表</h3>
+<ul>
+<li>项目一
+<ul>
 <li>子项目 A</li>
 <li>子项目 B</li>
-</ul>
-</li>
+</ul></li>
 <li>项目二</li>
 <li>项目三</li>
 </ul>
-<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><ol>
+<h3 id="有序列表">有序列表</h3>
+<ol type="1">
 <li>第一项</li>
-<li>第二项<ol>
+<li>第二项
+<ol type="1">
 <li>子项 2.1</li>
 <li>子项 2.2</li>
-</ol>
-</li>
+</ol></li>
 <li>第三项</li>
 </ol>
-<h3 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h3><ul>
-<li><input checked="" disabled="" type="checkbox"> 已完成任务</li>
-<li><input disabled="" type="checkbox"> 未完成任务</li>
-<li><input disabled="" type="checkbox"> 另一个未完成任务</li>
+<h3 id="任务列表">任务列表</h3>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+已完成任务</li>
+<li><input type="checkbox" disabled="" />
+未完成任务</li>
+<li><input type="checkbox" disabled="" />
+另一个未完成任务</li>
 </ul>
-<h2 id="4-链接与图片"><a href="#4-链接与图片" class="headerlink" title="4. 链接与图片"></a>4. 链接与图片</h2><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/">Hexo官方网站</a><br><a href="/about/">相对链接测试</a><br><a target="_blank" rel="noopener" href="https://hexo.io/" title="Hexo官网">带标题的链接</a></p>
-<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><img src="https://hexo.io/icon/favicon-196x196.png" alt="Hexo Logo" title="Hexo Logo"><br><img src="/images/test.jpg" alt="本地图片测试"><br>![带尺寸的图片](<a target="_blank" rel="noopener" href="https://hexo.io/icon/favicon-196x196.png">https://hexo.io/icon/favicon-196x196.png</a> &#x3D;100x100)</p>
-<h2 id="5-代码块"><a href="#5-代码块" class="headerlink" title="5. 代码块"></a>5. 代码块</h2><h3 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h3><p>这是 <code>行内代码</code> 的例子。</p>
-<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JavaScript示例</span></span><br><span class="line"><span class="keyword">const</span> hello = <span class="string">&quot;Hello, Hexo!&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hello);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;This is a test function.&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h2 id="链接与图片">4. 链接与图片</h2>
+<h3 id="链接">链接</h3>
+<p><a target="_blank" rel="noopener" href="https://hexo.io/">Hexo官方网站</a><br />
+<a href="/about/">相对链接测试</a><br />
+<a target="_blank" rel="noopener" href="https://hexo.io/" title="Hexo官网">带标题的链接</a></p>
+<h3 id="图片">图片</h3>
+<p><img src="https://hexo.io/icon/favicon-196x196.png" title="Hexo Logo" alt="Hexo Logo" /><br />
+<img src="/images/test.jpg" alt="本地图片测试" /><br />
+<img src="https://hexo.io/icon/favicon-196x196.png%20=100x100" alt="带尺寸的图片" /></p>
+<h2 id="代码块">5. 代码块</h2>
+<h3 id="行内代码">行内代码</h3>
+<p>这是 <code>行内代码</code> 的例子。</p>
+<h3 id="代码块-1">代码块</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JavaScript示例</span></span><br><span class="line"><span class="keyword">const</span> hello = <span class="string">&quot;Hello, Hexo!&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hello);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;This is a test function.&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python示例</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fibonacci</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> fibonacci(n-<span class="number">1</span>) + fibonacci(n-<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Fibonacci(10) = <span class="subst">&#123;fibonacci(<span class="number">10</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Bash示例</span></span><br><span class="line">git init</span><br><span class="line">npm install hexo --save</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-表格测试"><a href="#6-表格测试" class="headerlink" title="6. 表格测试"></a>6. 表格测试</h2><table>
+<h2 id="表格测试">6. 表格测试</h2>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>姓名</th>
 <th>年龄</th>
 <th>城市</th>
 <th>职业</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>张三</td>
 <td>28</td>
 <td>北京</td>
 <td>工程师</td>
 </tr>
-<tr>
+<tr class="even">
 <td>李四</td>
 <td>32</td>
 <td>上海</td>
 <td>设计师</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>王五</td>
 <td>25</td>
 <td>广州</td>
 <td>学生</td>
 </tr>
-<tr>
+<tr class="even">
 <td>赵六</td>
 <td>40</td>
 <td>深圳</td>
 <td>经理</td>
 </tr>
-</tbody></table>
-<h3 id="对齐表格"><a href="#对齐表格" class="headerlink" title="对齐表格"></a>对齐表格</h3><table>
+</tbody>
+</table>
+<h3 id="对齐表格">对齐表格</h3>
+<table>
 <thead>
-<tr>
-<th align="left">左对齐</th>
-<th align="center">居中对齐</th>
-<th align="right">右对齐</th>
+<tr class="header">
+<th style="text-align: left;">左对齐</th>
+<th style="text-align: center;">居中对齐</th>
+<th style="text-align: right;">右对齐</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">单元格</td>
-<td align="center">单元格</td>
-<td align="right">单元格</td>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">单元格</td>
+<td style="text-align: center;">单元格</td>
+<td style="text-align: right;">单元格</td>
 </tr>
-<tr>
-<td align="left">较长的左对齐内容</td>
-<td align="center">居中内容</td>
-<td align="right">右对齐数字 123</td>
+<tr class="even">
+<td style="text-align: left;">较长的左对齐内容</td>
+<td style="text-align: center;">居中内容</td>
+<td style="text-align: right;">右对齐数字 123</td>
 </tr>
-<tr>
-<td align="left">测试</td>
-<td align="center">测试</td>
-<td align="right">测试</td>
+<tr class="odd">
+<td style="text-align: left;">测试</td>
+<td style="text-align: center;">测试</td>
+<td style="text-align: right;">测试</td>
 </tr>
-</tbody></table>
-<h2 id="7-引用块"><a href="#7-引用块" class="headerlink" title="7. 引用块"></a>7. 引用块</h2><blockquote>
-<p>这是一级引用</p>
+</tbody>
+</table>
+<h2 id="引用块">7. 引用块</h2>
 <blockquote>
-<p>这是二级引用</p>
-<blockquote>
-<p>这是三级引用</p>
-</blockquote>
-<p>返回二级引用</p>
-</blockquote>
+<p>这是一级引用 &gt; 这是二级引用 &gt;&gt; 这是三级引用 &gt; &gt; 返回二级引用</p>
 <p>返回一级引用</p>
 </blockquote>
 <blockquote>
 <p><strong>注意：</strong> 这是一个带格式的引用块</p>
-<p>引用中可以包含其他Markdown元素，比如：</p>
-<ol>
-<li>列表</li>
-<li><strong>粗体文本</strong></li>
-<li><code>代码</code></li>
-</ol>
+<p>引用中可以包含其他Markdown元素，比如： 1. 列表 2. <strong>粗体文本</strong> 3. <code>代码</code></p>
 </blockquote>
-<h2 id="8-数学公式"><a href="#8-数学公式" class="headerlink" title="8. 数学公式"></a>8. 数学公式</h2><h3 id="行内公式"><a href="#行内公式" class="headerlink" title="行内公式"></a>行内公式</h3><p>勾股定理：$a^2 + b^2 &#x3D; c^2$</p>
-<p>爱因斯坦质能方程：$E &#x3D; mc^2$</p>
-<p>二次方程求根公式：$x &#x3D; \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</p>
-<h3 id="块级公式"><a href="#块级公式" class="headerlink" title="块级公式"></a>块级公式</h3><p><strong>等差数列求和公式：</strong></p>
-<p>$$<br>S_n &#x3D; \frac{n(a_1 + a_n)}{2}<br>$$</p>
+<h2 id="数学公式">8. 数学公式</h2>
+<h3 id="行内公式">行内公式</h3>
+<p>勾股定理：<span class="math inline"><em>a</em><sup>2</sup> + <em>b</em><sup>2</sup> = <em>c</em><sup>2</sup></span></p>
+<p>爱因斯坦质能方程：<span class="math inline"><em>E</em> = <em>m</em><em>c</em><sup>2</sup></span></p>
+<p>二次方程求根公式：<span class="math inline">$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</span></p>
+<h3 id="块级公式">块级公式</h3>
+<p><strong>等差数列求和公式：</strong></p>
+<p><br /><span class="math display">$$
+S_n = \frac{n(a_1 + a_n)}{2}
+$$</span><br /></p>
 <p><strong>高斯积分公式：</strong></p>
-<p>$$<br>\int_{-\infty}^{\infty} e^{-x^2} dx &#x3D; \sqrt{\pi}<br>$$</p>
+<p><br /><span class="math display">$$
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+$$</span><br /></p>
 <p><strong>矩阵乘法：</strong></p>
-<h1 id="begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix"><a href="#begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-times-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix" class="headerlink" title="$$\begin{bmatrix}a_{11} &amp; a_{12} \a_{21} &amp; a_{22}\end{bmatrix}\times\begin{bmatrix}b_{11} &amp; b_{12} \b_{21} &amp; b_{22}\end{bmatrix}"></a>$$<br>\begin{bmatrix}<br>a_{11} &amp; a_{12} \<br>a_{21} &amp; a_{22}<br>\end{bmatrix}<br>\times<br>\begin{bmatrix}<br>b_{11} &amp; b_{12} \<br>b_{21} &amp; b_{22}<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>a_{11}b_{11} + a_{12}b_{21} &amp; a_{11}b_{12} + a_{12}b_{22} \<br>a_{21}b_{11} + a_{22}b_{21} &amp; a_{21}b_{12} + a_{22}b_{22}<br>\end{bmatrix}<br>$$</p>
-<h2 id="9-脚注"><a href="#9-脚注" class="headerlink" title="9. 脚注"></a>9. 脚注</h2><p>这是一个带有脚注的句子<a href="%E8%BF%99%E6%98%AF%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%84%9A%E6%B3%A8%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E6%9B%B4%E5%A4%9A%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E3%80%82">^1</a>。<br>这是另一个引用<a href="%E7%AC%AC%E4%BA%8C%E4%B8%AA%E8%84%9A%E6%B3%A8%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E9%93%BE%E6%8E%A5%E5%92%8C%E5%85%B6%E4%BB%96%E6%A0%BC%E5%BC%8F%EF%BC%8C%E6%AF%94%E5%A6%82**%E7%B2%97%E4%BD%93**%E6%88%96%60%E4%BB%A3%E7%A0%81%60%E3%80%82">^2</a>。</p>
-<h2 id="10-分割线"><a href="#10-分割线" class="headerlink" title="10. 分割线"></a>10. 分割线</h2><hr>
-<hr>
-<hr>
-<h2 id="11-定义列表"><a href="#11-定义列表" class="headerlink" title="11. 定义列表"></a>11. 定义列表</h2><dl><dt>术语一</dt><dd>这是术语一的定义</dd></dl><dl><dt>术语二<br>: 这是术语二的定义</dt><dd>这是术语二的第二个定义</dd></dl><h2 id="12-特殊字符与HTML"><a href="#12-特殊字符与HTML" class="headerlink" title="12. 特殊字符与HTML"></a>12. 特殊字符与HTML</h2><p><kbd>Ctrl</kbd> + <kbd>C</kbd> 复制<br><kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</p>
-<p>上箭头：↑<br>版权符号：©<br>注册商标：®<br>欧元符号：€</p>
+<p><br /><span class="math display">$$
+\begin{bmatrix}
+a_{11} &amp; a_{12} \\
+a_{21} &amp; a_{22}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+b_{11} &amp; b_{12} \\
+b_{21} &amp; b_{22}
+\end{bmatrix}
+=
+\begin{bmatrix}
+a_{11}b_{11} + a_{12}b_{21} &amp; a_{11}b_{12} + a_{12}b_{22} \\
+a_{21}b_{11} + a_{22}b_{21} &amp; a_{21}b_{12} + a_{22}b_{22}
+\end{bmatrix}
+$$</span><br /></p>
+<h2 id="脚注">9. 脚注</h2>
+<p>这是一个带有脚注的句子<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。<br />
+这是另一个引用<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>。</p>
+<h2 id="分割线">10. 分割线</h2>
+<hr />
+<hr />
+<hr />
+<h2 id="定义列表">11. 定义列表</h2>
+<dl>
+<dt>术语一</dt>
+<dd>这是术语一的定义
+</dd>
+<dt>术语二</dt>
+<dd>这是术语二的定义
+</dd>
+<dd>这是术语二的第二个定义
+</dd>
+</dl>
+<h2 id="特殊字符与html">12. 特殊字符与HTML</h2>
+<p><kbd>Ctrl</kbd> + <kbd>C</kbd> 复制<br />
+<kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</p>
+<p>上箭头：↑<br />
+版权符号：©<br />
+注册商标：®<br />
+欧元符号：€</p>
 <details>
-<summary>点击展开/收起详细信息</summary>
-这是一个使用HTML details元素创建的折叠内容区域。
-里面可以包含任何Markdown内容：
-
+<p><summary>点击展开/收起详细信息</summary> 这是一个使用HTML details元素创建的折叠内容区域。 里面可以包含任何Markdown内容：</p>
 <ul>
 <li>列表项1</li>
 <li>列表项2</li>
@@ -777,44 +839,56 @@
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello from inside the details!&quot;</span>)</span><br></pre></td></tr></table></figure>
 </details>
-
-<h2 id="13-图表（如果支持Mermaid）"><a href="#13-图表（如果支持Mermaid）" class="headerlink" title="13. 图表（如果支持Mermaid）"></a>13. 图表（如果支持Mermaid）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[开始] --&gt; B(处理)</span><br><span class="line">    B --&gt; C&#123;判断&#125;</span><br><span class="line">    C --&gt;|是| D[执行A]</span><br><span class="line">    C --&gt;|否| E[执行B]</span><br><span class="line">    D --&gt; F[结束]</span><br><span class="line">    E --&gt; F</span><br></pre></td></tr></table></figure>
-
+<h2 id="图表如果支持mermaid">13. 图表（如果支持Mermaid）</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[开始] --&gt; B(处理)</span><br><span class="line">    B --&gt; C&#123;判断&#125;</span><br><span class="line">    C --&gt;|是| D[执行A]</span><br><span class="line">    C --&gt;|否| E[执行B]</span><br><span class="line">    D --&gt; F[结束]</span><br><span class="line">    E --&gt; F</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant 用户</span><br><span class="line">    participant 系统</span><br><span class="line">    用户-&gt;&gt;系统: 登录请求</span><br><span class="line">    系统-&gt;&gt;系统: 验证凭据</span><br><span class="line">    alt 验证成功</span><br><span class="line">        系统-&gt;&gt;用户: 返回主页</span><br><span class="line">    else 验证失败</span><br><span class="line">        系统-&gt;&gt;用户: 显示错误</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
-
-<h2 id="14-表情符号和特殊符号"><a href="#14-表情符号和特殊符号" class="headerlink" title="14. 表情符号和特殊符号"></a>14. 表情符号和特殊符号</h2><p>:smile: :heart: :+1: :rocket:</p>
-<p>箭头：→ ← ↑ ↓<br>数学符号：≠ ≤ ≥ ≈ ∞</p>
-<h2 id="15-混合内容测试"><a href="#15-混合内容测试" class="headerlink" title="15. 混合内容测试"></a>15. 混合内容测试</h2><p>这是一个<strong>混合</strong>了各种格式的段落，包括<code>行内代码</code>、<a target="_blank" rel="noopener" href="https://hexo.io/">链接</a>、<em>斜体</em>和<strong>粗体</strong>。我们可以引用某个公式：$E &#x3D; mc^2$，然后继续写正文。</p>
+<h2 id="表情符号和特殊符号">14. 表情符号和特殊符号</h2>
+<p>:smile: :heart: :+1: :rocket:</p>
+<p>箭头：→ ← ↑ ↓<br />
+数学符号：≠ ≤ ≥ ≈ ∞</p>
+<h2 id="混合内容测试">15. 混合内容测试</h2>
+<p>这是一个<strong>混合</strong>了各种格式的段落，包括<code>行内代码</code>、<a target="_blank" rel="noopener" href="https://hexo.io/">链接</a>、<em>斜体</em>和<strong>粗体</strong>。我们可以引用某个公式：<span class="math inline"><em>E</em> = <em>m</em><em>c</em><sup>2</sup></span>，然后继续写正文。</p>
 <blockquote>
 <p>这是一个包含表格的引用块：</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>项目</th>
 <th>数量</th>
 <th>价格</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>苹果</td>
 <td>5</td>
 <td>$10</td>
 </tr>
-<tr>
+<tr class="even">
 <td>香蕉</td>
 <td>3</td>
 <td>$6</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </blockquote>
-<ol>
-<li><strong>有序列表项一</strong>，包含<code>代码</code>和<a target="_blank" rel="noopener" href="https://example.com/">链接</a></li>
-<li><em>有序列表项二</em>，包含数学公式 $x^2 + y^2 &#x3D; r^2$</li>
+<ol type="1">
+<li><strong>有序列表项一</strong>，包含<code>代码</code>和<a target="_blank" rel="noopener" href="https://example.com">链接</a></li>
+<li><em>有序列表项二</em>，包含数学公式 <span class="math inline"><em>x</em><sup>2</sup> + <em>y</em><sup>2</sup> = <em>r</em><sup>2</sup></span></li>
 <li>有序列表项三，包含表情符号 :tada:</li>
 </ol>
-<h2 id="16-结束语"><a href="#16-结束语" class="headerlink" title="16. 结束语"></a>16. 结束语</h2><p>这个文档测试了Hexo中可能用到的各种Markdown格式。不同的Hexo主题和渲染器可能对这些格式的支持程度不同，请根据实际渲染效果进行调整。</p>
-<hr>
-<p><em>最后更新：2025年</em><br><em>测试完成</em></p>
+<h2 id="结束语">16. 结束语</h2>
+<p>这个文档测试了Hexo中可能用到的各种Markdown格式。不同的Hexo主题和渲染器可能对这些格式的支持程度不同，请根据实际渲染效果进行调整。</p>
+<hr />
+<p><em>最后更新：2025年</em><br />
+<em>测试完成</em></p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>这是第一个脚注的内容，可以包含更多详细信息。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>第二个脚注，也可以包含链接和其他格式，比如<strong>粗体</strong>或<code>代码</code>。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
         </div>
 

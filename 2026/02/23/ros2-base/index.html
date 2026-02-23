@@ -21,7 +21,7 @@
 
 <!-- ҳ����⶯̬���� -->
 
-<title>new | Johnson</title>
+<title>ros2-base | Johnson</title>
 
 <!-- ��վͼ�� -->
 
@@ -49,45 +49,6 @@
 
 
 <!-- MathJax��ʽ��Ⱦ֧�� -->
-
-    
-        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["STIX","TeX"],
-        linebreaks: { automatic:true },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-        processEscapes: true,
-        ignoreClass: "tex2jax_ignore|dno",
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
-        Macros: { href: "{}" }
-    },
-    messageStyle: "none"
-    });
-</script>
-<!-- 给MathJax元素添加has-jax class -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
 
     
 
@@ -620,7 +581,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">new</h1>
+            <h1 class="post-title">ros2-base</h1>
             
                 <div class="post-meta">
                     
@@ -629,7 +590,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">十二月 16, 2025&nbsp;&nbsp;11:37:16</a>
+                        Date: <a href="#">二月 23, 2026&nbsp;&nbsp;19:41:44</a>
                         </span>
                     
                     
@@ -638,86 +599,28 @@
         </header>
 
         <div class="post-content">
-            <h1 id="第一学期高等数学一作业七详细解答">第一学期高等数学(一)作业(七)详细解答</h1>
-<h2 id="一填空题">一、填空题</h2>
-<h3 id="极限计算">1. 极限计算</h3>
-<p><strong>题目</strong>：设函数 (f(x)) 连续，则 (_{x a} )</p>
-<p><strong>解答</strong>： - 当 (x a) 时，分子 (<em>{a}^{x} f(t)dt </em>{a}^{a} f(t)dt = 0)，分母 (x - a )，属于 () 型未定式，可用洛必达法则。 - 对分子分母分别求导：分子导数为 (f(x))（变上限积分求导公式），分母导数为 (1)。 - 因此极限为 (_{x a} f(x) = f(a))（因 (f(x)) 连续）。</p>
-<p><strong>答案</strong>：(f(a))</p>
-<h3 id="变上限积分求导">2. 变上限积分求导</h3>
-<p><strong>题目</strong>：设 (f(x)=_{x}<sup>{x</sup>{3}}  dt)，则 (f’(x))</p>
-<p><strong>解答</strong>： - 变上限积分求导公式：若 (F(x)=_{(x)}^{(x)} g(t)dt)，则 (F’(x)=g((x))‘(x) - g((x))’(x))。 - 此处 (g(t)=)，((x)=x^3)，((x)=x)。 - 计算导数：(‘(x)=3x^2)，(’(x)=1)。 - 代入得：(f’(x)= 3x^2 -   =  - )。</p>
-<p><strong>答案</strong>：( - )</p>
-<h3 id="定积分的几何意义应用">3. 定积分的几何意义应用</h3>
-<p><strong>题目</strong>：定积分 (_{1}^{5}  dx)</p>
-<p><strong>解答</strong>： - 先化简被积函数：(6x - x^2 - 5 = -(x^2 - 6x + 9) + 4 = 4 - (x - 3)^2)。 - 因此被积函数为 ()，其几何意义是圆心在 ((3,0))、半径为 (2) 的上半圆（因根号下非负，函数值非负）。 - 积分区间 ([1,5]) 对应半圆的完整定义域（圆心横坐标 (3)，半径 (2)，左端点 (3 - 2 = 1)，右端点 (3 + 2 = 5)）。 - 半圆面积为 (r^2 = ^2 = 2)，故定积分值为 (2)。</p>
-<p><strong>答案</strong>：(2)</p>
-<h3 id="极限计算洛必达法则变上限积分求导">4. 极限计算（洛必达法则+变上限积分求导）</h3>
-<p><strong>题目</strong>：(_{x } )</p>
-<p><strong>解答</strong>： - 当 (x ) 时，分子 (<em>{x<sup>2}</sup>{0} t^2 dt = -</em>{0}<sup>{x</sup>2} t^2 dt )，分母 (x^6 )，属于 () 型未定式，用洛必达法则。 - 第一次求导：分子导数为 (-(x<sup>2)</sup>2 2x = -2x x^4)，分母导数为 (6x^5 = 6x^5)，极限变为 (<em>{x }  = </em>{x } )。 - 等价无穷小替换：当 (u ) 时，(u u)，令 (u = x^4)，则 (x^4 x^4)。 - 代入得：(_{x }  = -)。</p>
-<p><strong>答案</strong>：(-)</p>
-<h3 id="绝对值函数的定积分">5. 绝对值函数的定积分</h3>
-<p><strong>题目</strong>：(_{0}^{} |x - x| dx)</p>
-<p><strong>解答</strong>： - 先确定绝对值内函数的符号：令 (x = x)，解得 (x = )（在 ([0, ]) 内）。 - 当 (x ) 时，(x x)，故 (|x - x| = x - x)； - 当 (x ) 时，(x x)，故 (|x - x| = x - x)。 - 分段积分： [  ]</p>
-<p><strong>答案</strong>：(2 - 2)</p>
-<h2 id="二单项选择题">二、单项选择题</h2>
-<h3 id="定积分大小比较">1. 定积分大小比较</h3>
-<p><strong>题目</strong>：设 (I_1 = <em>{0}^{1} x^4 dx)，(I_2 = </em>{0}^{1} ^4 x dx)，(I_3 = _{0}^{1} ^4 x dx)，则（ ） A. (I_1 &lt; I_2 &lt; I_3) B. (I_2 &lt; I_1 &lt; I_3) C. (I_2 &lt; I_3 &lt; I_1) D. (I_1 &lt; I_3 &lt; I_2)</p>
-<p><strong>解答</strong>： - 当 (x (0,1)) 时，利用三角函数性质：(x &lt; x &lt; x)（因 (x &gt; 0) 时，(x = x -  + &lt; x)，(x = x +  + &gt; x)）。 - 对正数而言，幂函数 (y = t^4) 在 (t &gt; 0) 时单调递增，故 (^4 x &lt; x^4 &lt; ^4 x)（(x (0,1))）。 - 定积分保号性：若在 ([a,b]) 上 (f(x) &lt; g(x))，则 (<em>{a}^{b} f(x) dx &lt; </em>{a}^{b} g(x) dx)。 - 因此 (I_2 &lt; I_1 &lt; I_3)，选 B。</p>
-<p><strong>答案</strong>：B</p>
-<h3 id="变上限积分求函数值">2. 变上限积分求函数值</h3>
-<p><strong>题目</strong>：设 (f(x)) 在 ([0, +)) 上连续，且 (_{1}<sup>{x</sup>3 + 1} f(t) dt = x^3(x + 1))，则 (f(2) = )（ ） A. () B. 7 C. 2 D. 3</p>
-<p><strong>解答</strong>： - 对等式两边关于 (x) 求导（变上限积分求导）：左边导数为 (f(x^3 + 1) 3x^2)，右边导数为 (3x^2(x + 1) + x^3  = 3x^3 + 3x^2 + x^3 = 4x^3 + 3x^2)。 - 令 (x^3 + 1 = 2)，解得 (x^3 = 1)，即 (x = 1)（因 (x )）。 - 将 (x = 1) 代入导数等式：(f(2)  ^2 = 4 ^3 + 3 ^2)，即 (3f(2) = 4 + 3 = 7)，故 (f(2) = )？（此处题目选项可能排版有误，按计算过程，正确结果应为 ()，但选项中最接近的逻辑是：可能求导时右边计算错误，重新检查： - 右边 (x^3(x + 1) = x^4 + x^3)，导数为 (4x^3 + 3x^2)，当 (x = 1) 时，右边导数为 (7)，左边为 (3f(2))，故 (f(2) = )，但选项中无此答案，可能题目中积分上限应为 (x^2 + 1)？若为 (x^2 + 1)，则导数左边为 (f(x^2 + 1) 2x)，令 (x^2 + 1 = 2) 得 (x = 1)，右边 (x^3(x + 1)) 导数为 (4x^3 + 3x^2)，代入 (x = 1) 得 (7)，左边 (2f(2) = 7)，仍不对。或题目中右边为 (x^2(x + 1))，则右边导数为 (3x^2 + 2x)，(x = 1) 时为 (5)，也不对。结合选项，可能原题目中积分上限为 (x + 1)，则导数左边为 (f(x + 1))，右边 (x^3(x + 1)) 导数为 (4x^3 + 3x^2)，令 (x + 1 = 2) 得 (x = 1)，(f(2) = 7)，选 B。推测题目排版时积分上限 (x^3 + 1) 应为 (x + 1)，按选项逻辑选 B。</p>
-<p><strong>答案</strong>：B</p>
-<h3 id="变上限积分求导-1">3. 变上限积分求导</h3>
-<p><strong>题目</strong>：设 (f(x)) 连续，且 (F(x) = _{x}^{3} f(t^2) dt)，则 (F’(x) = )（ ） A. (2x f(x^2)) B. (-2x f(x^2)) C. (f(x^2)) D. (-f(x^2))</p>
-<p><strong>解答</strong>： - 变上限积分求导：(F(x) = <em>{x}^{3} f(t^2) dt = -</em>{3}^{x} f(t^2) dt)。 - 导数为 (F’(x) = -f(x^2)  = -f(x^2))（因上限为 (x)，导数为 (f(x^2))，加负号）。 - 选 D。</p>
-<p><strong>答案</strong>：D</p>
-<h3 id="三角函数的定积分">4. 三角函数的定积分</h3>
-<p><strong>题目</strong>：定积分 (_{0}^{}  dx) 的值为（ ） A. () B. (2) C. (3) D. (4)</p>
-<p><strong>解答</strong>： - 利用三角恒等式：(1 + 2x = 2^2 x)，故 ( = |x|)。 - 积分区间 ([0, ])：当 (x ) 时，(x )，(|x| = x)；当 (x ) 时，(x )，(|x| = -x)。 - 分段积分： [  ] - 选 B。</p>
-<p><strong>答案</strong>：B</p>
-<h3 id="定积分方程求解">5. 定积分方程求解</h3>
-<p><strong>题目</strong>：设 (f(x)) 连续，且 (f(x) = x + 2_{0}^{1} f(x) dx)，则 (f(x) = )（ ） A. (x) B. (x + 1) C. (x - 1) D. (1 - x)</p>
-<p><strong>解答</strong>： - 设 (C = <em>{0}^{1} f(x) dx)（常数，因定积分结果为常数），则 (f(x) = x + 2C)。 - 对等式两边在 ([0,1]) 上积分：(</em>{0}^{1} f(x) dx = <em>{0}^{1} x dx + 2C</em>{0}^{1} dx)。 - 计算积分：(<em>{0}^{1} x dx = )，(</em>{0}^{1} dx = 1)，故 (C =  + 2C )。 - 解方程：(C - 2C = )，即 (-C = )，(C = -)。 - 因此 (f(x) = x + 2 (-) = x - 1)，选 C。</p>
-<p><strong>答案</strong>：C</p>
-<h2 id="三解答下列各题">三、解答下列各题</h2>
-<h3 id="极限计算洛必达法则变上限积分求导-1">1. 极限计算（洛必达法则+变上限积分求导）</h3>
-<p><strong>题目</strong>：计算极限 (_{x } )</p>
-<p><strong>解答</strong>： - 当 (x ) 时，分子 (<em>{0}<sup>{x</sup>2}   dt )，分母 (</em>{2x}^{0} t^2 (1 + t^2) dt = -<em>{0}^{2x} t^2 (1 + t^2) dt )，属于 () 型，用洛必达法则。 - 第一次求导： - 分子导数：(  2x = |x| |x| 2x)，因 (x ) 时 (x) 可视为正（极限与正负无关），故 (|x| = x)，(|x| = x)，导数为 (x x 2x = 2x^2 x)。 - 分母导数：(-[(2x)^2 (1 + (2x)^2) ] = -[4x^2 (1 + 4x^2) ] = -8x^2 (1 + 4x^2))。 - 极限变为：(</em>{x }  = <em>{x } )。 - 等价无穷小替换：(x x)，((1 + 4x^2) 4x^2)（(x )）。 - 代入得：(</em>{x }  = <em>{x } )？此处计算错误，重新检查分子导数： - 正确分子导数：( ) 在 (t = x^2) 处的值为 (  = |x| |x| = x x)（(x )），乘以上限导数 (2x)，得 (2x x x = 2x^2 x)（正确）。 - 分母导数：(-[t^2 (1 + t^2)]</em>{t=2x} (2x)’ = -[(2x)^2 (1 + 4x^2)]  = -8x^2 (1 + 4x^2))（正确）。 - 约去 (x^2) 得：(<em>{x }  = </em>{x } )。 - 再次用洛必达法则（仍为 () 型）：分子导数 (x)，分母导数 (-4  = -)。 - 极限变为：(<em>{x }  = </em>{x } )，此时分子 ()，分母 ()，极限为 ()？显然哪里出错了，重新检查被积函数： - 分子被积函数 ( )，令 (u = )，则 (t = u^2)，(dt = 2u du)，当 (t = 0) 时 (u = 0)，(t = x^2) 时 (u = x)，分子变为 (<em>{0}^{x} u u 2u du = 2</em>{0}^{x} u^2 u du)。 - 分母令 (v = 2x)，则分母为 (-<em>{0}^{v} ()^2 (1 + ()^2) )（换元复杂，直接求导第二次）： - 原极限第一次求导后：( = )，用等价无穷小：(x x)，((1 + 4x^2) 4x^2)，得 ( = )，当 (x ) 时，极限为 (-)？但可能题目中分母积分上限为 (0)，下限为 (2x)，符号正确，推测题目可能分子被积函数为 ( t)，或分母被积函数为 (t (1 + t^2))，按原题计算，结果为 (-)，但可能我在换元时出错，重新计算： - 分子：(</em>{0}<sup>{x</sup>2}   dt)，令 (u = )，则 (t = u^2)，(dt = 2u du)，积分变为 (<em>{0}^{x} u u 2u du = 2</em>{0}^{x} u^2 u du)，导数为 (2x^2 x)（正确）。 - 分母：(<em>{2x}^{0} t^2 (1 + t^2) dt = -</em>{0}^{2x} t^2 (1 + t^2) dt)，导数为 (-( (2x)^2 (1 + 4x^2)  ) = -8x^2 (1 + 4x^2))（正确）。 - 极限：(<em>{x }  = </em>{x }  = <em>{x }  = </em>{x }  = -)。</p>
-<p><strong>答案</strong>：(-)（若题目无笔误，此为正确结果）</p>
-<h3 id="定积分方程求解-1">2. 定积分方程求解</h3>
-<p><strong>题目</strong>：设 (f(x)) 连续，且 (f(x) = x^2 + x _{0}^{1} f(x) dx)，求 (f(x))</p>
-<p><strong>解答</strong>： - 设 (C = <em>{0}^{1} f(x) dx)（常数），则 (f(x) = x^2 + Cx)。 - 对等式两边在 ([0,1]) 上积分：(</em>{0}^{1} f(x) dx = <em>{0}^{1} x^2 dx + C </em>{0}^{1} x dx)。 - 计算积分：(<em>{0}^{1} x^2 dx = )，(</em>{0}^{1} x dx = )。 - 代入得：(C =  + C )。 - 解方程：(C - C = )，即 (C = )，故 (C = )。 - 因此 (f(x) = x^2 + x)。</p>
-<p><strong>答案</strong>：(f(x) = x^2 + x)</p>
-<h3 id="含绝对值的定积分最小值">3. 含绝对值的定积分最小值</h3>
-<p><strong>题目</strong>：设 ((a) = _{0}^{1} |x^2 - a^2| dx (a &gt; 0))，求 ((a)) 的最小值</p>
-<p><strong>解答</strong>： - 分情况讨论 (a) 的范围： - 情况 1：(a )，则 (x ) 时，(x^2 a^2)，故 (|x^2 - a^2| = a^2 - x^2)。 [ (a) = <em>{0}^{1} (a^2 - x^2) dx = </em>{0}^{1} = a^2 -  ] 此时 ((a)) 随 (a) 增大而增大，最小值在 (a = 1) 时，((1) = 1 -  = )。 - 情况 2：(0 &lt; a &lt; 1)，令 (x^2 - a^2 = 0)，解得 (x = a)（(x )）。 当 (x ) 时，(|x^2 - a^2| = a^2 - x^2)；当 (x ) 时，(|x^2 - a^2| = x^2 - a^2)。 [  ] 求导找极值：(‘(a) = 4a^2 - 2a = 2a(2a - 1))，令 (’(a) = 0)，解得 (a = 0)（舍去）或 (a = )。 求二阶导数：(’‘(a) = 8a - 2)，当 (a = ) 时，(’’() = 4 - 2 = 2 &gt; 0)，故为极小值点。 计算 (() =  ()^3 - ()^2 +  =   -  +  =  -  +  = )。 - 比较两种情况的最小值：( &lt; )，故 ((a)) 的最小值为 ()。</p>
-<p><strong>答案</strong>：()</p>
-<h3 id="变上限积分求导换元法">4. 变上限积分求导（换元法）</h3>
-<p><strong>题目</strong>：已知 (f(x)) 是连续函数，设 (F(x) = _{a}^{b} f(x + y) dy)，求 (F’(x))</p>
-<p><strong>解答</strong>： - 换元法：令 (u = x + y)，则 (y = u - x)，(dy = du)。 - 当 (y = a) 时，(u = x + a)；当 (y = b) 时，(u = x + b)。 - 积分变为：(F(x) = _{x + a}^{x + b} f(u) du)。 - 变上限积分求导：(F’(x) = f(x + b)  - f(x + a)  = f(x + b) - f(x + a))。</p>
-<p><strong>答案</strong>：(F’(x) = f(x + b) - f(x + a))</p>
-<h3 id="极限证明定积分不等式">5. 极限证明（定积分不等式）</h3>
-<p><strong>题目</strong>：证明：(<em>{n } </em>{0}^{1}  dx = 0)</p>
-<p><strong>证明</strong>： - 利用定积分不等式：对 (x )，有 (0  x^n)（因 (1 + x )，故 ( )）。 - 积分保号性：(0 <em>{0}^{1}  dx </em>{0}^{1} x^n dx)。 - 计算右边积分：(<em>{0}^{1} x^n dx = </em>{0}^{1} = )。 - 当 (n ) 时，( )，由夹逼准则：(<em>{n } </em>{0}^{1}  dx = 0)。</p>
-<p><strong>证毕</strong></p>
-<h3 id="定积分绝对值不等式证明">6. 定积分绝对值不等式证明</h3>
-<p><strong>题目</strong>：证明：(|_{1}^{}  dx| )</p>
-<p><strong>证明</strong>： - 利用定积分绝对值不等式：(|<em>{a}^{b} f(x) dx| </em>{a}^{b} |f(x)| dx)。 - 对被积函数，有 (|x| )，故 (|f(x)| =  )。 - 又因 (x ) 时，(e^x e^1 = e)（指数函数单调递增），故 ( )。 - 因此 (|f(x)| )，积分得： [ |<em>{1}^{}  dx| </em>{1}^{}  dx =  <em>{1}^{}  dx ] - 计算积分：( dx = x + C)，故： [  [x]</em>{1}^{} =  ( - ) =  ( - ) =   =  ] - 因此原不等式成立。</p>
-<p><strong>证毕</strong></p>
-<h3 id="方程实根唯一性证明介值定理单调性">7. 方程实根唯一性证明（介值定理+单调性）</h3>
-<p><strong>题目</strong>：设 (f(x)) 在 ([0,1]) 上连续，且 (f(x) &lt; 1)，试证明：方程 (2x - _{0}^{x} f(t) dt = 1) 在 ((0,1)) 内有唯一实根。</p>
-<p><strong>证明</strong>： - 构造函数 (F(x) = 2x - <em>{0}^{x} f(t) dt - 1)，需证明 (F(x) = 0) 在 ((0,1)) 内有唯一实根。 - 步骤 1：证明存在性（介值定理）。 - (F(x)) 连续：因 (2x) 连续，(</em>{0}^{x} f(t) dt) 连续（变上限积分连续性），故 (F(x)) 连续。 - 计算 (F(0) = 0 - 0 - 1 = -1 &lt; 0)。 - 计算 (F(1) = 2  - <em>{0}^{1} f(t) dt - 1 = 1 - </em>{0}^{1} f(t) dt)。因 (f(x) &lt; 1)，故 (<em>{0}^{1} f(t) dt &lt; </em>{0}^{1} 1 dt = 1)，故 (F(1) = 1 -  &gt; 0)。 - 由介值定理，存在 ((0,1))，使 (F() = 0)，即方程有实根。 - 步骤 2：证明唯一性（单调性）。 - 求导：(F’(x) = 2 - f(x))（变上限积分求导）。 - 因 (f(x) &lt; 1)，故 (F’(x) = 2 - f(x) &gt; 2 - 1 = 1 &gt; 0)，即 (F(x)) 在 ([0,1]) 上严格单调递增。 - 严格单调函数至多有一个零点，故方程在 ((0,1)) 内有唯一实根。</p>
-<p><strong>证毕</strong></p>
-<h3 id="微分中值定理应用罗尔定理">8. 微分中值定理应用（罗尔定理）</h3>
-<p><strong>题目</strong>：设 (f(x)) 在 ([1,2]) 上可导，且 (f(1) = 2_{}^{2} f(x) dx)，试证明：存在 ((1,2))，使 (f’() = 0)。</p>
-<p><strong>证明</strong>： - 构造辅助函数：设 (F(x) = <em>{}^{x} f(t) dt)，则 (F(x)) 在 ([,2]) 上连续，在 ((,2)) 内可导（因 (f(x)) 连续），且 (F’(x) = f(x))。 - 由积分中值定理：存在 ()，使 (</em>{}^{2} f(x) dx = F(2) - F() = F’()(2 - ) = f())。 - 已知 (f(1) = 2_{}^{2} f(x) dx = 2 f() = f())，即 (f(1) = f())，其中 ()。 - 对 (f(x)) 在 ([1,]) 上应用罗尔定理：(f(x)) 在 ([1,]) 上连续，在 ((1,)) 内可导，且 (f(1) = f())，故存在 ((1,) (1,2))，使 (f’() = 0)。</p>
-<p><strong>证毕</strong></p>
-<h3 id="定积分定义求极限">9. 定积分定义求极限</h3>
-<p><strong>题目</strong>：用定积分的定义，计算极限 (_{n } ( +  + + ))</p>
-<p><strong>解答</strong>： - 定积分定义：(<em>{a}^{b} f(x) dx = </em>{n } <em>{i=1}^{n} f(a + i ) )。 - 对比极限表达式：(</em>{n } <em>{i=1}^{n}  )。 - 此处 ( = )，故 (b - a = 1)；(a + i  = 1 + )，故 (a = 1)，则 (b = a + 1 = 2)；(f(x) = )。 - 因此极限等于 (</em>{1}^{2}  dx)。 - 计算定积分：(<em>{1}^{2}  dx = </em>{1}^{2} = (2^{} - 1^{}) = (2 - 1))。</p>
-<p><strong>答案</strong>：((2 - 1))</p>
+            <h1 id="指令">指令：</h1>
+这个没有写完，回头补
+<details>
+<p><summary> 基础 </summary></p>
+<h2 id="召唤吉祥物">召唤吉祥物</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 run turtlesim turtlesim_node</span><br></pre></td></tr></table></figure>
+<p><img src="/images/ros_node/r-1.1.webp" alt="r-1.1" width="500" /></p>
+<h2 id="查看服务列表会显示服务类型及消息接口">查看服务列表，会显示服务类型及消息接口</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ros2 service list -t</span><br><span class="line"><span class="comment">#eg：/spawn[turtlesim/srv/Spawn],spawn是“产卵”，生成新的海龟</span></span><br></pre></td></tr></table></figure>
+<h2 id="查看消息接口">查看消息接口</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ros2 interface show turtlesim/srv/Spawn <span class="comment">#在上一条命令后，[]内的内容是接口</span></span><br><span class="line"><span class="comment">#float32 x       32位浮点型保存横坐标</span></span><br><span class="line"><span class="comment">#float32 y       32位浮点型保存纵坐标</span></span><br><span class="line"><span class="comment">#float32 theta   32位浮点型保存头的朝向</span></span><br><span class="line"><span class="comment">#string name # Optional.  A unique name will be created and returned if this is empty</span></span><br><span class="line"><span class="comment">#---</span></span><br><span class="line"><span class="comment">#string name</span></span><br></pre></td></tr></table></figure>
+<h2 id="终端调用消息接口召唤第二只乌龟">终端调用消息接口(召唤第二只乌龟)</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ros2 service call /spawn turtlesim/srv/Spawn <span class="string">&quot;&#123;x: 1,y: 2&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#格式： ros2 service call 服务名字 服务接口 &quot;&#123;数据填充（yaml格式）&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<details>
+<p><summary>示例反馈</summary></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">requester: making request: turtlesim.srv.Spawn_Request(x=1.0, y=2.0, theta=0.0, name=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">response:</span><br><span class="line">turtlesim.srv.Spawn_Response(name=<span class="string">&#x27;turtle2&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</details>
+<p><img src="/images/ros_node/r-1.2.webp" alt="r-1.2" width="500" /></p>
+<h2 id="可视化接口调用rqt">可视化接口调用：rqt</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rqt</span><br></pre></td></tr></table></figure>
+<img src="/images/ros_node/r-2.webp" alt="r-2" width="500" />
+</details>
 
         </div>
 
@@ -732,7 +635,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://lyxy-szs.github.io/2025/12/16/new/">http://lyxy-szs.github.io/2025/12/16/new/</a></span>
+                        <span><a href="http://lyxy-szs.github.io/2026/02/23/ros2-base/">http://lyxy-szs.github.io/2026/02/23/ros2-base/</a></span>
                     </p>
                 
                 
@@ -760,10 +663,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2025/12/30/list/">list</a>
             
-            
-            <a class="next" rel="next" href="/2025/12/13/Ubuntu%E5%92%8CWindows%E4%B8%8AYOLO%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B/">Ubuntu和Windows上YOLO模型训练与部署流程</a>
+            <a class="next" rel="next" href="/2026/02/18/%E7%A7%91%E7%9B%AE%E4%B8%80/">科目一</a>
             
         </section>
 

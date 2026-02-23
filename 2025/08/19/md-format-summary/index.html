@@ -606,23 +606,23 @@
         </header>
 
         <div class="post-content">
-            <p>必填项：title 和 date（date 不填会自动生成当前时间）。<br>选填项：tags（标签）、categories（分类）等，根据主题支持情况添加。</p>
-<h1 id="正文内容（Markdown-语法）"><a href="#正文内容（Markdown-语法）" class="headerlink" title="正文内容（Markdown 语法）"></a>正文内容（Markdown 语法）</h1><p>在 — 下方写正文，支持所有标准 Markdown 语法，常用示例：<br>markdown</p>
-<h1 id="一级标题（文章大标题）一个"><a href="#一级标题（文章大标题）一个" class="headerlink" title="一级标题（文章大标题）一个#"></a>一级标题（文章大标题）一个#</h1><h2 id="二级标题（小节标题）两个"><a href="#二级标题（小节标题）两个" class="headerlink" title="二级标题（小节标题）两个#"></a>二级标题（小节标题）两个#</h2><h3 id="三级标题（子标题）三个"><a href="#三级标题（子标题）三个" class="headerlink" title="三级标题（子标题）三个#"></a>三级标题（子标题）三个#</h3><p>这是正文段落，支持 <strong>加粗</strong><code>（两个*，前后）</code>、<em>斜体</em><code>（一个*，前后）</code>、<del>删除线</del><code>（两个个~，前后）</code> 等格式。</p>
+            <p>必填项：title 和 date（date 不填会自动生成当前时间）。 选填项：tags（标签）、categories（分类）等，根据主题支持情况添加。</p>
+<h1 id="正文内容markdown-语法">正文内容（Markdown 语法）</h1>
+<p>在 — 下方写正文，支持所有标准 Markdown 语法，常用示例： markdown # 一级标题（文章大标题）一个# ## 二级标题（小节标题）两个# ### 三级标题（子标题）三个#</p>
+<p>这是正文段落，支持 <strong>加粗</strong><code>（两个*，前后）</code>、<em>斜体</em><code>（一个*，前后）</code>、<del>删除线</del><code>（两个个~，前后）</code> 等格式。</p>
 <ul>
 <li>无序列表项1</li>
-<li>无序列表项2<code>（-）</code><ul>
+<li>无序列表项2<code>（-）</code>
+<ul>
 <li>子列表项</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<ol>
+<ol type="1">
 <li>有序列表项1</li>
 <li>有序列表项2</li>
 </ol>
-<p><code>[链接文字](https://example.com)</code>  # 插入链接 eg: <a href="www.baidu.com">baidu</a></p>
-<p><code>![图片描述](/images/你的图片名.jpg)</code>  # 插入图片（图片放 source&#x2F;images&#x2F; 目录下）eg: <img src="/%5Cimages%5C1.jpeg" alt="test"><br><code>&lt;img src=&quot;/images/1.jpeg&quot; alt=&quot;test&quot; width=&quot;500&quot; /&gt;</code>网页嵌入代码也可以，效果更好<br><img src="/images/1.jpeg" alt="test" width="500" /><br><code>代码块</code>python</p>
-<h1 id="插入代码（指定语言可自动高亮）"><a href="#插入代码（指定语言可自动高亮）" class="headerlink" title="插入代码（指定语言可自动高亮）"></a>插入代码（指定语言可自动高亮）</h1><p>print(“Hello Hexo!”)</p>
+<p><code>[链接文字](https://example.com)</code> # 插入链接 eg: <a href="www.baidu.com">baidu</a></p>
+<p><code>![图片描述](/images/你的图片名.jpg)</code> # 插入图片（图片放 source/images/ 目录下）eg: <img src="\images\1.jpeg" alt="test" /> <code>&lt;img src="/images/1.jpeg" alt="test" width="500" /&gt;</code>网页嵌入代码也可以，效果更好 <img src="/images/1.jpeg" alt="test" width="500" /> <code>代码块</code>python # 插入代码（指定语言可自动高亮） print(“Hello Hexo!”)</p>
 
         </div>
 
