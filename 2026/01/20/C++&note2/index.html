@@ -722,11 +722,12 @@
 <h2 id="问题描述">问题描述</h2>
 <p>如果矩阵 A 是一个 m×n 的矩阵，矩阵 B 是一个 n×p 的矩阵，则它们的乘积 C 是一个 m×p 的矩阵。</p>
 <p>矩阵乘法的规则是：矩阵 C 的第 i 行第 j 列的元素 <span class="math inline"><em>c</em><sub><em>i</em><em>j</em></sub></span> 等于矩阵 A 的第 i 行与矩阵 B 的第 j 列的对应元素乘积之和。</p>
+<p>矩阵乘法的结果矩阵 <span class="math inline"><em>C</em></span> 中的每个元素 <span class="math inline"><em>c</em><sub><em>i</em><em>j</em></sub></span> 可以通过以下公式计算：</p>
 <p><br /><span class="math display">$$
 c_{ij} = \sum_{k=1}^{n} a_{ik} \times b_{kj}
 $$</span><br /></p>
-<h2 id="示例">示例</h2>
-<p>例如，若 <span class="math inline">$A = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \end{bmatrix}$</span>，<span class="math inline">$B = \begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ 5 &amp; 6 \end{bmatrix}$</span>，则 <span class="math inline"><em>C</em> = <em>A</em> × <em>B</em></span> 是 2×2 矩阵，其中：</p>
+<p><strong>示例</strong></p>
+<p>举个例子，给定矩阵 <span class="math inline">$A = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \end{bmatrix}$</span> 和 <span class="math inline">$B = \begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ 5 &amp; 6 \end{bmatrix}$</span>，它们相乘得到的矩阵 <span class="math inline"><em>C</em> = <em>A</em> × <em>B</em></span> 将是一个 2×2 的矩阵。根据公式，<span class="math inline"><em>C</em></span> 中的元素计算如下：</p>
 <ul>
 <li><span class="math inline"><em>c</em><sub>11</sub> = <em>a</em><sub>11</sub> × <em>b</em><sub>11</sub> + <em>a</em><sub>12</sub> × <em>b</em><sub>21</sub> + <em>a</em><sub>13</sub> × <em>b</em><sub>31</sub> = 1 × 1 + 2 × 3 + 3 × 5 = 22</span></li>
 <li><span class="math inline"><em>c</em><sub>12</sub> = <em>a</em><sub>11</sub> × <em>b</em><sub>12</sub> + <em>a</em><sub>12</sub> × <em>b</em><sub>22</sub> + <em>a</em><sub>13</sub> × <em>b</em><sub>32</sub> = 1 × 2 + 2 × 4 + 3 × 6 = 28</span></li>

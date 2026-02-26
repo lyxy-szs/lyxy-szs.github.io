@@ -903,9 +903,9 @@ workplace： <figure class="highlight bash"><table><tr><td class="gutter"><pre><
 <h1 id="在gazebo中完成仿真">在Gazebo中完成仿真</h1>
 <h2 id="安装与使用gazebo构建世界">安装与使用Gazebo构建世界</h2>
 <p>安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install gazebo</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install gazebo</span><br><span class="line"><span class="comment"># 这里有个小问题，就是新的处理器对opencl支持一般，</span></span><br></pre></td></tr></table></figure>
 <p>下载模型：</p>
-<p>```bash mkdir -p ~/.gazebo cd ~/.gazebo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.gazebo</span><br><span class="line"><span class="built_in">cd</span> ~/.gazebo</span><br><span class="line">git <span class="built_in">clone</span> https://gitee.com/ohhuo/gazebo_models.git ~/.gazebo/models</span><br><span class="line"><span class="built_in">rm</span> -rf ~/.gazebo/models/.git</span><br></pre></td></tr></table></figure>
 
         </div>
 
