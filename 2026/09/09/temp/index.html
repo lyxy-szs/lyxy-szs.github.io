@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+    <script src="https://cdn.bootcss.com/typed.js/2.0.5/typed.js"></script>
+    <!-- �ַ��������ӿ����� -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<!-- վ��Ԫ��Ϣ -->
+
+    <meta name="author" content="Lyxy-szs">
+
+
+    <meta name="subtitle" content="Shi">
+
+
+
+
+<!-- ҳ����⶯̬���� -->
+
+<title>temp | Johnson</title>
+
+<!-- ��վͼ�� -->
+
+    <link rel="icon" href="/2.ico">
+
+
+<!-- �Զ���CSS�б������������ü��أ� -->
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+<!-- �Զ���JS�б������������ü��أ� -->
+
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+    <script src="/js/tellu.js"></script>
+    
+    <script src="/js/typed.min.js"></script>
+    
+
+
+<!-- MathJax��ʽ��Ⱦ֧�� -->
+
+    
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const pagebody = document.getElementsByTagName('body')[0]
+
+            function setTheme(status) {
+
+                if (status === 'dark') {
+                    window.sessionStorage.theme = 'dark'
+                    pagebody.classList.add('dark-theme');
+
+                } else if (status === 'light') {
+                    window.sessionStorage.theme = 'light'
+                    pagebody.classList.remove('dark-theme');
+                }
+            };
+
+            setTheme(window.sessionStorage.theme)
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Johnson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                <a class="menu-item" href="/archives">文章</a>
+                
+                <a class="menu-item" href="/categories">类别</a>
+                
+                <a class="menu-item" href="/tags">标签</a>
+                
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
+                
+                
+                <!-- 桌面端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 0 10px;
+                ">
+                    搜索
+                </button>
+
+                <!-- 恢复默认主题切换结构 -->
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <!-- 恢复默认结构：&nbsp;改为空格 -->
+                    <a href="/">Johnson&#39;s Blog</a><a id="mobile-toggle-theme">· Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
+                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
+                </div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                <a class="menu-item" href="/archives">文章</a>
+                
+                <a class="menu-item" href="/categories">类别</a>
+                
+                <a class="menu-item" href="/tags">标签</a>
+                
+                <a class="menu-item" href="/links">友链</a>
+                
+                <a class="menu-item" href="/downloads">下载</a>
+                
+
+                <!-- 移动端搜索按钮 -->
+                <button class="search-btn menu-item" style="
+                    background: transparent; 
+                    border: none; 
+                    cursor: pointer; 
+                    font-size: inherit; 
+                    color: inherit;
+                    padding: 10px 0;
+                    width: 100%;
+                    text-align: left;
+                ">
+                    搜索
+                </button>
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+<div id="searchModal" style="
+    display: none; 
+    position: fixed; 
+    top: 20%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: transparent; 
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px); 
+    padding: 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
+    z-index: 9999; 
+    width: 80%; 
+    max-width: 500px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 id="searchTitle" style="margin: 0; font-size: 16px;">搜索文章</h3>
+        <span class="search-close" style="cursor: pointer; font-size: 20px;">&times;</span>
+    </div>
+    <input type="text" id="searchInput" placeholder="输入关键词搜索..." style="
+        width: 100%; 
+        padding: 12px; 
+        border: 1px solid #eee; 
+        border-radius: 8px; 
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+    ">
+    <ul id="searchResult" style="list-style: none; padding: 0; margin-top: 15px; max-height: 300px; overflow-y: auto;"></ul>
+</div>
+
+<!-- 主题适配样式（优化搜索结果上下文和输入框样式） -->
+<!-- 主题适配样式（优化搜索结果上下文和输入框样式） -->
+<style>
+    /* 白主题样式 - 搜索框和文字 */
+    #searchTitle,
+    #searchInput {
+        color: #333 !important;
+    }
+    .search-close {
+        color: #999 !important;
+    }
+    #searchInput {
+        background: rgba(255, 255, 255, 0.85) !important;
+        border-color: #ddd !important;
+        color: #333 !important;
+    }
+    #searchResult li {
+        border-bottom: 1px dashed #eee !important;
+    }
+    #searchInput::placeholder {
+        color: #999 !important;
+    }
+
+    /* 搜索结果链接（文章名）样式 */
+    #searchResult a {
+        text-decoration: none;
+        font-weight: 500;
+        display: block;
+        color: #333; /* 白主题下的文章名颜色 */
+    }
+    
+    body.dark #searchResult a,
+    body.dark-theme #searchResult a {
+        color: #fff; /* 深色主题下的文章名颜色 */
+    }
+
+    /* 黑主题样式 - 搜索框和文字 */
+    body.dark #searchTitle,
+    body.dark-theme #searchTitle,
+    body.dark #searchInput,
+    body.dark-theme #searchInput {
+        color: #fff !important;
+    }
+    body.dark .search-close,
+    body.dark-theme .search-close {
+        color: #ccc !important;
+    }
+    body.dark #searchInput,
+    body.dark-theme #searchInput {
+        background: rgba(50, 50, 50, 0.85) !important;
+        border-color: #666 !important;
+        color: #fff !important;
+    }
+    body.dark #searchResult li,
+    body.dark-theme #searchResult li {
+        border-bottom: 1px dashed #555 !important;
+    }
+    body.dark #searchInput::placeholder,
+    body.dark-theme #searchInput::placeholder {
+        color: #aaa !important;
+    }
+
+    /* 修改：搜索结果上下文样式 - 使用与文章名相同的颜色 */
+    .search-context {
+        display: block;
+        font-size: 13px;
+        margin-top: 6px;
+        line-height: 1.5;
+        height: 39px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        word-break: break-all;
+        color: #333; /* 默认使用与文章名相同的浅色主题颜色 */
+    }
+    
+    /* 深色主题下上下文使用与文章名相同的颜色 */
+    body.dark .search-context,
+    body.dark-theme .search-context {
+        color: #fff; /* 使用与深色主题文章名相同的颜色 */
+    }
+    
+    /* 保留关键词高亮样式 */
+    .search-context mark {
+        background-color: rgba(255, 215, 0, 0.3);
+        color: inherit; /* 继承父元素的颜色 */
+        padding: 0 2px;
+        border-radius: 2px;
+        font-weight: bold;
+    }
+    
+    /* 深色主题下的关键词高亮 */
+    body.dark .search-context mark,
+    body.dark-theme .search-context mark {
+        background-color: rgba(255, 215, 0, 0.4);
+        color: #fff; /* 深色主题下mark标签文字颜色 */
+    }
+
+    /* ========== 搜索结果滚动条主题适配 ========== */
+    /* 1. 白主题滚动条（默认） */
+    #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #ccc #f5f5f5;
+    }
+    
+    /* 滚动条整体宽度 */
+    #searchResult::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    /* 滚动条轨道 */
+    #searchResult::-webkit-scrollbar-track {
+        background: #f5f5f5;
+        border-radius: 3px;
+    }
+    
+    /* 滚动条滑块 */
+    #searchResult::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    
+    /* 滑块hover状态 */
+    #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+
+    /* 2. 黑主题滚动条 */
+    body.dark #searchResult,
+    body.dark-theme #searchResult {
+        scrollbar-width: thin;
+        scrollbar-color: #666 #333;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-track,
+    body.dark-theme #searchResult::-webkit-scrollbar-track {
+        background: #333;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-thumb,
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb {
+        background: #666;
+    }
+    
+    body.dark #searchResult::-webkit-scrollbar-thumb:hover,
+    body.dark-theme #searchResult::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+
+    /* 3. 搜索结果项目样式 */
+    #searchResult li {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    body.dark #searchResult li,
+    body.dark-theme #searchResult li {
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* 文章链接悬停效果 */
+    #searchResult a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<!-- 引入jQuery和搜索逻辑JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script>
+    // 移动菜单切换函数（保持不变）
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.classList.contains("active")) {
+            toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        } else {
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+
+    // 搜索功能逻辑（增加上下文提取功能）
+    $(document).ready(function () {
+        const $searchBtn = $('.search-btn');
+        const $searchModal = $('#searchModal');
+        const $searchInput = $('#searchInput');
+        const $searchResult = $('#searchResult');
+
+        // 显示/隐藏搜索框（保持不变）
+        $searchBtn.click(function (e) {
+            e.preventDefault();
+            $searchModal.toggle();
+            if ($searchModal.is(':visible')) {
+                $searchInput.focus();
+            } else {
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 关闭搜索框（保持不变）
+        $('.search-close').click(function () {
+            $searchModal.hide();
+            $searchInput.val('');
+            $searchResult.empty();
+        });
+
+        // 点击外部关闭（保持不变）
+        $(document).click(function (e) {
+            if (
+                !$searchModal.is(e.target) && 
+                !$searchModal.has(e.target).length && 
+                !$searchBtn.is(e.target)
+            ) {
+                $searchModal.hide();
+                $searchInput.val('');
+                $searchResult.empty();
+            }
+        });
+
+        // 从文本中提取关键词上下文（优化版）
+        function extractContext(text, keyword, maxLength = 150) {
+            if (!text || !keyword) return '';
+            
+            // 将文本和关键词都转为小写进行匹配
+            const lowerText = text.toLowerCase();
+            const lowerKeyword = keyword.toLowerCase();
+            
+            // 查找关键词在文本中的位置
+            const index = lowerText.indexOf(lowerKeyword);
+            
+            if (index === -1) {
+                // 如果没有找到关键词，返回文本开头部分
+                const shortText = text.substring(0, maxLength);
+                return shortText + (text.length > maxLength ? '...' : '');
+            }
+            
+            // 计算截取范围：关键词前后各取一半
+            const start = Math.max(0, index - maxLength / 2);
+            const end = Math.min(text.length, index + keyword.length + maxLength / 2);
+            
+            let context = text.substring(start, end);
+            
+            // 在开头和结尾添加省略号
+            if (start > 0) context = '...' + context;
+            if (end < text.length) context = context + '...';
+            
+            // 高亮关键词（保持原始大小写）
+            const originalKeyword = text.substring(index, index + keyword.length);
+            const regex = new RegExp(originalKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            
+            return context.replace(regex, match => `<mark>${match}</mark>`);
+        }
+
+        // 去除HTML标签，获取纯文本
+        function stripHtml(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || '';
+        }
+
+        // 关键词搜索（显示带上下文的搜索结果）
+        $searchInput.on('input', function () {
+            const searchText = $(this).val().trim().toLowerCase();
+            $searchResult.empty();
+
+            if (searchText.length < 2) return;
+
+            $.get('/search.xml', function (xml) {
+                let hasMatch = false;
+                $(xml).find('entry').each(function () {
+                    const $entry = $(this);
+                    const title = $entry.find('title').text();
+                    const link = $entry.find('url').text();
+                    const rawContent = $entry.find('content').text();
+                    const content = stripHtml(rawContent);
+                    
+                    // 搜索标题和内容
+                    const titleMatch = title.toLowerCase().includes(searchText);
+                    const contentMatch = content.toLowerCase().includes(searchText);
+                    
+                    if (titleMatch || contentMatch) {
+                        // 提取上下文
+                        let context = '';
+                        if (contentMatch) {
+                            context = extractContext(content, searchText, 150);
+                        } else if (titleMatch) {
+                            // 如果只是标题匹配，高亮标题中的关键词
+                            const titleContext = title.replace(
+                                new RegExp(searchText, 'gi'), 
+                                match => `<mark>${match}</mark>`
+                            );
+                            context = `标题匹配: ${titleContext}`;
+                        }
+                        
+                        $searchResult.append(`
+                            <li>
+                                <a href="${link}?keyword=${encodeURIComponent(searchText)}" target="_blank">
+                                    ${title}
+                                </a>
+                                <span class="search-context">${context}</span>
+                            </li>
+                        `);
+                        hasMatch = true;
+                    }
+                });
+
+                if (!hasMatch) {
+                    $searchResult.append(`
+                        <li style="padding: 10px; text-align: center; color: #888;">
+                            未找到包含"${searchText}"的文章
+                        </li>
+                    `);
+                }
+            }).fail(function () {
+                $searchResult.append(`
+                    <li style="padding: 10px; color: #f44336; text-align: center;">
+                        搜索索引加载失败，请确保已生成search.xml
+                    </li>
+                `);
+            });
+        });
+    });
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">temp</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Lyxy-szs</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">九月 9, 2026&nbsp;&nbsp;0:22:17</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>����������ָ�� | ������ѧָ��</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --primary-light: #2980b9;
+            --primary-dark: #0e2f44;
+            --accent: #e67e22;
+            --accent-light: #f39c12;
+            --danger: #c0392b;
+            --warning-bg: #fef9e7;
+            --warning-border: #f9e79f;
+            --success: #27ae60;
+            --bg: #f0f4f8;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-light: #5d6d7e;
+            --text-muted: #85929e;
+            --border: #e0e6ed;
+            --code-bg: #f4f6f7;
+            --code-border: #dcdfe3;
+            --strike-color: #95a5a6;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+<pre><code>    * &#123;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    &#125;
+
+    body &#123;
+        font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    &#125;
+
+    /* ������� */
+    .hero &#123;
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 40%, var(--primary-light) 100%);
+        color: #fff;
+        padding: 48px 24px 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    &#125;
+
+    .hero::before &#123;
+        content: &#39;&#39;;
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.06) 0%, transparent 60%);
+        animation: heroGlow 8s ease-in-out infinite alternate;
+        pointer-events: none;
+    &#125;
+
+    @keyframes heroGlow &#123;
+        0% &#123;
+            transform: translate(0, 0) scale(1);
+        &#125;
+        100% &#123;
+            transform: translate(5%, 5%) scale(1.05);
+        &#125;
+    &#125;
+
+    .hero h1 &#123;
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 1;
+        margin-bottom: 8px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    &#125;
+
+    .hero .subtitle &#123;
+        font-size: 1.1rem;
+        opacity: 0.9;
+        position: relative;
+        z-index: 1;
+        font-weight: 400;
+        letter-spacing: 2px;
+    &#125;
+
+    .hero .emoji-badge &#123;
+        display: inline-block;
+        font-size: 2rem;
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 1;
+        animation: bounce 2s ease-in-out infinite;
+    &#125;
+
+    @keyframes bounce &#123;
+        0%,
+        100% &#123;
+            transform: translateY(0);
+        &#125;
+        50% &#123;
+            transform: translateY(-8px);
+        &#125;
+    &#125;
+
+    /* ������ */
+    .container &#123;
+        max-width: 820px;
+        margin: 0 auto;
+        padding: 32px 20px 60px;
+    &#125;
+
+    /* ��Ƭ��ʽ */
+    .card &#123;
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        padding: 28px 32px;
+        margin-bottom: 24px;
+        transition: box-shadow var(--transition), transform var(--transition);
+        border-left: 4px solid transparent;
+        position: relative;
+    &#125;
+
+    .card:hover &#123;
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+    &#125;
+
+    .card-warning &#123;
+        border-left-color: var(--danger);
+        background: linear-gradient(to right, #fff5f5 0%, var(--card-bg) 60%);
+    &#125;
+
+    .card-info &#123;
+        border-left-color: var(--primary-light);
+    &#125;
+
+    .card-success &#123;
+        border-left-color: var(--success);
+    &#125;
+
+    .card-accent &#123;
+        border-left-color: var(--accent);
+    &#125;
+
+    .card-purple &#123;
+        border-left-color: #8e44ad;
+        background: linear-gradient(to right, #faf5ff 0%, var(--card-bg) 60%);
+    &#125;
+
+    /* ������ʽ */
+    .card h2 &#123;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: var(--primary-dark);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    &#125;
+
+    .card h2 .num-badge &#123;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        height: 32px;
+        background: var(--primary);
+        color: #fff;
+        border-radius: 50%;
+        font-size: 0.9rem;
+        font-weight: 700;
+        padding: 0 6px;
+    &#125;
+
+    .card h3 &#123;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 18px 0 10px;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    &#125;
+
+    .card h4 &#123;
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 14px 0 8px;
+        color: var(--text);
+    &#125;
+
+    /* ���� */
+    .card p &#123;
+        margin-bottom: 12px;
+        color: var(--text);
+    &#125;
+
+    .card p:last-child &#123;
+        margin-bottom: 0;
+    &#125;
+
+    /* �б� */
+    .card ul,
+    .card ol &#123;
+        padding-left: 24px;
+        margin-bottom: 12px;
+    &#125;
+
+    .card ul li,
+    .card ol li &#123;
+        margin-bottom: 6px;
+        color: var(--text);
+    &#125;
+
+    .card ul li::marker &#123;
+        color: var(--primary-light);
+    &#125;
+
+    /* ǿ�� */
+    .card strong &#123;
+        color: var(--primary-dark);
+        font-weight: 700;
+    &#125;
+
+    .card em &#123;
+        color: var(--text-light);
+        font-style: italic;
+    &#125;
+
+    /* ���ڴ��� */
+    .card code &#123;
+        background: var(--code-bg);
+        border: 1px solid var(--code-border);
+        border-radius: 4px;
+        padding: 2px 8px;
+        font-family: &quot;SF Mono&quot;, &quot;Fira Code&quot;, &quot;Consolas&quot;, &quot;Monaco&quot;, monospace;
+        font-size: 0.88em;
+        color: #e74c3c;
+        white-space: nowrap;
+        transition: all var(--transition);
+    &#125;
+
+    .card code:hover &#123;
+        background: #e8f0fe;
+        border-color: var(--primary-light);
+        color: var(--primary);
+    &#125;
+
+    /* ɾ���� */
+    .card del,
+    .card s &#123;
+        color: var(--strike-color);
+        text-decoration-color: var(--danger);
+        text-decoration-thickness: 2px;
+    &#125;
+
+    /* ����� */
+    .alert-box &#123;
+        background: var(--warning-bg);
+        border: 1px solid var(--warning-border);
+        border-radius: var(--radius-sm);
+        padding: 14px 18px;
+        margin: 14px 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 0.95rem;
+    &#125;
+
+    .alert-box .icon &#123;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+        margin-top: 2px;
+    &#125;
+
+    .alert-danger &#123;
+        background: #fdf2f2;
+        border-color: #f5c6c6;
+    &#125;
+
+    .alert-success &#123;
+        background: #f0faf4;
+        border-color: #b8dfc6;
+    &#125;
+
+    .alert-info &#123;
+        background: #f0f7ff;
+        border-color: #b8d8f5;
+    &#125;
+
+    /* ���ÿ� */
+    .card blockquote &#123;
+        border-left: 4px solid var(--primary-light);
+        background: #f8fafc;
+        padding: 12px 18px;
+        margin: 12px 0;
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        color: var(--text-light);
+        font-style: italic;
+    &#125;
+
+    /* �ָ��� */
+    .card hr &#123;
+        border: none;
+        border-top: 2px dashed var(--border);
+        margin: 20px 0;
+    &#125;
+
+    /* ��ǩ���� */
+    .badge &#123;
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin: 2px 4px 2px 0;
+    &#125;
+
+    .badge-danger &#123;
+        background: #fde8e8;
+        color: var(--danger);
+    &#125;
+
+    .badge-success &#123;
+        background: #e8f8f0;
+        color: var(--success);
+    &#125;
+
+    .badge-info &#123;
+        background: #e8f4fd;
+        color: var(--primary-light);
+    &#125;
+
+    .badge-warning &#123;
+        background: #fef5e7;
+        color: var(--accent);
+    &#125;
+
+    /* ���� */
+    .info-table &#123;
+        width: 100%;
+        border-collapse: collapse;
+        margin: 14px 0;
+        font-size: 0.92rem;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+    &#125;
+
+    .info-table th,
+    .info-table td &#123;
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+    &#125;
+
+    .info-table th &#123;
+        background: var(--primary);
+        color: #fff;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    &#125;
+
+    .info-table tr:nth-child(even) &#123;
+        background: #f8fafc;
+    &#125;
+
+    .info-table tr:hover &#123;
+        background: #edf2f7;
+        transition: background 0.2s;
+    &#125;
+
+    /* ��ϵ��ʽ */
+    .contact-info &#123;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #f8fafc;
+        border-radius: var(--radius-sm);
+        padding: 16px 20px;
+        margin: 12px 0;
+    &#125;
+
+    .contact-item &#123;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+    &#125;
+
+    .contact-item .label &#123;
+        font-weight: 600;
+        color: var(--primary-dark);
+        min-width: 60px;
+    &#125;
+
+    .contact-item .value &#123;
+        color: var(--text);
+        font-family: &quot;SF Mono&quot;, &quot;Consolas&quot;, monospace;
+        background: #fff;
+        padding: 4px 12px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+    &#125;
+
+    /* ���� */
+    .card a &#123;
+        color: var(--primary-light);
+        text-decoration: none;
+        border-bottom: 1px dashed var(--primary-light);
+        transition: all var(--transition);
+    &#125;
+
+    .card a:hover &#123;
+        color: var(--primary-dark);
+        border-bottom-color: var(--primary-dark);
+    &#125;
+
+    /* ��ע */
+    .footer-note &#123;
+        text-align: center;
+        padding: 30px 20px;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    &#125;
+
+    .footer-note .doge &#123;
+        font-size: 1.5rem;
+        display: block;
+        margin-bottom: 8px;
+    &#125;
+
+    /* ��Ӧʽ */
+    @media (max-width: 640px) &#123;
+        .hero h1 &#123;
+            font-size: 1.8rem;
+        &#125;
+        .hero &#123;
+            padding: 32px 16px 28px;
+        &#125;
+        .container &#123;
+            padding: 20px 12px 40px;
+        &#125;
+        .card &#123;
+            padding: 20px 18px;
+            border-radius: 10px;
+        &#125;
+        .card h2 &#123;
+            font-size: 1.2rem;
+        &#125;
+        .info-table &#123;
+            font-size: 0.82rem;
+        &#125;
+        .info-table th,
+        .info-table td &#123;
+            padding: 8px 10px;
+        &#125;
+    &#125;
+
+    @media (max-width: 400px) &#123;
+        .hero h1 &#123;
+            font-size: 1.5rem;
+        &#125;
+        .card &#123;
+            padding: 16px 14px;
+        &#125;
+        .card code &#123;
+            font-size: 0.8em;
+            padding: 1px 5px;
+        &#125;
+    &#125;
+
+    /* ���������� */
+    ::-webkit-scrollbar &#123;
+        width: 8px;
+    &#125;
+    ::-webkit-scrollbar-track &#123;
+        background: var(--bg);
+    &#125;
+    ::-webkit-scrollbar-thumb &#123;
+        background: #bdc3c7;
+        border-radius: 4px;
+    &#125;
+    ::-webkit-scrollbar-thumb:hover &#123;
+        background: #95a5a6;
+    &#125;
+
+    /* ѡ����ɫ */
+    ::selection &#123;
+        background: var(--primary-light);
+        color: #fff;
+    &#125;
+&lt;/style&gt;
+</code></pre>
+</head>
+<body>
+
+<pre><code>&lt;!-- ������� --&gt;
+&lt;header class=&quot;hero&quot;&gt;
+    &lt;div class=&quot;emoji-badge&quot;&gt;?&lt;/div&gt;
+    &lt;h1&gt;����������ָ��&lt;/h1&gt;
+    &lt;p class=&quot;subtitle&quot;&gt;���� ѧ��ѧ�������ָ�� �� ������·�� ����&lt;/p&gt;
+&lt;/header&gt;
+
+&lt;!-- ������ --&gt;
+&lt;main class=&quot;container&quot;&gt;
+
+    &lt;!-- ��1�����ɷѾ��� --&gt;
+    &lt;section class=&quot;card card-warning&quot;&gt;
+        &lt;h2&gt;&lt;span class=&quot;num-badge&quot;&gt;1&lt;/span&gt; �κ����ţ�����֯��˵��Ҫ�����κη��ã�&lt;strong&gt;�� �� Ҫ �� ��&lt;/strong&gt; ??&lt;/h2&gt;
+        &lt;div class=&quot;alert-box alert-danger&quot;&gt;
+            &lt;span class=&quot;icon&quot;&gt;?&lt;/span&gt;
+            &lt;span&gt;���κα�Ҫ�Ľɷѻ��е�Ա��ѧ��������&lt;strong&gt;����Ⱥ&lt;/strong&gt;/�����齨��&lt;strong&gt;�༶Ⱥ&lt;/strong&gt;��ͳһ֪ͨ������&lt;strong&gt;�ٷ�֪ͨ&lt;/strong&gt;Ϊ׼������&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ��2����ѧ���� --&gt;
+    &lt;section class=&quot;card card-info&quot;&gt;
+        &lt;h2&gt;&lt;span class=&quot;num-badge&quot;&gt;2&lt;/span&gt; ������ȡ��ѧ���� ?&lt;/h2&gt;
+        &lt;h3&gt;? �����ڣ�&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;У԰ʳ�ã�֧����Ҳ��?��&lt;/li&gt;
+            &lt;li&gt;ѧУ��ˮʹ�ã���ˮ��ˮ�� / ����?��&lt;/li&gt;
+            &lt;li&gt;ͼ����鼮���� ?&lt;/li&gt;
+            &lt;li&gt;�����Ž���ͨ�У�&lt;del&gt;ɨ���Ž��е���ѧ&lt;/del&gt;��ʹ��У԰��Ҳ���ԣ�&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;hr&gt;
+        &lt;h3&gt;? ��ֵ����ʹ�ã�&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;΢��С���� &lt;code&gt;&quot;������У԰��&quot;&lt;/code&gt;&lt;/li&gt;
+            &lt;li&gt;���ڶ����е���ײ��� &lt;code&gt;&quot;��?������&quot;&lt;/code&gt; ��ѡ�� &lt;code&gt;&quot;����ֵ&quot;&lt;/code&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;��ʲô����û���ҵ� &lt;code&gt;&quot;��?������&quot;&lt;/code&gt;��Ӧ���������֯ѡ���ˣ����һ���ǲ��� &lt;code&gt;&quot;������������ѧ&quot;&lt;/code&gt;��&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;hr&gt;
+        &lt;h3&gt;? ���������ʧ��&lt;/h3&gt;
+        &lt;p&gt;����ȥ&lt;strong&gt;������&lt;/strong&gt;�ذ죨����ʳ�ö��в���������&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ��3���������� --&gt;
+    &lt;section class=&quot;card card-info&quot;&gt;
+        &lt;h2&gt;&lt;span class=&quot;num-badge&quot;&gt;3&lt;/span&gt; ������ &amp;amp; ����֯��ϵ ?&lt;/h2&gt;
+        &lt;p&gt;������֮��Ļ���&lt;strong&gt;��Ա֪ͨͳһ��ȡ&lt;/strong&gt;����Ҳ����ż���&lt;/p&gt;
+        &lt;div class=&quot;alert-box alert-info&quot;&gt;
+            &lt;span class=&quot;icon&quot;&gt;?&lt;/span&gt;
+            &lt;span&gt;��������&lt;strong&gt;�㶫&lt;/strong&gt;����Աͬѧ�ǽ�����֮ǰ���е���ί������ʦ&lt;strong&gt;Ҫһ�ݵ��Ӱ�ġ����������顷&lt;/strong&gt;��why����Ϊ֮ǰ�Ĺ㶫��12355����û��������ݵ�������ѧУ�õ��ǻ��Ž�ϵͳ��&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ��4�����Ż�ȯ --&gt;
+    &lt;section class=&quot;card card-warning&quot;&gt;
+        &lt;h2&gt;&lt;span class=&quot;num-badge&quot;&gt;4&lt;/span&gt; ������ʲô����������Ż�ȯ����ô�� ?&lt;/h2&gt;
+        &lt;p&gt;�ոտ�ѧ����������У��У�ڵ��̼ҷ���һЩ�Ż�ȯ������˵��&lt;em&gt;10��Ǯ������20�齡��&lt;/em&gt;��Ȼ�����㻨����ʮ������һ��&quot;�Żݿ�Ƭ&quot;��&lt;/p&gt;
+        &lt;div class=&quot;alert-box alert-danger&quot;&gt;
+            &lt;span class=&quot;icon&quot;&gt;?&lt;/span&gt;
+            &lt;span&gt;����&lt;strong&gt;�������&lt;/strong&gt;����Ὣ�����ν���Żݿ�ƬŪ����Ȼ��װ��˷�Ǯ��&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;p style=&quot;font-size:1.1rem; font-weight:700; color:var(--danger);&quot;&gt;���Զ����Ż�ȯ say &lt;strong&gt;NO&lt;/strong&gt; ?&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ��5����У԰��/������ --&gt;
+    &lt;section class=&quot;card card-accent&quot;&gt;
+        &lt;h2&gt;&lt;span class=&quot;num-badge&quot;&gt;5&lt;/span&gt; ��������У԰�� / ������ ?&lt;/h2&gt;
+        &lt;h3&gt;? ���ȣ�ͳһ�ۼ�&lt;/h3&gt;
+        &lt;table class=&quot;info-table&quot;&gt;
+            &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;����&lt;/th&gt;
+                    &lt;th&gt;���&lt;/th&gt;
+                    &lt;th&gt;�۸�&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;? У԰��&lt;/td&gt;
+                    &lt;td&gt;30MB ����&lt;/td&gt;
+                    &lt;td&gt;һѧ�� &lt;strong&gt;200Ԫ&lt;/strong&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;? У԰������&lt;/td&gt;
+                    &lt;td&gt;150G ���� + 300����ͨ��&lt;/td&gt;
+                    &lt;td&gt;&lt;strong&gt;39Ԫ/��&lt;/strong&gt;����У԰���ڼ��� &lt;strong&gt;9Ԫ/��&lt;/strong&gt;��&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+        &lt;hr&gt;
+        &lt;h3&gt;? ��ë��&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;����ѧУ&lt;strong&gt;���ܻ�&lt;/strong&gt;�ɰ���У԰�����������ں���������Χ�ˣ����岻̫�˽⣩&lt;/li&gt;
+            &lt;li&gt;����&lt;strong&gt;У԰��ֱ����&lt;/strong&gt; &lt;em&gt;�и���&lt;/em&gt;���� &lt;span class=&quot;badge badge-warning&quot;&gt;9ԪУ԰������&lt;/span&gt;�����Ǵ�ѧ�ڼ�һֱ9Ԫ���⣬����������ʽ�С��&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;hr&gt;
+        &lt;h3&gt;? ���У԰��һ����������룺&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;code&gt;����֤����λ@Hlg10214&lt;/code&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;code&gt;�������õ�����&lt;/code&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ��6����У԰ҽ�� --&gt;
+    &lt;section class=&quot;card card-info&quot;&gt;
+        &lt;h2&gt;&lt;span class=&quot;num-badge&quot;&gt;6&lt;/span&gt; oi��ѧ����У԰ҽ��զ���� ?&lt;/h2&gt;
+        &lt;p&gt;�����ǻ���&lt;strong&gt;ͳһ֪ͨ&lt;/strong&gt;ҽ���ɷѵ�ʱ��ͷ�ʽ�������ע��&lt;strong&gt;����Ⱥ��֪ͨ&lt;/strong&gt;��&lt;/p&gt;
+        &lt;blockquote&gt;
+            ? һ����˵У԰ҽ����&lt;strong&gt;һ��һ��&lt;/strong&gt;��������������һ����һ���Խ�����&lt;strong&gt;����&lt;/strong&gt;�ģ�������ѧУ�����ɡ�
+        &lt;/blockquote&gt;
+        &lt;p&gt;����ĵ�֪ͨ�ɣ���Ҳ�Ҫ�ż� ?&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ��7������ѵ --&gt;
+    &lt;section class=&quot;card card-success&quot;&gt;
+        &lt;h2&gt;&lt;span class=&quot;num-badge&quot;&gt;7&lt;/span&gt; ʲôʱ���ѵ����ѧ���� ??&lt;/h2&gt;
+        &lt;h3&gt;?? ��˵������ͷ���ѵ������֪���ǲ�����ģ�&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;��ѵ�̹�һ�㶼��&lt;strong&gt;ѧ��ѧ��&lt;/strong&gt;�����ξ�ѵΪ��Լ&lt;strong&gt;����&lt;/strong&gt;�����ƻ��һЩ��&lt;/li&gt;
+            &lt;li&gt;ѧ��ѧ���˶�&lt;strong&gt;���õ�&lt;/strong&gt;����ʵҲ�ȽϺöȹ� ?&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;div class=&quot;alert-box alert-success&quot;&gt;
+            &lt;span class=&quot;icon&quot;&gt;?&lt;/span&gt;
+            &lt;span&gt;�����Ҳ������ѵ�̹ٵ����� / ��Ϊ���커���ӵĳ�Ա��Ҳ���Լ�������ѧУ�� &lt;strong&gt;����Э��&lt;/strong&gt;��&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ��8�������� --&gt;
+    &lt;section class=&quot;card card-accent&quot;&gt;
+        &lt;h2&gt;&lt;span class=&quot;num-badge&quot;&gt;8&lt;/span&gt; ѧ������Ҫ���飡 ?&lt;/h2&gt;
+        &lt;p&gt;һ����˵ &lt;strong&gt;5~6��Ǯһ��&lt;/strong&gt;������Ҳ��ѧ��ѧ�������ģ�&lt;/p&gt;
+        &lt;blockquote&gt;
+            ? ����۸�ѧ��ѧ������ʵ��Ϊ׼&lt;br&gt;
+            ? ѧ��ѧ���Ƕ���&lt;strong&gt;����&lt;/strong&gt;�ϿΣ�����������&lt;em&gt;�и���&lt;/em&gt;��õͼ��鼮
+        &lt;/blockquote&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ��6�����ظ���ţ�����ԭ�ģ����������ίѧϰ�� --&gt;
+    &lt;section class=&quot;card card-purple&quot;&gt;
+        &lt;h2&gt;&lt;span class=&quot;num-badge&quot;&gt;6&lt;/span&gt; ���ڼ������ίѧϰ�� ?&lt;/h2&gt;
+        &lt;p style=&quot;font-size:1.1rem;&quot;&gt;&lt;strong&gt;���������������������Ժ��ί&lt;em&gt;��õ�&lt;/em&gt;ѧϰ�� ����&lt;/strong&gt;&lt;/p&gt;
+        &lt;p&gt;�����зḻ��ѧϰ��Դ��ѧϰ���顢ѧϰ�������Լ�ǰ�ص�֪ʶ��������������ͬѧ�Ǹ��õ���Ӧ��ѧ����������ŵķ�Χ��&lt;strong&gt;�ǳ���&lt;/strong&gt;����ӭ��λ����ͬѧ�Ǽ�������ѧϰ����������һ��ѧϰ��һ��ɳ���һ�������?&lt;/p&gt;
+        &lt;div class=&quot;alert-box alert-success&quot;&gt;
+            &lt;span class=&quot;icon&quot;&gt;?&lt;/span&gt;
+            &lt;span&gt;��������ѧϰ��������&lt;strong&gt;�ڶ����üӷ�&lt;/strong&gt;��ͬʱҲ�ж����&lt;strong&gt;���� / ��������&lt;/strong&gt;���ᣡ&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ��ϵ���� --&gt;
+    &lt;section class=&quot;card card-info&quot;&gt;
+        &lt;h2&gt;&lt;span class=&quot;num-badge&quot;&gt;?&lt;/span&gt; ��ϵ����&lt;/h2&gt;
+        &lt;p&gt;�����������κ��������⣬�������������ѧϰ����������ͨ�����·�ʽ��ϵ���ǣ�&lt;/p&gt;
+        &lt;div class=&quot;contact-info&quot;&gt;
+            &lt;div class=&quot;contact-item&quot;&gt;
+                &lt;span class=&quot;label&quot;&gt;? ѧ��&lt;/span&gt;
+                &lt;span class=&quot;value&quot;&gt;wx��Johnsonszs&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;p style=&quot;font-size:0.85rem; color:var(--text-muted); margin-top:4px;&quot;&gt;? �ǵñ�ע &lt;strong&gt;�༶ + ����&lt;/strong&gt; ��&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- ��β --&gt;
+    &lt;div class=&quot;footer-note&quot;&gt;
+        &lt;span class=&quot;doge&quot;&gt;?&lt;/span&gt;
+        &lt;p&gt;#### ǰ���ĵ�·�Ժ�����̽���ɣ�doge&lt;/p&gt;
+        &lt;p style=&quot;font-size:0.8rem; margin-top:8px;&quot;&gt;���� ף��λ������ѧ˳�����ȹ����õĴ�ѧʱ�⣡����&lt;/p&gt;
+    &lt;/div&gt;
+
+&lt;/main&gt;
+</code></pre>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Lyxy-szs</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://lyxy-szs.github.io/2026/09/09/temp/">http://lyxy-szs.github.io/2026/09/09/temp/</a></span>
+                    </p>
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>永远相信<strong>美好的事情即将發生</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2026/03/08/read-file/">Read_File</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+<!-- �����ڹؼ��ʶ�λ+�����߼� -->
+<script>
+// 1. ��URL�л�ȡ�ؼ��ʲ���
+function getUrlParam(name) {
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+  const r = window.location.search.substr(1).match(reg);
+  if (r != null) return decodeURIComponent(r[2]);
+  return null;
+}
+
+// 2. �������������ؼ���λ��
+function highlightAndScrollToKeyword() {
+  const keyword = getUrlParam('keyword');
+  if (!keyword || keyword.length < 2) return; // �޹ؼ���/�ؼ��ʹ���������
+
+  // ��λ������������Chic�����������ݵ�������������ȷ���Ƿ�ƥ�䣬Ĭ����.post-content��
+  const contentEl = document.querySelector('.post-content');
+  if (!contentEl) return;
+
+  // ��¡���ݣ�����ֱ���޸�ԭDOM���µ�����
+  const contentHtml = contentEl.innerHTML;
+  // ����ƥ��ؼ��ʣ����Դ�Сд��ȫ��ƥ�䣩
+  const reg = new RegExp(`(${keyword})`, 'gi');
+  // �滻�ؼ��ʲ����Ӹ�����ʽ
+  const newHtml = contentHtml.replace(reg, '<span style="background: #ffff00; color: #333; padding: 0 2px; border-radius: 2px;">$1</span>');
+  contentEl.innerHTML = newHtml;
+
+  // 3. ��������һ��ƥ��Ĺؼ���λ��
+  const firstHighlight = contentEl.querySelector('span[style*="background: #ffff00"]');
+  if (firstHighlight) {
+    // ƽ���������ؼ���λ�ã�ƫ��-80px�����ⱻ�������ڵ���
+    firstHighlight.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+    // ����һ������Ԫ��������˸Ч������ǿ�Ӿ���ʾ
+    firstHighlight.animate([
+      { opacity: 0.5 },
+      { opacity: 1 }
+    ], {
+      duration: 1000,
+      iterations: 2
+    });
+  }
+}
+
+// ҳ�������ɺ�ִ��
+window.onload = function() {
+  highlightAndScrollToKeyword();
+};
+</script>
+            </div>
+            <footer id="footer" class="footer">
+    <div class="footer-typing-container">
+        <span id="footer-typed-text"></span>
+    </div>
+    <div class="copyright">
+        <span>© Lyxy-szs | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+<script>
+    // 等待页面文档加载完毕
+    document.addEventListener('DOMContentLoaded', function () {
+        // 确保容器元素存在
+        const typedElement = document.getElementById('footer-typed-text');
+        if (typedElement) {
+            var typed = new Typed('#footer-typed-text', {
+                strings: [
+                    "永远相信 美好的事情即将發生 临渊羡鱼shi",
+                    "知识就是力量。 弗朗西斯·培根",  
+                    "我思故我在。 勒内·笛卡尔",  
+                    "人生苦短，及时行乐。 贺拉斯",  
+                    "活着就是为了改变世界，难道还有其他原因吗？ 史蒂夫·乔布斯",  
+                    "黑暗不能驱走黑暗，只有光可以做到；仇恨不能驱走仇恨，只有爱可以做到。 马丁·路德·金",  
+                    "成功是从一个失败到另一个失败而不失去热情的能力。 温斯顿·丘吉尔",  
+                    "教育不是填满一个桶，而是点燃一把火。 威廉·巴特勒·叶芝",  
+                    "战争就是和平，自由就是奴役，无知就是力量。 乔治·奥威尔《一九八四》",  
+                    "人是为了反抗而生的。 阿尔贝·加缪",  
+                    "幸福取决于我们自己。 亚里士多德",  
+                    "唯一值得我们恐惧的是恐惧本身。 富兰克林·D·罗斯福",  
+                    "生命的意义在于给予。 列夫·托尔斯泰",  
+                    "不要为小事烦恼，所有事都是小事。 理查德·卡尔森",  
+                    "梦想不会通过魔法实现；它需要汗水、决心和努力。 科林·鲍威尔",  
+                    "最好的报复是巨大的成功。 弗兰克·辛纳屈",  
+                    "你只活一次，但如果你做得对，一次就足够了。 梅·韦斯特"
+                ], // 字符串数组，会依次键入
+                typeSpeed: 60,    // 打字速度，数值越小越快[citation:2]
+                backSpeed: 40,    // 回退删除的速度[citation:2]
+                backDelay: 1500,  // 一句打完后的暂停时间（毫秒）[citation:2]
+                loop: true,       // 是否循环[citation:2]
+                showCursor: true, // 是否显示闪烁光标[citation:4]
+                cursorChar: '_'   // 自定义光标字符[citation:4]
+            });
+        }
+    });
+</script>
+    </div>
+    
+    
+<script src="/js/scrollbar.js"></script>
+
+    
+<script src="/js/typed.min.js"></script>
+
+    
+<script src="/js/tellu.js"></script>
+
+</body>
+
+</html>
