@@ -802,10 +802,17 @@
       log.push('耗时: ' + (Date.now() - t0) + ' ms');
       log.push('================ 日志结束 ================');
 
-      var stamp = nowStamp();
-      var sid = built.json.student.student_id || 'unknown';
-      var jsonName = 'student_schedule_' + sid + '_' + stamp + '.json';
-      var logName = 'student_schedule_' + sid + '_' + stamp + '.log';
+      // 导出文件名：姓名_学号.json / 姓名_学号.log
+      // 文件名非法字符替换为下划线，姓名缺失时回退为“未知”
+      function safeFilePart(s, fallback) {
+        var v = trim(s).replace(/[\\/:*?"<>|\r\n\t]+/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
+        return v || fallback;
+      }
+      var personName = safeFilePart(built.json.student.name, '未知');
+      var sid = safeFilePart(built.json.student.student_id, 'unknown');
+      var baseName = personName + '_' + sid;
+      var jsonName = baseName + '.json';
+      var logName = baseName + '.log';
 
       download(jsonName, JSON.stringify(built.json, null, 2), 'application/json;charset=utf-8');
       download(logName, log.join('\r\n'), 'text/plain;charset=utf-8');
