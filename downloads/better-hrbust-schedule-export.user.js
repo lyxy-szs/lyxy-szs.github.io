@@ -2,7 +2,7 @@
 // @name         BetterHRBUST 课表读取与导出（精简版）
 // @namespace    https://github.com/Glassous/BetterHRBUST
 // @version      1.0.0
-// @description  从 BetterHRBUST(哈理工教务在线) 精简而来，仅保留“读取”能力：在登录态下读取学生信息、当前学期与课表，并在页面注入一个导出按钮，一键导出符合《课表 JSON 数据交换规范 v1.0》的 student_schedule.json，同时导出开发分析日志(.log)。
+// @description  从 BetterHRBUST(哈理工教务在线) 精简而来，仅保留“读取”能力：在登录态下读取学生信息、当前学期与课表，并在页面注入一个导出按钮，一键导出符合《课表 JSON 数据交换规范 v1.0》的 student_schedule.txt（内容为 JSON，后缀为 .txt 以便经收集表上传），同时导出开发分析日志(.log)。
 // @author       Glassous (精简/导出模块)
 // @match        *://jwzx.hrbust.edu.cn/academic/*
 // @run-at       document-end
@@ -17,7 +17,11 @@
  * 本脚本由 BetterHRBUST 构建产物精简而来，只做三件事：
  *   1) 读取：学生上下文 / 个人档案 / 日历(公告) / 课表(大节+小节)
  *   2) 转换：把教务原始数据映射为《课表 JSON 数据交换规范 v1.0》
- *   3) 导出：下载 student_schedule.json + 开发分析日志(.log)
+ *   3) 导出：下载 student_schedule.txt + 开发分析日志(.log)
+ *
+ *   后缀说明：导出的是 `.txt` 而**不是** `.json`，因为课表要经
+ *   「收集表 / 在线表单」收集，而很多收集表不接受 `.json` 附件。
+ *   文件内容仍然是完整的 JSON（导入端按内容解析，不看扩展名）。
  * 只处理“当前学期”（以 student/currcourse 返回的 year/term 为准）。
  *
  * 原始脚本中所有与读取无关的部分（Vue 界面、成绩/GPA、教学评价、
@@ -802,7 +806,7 @@
       log.push('耗时: ' + (Date.now() - t0) + ' ms');
       log.push('================ 日志结束 ================');
 
-      // 导出文件名：姓名_学号.json / 姓名_学号.log
+      // 导出文件名：姓名_学号.txt / 姓名_学号.log
       // 文件名非法字符替换为下划线，姓名缺失时回退为“未知”
       function safeFilePart(s, fallback) {
         var v = trim(s).replace(/[\\/:*?"<>|\r\n\t]+/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
@@ -811,10 +815,14 @@
       var personName = safeFilePart(built.json.student.name, '未知');
       var sid = safeFilePart(built.json.student.student_id, 'unknown');
       var baseName = personName + '_' + sid;
-      var jsonName = baseName + '.json';
+      // 后缀用 .txt 而不是 .json：课表要经「收集表 / 在线表单」收上来，
+      // 而很多收集表不接受 .json 附件，只允许上传文本文件。
+      // 文件**内容仍然是 JSON**（导入端按内容解析，不看扩展名），
+      // 所以改后缀不影响后续还原。
+      var jsonName = baseName + '.txt';
       var logName = baseName + '.log';
 
-      download(jsonName, JSON.stringify(built.json, null, 2), 'application/json;charset=utf-8');
+      download(jsonName, JSON.stringify(built.json, null, 2), 'text/plain;charset=utf-8');
       download(logName, log.join('\r\n'), 'text/plain;charset=utf-8');
 
       return { json: built.json, jsonName: jsonName, logName: logName, warnings: built.warnings };
